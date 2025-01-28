@@ -1,0 +1,121 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+/*body {
+    background-color:black;
+    color:white;
+    font-family:Space Grotesk;
+    overflow:hidden;
+}
+button {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 1px 1px;
+  font-family:Space Grotesk;
+  border-radius:10%;
+}
+button:hover {
+    cursor:pointer;
+    background-color:white;
+    color:black;
+}
+iframe.fullScreen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+iframe {
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    border:0;
+}*/
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+/* New UI */
+        body {
+            margin: 0;
+            font-family: Space Grotesk;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            z-index:0;
+            height: 100vh;
+            overflow:hidden;
+        }
+
+        iframe {
+            width: 80%;
+            height: 60vh;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 80%;
+            margin-top: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color:black;
+            color:white;
+            border: 2px solid white;
+            transition: background-color 0.5s;
+        }
+
+        .buttons button:hover {
+            background-color: white;
+            color:black;
+            border:2px solid black;
+        }
+
+        .game-info {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .game-info img {
+            max-width: 150px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .game-info h2 {
+            margin: 0;
+            font-size: 30px;
+            color:white;
+            font-family:Bebas Neue;
+        }

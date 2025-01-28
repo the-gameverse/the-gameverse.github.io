@@ -1,0 +1,155 @@
+/* Import fonts and icons */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+/* Fix pushup footer issue */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the body fills the viewport */
+  padding-bottom:250px;
+}
+/* Text styling */
+p {
+    font-family:Space Grotesk;
+    font-size:15px;
+    color:white;
+}
+h1 {
+    font-family:Bebas Neue;
+    font-size:50px;
+    color:white;
+}
+h2 {
+    font-family:Bebas Neue;
+    font-size:40px;
+    color:white;
+}
+h3 {
+    font-family:Bebas Neue;
+    font-size:30px;
+    color:white;
+}
+h4 {
+    font-family:Bebas Neue;
+    font-size:20px;
+    color:white;
+}
+body {
+    font-family:Space Grotesk;
+}
+/* Background coloring */
+body {
+    background-color:black;
+}
+/* Buttons */
+
+
+
+/* Particles.JS */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+/* Gradient branding */
+        .gradient-red {
+            background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+.gradient-blue {
+background: linear-gradient(to right, #7eafff, #3d7eff);
+
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+.gradient-green {
+                background: linear-gradient(to right, #7eff7e, #3dff3d);
+
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .rainbow {
+  display:inline-block;
+  background: linear-gradient(45deg,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 400% 400%;
+  
+  -webkit-animation: rainbowanim 10s ease infinite;
+     -moz-animation: rainbowanim 10s ease infinite;
+          animation: rainbowanim 10s ease infinite;
+}
+/* Links */
+a:link {color: white;}      /* unvisited link */
+       a:visited {color: white;}   /* visited link */
+       a:hover {color: white;}     /* mouse over link */
+       a:active {color: white;}    /* selected link */
+/* Agree popup */
+/* Popup background */
+.popup {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+/* Popup content */
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: 1.5px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color .2s;
+}
+
+button:hover {
+  background-color: red;
+    border: .5px solid white;
+}
+
+button:nth-child(2) {
+  background-color: #f44336;
+}
+
+button:nth-child(2):hover {
+  background-color: #da190b;
+}
+.popup-content h2 {
+      color:black;
+    
+}
+.popup-content p {
+      color:black;
+    
+}
+
+/* Home page boxes */
