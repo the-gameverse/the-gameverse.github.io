@@ -2,10 +2,11 @@
 <html>
 
 <head>
-  <title>GameVerse - Personalization</title>
+  <title>GameVerse - Particle Settings</title>
   <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/menu.css">
 </head>
 
 <body>
@@ -18,7 +19,7 @@
 
   <div id="zoom"><br><br><br>
     <center>
-      <h1 style="font-size:50px;" class="gradient-red">Personalization</h1>
+      <h1 style="font-size:50px;" class="gradient-red">Particle Settings</h1>
       <p>Customize the background particles for your GameVerse experience. ✨</p>
       <hr style="border:3px solid white">
 
@@ -47,7 +48,66 @@
   <div id="particles-js"></div>
 
   <script src="/javascript/particles.js"></script>
-  <script src="/javascript/settings.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || {
+            particles: {
+                number: { value: 80 },
+                color: { value: "#db0007" },
+                size: { value: 3 },
+                speed: { value: 1.5 }
+            }
+        };
+
+        function loadParticles() {
+            if (document.getElementById("particles-js")) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": particleSettings.particles.number.value },
+                        "color": { "value": particleSettings.particles.color.value },
+                        "shape": { "type": "circle" },
+                        "size": { "value": particleSettings.particles.size.value },
+                        "move": { "speed": particleSettings.particles.speed.value }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onclick": { "enable": true, "mode": "push" }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        }
+
+        loadParticles(); // Initialize particles on page load
+
+        // Populate form fields with saved values
+        document.getElementById("numParticles").value = particleSettings.particles.number.value;
+        document.getElementById("particleColor").value = particleSettings.particles.color.value;
+        document.getElementById("particleSize").value = particleSettings.particles.size.value;
+        document.getElementById("particleSpeed").value = particleSettings.particles.speed.value;
+
+        // Function to apply and save settings
+        window.applySettings = function() {
+            particleSettings.particles.number.value = parseInt(document.getElementById("numParticles").value);
+            particleSettings.particles.color.value = document.getElementById("particleColor").value;
+            particleSettings.particles.size.value = parseInt(document.getElementById("particleSize").value);
+            particleSettings.particles.speed.value = parseFloat(document.getElementById("particleSpeed").value);
+
+            // Save settings to localStorage
+            localStorage.setItem("particleSettings", JSON.stringify(particleSettings));
+
+            // Reset and reload particles with new settings
+            document.getElementById("particles-js").innerHTML = "";
+            loadParticles();
+
+            alert("Settings saved! Your changes will now apply across the entire site.");
+        };
+    });
+  </script>
+
 </body>
 
 </html>
