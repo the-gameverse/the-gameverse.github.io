@@ -184,6 +184,7 @@ body {
 
 .game {
   position: relative; /* Add position relative to allow positioning of the favorite icon */
+    background-color:black;
 }
 #gameCount {
       margin: 15px;
@@ -191,6 +192,7 @@ body {
       font-weight: bold;
       text-align: center;
       color: white;
+    
 
     }
 .last-updated-text {
