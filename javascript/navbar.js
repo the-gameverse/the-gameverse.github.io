@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
   const style = document.createElement('style');
   style.innerHTML = `
     .user-info { display: flex; align-items: center; gap: 10px; color: white; }
-    .profile-img { width: 30px; height: 30px; border-radius: 50%; }
+    .profile-img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; transition: border 1s;}
+    .profile-img:hover {border: 2px solid red}
     .divider { border-left: 1px solid #fff; height: 30px; margin: 0 15px; }
   `;
   document.head.appendChild(style);
