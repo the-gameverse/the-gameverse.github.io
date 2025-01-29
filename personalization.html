@@ -43,10 +43,25 @@
     
     function updateParticles() {
       const preset = document.getElementById('preset').value;
+      localStorage.setItem('particlePreset', preset);
       particlesJS('particles-js', presets[preset]);
     }
     
-    window.onload = () => { updateParticles(); };
+    function applyStoredParticles() {
+      const storedPreset = localStorage.getItem('particlePreset') || 'default';
+      particlesJS('particles-js', presets[storedPreset]);
+    }
+    
+    window.onload = applyStoredParticles;
+  </script>
+  <script>
+    // Apply particles globally
+    document.addEventListener("DOMContentLoaded", () => {
+      const script = document.createElement("script");
+      script.src = "/javascript/particles.js";
+      script.onload = applyStoredParticles;
+      document.body.appendChild(script);
+    });
   </script>
 </body>
 </html>
