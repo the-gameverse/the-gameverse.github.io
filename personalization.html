@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GameVerse - Particle Settings</title>
+  <title>GameVerse - Personalization</title>
   <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/menu.css">
+  <style>
+    dropdown {  
+    padding: 10px;
+      font-size: 20px;
+      font-family:Bebas Neue;
+      border: 1px solid #ddd;
+      margin: 0;
+      box-sizing: border-box;
+      border-radius:5px;
+      background-color:black;
+      color:white;
+    }
+  </style>
 </head>
+  
 <body>
   <div id="navbar"></div>
   <script src="/javascript/navbar.js"></script>
@@ -20,8 +34,11 @@
       <h1 style="font-size:50px;" class="gradient-red">Personalization (coming soon)</h1>
       <p>Customize GameVerse to match your style! ✨</p>
       <hr style="border:3px solid white">
-      <h3>Particles</h3>
-      <label for="preset" style="color:white; font-size:18px;">Select a Preset:</label>
+      <h2>Particles Animation</h2>
+      <p>Customize the animated background to your liking with this setting, or just turn it off.</p>
+      <label for="particlesToggle">Enable Particles.js</label>
+<input type="checkbox" id="particlesToggle">
+
       <select disabled style=opacity:50% id="preset" onchange="updateParticles()" style="padding:10px; font-size:16px;">
         <option value="default">Default</option>
         <option value="galaxy">Galaxy</option>
@@ -65,5 +82,46 @@
       document.body.appendChild(script);
     });
   </script>
+  <script>
+  // Function to load the particles.js script
+  function loadParticlesJs() {
+    const script = document.createElement('script');
+    script.src = 'path/to/particles.js'; // Adjust the path to your script
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  // Function to remove the particles.js script
+  function removeParticlesJs() {
+    const scriptTags = document.querySelectorAll('script[src="path/to/particles.js"]');
+    scriptTags.forEach(script => script.remove());
+  }
+
+  // Check local storage for the user's preference
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('particlesToggle');
+    const isParticlesEnabled = localStorage.getItem('particlesEnabled') === 'true';
+
+    // Set the toggle's state based on local storage
+    toggle.checked = isParticlesEnabled;
+
+    // Load or remove particles.js based on the initial state
+    if (isParticlesEnabled) {
+      loadParticlesJs();
+    }
+
+    // Event listener for toggle change
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        localStorage.setItem('particlesEnabled', 'true');
+        loadParticlesJs();
+      } else {
+        localStorage.setItem('particlesEnabled', 'false');
+        removeParticlesJs();
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
