@@ -31,8 +31,6 @@
     </center>
   </div>
 
-  <div id="particles-js"></div>
-  <script src="/javascript/particles.js"></script>
   <script>
     const presets = {
       default: { "particles": { "number": { "value": 80 }, "color": { "value": "#db0007" }, "size": { "value": 3 } } },
@@ -44,22 +42,30 @@
     function updateParticles() {
       const preset = document.getElementById('preset').value;
       localStorage.setItem('particlePreset', preset);
-      particlesJS('particles-js', presets[preset]);
+      loadGlobalParticles();
     }
     
-    function applyStoredParticles() {
+    function loadGlobalParticles() {
       const storedPreset = localStorage.getItem('particlePreset') || 'default';
       particlesJS('particles-js', presets[storedPreset]);
+      document.getElementById('preset').value = storedPreset; // Update dropdown selection
     }
     
-    window.onload = applyStoredParticles;
-  </script>
-  <script>
-    // Apply particles globally
     document.addEventListener("DOMContentLoaded", () => {
+      // Ensure particles are applied globally
+      const particleDiv = document.createElement("div");
+      particleDiv.id = "particles-js";
+      particleDiv.style.position = "fixed";
+      particleDiv.style.top = "0";
+      particleDiv.style.left = "0";
+      particleDiv.style.width = "100%";
+      particleDiv.style.height = "100%";
+      particleDiv.style.zIndex = "-1";
+      document.body.prepend(particleDiv);
+      
       const script = document.createElement("script");
       script.src = "/javascript/particles.js";
-      script.onload = applyStoredParticles;
+      script.onload = loadGlobalParticles;
       document.body.appendChild(script);
     });
   </script>
