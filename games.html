@@ -7,7 +7,42 @@
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/menu.css">
         <script src="/javascript/pageload.js"></script>
-        
+        <style>
+                    .popup {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: top 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        .popup.show {
+            top: 20px;
+        }
+        .popup h2 {
+            margin: 0;
+        }
+        .divider {
+            height: 1px;
+            background: #ccc;
+            margin: 10px 0;
+        }
+        .popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        </style>
     </head>
 
     <body>
@@ -24,7 +59,38 @@
         
 
 
-    <script src="/javascript/whatsnew.js"></script>
+        <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>Welcome to the new domain!</h2>
+        <div class="divider"></div>
+        <p>We've changed how GameVerse works. This will allow us to provide higher quality services to all of our users! But, there are some things about it that you need to know.</p>
+        <h3>What will be saved:</h3>
+        <ul id="saved-list">
+            <li>The entire website (nothing will be lost)</li>
+            <li>The old GameVerse domain (for now)</li>
+        </ul>
+        <h3>What won't be saved:</h3>
+        <ul id="not-saved-list">
+            <li>ALL game data! You can use the old domain to continue your saves.</li>
+            <li>Your profile's data. (Don't worry! You can easily make a new one.)</li>
+            <li>Your usage data and favorites</li>
+        </ul>
+            <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
+    </div>
+    <script>
+        function closePopup() {
+            document.getElementById('popup').style.top = '-100%';
+            localStorage.setItem('newDomainPopupClosed', 'true');
+        }
+        
+        window.onload = function() {
+            if (!localStorage.getItem('newDomainPopupClosed')) {
+                setTimeout(() => {
+                    document.getElementById('popup').classList.add('show');
+                }, 500);
+            }
+        };
+    </script>
 
         
         <body onload="myFunction()" style="margin:0;">
