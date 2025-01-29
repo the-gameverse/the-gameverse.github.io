@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GameVerse - Particle Settings</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/menu.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <script src="/javascript/navbar.js"></script>
+  <script src="/javascript/footer.js"></script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+  </noscript>
+
+  <div id="zoom"><br><br><br>
+    <center>
+      <h1 style="font-size:50px;" class="gradient-red">Particle Settings</h1>
+      <p>Customize the particles effect to match your style! ✨</p>
+      <hr style="border:3px solid white">
+      
+      <label for="preset" style="color:white; font-size:18px;">Select a Preset:</label>
+      <select id="preset" onchange="updateParticles()" style="padding:10px; font-size:16px;">
+        <option value="default">Default</option>
+        <option value="galaxy">Galaxy</option>
+        <option value="snow">Snow</option>
+        <option value="bubbles">Bubbles</option>
+      </select>
+    </center>
+  </div>
+
+  <div id="particles-js"></div>
+  <script src="/javascript/particles.js"></script>
+  <script>
+    const presets = {
+      default: { "particles": { "number": { "value": 80 }, "color": { "value": "#db0007" }, "size": { "value": 3 } } },
+      galaxy: { "particles": { "number": { "value": 150 }, "color": { "value": "#ffffff" }, "size": { "value": 2 } } },
+      snow: { "particles": { "number": { "value": 100 }, "color": { "value": "#ffffff" }, "size": { "value": 4 } } },
+      bubbles: { "particles": { "number": { "value": 60 }, "color": { "value": "#00d4ff" }, "size": { "value": 5 } } }
+    };
+    
+    function updateParticles() {
+      const preset = document.getElementById('preset').value;
+      particlesJS('particles-js', presets[preset]);
+    }
+    
+    window.onload = () => { updateParticles(); };
+  </script>
+</body>
+</html>
