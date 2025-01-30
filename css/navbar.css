@@ -1,9 +1,14 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(34, 34, 34, 0.4); 
-  backdrop-filter: blur(6px); 
+  background-color: rgba(34, 34, 34, 0.4);
+  backdrop-filter: blur(6px);
   padding: 0.52vw;
   position: fixed;
   top: 0;
@@ -13,123 +18,130 @@
   z-index: 1000;
 }
 .navbar img:hover {
-    border: 0px;
+  border: 0px;
 }
-  .navbar-left {
-    display: flex;
-    align-items: center;
-    margin-left: 2.6vw;
-     
-    }
-    .navbar-left .navmain a {
-                    background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
-    .navbar-left .navmusic a {
-background: linear-gradient(to right, #7eafff, #3d7eff);
+.navbar-left {
+  display: flex;
+  align-items: center;
+  margin-left: 2.6vw;
+}
+.navbar-left .navmain a {
+  background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navbar-left .navmusic a {
+  background: linear-gradient(to right, #7eafff, #3d7eff);
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
-    .navbar-left .navwatch a {
-background: linear-gradient(to right, #7eff7e, #3dff3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navbar-left .navwatch a {
+  background: linear-gradient(to right, #7eff7e, #3dff3d);
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
-    .navbar-right .navmain a {
-            background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
-    .navbar-right .navmusic a {
-background: linear-gradient(to right, #7eafff, #3d7eff);
+.navbar-right .navmain a {
+  background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navbar-right .navmusic a {
+  background: linear-gradient(to right, #7eafff, #3d7eff);
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
-    .navbar-right .navwatch a {
- background: linear-gradient(to right, #7eff7e, #3dff3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navbar-right .navwatch a {
+  background: linear-gradient(to right, #7eff7e, #3dff3d);
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-    }
-  
-  .navbar-left img {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar-left img {
   max-width: 100%;
   height: auto;
   max-height: 3.125vw;
-  width: auto; 
+  width: auto;
   margin-top: 0.52vw;
-  }
-    
-  .navbar-left a {
+}
+
+.navbar-left a {
   text-decoration: none;
   font-size: 1.75vw;
   margin-left: 0.78vw;
-  opacity: 1; 
+  opacity: 1;
   transition: color 0.3s ease;
+}
+.navbar-left a:hover {
+  color: white;
+}
 
-  }
-  .navbar-left a:hover{
-      color:white;
-  }
-  
-  .navbar-right {
+.navbar-right {
   display: flex;
   align-items: center;
   margin-right: 2.6vw;
-  }
-  
-  .navbar-right a {
-  color: ;
+}
+
+.navbar-right a {
+  color: transparent;
   text-decoration: none;
   font-size: 1.375vw;
-  opacity: 1; 
+  opacity: 1;
   margin-left: 1.04vw;
   transition: color 0.3s ease;
-  }
+}
 
-  .navbar-right a:hover {
-      color: white; 
-  }
-  
-  .navbar-right .navbar-img-link img {
+.navbar-right a:hover {
+  color: white;
+}
+
+.navbar-right .navbar-img-link img {
   max-height: 1.565vw;
   width: auto;
   margin-left: 0vw;
   margin-top: 0.21vw;
   margin-right: -1.5vw;
-  }
-  
-  .navbar-right .navbar-img-link img:hover {
-    transform: rotate(360deg);
-    transition: transform 0.7s ease; /* Add transition for smooth rotation */
-    }
+}
+
+.navbar-right .navbar-img-link img:hover {
+  transform: rotate(360deg);
+  transition: transform 0.7s ease; /* Add transition for smooth rotation */
+}
 .navbar-verify img {
-    height: 30px;
-    width: 30px;
-    margin:3px;
+  height: 30px;
+  width: 30px;
+  margin: 3px;
 }
 /* Fix coloring error */
-.navbar a:link {color: transparent;}      /* unvisited link */
-       .navbar a:visited {color: transparent;}   /* visited link */
-       .navbar a:hover {color: white;}     /* mouse over link */
-       .navbar a:active {color: transparent;}    /* selected link */
+.navbar a:link {
+  color: transparent;
+} /* unvisited link */
+.navbar a:visited {
+  color: transparent;
+} /* visited link */
+.navbar a:hover {
+  color: white;
+} /* mouse over link */
+.navbar a:active {
+  color: transparent;
+} /* selected link */
 /* Footers */
 /* General page styling */
-html, body {
-  margin: 0;;
+html,
+body {
+  margin: 0;
   height: 100%; /* Ensure the body fills the viewport */
-  padding-bottom:250px;
+  padding-bottom: 250px;
 }
 
 /* Ensure the footer sticks to the bottom */
@@ -143,7 +155,7 @@ html, body {
   padding: 20px 0;
   text-align: center;
   z-index: 1000; /* Keep it above other content */
-    backdrop-filter: blur(6px); 
+  backdrop-filter: blur(6px);
 }
 .footer-container {
   display: flex;
@@ -202,4 +214,24 @@ html, body {
 
 #toggleFooter:hover {
   color: #ff3d3d; /* Change color when hovering */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
