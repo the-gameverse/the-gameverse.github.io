@@ -4444,6 +4444,13 @@ The game is also on github at Dddatt/bss and also on Replit
 <script src="https://cdn.jsdelivr.net/gh/Dddatt/bss@v2.0.13/index.min.js"></script>
 
 <!--<script>-->
-
+    <script>
+        let particleSettings = JSON.parse(
+          localStorage.getItem("particleSettings")
+        );
+        let styleTag = document.createElement("style");
+        styleTag.innerHTML = `::-webkit-scrollbar-thumb { background-color: ${particleSettings.particles.color.value} !important; }`;
+        document.head.appendChild(styleTag);
+      </script>
 </body>
 </html>

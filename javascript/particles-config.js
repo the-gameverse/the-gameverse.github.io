@@ -145,5 +145,6 @@ particlesJS('particles-js',
 
         loadParticles(); // Initialize particles on page load
 
-
+        // CHANGED BY TANNER ORDONEZ:
+        
     });
