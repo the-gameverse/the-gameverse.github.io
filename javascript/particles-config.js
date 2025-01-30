@@ -111,3 +111,39 @@ particlesJS('particles-js',
     "retina_detect": true
   }
   );
+
+   document.addEventListener("DOMContentLoaded", function() {
+        let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || {
+            particles: {
+                number: { value: 80 },
+                color: { value: "#db0007" },
+                size: { value: 3 },
+                speed: { value: 1.5 }
+            }
+        };
+
+        function loadParticles() {
+            if (document.getElementById("particles-js")) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": particleSettings.particles.number.value },
+                        "color": { "value": particleSettings.particles.color.value },
+                        "shape": { "type": "circle" },
+                        "size": { "value": particleSettings.particles.size.value },
+                        "move": { "speed": particleSettings.particles.speed.value }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onclick": { "enable": true, "mode": "push" }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        }
+
+        loadParticles(); // Initialize particles on page load
+
+
+    });
