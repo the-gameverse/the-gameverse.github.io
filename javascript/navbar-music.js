@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
       <div class="navbar">
         <div class="navbar-left">
           <a href="/index.html"><img src="/uploads/branding/favicon-music.png" alt="Logo" width="10%" height="10%"></a>
-          <a href="/index.html" class="gradient-red">MusicVerse</a>
+          <a href="/index.html" class="gradient-blue">MusicVerse</a>
         </div>
         <div class="navbar-right">
           ${user.username !== 'Guest' ? `
