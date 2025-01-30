@@ -286,7 +286,9 @@
           document.getElementById("particles-js").innerHTML = "";
           loadParticles();
 
-
+          let styleTag = document.createElement("style");
+          styleTag.innerHTML = `::-webkit-scrollbar-thumb:hover { background-color: ${particleSettings.particles.color.value} !important; }`;
+          document.head.appendChild(styleTag);
 
           alert(
             "Settings saved! Your changes will now apply across the entire site."
