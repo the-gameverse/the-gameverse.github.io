@@ -93,31 +93,8 @@ a:link {color: white;}      /* unvisited link */
        a:visited {color: white;}   /* visited link */
        a:hover {color: white;}     /* mouse over link */
        a:active {color: white;}    /* selected link */
-/* Agree popup */
-/* Popup background */
-.popup {
-  display: none; /* Initially hidden */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
 
-}
 
-/* Popup content */
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-
-}
 
 /* Button styling */
 button {
@@ -143,13 +120,6 @@ button:nth-child(2) {
 button:nth-child(2):hover {
   background-color: #da190b;
 }
-.popup-content h2 {
-      color:black;
-    
-}
-.popup-content p {
-      color:black;
-    
-}
+
 
 /* Home page boxes */
