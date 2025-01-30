@@ -9,7 +9,6 @@
         <script src="/javascript/pageload.js"></script>
     </head>
     <body>
-     <div class="powr-popup" id="fcf5e53a_1737592556"></div><script src="https://www.powr.io/powr.js?platform=html"></script>
      
     <!-- Navigation bar -->
   <div id="navbar"></div>
@@ -59,5 +58,17 @@
     
     <script src="/javascript/particles-config.js"></script>
     <!-- Particles.JS end -->
+<<<<<<< HEAD
     <script src="javascript/scrollbar.js"></script>
 </html>
+=======
+    <script>
+      let particleSettings = JSON.parse(
+        localStorage.getItem("particleSettings")
+      );
+      let styleTag = document.createElement("style");
+      styleTag.innerHTML = `::-webkit-scrollbar-thumb { background-color: ${particleSettings.particles.color.value} !important; }`;
+      document.head.appendChild(styleTag);
+    </script>
+</html>
+>>>>>>> 395f97a35d85078de4aed13c3aca477cffe2d596
