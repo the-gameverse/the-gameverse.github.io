@@ -33,14 +33,7 @@
 <div id="particles-js"></div>
 <script src="/javascript/particles.js"></script>
 <script src="/javascript/particles-config.js"></script>
-<script>
-  let particleSettings = JSON.parse(
-    localStorage.getItem("particleSettings")
-  );
-  let styleTag = document.createElement("style");
-  styleTag.innerHTML = `::-webkit-scrollbar-thumb { background-color: ${particleSettings.particles.color.value} !important; }`;
-  document.head.appendChild(styleTag);
-</script>
+<script src="javascript/scrollbar.js"></script>
 </body>
 
 </html>
