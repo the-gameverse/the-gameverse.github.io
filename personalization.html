@@ -31,20 +31,43 @@
       <div class="profile-container"
         style="text-align:center;padding:20px;background:black;box-shadow:0 4px 8px rgba(0,0,0,0.1);border-radius:10px;width:350px;margin:auto;">
         
+        <label>Preset:</label>
+        <select id="preset">
+          <option value="custom">Custom</option>
+          <option value="minimal">Minimal (Fewer, Slower Particles)</option>
+          <option value="dynamic">Dynamic (Fast, Bright, Many Particles)</option>
+          <option value="galaxy">Galaxy (Blue, Rotating Particles)</option>
+        </select><br><br>
+
         <label>Number of Particles:</label>
-        <input type="number" id="numParticles" value="80" min="10" max="500"><br><br>
+        <input type="number" id="numParticles" min="10" max="500"><br><br>
 
         <label>Particle Color:</label>
-        <input type="color" id="particleColor" value="#db0007"><br><br>
+        <input type="color" id="particleColor"><br><br>
+
+        <label>Shape:</label>
+        <select id="particleShape">
+          <option value="circle">Circle</option>
+          <option value="triangle">Triangle</option>
+          <option value="star">Star</option>
+          <option value="polygon">Polygon</option>
+        </select><br><br>
 
         <label>Size:</label>
-        <input type="number" id="particleSize" value="3" min="1" max="10"><br><br>
+        <input type="number" id="particleSize" min="1" max="10"><br><br>
 
         <label>Speed:</label>
-        <input type="number" id="particleSpeed" value="1.5" step="0.1"><br><br>
+        <input type="number" id="particleSpeed" step="0.1"><br><br>
+
+        <label>Opacity:</label>
+        <input type="number" id="particleOpacity" step="0.1" min="0.1" max="1"><br><br>
 
         <button onclick="applySettings()" style="padding:10px 20px;font-size:16px;background:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;">
           Apply & Save
+        </button>
+
+        <button onclick="resetSettings()" style="padding:10px 20px;font-size:16px;background:#ff0000;color:white;border:none;border-radius:5px;cursor:pointer;margin-left:10px;">
+          Reset to Default
         </button>
       </div>
     </center>
@@ -56,14 +79,18 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || {
+        const defaultSettings = {
             particles: {
                 number: { value: 80 },
                 color: { value: "#db0007" },
+                shape: { value: "circle" },
                 size: { value: 3 },
-                speed: { value: 1.5 }
+                speed: { value: 1.5 },
+                opacity: { value: 1 }
             }
         };
+
+        let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || defaultSettings;
 
         function loadParticles() {
             if (document.getElementById("particles-js")) {
@@ -71,45 +98,72 @@
                     "particles": {
                         "number": { "value": particleSettings.particles.number.value },
                         "color": { "value": particleSettings.particles.color.value },
-                        "shape": { "type": "circle" },
+                        "shape": { "type": particleSettings.particles.shape.value },
+                        "opacity": { "value": particleSettings.particles.opacity.value },
                         "size": { "value": particleSettings.particles.size.value },
                         "move": { "speed": particleSettings.particles.speed.value }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onclick": { "enable": true, "mode": "push" }
-                        }
                     },
                     "retina_detect": true
                 });
             }
         }
 
-        loadParticles(); // Initialize particles on page load
+        function updateFormFields() {
+            document.getElementById("numParticles").value = particleSettings.particles.number.value;
+            document.getElementById("particleColor").value = particleSettings.particles.color.value;
+            document.getElementById("particleShape").value = particleSettings.particles.shape.value;
+            document.getElementById("particleSize").value = particleSettings.particles.size.value;
+            document.getElementById("particleSpeed").value = particleSettings.particles.speed.value;
+            document.getElementById("particleOpacity").value = particleSettings.particles.opacity.value;
+        }
 
-        // Populate form fields with saved values
-        document.getElementById("numParticles").value = particleSettings.particles.number.value;
-        document.getElementById("particleColor").value = particleSettings.particles.color.value;
-        document.getElementById("particleSize").value = particleSettings.particles.size.value;
-        document.getElementById("particleSpeed").value = particleSettings.particles.speed.value;
+        function applyPreset(preset) {
+            if (preset === "minimal") {
+                particleSettings = { particles: { number: { value: 30 }, color: { value: "#ffffff" }, shape: { value: "circle" }, size: { value: 2 }, speed: { value: 0.5 }, opacity: { value: 0.5 } } };
+            } else if (preset === "dynamic") {
+                particleSettings = { particles: { number: { value: 150 }, color: { value: "#ffcc00" }, shape: { value: "triangle" }, size: { value: 4 }, speed: { value: 3 }, opacity: { value: 1 } } };
+            } else if (preset === "galaxy") {
+                particleSettings = { particles: { number: { value: 100 }, color: { value: "#0033cc" }, shape: { value: "star" }, size: { value: 3 }, speed: { value: 2 }, opacity: { value: 0.8 } } };
+            } else {
+                return;
+            }
+            updateFormFields();
+            applySettings();
+        }
 
-        // Function to apply and save settings
+        document.getElementById("preset").addEventListener("change", function() {
+            if (this.value !== "custom") {
+                applyPreset(this.value);
+            }
+        });
+
         window.applySettings = function() {
             particleSettings.particles.number.value = parseInt(document.getElementById("numParticles").value);
             particleSettings.particles.color.value = document.getElementById("particleColor").value;
+            particleSettings.particles.shape.value = document.getElementById("particleShape").value;
             particleSettings.particles.size.value = parseInt(document.getElementById("particleSize").value);
             particleSettings.particles.speed.value = parseFloat(document.getElementById("particleSpeed").value);
+            particleSettings.particles.opacity.value = parseFloat(document.getElementById("particleOpacity").value);
 
-            // Save settings to localStorage
             localStorage.setItem("particleSettings", JSON.stringify(particleSettings));
 
-            // Reset and reload particles with new settings
             document.getElementById("particles-js").innerHTML = "";
             loadParticles();
 
             alert("Settings saved! Your changes will now apply across the entire site.");
         };
+
+        window.resetSettings = function() {
+            localStorage.removeItem("particleSettings");
+            particleSettings = defaultSettings;
+            updateFormFields();
+            document.getElementById("particles-js").innerHTML = "";
+            loadParticles();
+            alert("Settings reset to default.");
+        };
+
+        loadParticles();
+        updateFormFields();
     });
   </script>
 
