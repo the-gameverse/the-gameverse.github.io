@@ -287,7 +287,7 @@
           loadParticles();
 
           let styleTag = document.createElement("style");
-          styleTag.innerHTML = `::-webkit-scrollbar-thumb:hover { background-color: ${particleSettings.particles.color.value} !important; }`;
+          styleTag.innerHTML = `::-webkit-scrollbar-thumb { background-color: ${particleSettings.particles.color.value} !important; }`;
           document.head.appendChild(styleTag);
 
           alert(
