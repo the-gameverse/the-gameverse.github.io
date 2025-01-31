@@ -94,38 +94,7 @@
 <div style="display:none;" id="myDiv" class="animate-bottom">
 
 <div id=zoom>
-            <div id="popup" class="popup">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>Welcome to the new domain!</h2>
-        <div class="divider"></div>
-        <p >We've changed how GameVerse works. This will allow us to provide higher quality services to all of our users! But, there are some things about it that you need to know.</p>
-        <h3>What will be saved:</h3>
-        <ul id="saved-list">
-            <li>The entire website (nothing will be lost)</li>
-        </ul>
-        <h3>What won't be saved:</h3>
-        <ul id="not-saved-list">
-            <li>ALL game data! You can use the old domain to continue your saves.</li>
-            <li>Your profile's data. (Don't worry! You can easily make a new one.)</li>
-            <li>Your usage data and favorites</li>
-            <li>The old GameVerse domain (thegameverse.codehs.me)</li>
-        </ul>
-            <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
-    </div>
-    <script>
-        function closePopup() {
-            document.getElementById('popup').style.top = '-100%';
-            localStorage.setItem('newDomainPopupClosed', 'true');
-        }
-        
-        window.onload = function() {
-            if (!localStorage.getItem('newDomainPopupClosed')) {
-                setTimeout(() => {
-                    document.getElementById('popup').classList.add('show');
-                }, 500);
-            }
-        };
-    </script>
+
 <h1 style="font-size:50px;" class="gradient-red"> Games </h1> 
 <p class="quoteoftheday"> Quote Of The Day: "I like cheese." - Jax 2025 </p>
 <hr style="border:3px solid white">
