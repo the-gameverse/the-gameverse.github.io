@@ -74,6 +74,8 @@ const games = [
   { name: "Retro Bowl", image: "/uploads/covers/retrobowl.png", link: "/storage/games/retrobowl", clickCount: 0, isFavorited: false },
   { name: "Infinite Craft", image: "/uploads/covers/infinitecraft.png", link: "/storage/games/infinitecraft", clickCount: 0, isFavorited: false },
   { name: "Piano Tiles", image: "/uploads/covers/pianotiles.png", link: "/storage/games/pianotiles", clickCount: 0, isFavorited: false },
+  { name: "Helix Jump", image: "/uploads/covers/helixjump.png", link: "/storage/games/helixjump", clickCount: 0, isFavorited: false },
+  { name: "Formula Rush", image: "/uploads/covers/formularush.png", link: "/storage/games/formularush", clickCount: 0, isFavorited: false },
   { name: "Drift Boss", image: "/uploads/covers/driftboss.png", link: "/storage/games/driftboss", clickCount: 0, isFavorited: false }
 ];
 
