@@ -44,25 +44,27 @@
         }
             .quoteoftheday {
                 font-size:15px;
-            color: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+            background: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             animation: rotate 5s linear infinite;
                 text-align:center;
+                background-clip: text;
+color: transparent;
             }
                     @keyframes rotate {
             0% {
-                color: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                background: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             25% {
-                color: linear-gradient(90deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                background: linear-gradient(90deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             50% {
-                color: linear-gradient(180deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                background: linear-gradient(180deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             75% {
-                color: linear-gradient(270deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                background: linear-gradient(270deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             100% {
-                color: linear-gradient(360deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                background: linear-gradient(360deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
         }
         </style>
