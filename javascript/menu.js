@@ -76,7 +76,18 @@ const games = [
   { name: "Piano Tiles", image: "/uploads/covers/pianotiles.png", link: "/storage/games/pianotiles", clickCount: 0, isFavorited: false },
   { name: "Helix Jump", image: "/uploads/covers/helixjump.png", link: "/storage/games/helixjump", clickCount: 0, isFavorited: false },
   { name: "Formula Rush", image: "/uploads/covers/formularush.png", link: "/storage/games/formularush", clickCount: 0, isFavorited: false },
+  { name: "Draw The Hill", image: "/uploads/covers/drawthehill.png", link: "/storage/games/drawthehill", clickCount: 0, isFavorited: false },
+  { name: "Dino Game", image: "/uploads/covers/dinogame.png", link: "/storage/games/dinogame", clickCount: 0, isFavorited: false },
+  { name: "Bike Hero", image: "/uploads/covers/bikehero.png", link: "/storage/games/bikehero", clickCount: 0, isFavorited: false },
+  { name: "Retro Ping Pong", image: "/uploads/covers/retropingpong.png", link: "/storage/games/retropingpong", clickCount: 0, isFavorited: false },
+  { name: "Dominoes", image: "/uploads/covers/dominoes.png", link: "/storage/games/dominoes", clickCount: 0, isFavorited: false },
+  { name: "Unscrew It", image: "/uploads/covers/unscrewit.png", link: "/storage/games/unscrewit", clickCount: 0, isFavorited: false },
+  { name: "House Painter", image: "/uploads/covers/housepainter.png", link: "/storage/games/housepainter", clickCount: 0, isFavorited: false },
+  { name: "Liquid Sort", image: "/uploads/covers/liquidsort.png", link: "/storage/games/liquidsort", clickCount: 0, isFavorited: false },
+  { name: "Dark Room", image: "/uploads/covers/darkroom.png", link: "/storage/games/darkroom", clickCount: 0, isFavorited: false },
+  { name: "Coreball", image: "/uploads/covers/coreball.png", link: "/storage/games/coreball", clickCount: 0, isFavorited: false },
   { name: "Drift Boss", image: "/uploads/covers/driftboss.png", link: "/storage/games/driftboss", clickCount: 0, isFavorited: false }
+  
 ];
 
 
