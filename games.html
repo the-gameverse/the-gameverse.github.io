@@ -44,26 +44,25 @@
         }
             .quoteoftheday {
                 font-size:15px;
-                            width: 300px;
-            height: 300px;
-            background: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+            color: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             animation: rotate 5s linear infinite;
+                text-align:center;
             }
                     @keyframes rotate {
             0% {
-                background: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                color: linear-gradient(0deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             25% {
-                background: linear-gradient(90deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                color: linear-gradient(90deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             50% {
-                background: linear-gradient(180deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                color: linear-gradient(180deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             75% {
-                background: linear-gradient(270deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                color: linear-gradient(270deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
             100% {
-                background: linear-gradient(360deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
+                color: linear-gradient(360deg, rgba(255, 0, 0, 1), rgba(255, 100, 100, 1), rgba(255, 0, 0, 1));
             }
         }
         </style>
@@ -83,7 +82,19 @@
         
 
 
-        <div id="popup" class="popup">
+
+
+        
+        <body onload="myFunction()" style="margin:0;">
+<div id=loader-container>
+<div id="loader"></div>
+</div>
+<br>
+<div id=loadertext><h3>Loading...</h3></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
+<div id=zoom>
+            <div id="popup" class="popup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h2>Welcome to the new domain!</h2>
         <div class="divider"></div>
@@ -91,13 +102,13 @@
         <h3>What will be saved:</h3>
         <ul id="saved-list">
             <li>The entire website (nothing will be lost)</li>
-            <li>The old GameVerse domain (for now)</li>
         </ul>
         <h3>What won't be saved:</h3>
         <ul id="not-saved-list">
             <li>ALL game data! You can use the old domain to continue your saves.</li>
             <li>Your profile's data. (Don't worry! You can easily make a new one.)</li>
             <li>Your usage data and favorites</li>
+            <li>The old GameVerse domain (thegameverse.codehs.me)</li>
         </ul>
             <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
     </div>
@@ -115,18 +126,6 @@
             }
         };
     </script>
-
-        
-        <body onload="myFunction()" style="margin:0;">
-<div id=loader-container>
-<div id="loader"></div>
-</div>
-<br>
-<div id=loadertext><h3>Loading...</h3></div>
-<div style="display:none;" id="myDiv" class="animate-bottom">
-
-<div id=zoom>
-    
 <h1 style="font-size:50px;" class="gradient-red"> Games </h1> 
 <p class="quoteoftheday"> Quote Of The Day: "I like cheese." - Jax 2025 </p>
 <hr style="border:3px solid white">
