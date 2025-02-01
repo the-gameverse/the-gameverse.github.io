@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>GameVerse - ALL Games</title>
-        <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-        <link rel="stylesheet" href="/css/navbar.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/menu.css">
-        <script src="/javascript/pageload.js"></script>
-        <style>
-                    .popup {
+<head>
+    <title>GameVerse - ALL Games</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <script src="/javascript/pageload.js"></script>
+    <style>
+        .popup {
             position: fixed;
             top: -100%;
             left: 50%;
@@ -42,24 +42,19 @@
             font-size: 20px;
             font-weight: bold;
         }
-        </style>
-    </head>
-
-    <body>
-     
-     
+    </style>
+</head>
+<body>
     <!-- Navigation bar -->
-  <div id="navbar"></div>
-<script src=/javascript/navbar.js></script>
-<script src="/javascript/footer.js"></script>
-        <br>
-        <br>
-        <br>
-        <noscript><meta http-equiv="refresh" content="0; url=/errors/noscript" /></noscript> 
-        
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
+    <script src="/javascript/footer.js"></script>
+    <br><br><br>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
 
-
-        <div id="popup" class="popup">
+    <div id="popup" class="popup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h2>Welcome to the new domain!</h2>
         <div class="divider"></div>
@@ -75,8 +70,9 @@
             <li>Your profile's data. (Don't worry! You can easily make a new one.)</li>
             <li>Your usage data and favorites</li>
         </ul>
-            <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
+        <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
     </div>
+
     <script>
         function closePopup() {
             document.getElementById('popup').style.top = '-100%';
@@ -92,73 +88,41 @@
         };
     </script>
 
-        
-        <body onload="myFunction()" style="margin:0;">
-<div id=loader-container>
-<div id="loader"></div>
-</div>
-<br>
-<div id=loadertext><h3>Loading...</h3></div>
-<div style="display:none;" id="myDiv" class="animate-bottom">
-
-<div id=zoom>
-    
-<h1 style="font-size:50px;" class="gradient-red"> Games </h1> 
-<p> IN YOUR DREAMS will I add FNAF to GameVerse lol </p>
-<hr style="border:3px solid white">
-
-   
-   
-
-<center>
-    
-
-    
- 
-
-<br>
-  <!-- Game menu scripts and features -->
-<div class="controls">
-  <!-- Search input field -->
-  <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-
-  <!-- Button to toggle click count visibility -->
-  <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-
-  <!-- Sorting dropdown menu -->
-  <select id="sortOptions" onchange="sortGames()">
-    <option value="favorites">Sort by Favorites</option>
-    <option value="clickCount">Sort by Usage</option>
-    <option value="alphabetical">Sort Alphabetically</option>
-  </select>
-
-</div>
-
-
-    <p id="gameCount">Games Loaded: 0</p>
-  </div>
-  <div id="gameMenu" class="game-menu"></div>
-  <script src="/javascript/menu.js"></script>
-  <!-- Game menu END -->
-
-</div>
-</div>  
-</center>
-
-
-
-
-
-         </body>
+    <body onload="myFunction()" style="margin:0;">
+        <div id="loader-container">
+            <div id="loader"></div>
+        </div>
+        <br>
+        <div id="loadertext">
+            <h3>Loading...</h3>
+        </div>
+        <div style="display:none;" id="myDiv" class="animate-bottom">
+            <div id="zoom">
+                <h1 style="font-size:50px;" class="gradient-red">Games</h1>
+                <p>IN YOUR DREAMS will I add FNAF to GameVerse lol</p>
+                <hr style="border:3px solid white">
+                <center>
+                    <div class="controls">
+                        <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
+                        <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                        <select id="sortOptions" onchange="sortGames()">
+                            <option value="favorites">Sort by Favorites</option>
+                            <option value="clickCount">Sort by Usage</option>
+                            <option value="alphabetical">Sort Alphabetically</option>
+                        </select>
+                    </div>
+                    <p id="gameCount">Games Loaded: 0</p>
+                    <div id="gameMenu" class="game-menu"></div>
+                    <script src="/javascript/menu.js"></script>
+                </center>
+            </div>
+        </div>
+    </body>
     
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
-    
-    
     <script src="/javascript/particles.js"></script>
-    
-    
     <script src="/javascript/particles-config.js"></script>
     <!-- Particles.JS end -->
-    <script src="javascript/scrollbar.js"></script>
+    <script src="/javascript/scrollbar.js"></script>
 </html>
