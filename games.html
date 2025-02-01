@@ -54,70 +54,67 @@
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
 
-    <div id="popup" class="popup">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>Welcome to the new domain!</h2>
-        <div class="divider"></div>
-        <p>We've changed how GameVerse works. This will allow us to provide higher quality services to all of our users! But, there are some things about it that you need to know.</p>
-        <h3>What will be saved:</h3>
-        <ul id="saved-list">
-            <li>The entire website (nothing will be lost)</li>
-            <li>The old GameVerse domain (for now)</li>
-        </ul>
-        <h3>What won't be saved:</h3>
-        <ul id="not-saved-list">
-            <li>ALL game data! You can use the old domain to continue your saves.</li>
-            <li>Your profile's data. (Don't worry! You can easily make a new one.)</li>
-            <li>Your usage data and favorites</li>
-        </ul>
-        <p>We know that most data wasn't saved, but this will allow us to provide better and more high quality updates. Thanks for using GameVerse.</p>
-    </div>
 
-    <script>
-        function closePopup() {
-            document.getElementById('popup').style.top = '-100%';
-            localStorage.setItem('newDomainPopupClosed', 'true');
-        }
+
+
         
-        window.onload = function() {
-            if (!localStorage.getItem('newDomainPopupClosed')) {
-                setTimeout(() => {
-                    document.getElementById('popup').classList.add('show');
-                }, 500);
-            }
-        };
-    </script>
+        <body onload="myFunction()" style="margin:0;">
+<div id=loader-container>
+<div id="loader"></div>
+</div>
+<br>
+<div id=loadertext><h3>Loading...</h3></div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
 
-    <body onload="myFunction()" style="margin:0;">
-        <div id="loader-container">
-            <div id="loader"></div>
-        </div>
-        <br>
-        <div id="loadertext">
-            <h3>Loading...</h3>
-        </div>
-        <div style="display:none;" id="myDiv" class="animate-bottom">
-            <div id="zoom">
-                <h1 style="font-size:50px;" class="gradient-red">Games</h1>
-                <p>IN YOUR DREAMS will I add FNAF to GameVerse lol</p>
-                <hr style="border:3px solid white">
-                <center>
-                    <div class="controls">
-                        <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-                        <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-                        <select id="sortOptions" onchange="sortGames()">
-                            <option value="favorites">Sort by Favorites</option>
-                            <option value="clickCount">Sort by Usage</option>
-                            <option value="alphabetical">Sort Alphabetically</option>
-                        </select>
-                    </div>
-                    <p id="gameCount">Games Loaded: 0</p>
-                    <div id="gameMenu" class="game-menu"></div>
-                    <script src="/javascript/menu.js"></script>
-                </center>
-            </div>
-        </div>
-    </body>
+<div id=zoom>
+
+<h1 style="font-size:50px;" class="gradient-red"> Games </h1> 
+<p class="gradient-red" style=font-size:15px;> Quote Of The Day: "I like cheese." - Jax 2025 </p>
+<hr style="border:3px solid white">
+
+   
+   
+
+<center>
+    
+
+    
+ 
+
+<br>
+  <!-- Game menu scripts and features -->
+<div class="controls">
+  <!-- Search input field -->
+  <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
+
+  <!-- Button to toggle click count visibility -->
+  <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+
+  <!-- Sorting dropdown menu -->
+  <select id="sortOptions" onchange="sortGames()">
+    <option value="favorites">Sort by Favorites</option>
+    <option value="clickCount">Sort by Usage</option>
+    <option value="alphabetical">Sort Alphabetically</option>
+  </select>
+
+</div>
+
+
+    <p id="gameCount">Games Loaded: 0</p>
+  </div>
+  <div id="gameMenu" class="game-menu"></div>
+  <script src="/javascript/menu.js"></script>
+  <!-- Game menu END -->
+
+</div>
+</div>  
+</center>
+
+
+
+
+
+         </body>
     
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
