@@ -67,7 +67,7 @@ function redirectIframe(newSrc, delay) {
     // Reset the iframe to its original source after the specified delay
     setTimeout(() => {
         iframe.src = newSrc;
-      iframe.contentWindow.history.forward();
+    
     }, delay);
 }
 
