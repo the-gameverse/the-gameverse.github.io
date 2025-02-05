@@ -22,6 +22,8 @@ head.appendChild(script2);
 function trackUsage() {
     let startTime = Date.now();
     let totalUsage = parseInt(localStorage.getItem("totalUsage") || "0");
+    let timeLimit = parseInt(localStorage.getItem("timeLimit") || "0");
+    let limitAction = localStorage.getItem("limitAction") || "reminder"; // "lockout" or "reminder"
 
     function updateUsage() {
         let currentTime = Date.now();
@@ -29,6 +31,16 @@ function trackUsage() {
         totalUsage += elapsedTime;
         localStorage.setItem("totalUsage", totalUsage);
         startTime = currentTime;
+
+        if (timeLimit > 0 && totalUsage >= timeLimit * 60000) {
+            if (limitAction === "lockout") {
+                window.location.replace("/errors/timelimit");
+            } else if (limitAction === "reminder") {
+                setTimeout(() => {
+                    window.location.replace("/errors/reminder");
+                }, 300000); // 5-minute reminder delay
+            }
+        }
     }
 
     // Update usage time every second
