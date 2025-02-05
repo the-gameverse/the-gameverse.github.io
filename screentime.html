@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GameVerse - Screen Time </title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/menu.css" />
+    <style>
+      label {
+        color: white;
+      }
+      input, select {
+        padding: 5px;
+        font-size: 12px;
+        font-family: Space Grotesk;
+        border: 1px solid #ddd;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
+    <script src="/javascript/footer.js"></script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
+    
+    <div id="zoom">
+      <br /><br /><br />
+      <center>
+        <h1 style="font-size: 50px" class="gradient-red">Screen Time</h1>
+        <p>Set a time limit for your usage and configure how warnings are handled.</p>
+        <hr style="border: 3px solid white" />
+        
+        <div class="profile-container" style="text-align: center; padding: 20px; background: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 10px; width: 350px; margin: auto;">
+          <label>Time Limit:</label>
+          <select id="timeLimit">
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="custom">Custom</option>
+          </select>
+          <br /><br />
+          
+          <label>Custom Time (minutes):</label>
+          <input type="number" id="customTime" min="1" /><br /><br />
+          
+          <label>Action on Limit:</label>
+          <select id="limitAction">
+            <option value="lockout">Lockout (redirect every time)</option>
+            <option value="reminder">Reminder (redirect every 5 minutes)</option>
+          </select>
+          <br /><br />
+          
+          <button onclick="applySettings()" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply & Save</button>
+          <button onclick="resetSettings()" style="padding: 10px 20px; font-size: 16px; background: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Reset to Default</button>
+        </div>
+      </center>
+    </div>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const defaultSettings = {
+          timeLimit: 60,
+          limitAction: "reminder"
+        };
+        
+        let usageSettings = JSON.parse(localStorage.getItem("usageSettings")) || defaultSettings;
+        
+        function updateFormFields() {
+          document.getElementById("timeLimit").value = usageSettings.timeLimit === "custom" ? "custom" : usageSettings.timeLimit;
+          document.getElementById("customTime").value = usageSettings.timeLimit === "custom" ? usageSettings.customTime : "";
+          document.getElementById("limitAction").value = usageSettings.limitAction;
+        }
+        
+        window.applySettings = function () {
+          const timeLimit = document.getElementById("timeLimit").value;
+          const customTime = document.getElementById("customTime").value;
+          const limitAction = document.getElementById("limitAction").value;
+          
+          usageSettings = {
+            timeLimit: timeLimit === "custom" ? "custom" : parseInt(timeLimit),
+            customTime: timeLimit === "custom" ? parseInt(customTime) : null,
+            limitAction
+          };
+          
+          localStorage.setItem("usageSettings", JSON.stringify(usageSettings));
+          alert("Settings saved!");
+        };
+        
+        window.resetSettings = function () {
+          localStorage.removeItem("usageSettings");
+          usageSettings = defaultSettings;
+          updateFormFields();
+          alert("Settings reset to default.");
+        };
+        
+        updateFormFields();
+      });
+    </script>
+    
+  </body>
+</html>
