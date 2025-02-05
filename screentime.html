@@ -21,6 +21,14 @@
         background-color: black;
         color: white;
       }
+      .hidden {
+        display: none;
+      }
+      .description {
+        font-size: 12px;
+        color: #bbb;
+        margin-top: 5px;
+      }
     </style>
   </head>
   <body>
@@ -52,14 +60,15 @@
           <br /><br />
           
           <label>Custom Time (minutes):</label>
-          <input type="number" id="customTime" min="1" /><br /><br />
+          <input type="number" id="customTime" min="1" class="hidden" /><br /><br />
           
           <label>Action on Limit:</label>
           <select id="limitAction">
             <option value="lockout">Lockout (redirect every time)</option>
             <option value="reminder">Reminder (redirect every 5 minutes)</option>
           </select>
-          <br /><br />
+          <p class="description" id="actionDescription"></p>
+          <br />
           
           <button onclick="applySettings()" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply & Save</button>
           <button onclick="resetSettings()" style="padding: 10px 20px; font-size: 16px; background: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Reset to Default</button>
@@ -79,8 +88,24 @@
         function updateFormFields() {
           document.getElementById("timeLimit").value = usageSettings.timeLimit === "custom" ? "custom" : usageSettings.timeLimit;
           document.getElementById("customTime").value = usageSettings.timeLimit === "custom" ? usageSettings.customTime : "";
+          document.getElementById("customTime").classList.toggle("hidden", usageSettings.timeLimit !== "custom");
           document.getElementById("limitAction").value = usageSettings.limitAction;
+          updateActionDescription();
         }
+        
+        function updateActionDescription() {
+          const descriptions = {
+            lockout: "Lockout: Redirects you away from the site every time you try to visit.",
+            reminder: "Reminder: Redirects you to a reminder page every 5 minutes after exceeding the limit."
+          };
+          document.getElementById("actionDescription").textContent = descriptions[document.getElementById("limitAction").value];
+        }
+        
+        document.getElementById("timeLimit").addEventListener("change", function () {
+          document.getElementById("customTime").classList.toggle("hidden", this.value !== "custom");
+        });
+        
+        document.getElementById("limitAction").addEventListener("change", updateActionDescription);
         
         window.applySettings = function () {
           const timeLimit = document.getElementById("timeLimit").value;
@@ -110,9 +135,7 @@
         <!-- Particles.JS start -->
     <div id="particles-js"></div>
     
-    
     <script src="/javascript/particles.js"></script>
-    
     
     <script src="/javascript/particles-config.js"></script>
     <!-- Particles.JS end -->
