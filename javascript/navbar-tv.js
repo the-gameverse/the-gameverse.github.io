@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
             <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
             <a href="/personalization"><i class="fa-solid fa-paintbrush"></i></a>
+            <a href="/screentime"><i class="fa-solid fa-hourglass-end"></i></a>
           </div>
         </div>
       </div>
