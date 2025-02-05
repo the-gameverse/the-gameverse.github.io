@@ -24,6 +24,15 @@ function trackUsage() {
     let totalUsage = parseInt(localStorage.getItem("totalUsage") || "0");
     let timeLimit = parseInt(localStorage.getItem("timeLimit") || "0");
     let limitAction = localStorage.getItem("limitAction") || "reminder"; // "lockout" or "reminder"
+    let lastRecordedDate = localStorage.getItem("lastRecordedDate") || "";
+    
+    // Check if a new day has started
+    let today = new Date().toISOString().split('T')[0];
+    if (lastRecordedDate !== today) {
+        localStorage.setItem("totalUsage", "0");
+        totalUsage = 0;
+        localStorage.setItem("lastRecordedDate", today);
+    }
 
     function updateUsage() {
         let currentTime = Date.now();
@@ -45,23 +54,6 @@ function trackUsage() {
 
     // Update usage time every second
     let usageInterval = setInterval(updateUsage, 1000);
-
-    // Reset at midnight
-    function resetAtMidnight() {
-        let now = new Date();
-        let midnight = new Date();
-        midnight.setHours(24, 0, 0, 0);
-
-        let timeUntilMidnight = midnight.getTime() - now.getTime();
-
-        setTimeout(() => {
-            localStorage.setItem("totalUsage", "0");
-            alert("New day! Usage tracking has been reset.");
-            resetAtMidnight(); // Schedule the next reset
-        }, timeUntilMidnight);
-    }
-
-    resetAtMidnight();
 
     // Pause tracking when user leaves the page
     window.addEventListener("beforeunload", updateUsage);
