@@ -43,13 +43,13 @@
     <div id="zoom">
       <br /><br /><br />
       <center>
-        <h1 style="font-size: 50px" class="gradient-red">Screen Time</h1>
+        <h1 style="font-size: 50px" class="gradient-red">Screen Time (coming soon)</h1>
         <p>Set a time limit for your usage and configure how warnings are handled.</p>
         <hr style="border: 3px solid white" />
         
         <div class="profile-container" style="text-align: center; padding: 20px; background: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 10px; width: 350px; margin: auto;">
           <label>Time Limit:</label>
-          <select id="timeLimit">
+          <select disabled style=opacity:50% id="timeLimit">
             <option value="15">15 minutes</option>
             <option value="30">30 minutes</option>
             <option value="60">1 hour</option>
@@ -60,18 +60,18 @@
           <br /><br />
           
           <label>Custom Time (minutes):</label>
-          <input type="number" id="customTime" min="1" class="hidden" /><br /><br />
+          <input disabled style=opacity:50% type="number" id="customTime" min="1" class="hidden" /><br /><br />
           
           <label>Action on Limit:</label>
-          <select id="limitAction">
+          <select disabled style=opacity:50% id="limitAction">
             <option value="lockout">Lockout (redirect every time)</option>
             <option value="reminder">Reminder (redirect every 5 minutes)</option>
           </select>
           <p class="description" id="actionDescription"></p>
           <br />
           
-          <button onclick="applySettings()" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply & Save</button>
-          <button onclick="resetSettings()" style="padding: 10px 20px; font-size: 16px; background: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Reset to Default</button>
+          <button disabled style=opacity:50% onclick="applySettings()" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply & Save</button>
+          <button disabled style=opacity:50% onclick="resetSettings()" style="padding: 10px 20px; font-size: 16px; background: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Reset to Default</button>
         </div>
       </center>
     </div>
