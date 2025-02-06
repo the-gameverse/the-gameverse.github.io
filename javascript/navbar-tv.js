@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
             <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
             <a href="/music"><i class="fa fa-music fa-lg"></i></a>
             <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
+            <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
             <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
             <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
