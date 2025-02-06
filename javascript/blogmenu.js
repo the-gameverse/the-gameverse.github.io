@@ -100,7 +100,7 @@ function displayBlogPosts(filter = "") {
 
 function showOverlay(content) {
   document.getElementById("overlay").style.display = "flex";
-  document.getElementById("blogContent").innerHTML = "<br><br><br><br><br><br>" + content.content + "<br><br><br>";
+  document.getElementById("blogContent").innerHTML = "<br><br>" + content.content + "<br><br><br>";
   document.body.classList.add("overlay-open");
 }
 
