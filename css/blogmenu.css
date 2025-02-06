@@ -280,6 +280,7 @@ body {
 }
 .post:hover {
   transform: scale(1.1); /* Scale the image smoothly */
+  cursor: pointer;
 }
 .post-name {
   position: absolute;
