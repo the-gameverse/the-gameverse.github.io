@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GameVerse - ALL Games</title>
+    <title>GameVerse - ALL Blog Posts</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/blogmenu.css">
     <script src="/javascript/pageload.js"></script>
 </head>
 <body onload="myFunction()" style="margin:0;">
@@ -26,8 +26,8 @@
 
 <div id=zoom>
 
-<h1 style="font-size:50px;" class="gradient-red"> Games </h1> 
-<p class="gradient-red" style=font-size:15px;> Quote Of The Day: "I like cheese." - Jax 2025 </p>
+<h1 style="font-size:50px;" class="gradient-red"> Blog </h1> 
+<p class="gradient-red" style=font-size:15px;>LATEST NEWS: GameVerse February Updates</p>
 <hr style="border:3px solid white">
 
    
@@ -40,29 +40,37 @@
  
 
 <br>
-  <!-- Game menu scripts and features -->
 <div class="controls">
-  <!-- Search input field -->
-  <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-
-  <!-- Button to toggle click count visibility -->
-  <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+  <input type="text" id="search" placeholder="Search all blog posts" oninput="filterBlogPosts()" />
 
   <!-- Sorting dropdown menu -->
-  <select id="sortOptions" onchange="sortGames()">
-    <option value="favorites">Sort by Favorites</option>
-    <option value="clickCount">Sort by Usage</option>
+  <select id="sortOptions" onchange="sortBlogPosts()">
+    <option value="age">Sort by Age</option>
     <option value="alphabetical">Sort Alphabetically</option>
   </select>
 
 </div>
 
-
-    <p id="gameCount">Games Loaded: 0</p>
+<div id="overlay">
+  <button class="close-btn" onclick="closeOverlay()">✖</button>
+  <div class="overlay-content">
+      <h2 id="blogTitle">Overlay Content</h2>
+      <p id="blogContent">This is an overlay with a close button.</p>
   </div>
-  <div id="gameMenu" class="game-menu"></div>
-  <script src="/javascript/menu.js"></script>
-  <!-- Game menu END -->
+</div>
+    <p id="blogPostCount">Blog Posts Loaded: 0</p>
+  </div>
+  <div id="blogPostMenu" class="blog-post-menu">
+    <a class="post">
+      <img src="./uploads/covers/blog/test.jfif" alt="" class="left">
+      <div class="right">
+        <h1>2nd test</h1>
+        <p>Date</p>
+      </div>
+    </a>
+  </div>
+  <script src="/javascript/blogmenu.js"></script>
+  <!-- Blog menu END -->
 
 </div>
 </div>  

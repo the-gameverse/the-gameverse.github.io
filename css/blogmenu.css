@@ -204,11 +204,12 @@ body {
   background-color: red;
 }
 
-.game {
+.post {
   position: relative; /* Add position relative to allow positioning of the favorite icon */
   background-color: black;
+  border: 1px solid white;
 }
-#gameCount {
+#postCount {
   margin: 15px;
   font-size: 16px;
   font-weight: bold;
@@ -219,31 +220,31 @@ body {
   color: white;
   font-weight: bold;
 }
-#gameMenu {
+#blogPostMenu {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   padding: 20px;
 }
-.game a.disabled {
+.post a.disabled {
   pointer-events: none;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.game a {
+.post a {
   z-index: 0; /* Make sure the link is below */
 }
 
-.game {
-  position: relative;
-  width: 150px;
+.post {
+  display: flex;
+  width: 300px; /* Adjust as needed */
   height: 150px;
-  text-align: center;
-  overflow: hidden; /* Ensures content stays inside the rounded container */
-  border-radius: 15%; /* Apply consistent rounding */
-  transition: transform 0.3s ease; /* Optional: smooth scaling on the container itself */
+  background-color: black;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 .click-count {
   position: absolute; /* Position it outside the image area */
@@ -258,21 +259,29 @@ body {
   z-index: 10; /* Ensure it stays above other elements */
   width: 120px;
 }
-.game img {
-  width: 100%; /* Match container dimensions */
-  height: 100%; /* Ensure full coverage */
-  object-fit: cover; /* Maintain image proportions */
-  border-radius: inherit; /* Inherit rounding from the parent container */
-  transition: transform 0.3s ease; /* Smooth scaling effect */
+.post img {
+  width: 100%; /* Image takes half the width */
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px 0 0 15px;
+  transition: transform 0.3s ease;
 }
 
-.game:hover img {
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.post:hover img {
   transform: scale(1.3); /* Scale the image smoothly */
 }
-.game:hover {
+.post:hover {
   transform: scale(1.1); /* Scale the image smoothly */
 }
-.game-name {
+.post-name {
   position: absolute;
   top: 0;
   left: 0;
@@ -290,12 +299,12 @@ body {
   backdrop-filter: blur(6px);
 }
 
-.game:hover .game-name {
+.post:hover .post-name {
   opacity: 1;
 }
 
 .favorite-icon {
-  position: absolute; /* Position it absolutely within the game container */
+  position: absolute; /* Position it absolutely within the post container */
   top: 12px; /* Adjust top, left, or bottom values as needed */
   right: 12px;
   font-size: 30px; /* Adjust the font size for better visibility */
@@ -333,3 +342,46 @@ body {
 }
 
 /* */
+/* Overlay styles */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: none; /* Hidden by default */
+  overflow-y: scroll;
+}
+
+/* Overlay content */
+.overlay-content {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  position: relative;
+  text-align: left;
+  max-width: 500px;
+  overflow-y: scroll;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: 0;
+}
+
+body.overlay-open {
+  overflow: hidden;
+}
