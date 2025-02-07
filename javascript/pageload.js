@@ -1,8 +1,9 @@
 var myVar;
 
 function myFunction() {
-  myVar = setTimeout(showPage, 3000); // Modify the number to modify load time (700+ recommended)
-  updateLoaderText(); // Call the function to update the loader text
+  myVar = setTimeout(showPage, 2000); // Modify the number to modify load time (700+ recommended)
+  const loaderText = document.getElementById("loadertext");
+  loaderText.innerHTML = `<h3>Loading... <i class="fa fa-loader-circle fa-spin"></i></h3>`;
 }
 
 function showPage() {
@@ -12,14 +13,3 @@ function showPage() {
   document.getElementById("myDiv").style.display = "block";
 }
 
-function updateLoaderText() {
-  const loaderText = document.getElementById("loadertext");
-  if (loaderText) {
-    const messages = ["Starting up the servers...", "Finding entertainment...", "Organizing and optimizing..."];
-    let index = 0;
-    setInterval(() => {
-      loaderText.innerHTML = `<h3>${messages[index]}</h3>`;
-      index = (index + 1) % messages.length;
-    }, 1000); // Change message every second
-  }
-}
