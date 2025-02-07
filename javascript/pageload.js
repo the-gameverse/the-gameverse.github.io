@@ -3,7 +3,7 @@ var myVar;
 function myFunction() {
   myVar = setTimeout(showPage, 2000); // Modify the number to modify load time (700+ recommended)
   const loaderText = document.getElementById("loadertext");
-  loaderText.innerHTML = `<h3>Loading... <i class="fa fa-loader-circle fa-spin"></i></h3>`;
+  loaderText.innerHTML = `<h3>Loading... <i class="fa-solid fa-circle-notch fa-spin"></i></h3>`;
 }
 
 function showPage() {
