@@ -29,4 +29,4 @@ Welcome to **GameVerse**! 🎉 Your go-to hub for unblocked, school-friendly gam
 
 To get started with GameVerse:
 
-Click here: [GameLink](https://gameverse.global.ssl.fastly.net)
+Click here: [GameVerse Link](https://gameverse.global.ssl.fastly.net)
