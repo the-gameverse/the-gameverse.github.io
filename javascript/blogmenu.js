@@ -106,20 +106,17 @@ function displayBlogPosts(filter = "") {
 }
 
 function showOverlay(content) {
-  const overlay = document.getElementById("overlay");
+  const overlay = document.getElementById("overlay-content");
   overlay.style.display = "flex";
   const spacer = document.createElement("br")
-  overlay.appendChild(spacer);
-  overlay.appendChild(spacer);
   overlay.appendChild(spacer);
   const blogTitle = document.createElement("h2");
   blogTitle.innerHTML = content.title;
   overlay.appendChild(blogTitle);
+  overlay.appendChild(spacer);
   const blogContent = document.createElement("p");
   blogContent.innerHTML = content.content;
   overlay.appendChild(blogContent);
-  overlay.appendChild(spacer);
-  overlay.appendChild(spacer);
   overlay.appendChild(spacer);
   document.getElementById("blogTitle").innerHTML = "<br><br><br>" + content.title;
   document.body.classList.add("overlay-open");
