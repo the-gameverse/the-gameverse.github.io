@@ -106,8 +106,22 @@ function displayBlogPosts(filter = "") {
 }
 
 function showOverlay(content) {
-  document.getElementById("overlay").style.display = "flex";
-  document.getElementById("blogContent").innerHTML = "<br><br>" + content.content + "<br><br><br>";
+  const overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+  const spacer = document.createElement("br")
+  overlay.appendChild(spacer);
+  overlay.appendChild(spacer);
+  overlay.appendChild(spacer);
+  const blogTitle = document.createElement("h2");
+  blogTitle.innerHTML = content.title;
+  overlay.appendChild(blogTitle);
+  const blogContent = document.createElement("p");
+  blogContent.innerHTML = content.content;
+  overlay.appendChild(blogContent);
+  overlay.appendChild(spacer);
+  overlay.appendChild(spacer);
+  overlay.appendChild(spacer);
+  document.getElementById("blogTitle").innerHTML = "<br><br><br>" + content.title;
   document.body.classList.add("overlay-open");
 }
 
