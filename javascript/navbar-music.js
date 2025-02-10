@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
         <div class="navbar-right">
           ${user.username !== 'Guest' ? `
             <div class="user-info">
-            <a class="user-info" style=color:white href=/editprofile>
+            <a class="user-info"  style=color:white href=/editprofile>
               <img src="${user.photo}" alt="${user.username}" class="profile-img">
-              <span>${user.username}</span></a><img height=30px width=30px src=/uploads/images/profile-verified.png alt='This is a verified GameVerse profile' title='This is a verified GameVerse profile'>
+              <span class="gradient-red">${user.username}</span></a><img height=30px width=30px src=/uploads/images/profile-verified.png alt='This is a verified GameVerse profile' title='This is a verified GameVerse profile'>
             </div>
-          ` : '<a href="/editprofile.html" style="color:white;">Create Profile <i class="fa fa-user"></i></a>'}
+          ` : '<a class="gradient-red" href="/editprofile.html" style="color:white;">Create Profile <i class="fa fa-user"></i></a>'}
           <div class="divider"></div>
           <div class="navmusic">
             <a href="/"><i class="fa fa-home fa-lg"></i></a>
@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
   }
   const style = document.createElement('style');
   style.innerHTML = `
-    .user-info { display: flex; align-items: center; gap: 10px; color: white; }
+    .user-info { display: flex; align-items: center; gap: 10px; }
+    .user-info:hover { color:white;}
     .profile-img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #FA1228;}
     .divider { border-left: 1px solid #fff; height: 30px; margin: 0 15px; }
   `;
