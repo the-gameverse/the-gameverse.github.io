@@ -18,83 +18,57 @@ var head = document.getElementsByTagName('head')[0];
 head.appendChild(script1);
 head.appendChild(script2);
 
-// Usage Tracking
-function trackUsage() {
-    let startTime = Date.now();
-    let totalUsage = parseInt(localStorage.getItem("totalUsage") || "0");
-    let timeLimit = parseInt(localStorage.getItem("timeLimit") || "0");
-    let limitAction = localStorage.getItem("limitAction") || "reminder"; // "lockout" or "reminder"
-    let lastRecordedDate = localStorage.getItem("lastRecordedDate") || "";
-    
-    // Check if a new day has started
-    let today = new Date().toISOString().split('T')[0];
-    if (lastRecordedDate !== today) {
-        localStorage.setItem("totalUsage", "0");
-        totalUsage = 0;
-        localStorage.setItem("lastRecordedDate", today);
-    }
+// Add screen time tracking
 
-    function updateUsage() {
-        let currentTime = Date.now();
-        let elapsedTime = currentTime - startTime; // Time in milliseconds
-        totalUsage += elapsedTime;
-        localStorage.setItem("totalUsage", totalUsage);
-        startTime = currentTime;
+// Create a new script element
+var script = document.createElement('script');
 
-        if (timeLimit > 0 && totalUsage >= timeLimit * 60000) {
-            if (limitAction === "lockout") {
-                window.location.replace("/errors/timelimit");
-            } else if (limitAction === "reminder") {
-                setTimeout(() => {
-                    window.location.replace("/errors/reminder");
-                }, 300000); // 5-minute reminder delay
-            }
-        }
-    }
+// Set the source to your screenTimeTracker.js file
+script.src = '/javascript/screenTimeTracker.js';
 
-    // Update usage time every second
-    let usageInterval = setInterval(updateUsage, 1000);
+// (Optional) Set the script to load asynchronously
+script.async = true;
 
-    // Pause tracking when user leaves the page
-    window.addEventListener("beforeunload", updateUsage);
-}
+// Append the script to the document's head (or body)
+document.head.appendChild(script);
 
-// Start tracking usage on page load
-trackUsage();
+// Alternatively, you can append it to the body:
+// document.body.appendChild(script);
+
 
 // Iframe controls for viewers
 const iframe = document.getElementById('gameFrame');
-const reloadButton = document.getElementById('reloadButton');
-const fullscreenButton = document.getElementById('fullscreenButton');
-const homeButton = document.getElementById('homeButton');
+        const reloadButton = document.getElementById('reloadButton');
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        const homeButton = document.getElementById('homeButton');
 
-reloadButton.addEventListener('click', () => {
-    iframe.src = iframe.src;
-});
+        reloadButton.addEventListener('click', () => {
+            iframe.src = iframe.src;
+        });
 
-fullscreenButton.addEventListener('click', () => {
-    if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-    } else if (iframe.mozRequestFullScreen) { // Firefox
-        iframe.mozRequestFullScreen();
-    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
-        iframe.webkitRequestFullscreen();
-    } else if (iframe.msRequestFullscreen) { // IE/Edge
-        iframe.msRequestFullscreen();
-    }
-});
-
-homeButton.addEventListener('click', () => {
-    const currentURL = window.location.href;
+        fullscreenButton.addEventListener('click', () => {
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+        
+        homeButton.addEventListener('click', () => {
+    const currentURL = window.location.href; // Get the current URL of the page
 
     if (currentURL.includes("/storage/tv")) {
-        location.replace("/tv");
+        location.replace("/tv"); // Redirect to the /tv page
     } else if (currentURL.includes("/storage/games")) {
-        location.replace("/games");
+        location.replace("/games"); // Redirect to the /games page
     } else if (currentURL.includes("/storage/music")) {
-        location.replace("/music");
+        location.replace("/music"); // Redirect to the /music page
     } else {
-        location.replace("/");
+        location.replace("/"); // Fallback redirect if no match
     }
 });
 
@@ -105,10 +79,13 @@ const originalSrc = iframe.src;
 
 // Function to redirect the iframe to a specific page
 function redirectIframe(newSrc, delay) {
+    // Update the iframe to the new source
     iframe.src = "/storage/loading.html";
 
+    // Reset the iframe to its original source after the specified delay
     setTimeout(() => {
         iframe.src = newSrc;
+    
     }, delay);
 }
 
@@ -119,24 +96,31 @@ redirectIframe(iframe.src, 4000);
 
 // Function to change the favicon based on the last part of the URL
 function changeFavicon() {
+    // Get the current URL and extract the last part after the last slash
     const url = window.location.href;
     const lastPart = url.substring(url.lastIndexOf('/') + 1);
 
+    // Map for favicon assignment based on the last part of the URL
     const faviconMap = {
         'home': 'home.ico',
         'profile': 'profile.ico',
         'settings': 'settings.ico',
+        // Add more mappings as needed
     };
 
+    // Get the favicon link element or create one if it doesn't exist
     let favicon = document.querySelector("link[rel='icon']") || document.createElement('link');
     favicon.rel = 'icon';
 
+    // Check if the last part matches a known page, otherwise use the image path
     if (faviconMap[lastPart]) {
         favicon.href = faviconMap[lastPart];
     } else {
-        favicon.href = `/uploads/covers/${lastPart}.png`;
+        // Set the favicon to an image from the /uploads/covers/ directory
+        favicon.href = `/uploads/covers/${lastPart}.png`; // Assuming the last part corresponds to an image file
     }
 
+    // Append the favicon to the document head if it's new
     if (!document.querySelector("link[rel='icon']")) {
         document.head.appendChild(favicon);
     }
@@ -147,28 +131,41 @@ window.addEventListener('load', changeFavicon);
 
 /* Title */
 
+// Get the current page title
 let pageTitle = document.title;
 
+// Check if the title starts with "GameVerse - " and remove it
 if (pageTitle.startsWith("GameVerse - ")) {
   document.title = pageTitle.slice("GameVerse - ".length);
 }
+// Check if the title starts with "GameVerse - " and remove it
 if (pageTitle.startsWith("MusicVerse - ")) {
   document.title = pageTitle.slice("MusicVerse - ".length);
 }
+// Check if the title starts with "GameVerse - " and remove it
 if (pageTitle.startsWith("WatchVerse - ")) {
   document.title = pageTitle.slice("WatchVerse - ".length);
 }
 
 window.onload = function() {
+    // Create the div for particles-js
     var particlesDiv = document.createElement('div');
     particlesDiv.id = 'particles-js';
+    
+    // Append the div to the body at the end
     document.body.appendChild(particlesDiv);
-
+    
+    // Create the script tag for particles.js
     var particlesJsScript = document.createElement('script');
     particlesJsScript.src = '/javascript/particles.js';
+    
+    // Append the script to the body
     document.body.appendChild(particlesJsScript);
 
+    // Create the script tag for the particles-config.js
     var particlesConfigScript = document.createElement('script');
     particlesConfigScript.src = '/javascript/particles-config.js';
+    
+    // Append the second script to the body
     document.body.appendChild(particlesConfigScript);
 };
