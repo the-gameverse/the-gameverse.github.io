@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screen Time Lockout</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -50,6 +51,19 @@
         .settings-button:hover {
             background-color: #0056b3;
         }
+                        .ignore-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #db0000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .ignore-button:hover {
+            background-color: #ff0000;
+        }
     </style>
 </head>
 <body>
@@ -58,6 +72,7 @@
         <p>Hey, you've spent a lot of time online today. It's time to take a break and recharge! 🌿</p>
         <p class="lockout-message">For your well-being, access is temporarily restricted. Please return later.</p>
         <a href="/screentime.html" class="settings-button">Change my settings ⚙</a>
+        <a disabled style="opacity:50%;" alt="Disabled because you choosed lockout in settings." title="Disabled because you choosed lockout in settings." href="/games.html" class="ignore-button">Ignore my limit 🚫</a>
     </div>
 </body>
 </html>
