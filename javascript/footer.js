@@ -37,6 +37,23 @@ hideButton.addEventListener('click', () => {
   footer.classList.add('hidden');  // Hide the footer
 });
 
+// Add screen time tracker script
+
+// Create a new script element
+var script = document.createElement('script');
+
+// Set the source to your screenTimeTracker.js file
+script.src = '/javascript/screentimetracking.js';
+
+// (Optional) Set the script to load asynchronously
+script.async = true;
+
+// Append the script to the document's head (or body)
+document.head.appendChild(script);
+
+// Alternatively, you can append it to the body:
+// document.body.appendChild(script);
+
 
 // Add gtag tracking
 // Create the <script> element for the Google tag (gtag.js)
