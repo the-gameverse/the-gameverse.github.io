@@ -208,4 +208,94 @@
         presetTimeDropdown.value = String(settings.usageLimitSeconds);
         document.getElementById('customTimeContainer').style.display = 'none';
       } else {
-        presetT
+        presetTimeDropdown.value = 'custom';
+        document.getElementById('customTimeContainer').style.display = 'inline';
+        // Format the stored usageLimitSeconds as HH:MM:SS
+        let hrs = Math.floor(settings.usageLimitSeconds / 3600);
+        let rem = settings.usageLimitSeconds % 3600;
+        let mins = Math.floor(rem / 60);
+        let secs = rem % 60;
+        customTimeInput.value = [hrs, mins, secs].map(n => String(n).padStart(2, '0')).join(':');
+      }
+    }
+    if (limitActionDropdown) {
+      limitActionDropdown.value = settings.limitAction;
+    }
+  }
+
+  // Save settings based on form input values
+  function handleSaveSettings() {
+    const limitActiveCheckbox = document.getElementById('limitActiveCheckbox');
+    const presetTimeDropdown = document.getElementById('presetTimeDropdown');
+    const customTimeInput = document.getElementById('customTimeInput');
+    const limitActionDropdown = document.getElementById('limitActionDropdown');
+
+    const limitActive = limitActiveCheckbox ? limitActiveCheckbox.checked : true;
+    let usageLimitSeconds;
+
+    if (presetTimeDropdown.value === 'custom') {
+      let customTime = customTimeInput.value;
+      let parts = customTime.split(':');
+      if (parts.length === 3) {
+        let hours = parseInt(parts[0], 10);
+        let minutes = parseInt(parts[1], 10);
+        let seconds = parseInt(parts[2], 10);
+        usageLimitSeconds = hours * 3600 + minutes * 60 + seconds;
+        if (isNaN(usageLimitSeconds)) {
+          alert("Invalid custom time. Please enter time as HH:MM:SS.");
+          return;
+        }
+      } else {
+        alert("Invalid custom time format. Please use HH:MM:SS.");
+        return;
+      }
+    } else {
+      usageLimitSeconds = parseInt(presetTimeDropdown.value, 10);
+    }
+    const limitAction = limitActionDropdown ? limitActionDropdown.value : 'reminder';
+
+    let settings = loadSettings();
+    settings.limitActive = limitActive;
+    settings.usageLimitSeconds = usageLimitSeconds;
+    settings.limitAction = limitAction;
+    saveSettings(settings);
+    alert("Settings saved!");
+    updateDisplay();
+  }
+
+  // Disable tracking for today or for multiple days
+  function handleDisableTracking() {
+    const disableDaysDropdown = document.getElementById('disableDaysDropdown');
+    const days = disableDaysDropdown ? parseInt(disableDaysDropdown.value, 10) : 0;
+    const today = new Date(getTodayString());
+    today.setDate(today.getDate() + days);
+    const disabledUntilStr = today.toISOString().split('T')[0];
+
+    let settings = loadSettings();
+    settings.disabledUntil = disabledUntilStr;
+    saveSettings(settings);
+    alert("Tracking disabled until " + disabledUntilStr);
+  }
+
+  /***********************
+   * INITIALIZATION
+   ***********************/
+  document.addEventListener('DOMContentLoaded', function() {
+    // If the settings form exists on the page, initialize it and attach listeners.
+    if (document.getElementById('settingsForm')) {
+      initSettingsForm();
+
+      const saveSettingsButton = document.getElementById('saveSettingsButton');
+      if (saveSettingsButton) {
+        saveSettingsButton.addEventListener('click', handleSaveSettings);
+      }
+      const disableButton = document.getElementById('disableButton');
+      if (disableButton) {
+        disableButton.addEventListener('click', handleDisableTracking);
+      }
+    }
+    scheduleMidnightReset();
+    startTracking();
+    updateDisplay();
+  });
+})();
