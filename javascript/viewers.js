@@ -24,7 +24,7 @@ head.appendChild(script2);
 var script = document.createElement('script');
 
 // Set the source to your screenTimeTracker.js file
-script.src = '/javascript/screenTimeTracker.js';
+script.src = '/javascript/screentimetracking.js';
 
 // (Optional) Set the script to load asynchronously
 script.async = true;
