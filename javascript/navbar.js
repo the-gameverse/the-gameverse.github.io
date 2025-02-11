@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded be
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
             <a href="/personalization"><i class="fa-solid fa-paintbrush fa-lg"></i></a>
             <a href="/screentime"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
-            <div class="divider"></div>
-            <a href="https://github.com/the-gameverse"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
+            <a href="https://github.com/the-gameverse"><i class="fa-brands fa-square-github fa-lg"></i></a>
           </div>
         </div>
       </div>
