@@ -26,8 +26,8 @@
     limitActive: false,
     limitAction: 'reminder',      // Options: "reminder" or "lockout"
     disabledUntil: null,          // e.g., "2025-02-11" when tracking is disabled
-    reminderPage: 'reminder.html',
-    lockoutPage: 'lockout.html',
+    reminderPage: '/reminder.html',
+    lockoutPage: '/lockout.html',
     lastReminderRedirect: 0       // Used to control the 5-minute reminder interval
   };
 
