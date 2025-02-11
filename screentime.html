@@ -1,144 +1,166 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GameVerse - Screen Time </title>
-    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/menu.css" />
+    <title>GameVerse - Screen Time Settings</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Custom styling based on your GameVerse style -->
     <style>
-      label {
-        color: white;
+      /* Tab styling from your provided template (if needed for other pages) */
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
       }
-      input, select {
-        padding: 5px;
-        font-size: 12px;
-        font-family: Space Grotesk;
-        border: 1px solid #ddd;
-        margin: 0;
-        box-sizing: border-box;
-        border-radius: 5px;
-        background-color: black;
-        color: white;
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
       }
-      .hidden {
+      .tab button:hover {
+        background-color: #ddd;
+      }
+      .tab button.active {
+        background-color: #ccc;
+      }
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+      }
+      @-webkit-keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      html::-webkit-scrollbar {
         display: none;
       }
-      .description {
-        font-size: 12px;
-        color: #bbb;
-        margin-top: 5px;
+      /* Additional styling for our settings page */
+      .section {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        max-width: 600px;
+        text-align: left;
+      }
+      h1.gradient-red {
+        font-size: 2.5em;
+        margin-top: 20px;
+      }
+      .time-display {
+        font-size: 1.5em;
+      }
+      label {
+        display: block;
+        margin: 10px 0;
+      }
+      input[type="number"],
+      select,
+      button {
+        padding: 8px;
+        font-size: 1em;
+        background: #1a1a1a;
+        color: #e0e0e0;
+        border: 1px solid #333;
+        border-radius: 5px;
+      }
+      button {
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      button:hover {
+        background: #333;
       }
     </style>
   </head>
   <body>
+    <!-- Navigation bar -->
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
     <script src="/javascript/footer.js"></script>
     
-    <noscript>
-      <meta http-equiv="refresh" content="0; url=/errors/noscript" />
-    </noscript>
-    
-    <div id="zoom">
-      <br /><br /><br />
-      <center>
-        <h1 style="font-size: 50px" class="gradient-red">Screen Time (coming soon)</h1>
-        <p>Set a time limit for your usage and configure how warnings are handled.</p>
-        <hr style="border: 3px solid white" />
-        
-        <div class="profile-container" style="text-align: center; padding: 20px; background: black; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 10px; width: 350px; margin: auto;">
-          <label>Time Limit:</label>
-          <select disabled style=opacity:50% id="timeLimit">
-            <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">1 hour</option>
-            <option value="120">2 hours</option>
-            <option value="180">3 hours</option>
-            <option value="custom">Custom</option>
-          </select>
-          <br /><br />
-          
-          <label>Custom Time (minutes):</label>
-          <input disabled style=opacity:50% type="number" id="customTime" min="1" class="hidden" /><br /><br />
-          
-          <label>Action on Limit:</label>
-          <select disabled style=opacity:50% id="limitAction">
-            <option value="lockout">Lockout (redirect every time)</option>
-            <option value="reminder">Reminder (redirect every 5 minutes)</option>
-          </select>
-          <p class="description" id="actionDescription"></p>
-          <br />
-          
-          <button disabled style=opacity:50% onclick="applySettings()" style="padding: 10px 20px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply & Save</button>
-          <button disabled style=opacity:50% onclick="resetSettings()" style="padding: 10px 20px; font-size: 16px; background: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Reset to Default</button>
+    <br><br><br>
+    <center>
+      <h1 class="gradient-red">Screen Time Settings</h1>
+      <!-- Display Section -->
+      <div class="section" id="trackerDisplay">
+        <p>
+          Time Spent Today: <span id="timeSpent" class="time-display">00:00:00</span>
+        </p>
+        <p>
+          Time Remaining: <span id="timeRemaining" class="time-display">-</span>
+        </p>
+      </div>
+
+      <!-- Settings Form Section -->
+      <div class="section" id="settings">
+        <h2>Settings</h2>
+        <form id="settingsForm">
+          <!-- Enable/Disable Limit -->
+          <label>
+            <input type="checkbox" id="limitActiveCheckbox">
+            Enable Usage Limit
+          </label>
+
+          <!-- Usage Limit (Hours & Minutes) -->
+          <label>
+            Usage Limit:
+            <select id="hoursDropdown">
+              <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
+              <option value="3">3 Hours</option>
+            </select>
+            Hours
+            <label style="display:inline;">Minutes:
+              <input type="number" id="minutesInput" min="0" max="59" value="0" style="width: 50px;">
+            </label>
+          </label>
+
+          <!-- Action When Limit is Reached -->
+          <label>
+            Action on Limit Reached:
+            <select id="limitActionDropdown">
+              <option value="reminder">Redirect every 5 minutes (Reminder)</option>
+              <option value="lockout">Immediate Lockout</option>
+            </select>
+          </label>
+
+          <!-- Disable Tracking Button -->
+          <label>
+            Disable Tracking for:
+            <select id="disableDaysDropdown">
+              <option value="0">Today</option>
+              <option value="1">1 Day</option>
+              <option value="2">2 Days</option>
+              <option value="3">3 Days</option>
+            </select>
+            <button type="button" id="disableButton">Disable Tracking</button>
+          </label>
+
+          <!-- Save Settings -->
+          <button type="button" id="saveSettingsButton">Save Settings</button>
+        </form>
+
+        <!-- Turn Off Limit (but still track time) -->
+        <div>
+          <button type="button" id="turnOffLimitButton">Turn Off Limit (but keep tracking)</button>
         </div>
-      </center>
-    </div>
-    
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const defaultSettings = {
-          timeLimit: 60,
-          limitAction: "reminder"
-        };
-        
-        let usageSettings = JSON.parse(localStorage.getItem("usageSettings")) || defaultSettings;
-        
-        function updateFormFields() {
-          document.getElementById("timeLimit").value = usageSettings.timeLimit === "custom" ? "custom" : usageSettings.timeLimit;
-          document.getElementById("customTime").value = usageSettings.timeLimit === "custom" ? usageSettings.customTime : "";
-          document.getElementById("customTime").classList.toggle("hidden", usageSettings.timeLimit !== "custom");
-          document.getElementById("limitAction").value = usageSettings.limitAction;
-          updateActionDescription();
-        }
-        
-        function updateActionDescription() {
-          const descriptions = {
-            lockout: "Lockout: Redirects you away from the site every time you try to visit.",
-            reminder: "Reminder: Redirects you to a reminder page every 5 minutes after exceeding the limit."
-          };
-          document.getElementById("actionDescription").textContent = descriptions[document.getElementById("limitAction").value];
-        }
-        
-        document.getElementById("timeLimit").addEventListener("change", function () {
-          document.getElementById("customTime").classList.toggle("hidden", this.value !== "custom");
-        });
-        
-        document.getElementById("limitAction").addEventListener("change", updateActionDescription);
-        
-        window.applySettings = function () {
-          const timeLimit = document.getElementById("timeLimit").value;
-          const customTime = document.getElementById("customTime").value;
-          const limitAction = document.getElementById("limitAction").value;
-          
-          usageSettings = {
-            timeLimit: timeLimit === "custom" ? "custom" : parseInt(timeLimit),
-            customTime: timeLimit === "custom" ? parseInt(customTime) : null,
-            limitAction
-          };
-          
-          localStorage.setItem("usageSettings", JSON.stringify(usageSettings));
-          alert("Settings saved!");
-        };
-        
-        window.resetSettings = function () {
-          localStorage.removeItem("usageSettings");
-          usageSettings = defaultSettings;
-          updateFormFields();
-          alert("Settings reset to default.");
-        };
-        
-        updateFormFields();
-      });
-    </script>
-        <!-- Particles.JS start -->
-    <div id="particles-js"></div>
-    
-    <script src="/javascript/particles.js"></script>
-    
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
-    <script src="javascript/scrollbar.js"></script>
+      </div>
+    </center>
+
+    <!-- Include the screen time tracker script -->
+    <script src="/javascript/screentimetracking.js"></script>
   </body>
 </html>
