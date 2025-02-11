@@ -12,7 +12,7 @@
         overflow: hidden;
         border: 1px solid #ccc;
         background-color: #f1f1f1;
-        color:black;
+        color: black;
       }
       .tab button {
         background-color: inherit;
@@ -23,7 +23,7 @@
         padding: 14px 16px;
         transition: 0.3s;
         font-size: 17px;
-        color:black;
+        color: black;
       }
       .tab button:hover {
         background-color: #ddd;
@@ -36,7 +36,7 @@
         padding: 6px 12px;
         -webkit-animation: fadeEffect 1s;
         animation: fadeEffect 1s;
-        color:black;
+        color: black;
       }
       @-webkit-keyframes fadeEffect {
         from {opacity: 0;}
@@ -57,38 +57,40 @@
         border-radius: 10px;
         max-width: 600px;
         text-align: left;
-        color:black;
+        color: black;
       }
       h1.gradient-red {
         font-size: 2.5em;
         margin-top: 20px;
-        color:black;
+        color: black;
       }
       .time-display {
         font-size: 1.5em;
-        color:black;
+        color: black;
       }
       label {
         display: block;
         margin: 10px 0;
-        color:black;
+        color: black;
       }
       input[type="number"],
       select,
-      button {         padding: 5px;
-          font-size: 12px;
-          font-family: Space Grotesk;
-          border: 1px solid #ddd;
-          margin: 0;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-color: black;
-          color: white;
+      button,
+      input[type="text"] {
+        padding: 5px;
+        font-size: 12px;
+        font-family: 'Space Grotesk', sans-serif;
+        border: 1px solid #ddd;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
       }
       button {
         cursor: pointer;
         margin-top: 10px;
-        color:black;
+        color: black;
       }
       button:hover {
         background: #333;
@@ -115,7 +117,6 @@
       </div>
 
       <!-- Settings Form Section -->
-      <center>
       <div class="section" id="settings">
         <h2>Settings</h2>
         <form id="settingsForm">
@@ -125,18 +126,21 @@
             Enable Usage Limit
           </label>
 
-          <!-- Usage Limit (Hours & Minutes) -->
+          <!-- Usage Limit: Preset times and Custom option -->
           <label>
             Usage Limit:
-            <select id="hoursDropdown">
-              <option value="1">1 Hour</option>
-              <option value="2">2 Hours</option>
-              <option value="3">3 Hours</option>
+            <select id="presetTimeDropdown">
+              <option value="900">00:15:00</option>
+              <option value="1800">00:30:00</option>
+              <option value="3600" selected>01:00:00</option>
+              <option value="7200">02:00:00</option>
+              <option value="10800">03:00:00</option>
+              <option value="custom">Custom</option>
             </select>
-            Hours
-            <label style="display:inline;">Minutes:
-              <input type="number" id="minutesInput" min="0" max="59" value="0" style="width: 50px;">
-            </label>
+            <span id="customTimeContainer" style="display: none;">
+              Custom Time (HH:MM:SS): 
+              <input type="text" id="customTimeInput" placeholder="HH:MM:SS">
+            </span>
           </label>
 
           <!-- Action When Limit is Reached -->
@@ -148,7 +152,7 @@
             </select>
           </label>
 
-          <!-- Disable Tracking Button -->
+          <!-- Disable Tracking -->
           <label>
             Disable Tracking for:
             <select id="disableDaysDropdown">
@@ -163,15 +167,22 @@
           <!-- Save Settings -->
           <button type="button" id="saveSettingsButton">Save Settings</button>
         </form>
-
-        <!-- Turn Off Limit (but still track time) -->
-        <div>
-          <button type="button" id="turnOffLimitButton">Turn Off Limit (but keep tracking)</button>
-        </div>
       </div>
     </center>
 
-    <!-- Include the screen time tracker script -->
+    <!-- Inject the screen time tracker script -->
     <script src="/javascript/screentimetracking.js"></script>
+    
+    <!-- Additional inline script for handling the custom time input toggle -->
+    <script>
+      // When the preset dropdown changes, show/hide the custom time input
+      document.getElementById('presetTimeDropdown').addEventListener('change', function() {
+        if (this.value === 'custom') {
+          document.getElementById('customTimeContainer').style.display = 'inline';
+        } else {
+          document.getElementById('customTimeContainer').style.display = 'none';
+        }
+      });
+    </script>
   </body>
 </html>
