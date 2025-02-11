@@ -1,4 +1,4 @@
-/* screenTimeTracker.js */
+/* /javascript/screentimetracking.js */
 (function() {
   /***********************
    * UTILITY FUNCTIONS
@@ -11,7 +11,7 @@
     return [hrs, mins, secs].map(num => String(num).padStart(2, '0')).join(':');
   }
 
-  // Returns today's date as YYYY-MM-DD
+  // Return today's date as YYYY-MM-DD
   function getTodayString() {
     return new Date().toISOString().split('T')[0];
   }
@@ -22,19 +22,19 @@
   let trackingInterval = null;
   let midnightTimeout = null;
   const DEFAULT_SETTINGS = {
-    usageLimitSeconds: 3600,      // 1 hour by default
+    usageLimitSeconds: 3600,      // Default to 1 hour
     limitActive: true,
-    limitAction: 'reminder',      // "reminder" or "lockout"
-    disabledUntil: null,          // e.g. "2025-02-11" when tracking is disabled
+    limitAction: 'reminder',      // Options: "reminder" or "lockout"
+    disabledUntil: null,          // e.g., "2025-02-11" (YYYY-MM-DD) when tracking is disabled
     reminderPage: 'reminder.html',
     lockoutPage: 'lockout.html',
-    lastReminderRedirect: 0       // Timestamp to control the 5-minute reminder interval
+    lastReminderRedirect: 0       // Used to control the 5-minute reminder interval
   };
 
   /***********************
    * LOCAL STORAGE HANDLERS
    ***********************/
-  // Load settings from localStorage or fall back to defaults
+  // Load settings from localStorage (or return defaults)
   function loadSettings() {
     const settingsJSON = localStorage.getItem('screenTimeSettings');
     let settings;
@@ -55,7 +55,7 @@
     localStorage.setItem('screenTimeSettings', JSON.stringify(settings));
   }
 
-  // Load tracking data for today
+  // Load today's tracking data (or initialize it)
   function loadTrackingData() {
     const dataJSON = localStorage.getItem('screenTimeData');
     const todayStr = getTodayString();
@@ -63,7 +63,7 @@
     if (dataJSON) {
       try {
         data = JSON.parse(dataJSON);
-        // If the saved date isn’t today, reset the counter
+        // If the stored date is not today, reset the counter
         if (data.date !== todayStr) {
           data = { date: todayStr, secondsSpent: 0 };
         }
@@ -101,7 +101,7 @@
   /***********************
    * TRACKING & DISPLAY
    ***********************/
-  // Increment secondsSpent every second
+  // Start a timer that increments seconds spent every second
   function startTracking() {
     if (trackingInterval) clearInterval(trackingInterval);
     trackingInterval = setInterval(() => {
@@ -115,13 +115,13 @@
           // Skip tracking while disabled
           return;
         } else {
-          // Disable period over; re-enable tracking
+          // Tracking period is over; re-enable tracking
           settings.disabledUntil = null;
           saveSettings(settings);
         }
       }
 
-      // Increment time spent and save
+      // Increment seconds spent and save
       let data = loadTrackingData();
       data.secondsSpent += 1;
       saveTrackingData(data);
@@ -130,7 +130,7 @@
     }, 1000);
   }
 
-  // Update on-page display if elements exist
+  // Update on-page display (if elements exist)
   function updateDisplay() {
     const data = loadTrackingData();
     const timeSpentElem = document.getElementById('timeSpent');
@@ -152,7 +152,7 @@
   /***********************
    * LIMIT HANDLING
    ***********************/
-  // Check if the usage limit is reached and act accordingly
+  // Check if the usage limit has been reached and perform the configured action
   function checkLimitReached() {
     const data = loadTrackingData();
     const settings = loadSettings();
@@ -175,39 +175,68 @@
   /***********************
    * SETTINGS FORM HANDLERS
    ***********************/
-  // Populate settings form if present on the page
+  // Initialize settings form fields with saved values
   function initSettingsForm() {
     const settings = loadSettings();
     const limitActiveCheckbox = document.getElementById('limitActiveCheckbox');
-    const hoursDropdown = document.getElementById('hoursDropdown');
-    const minutesInput = document.getElementById('minutesInput');
+    const presetTimeDropdown = document.getElementById('presetTimeDropdown');
+    const customTimeInput = document.getElementById('customTimeInput');
     const limitActionDropdown = document.getElementById('limitActionDropdown');
 
     if (limitActiveCheckbox) {
       limitActiveCheckbox.checked = settings.limitActive;
     }
-    if (hoursDropdown && minutesInput) {
-      const hours = Math.floor(settings.usageLimitSeconds / 3600);
-      const minutes = Math.floor((settings.usageLimitSeconds % 3600) / 60);
-      hoursDropdown.value = hours;
-      minutesInput.value = minutes;
+    if (presetTimeDropdown && customTimeInput) {
+      // Preset times (in seconds): 900, 1800, 3600, 7200, 10800
+      const presets = [900, 1800, 3600, 7200, 10800];
+      if (presets.includes(settings.usageLimitSeconds)) {
+        presetTimeDropdown.value = String(settings.usageLimitSeconds);
+        document.getElementById('customTimeContainer').style.display = 'none';
+      } else {
+        presetTimeDropdown.value = 'custom';
+        document.getElementById('customTimeContainer').style.display = 'inline';
+        // Format the stored usageLimitSeconds as HH:MM:SS
+        let hrs = Math.floor(settings.usageLimitSeconds / 3600);
+        let rem = settings.usageLimitSeconds % 3600;
+        let mins = Math.floor(rem / 60);
+        let secs = rem % 60;
+        customTimeInput.value = [hrs, mins, secs].map(n => String(n).padStart(2, '0')).join(':');
+      }
     }
     if (limitActionDropdown) {
       limitActionDropdown.value = settings.limitAction;
     }
   }
 
-  // Save settings from the form
+  // Save settings based on form input values
   function handleSaveSettings() {
     const limitActiveCheckbox = document.getElementById('limitActiveCheckbox');
-    const hoursDropdown = document.getElementById('hoursDropdown');
-    const minutesInput = document.getElementById('minutesInput');
+    const presetTimeDropdown = document.getElementById('presetTimeDropdown');
+    const customTimeInput = document.getElementById('customTimeInput');
     const limitActionDropdown = document.getElementById('limitActionDropdown');
 
     const limitActive = limitActiveCheckbox ? limitActiveCheckbox.checked : true;
-    const hours = hoursDropdown ? parseInt(hoursDropdown.value, 10) : 1;
-    const minutes = minutesInput ? parseInt(minutesInput.value, 10) : 0;
-    const usageLimitSeconds = (hours * 3600) + (minutes * 60);
+    let usageLimitSeconds;
+
+    if (presetTimeDropdown.value === 'custom') {
+      let customTime = customTimeInput.value;
+      let parts = customTime.split(':');
+      if (parts.length === 3) {
+        let hours = parseInt(parts[0], 10);
+        let minutes = parseInt(parts[1], 10);
+        let seconds = parseInt(parts[2], 10);
+        usageLimitSeconds = hours * 3600 + minutes * 60 + seconds;
+        if (isNaN(usageLimitSeconds)) {
+          alert("Invalid custom time. Please enter time as HH:MM:SS.");
+          return;
+        }
+      } else {
+        alert("Invalid custom time format. Please use HH:MM:SS.");
+        return;
+      }
+    } else {
+      usageLimitSeconds = parseInt(presetTimeDropdown.value, 10);
+    }
     const limitAction = limitActionDropdown ? limitActionDropdown.value : 'reminder';
 
     let settings = loadSettings();
@@ -233,40 +262,22 @@
     alert("Tracking disabled until " + disabledUntilStr);
   }
 
-  // Turn off usage limit while continuing to track time
-  function handleTurnOffLimit() {
-    let settings = loadSettings();
-    settings.limitActive = false;
-    saveSettings(settings);
-    alert("Usage limit turned off. Tracking will continue.");
-    updateDisplay();
-  }
-
-  // Initialize event listeners for the settings form (if present)
-  function initEventListeners() {
-    const saveSettingsButton = document.getElementById('saveSettingsButton');
-    const disableButton = document.getElementById('disableButton');
-    const turnOffLimitButton = document.getElementById('turnOffLimitButton');
-
-    if (saveSettingsButton) {
-      saveSettingsButton.addEventListener('click', handleSaveSettings);
-    }
-    if (disableButton) {
-      disableButton.addEventListener('click', handleDisableTracking);
-    }
-    if (turnOffLimitButton) {
-      turnOffLimitButton.addEventListener('click', handleTurnOffLimit);
-    }
-  }
-
   /***********************
    * INITIALIZATION
    ***********************/
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the settings form only if it exists on this page.
+    // If the settings form exists on the page, initialize it and attach listeners.
     if (document.getElementById('settingsForm')) {
       initSettingsForm();
-      initEventListeners();
+
+      const saveSettingsButton = document.getElementById('saveSettingsButton');
+      if (saveSettingsButton) {
+        saveSettingsButton.addEventListener('click', handleSaveSettings);
+      }
+      const disableButton = document.getElementById('disableButton');
+      if (disableButton) {
+        disableButton.addEventListener('click', handleDisableTracking);
+      }
     }
     scheduleMidnightReset();
     startTracking();
