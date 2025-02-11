@@ -1,63 +1,63 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>GameVerse - Screen Time Limit</title>
-        <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-        <link rel="stylesheet" href="/css/navbar.css">
-        <link rel="stylesheet" href="/css/main.css">
-        
-    </head>
-<style>
-                /* Warning message styles */
-    #warning {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 20px 40px;
-        font-size: 2em;
-        font-weight: bold;
-        border-radius: 10px;
-        text-align: center;
-        z-index: 2000;
-    }
-</style>
-    <body>
-        
-    <!-- Navigation bar -->
-
-  <div id="navbar"></div>
-<script src=/javascript/navbar.js></script>
-        <br>
-        <br>
-        <br>
-<br>
-        <center> 
-        
-
-
-    <div id="warning" style="color:red;border:2px solid white">
-        <img src=/uploads/branding/favicon.png height=100px width=100px>
-        <h1>Screen Time Limit Reached  <i class="fa-solid fa-hourglass-end"></i></h1>
-        <p>You have reached your limit for the day! All pages have been locked due to your settings. You may access the site again tomorrow.</p>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Time Lockout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('/uploads/images/outdoorscenery.png') no-repeat center center/cover;
+            text-align: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .lockout-message {
+            font-size: 1rem;
+            color: #ffcc00;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .settings-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .settings-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Screen Time Limit Reached</h1>
+        <p>Hey, you've spent a lot of time online today. It's time to take a break and recharge! 🌿</p>
+        <p class="lockout-message">For your well-being, access is temporarily restricted. Please return later.</p>
+        <a href="/screentime.html" class="settings-button">Change my settings ⚙</a>
     </div>
-        
-      
-        
-        </center>
-        
-       </body>
-    
-    <!-- Particles.JS start -->
-    <div id="particles-js"></div>
-    
-    
-    <script src="/javascript/particles.js"></script>
-    
-    
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
+</body>
 </html>
