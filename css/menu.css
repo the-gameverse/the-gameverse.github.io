@@ -171,12 +171,13 @@ body {
 #searchBar,
 #sortOptions,
 #toggleUsageData {
-  width: 500px;
+  width: 100%;
+  max-width: 500px; /* Caps the width */
   padding: 10px;
   font-size: 20px;
   font-family: Bebas Neue;
   border: 1px solid #ddd;
-  margin: 0;
+  margin: 0 auto; /* Centers the controls */
   box-sizing: border-box;
   border-radius: 5px;
   background-color: black;
@@ -184,11 +185,17 @@ body {
   box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
 
+.controls {
+  max-width: 500px; /* Container doesn't expand too far */
+  margin: 16px auto; /* Centers it horizontally with vertical spacing */
+}
+
 #toggleUsageData:hover {
   background-color: red;
   box-shadow: 0 0 15px rgba(255, 61, 61, 0.6); /* Enhanced glow on hover */
 }
 
+/* Game and related UI elements */
 .game {
   position: relative; /* Allows positioning of the favorite icon */
   background-color: black;
@@ -223,7 +230,7 @@ body {
 }
 
 .game a {
-  z-index: 0; /* Make sure the link is below other elements */
+  z-index: 0; /* Ensure the link stays behind other elements */
 }
 
 /* Game Container */
@@ -232,15 +239,15 @@ body {
   width: 150px;
   height: 150px;
   text-align: center;
-  overflow: hidden; /* Ensures content stays inside the rounded container */
-  border-radius: 15%; /* Apply consistent rounding */
+  overflow: hidden; /* Ensures content stays within the rounded container */
+  border-radius: 15%; /* Consistent rounding */
   transition: transform 0.3s ease; /* Smooth scaling transition */
   box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
 
 .click-count {
   position: absolute; /* Positioned outside the image area */
-  top: 5px; /* Adjust positioning as needed */
+  top: 5px; /* Adjust as needed */
   left: 50%;
   transform: translateX(-50%);
   font-size: 14px;
@@ -254,19 +261,19 @@ body {
 }
 
 .game img {
-  width: 100%; /* Match container dimensions */
-  height: 100%; /* Ensure full coverage */
+  width: 100%; /* Full container width */
+  height: 100%; /* Full container height */
   object-fit: cover; /* Maintain image proportions */
   border-radius: inherit; /* Inherit container rounding */
   transition: transform 0.3s ease; /* Smooth scaling effect */
 }
 
 .game:hover img {
-  transform: scale(1.3); /* Scale image smoothly on hover */
+  transform: scale(1.3); /* Smooth image scaling on hover */
 }
 
 .game:hover {
-  transform: scale(1.1); /* Scale container smoothly on hover */
+  transform: scale(1.1); /* Smooth container scaling on hover */
   box-shadow: 0 0 20px rgba(255, 61, 61, 0.6); /* Enhanced neon glow on hover */
 }
 
@@ -294,10 +301,10 @@ body {
 }
 
 .favorite-icon {
-  position: absolute; /* Positioned absolutely within the game container */
-  top: 12px; /* Adjust top/right/bottom values as needed */
+  position: absolute; /* Positioned within the game container */
+  top: 12px; /* Adjust as needed */
   right: 12px;
-  font-size: 30px; /* Adjust size for visibility */
+  font-size: 30px; /* For better visibility */
   cursor: pointer;
   color: yellow;
   z-index: 10; /* Sits above other elements */
