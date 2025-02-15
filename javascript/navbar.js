@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="nav-right-bg">
         <a href="/editprofile.html" class="profile-link">
           <img src="${user.photo}" alt="${user.username}" class="profile-img">
-          <span class="username">${user.username}</span>
+          <span class="username">${user.username}</span><img height=30px width=30px src=/uploads/images/profile-verified.png alt='This is a verified GameVerse profile' title='This is a verified GameVerse profile'>
         </a>
       </div>
     </nav>
