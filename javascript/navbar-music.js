@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Check for a logged-in user in localStorage
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon-music.png' };
+  const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon.png' };
 
   // Construct the navbar HTML
   const navbarHTML = `
@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- Left section: Logo and navigation links -->
       <div class="nav-left-bg">
         <a href="/index.html" class="logo">
-          <img src="/uploads/branding/favicon-music.png" alt="GameVerse Logo">
+          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
         </a>
-        <div class="nav-links" id="gradient-blue">
+        <div class="nav-links">
           <a href="/"><i class="fa fa-home fa-lg"></i></a>
           <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
