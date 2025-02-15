@@ -166,18 +166,18 @@ body {
   padding-bottom: 250px;
 }
 
-/* Input & Control Styling with Neon Glow */
+/* Input & Control Styling */
+/* Reverted to original styles (without centering/max-width changes) */
 #search,
 #searchBar,
 #sortOptions,
 #toggleUsageData {
-  width: 100%;
-  max-width: 500px; /* Caps the width */
+  width: 500px;
   padding: 10px;
   font-size: 20px;
   font-family: Bebas Neue;
   border: 1px solid #ddd;
-  margin: 0 auto; /* Centers the controls */
+  margin: 0;
   box-sizing: border-box;
   border-radius: 5px;
   background-color: black;
@@ -186,8 +186,7 @@ body {
 }
 
 .controls {
-  max-width: 500px; /* Container doesn't expand too far */
-  margin: 16px auto; /* Centers it horizontally with vertical spacing */
+  margin: 16px 0;
 }
 
 #toggleUsageData:hover {
