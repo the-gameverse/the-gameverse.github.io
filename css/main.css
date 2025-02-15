@@ -58,25 +58,69 @@ body {
   z-index: -1;
 }
 /* Gradient branding */
-        .gradient-red {
-            background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+    /* Neon Glow Animation for Text */
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 61, 61, 0.8), 0 0 20px rgba(255, 61, 61, 0.8), 0 0 30px rgba(255, 61, 61, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(255, 61, 61, 1), 0 0 30px rgba(255, 61, 61, 1), 0 0 40px rgba(255, 61, 61, 1);
+      }
+    }
+
+    /* Gradient Text with Neon Glow */
+    .gradient-red {
+      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
 .gradient-blue {
-background: linear-gradient(to right, #7eafff, #3d7eff);
+  background: linear-gradient(to right, #7eafff, #3d7eff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(61, 126, 255, 0.8);
+  animation: glow-blue 1.5s infinite alternate;
+}
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-            }
+@keyframes glow-blue {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(61, 126, 255, 0.8),
+                 0 0 20px rgba(61, 126, 255, 0.8),
+                 0 0 30px rgba(61, 126, 255, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(61, 126, 255, 1),
+                 0 0 30px rgba(61, 126, 255, 1),
+                 0 0 40px rgba(61, 126, 255, 1);
+  }
+}
+
 .gradient-green {
-                background: linear-gradient(to right, #7eff7e, #3dff3d);
+  background: linear-gradient(to right, #7eff7e, #3dff3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(61, 255, 61, 0.8);
+  animation: glow-green 1.5s infinite alternate;
+}
 
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-            }
+@keyframes glow-green {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(61, 255, 61, 0.8),
+                 0 0 20px rgba(61, 255, 61, 0.8),
+                 0 0 30px rgba(61, 255, 61, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(61, 255, 61, 1),
+                 0 0 30px rgba(61, 255, 61, 1),
+                 0 0 40px rgba(61, 255, 61, 1);
+  }
+}
+
             .rainbow {
   display:inline-block;
   background: linear-gradient(45deg,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);
