@@ -82,3 +82,90 @@
       border-radius: 50%;
       border: 2px solid #FA1228;
     }
+html,
+body {
+  margin: 0;
+  height: 100%; /* Ensure the body fills the viewport */
+  padding-bottom: 250px;
+}
+/* Ensure the footer sticks to the bottom */
+.footer {
+  position: fixed; /* Fix the footer in place */
+  bottom: 0; /* Align to the bottom of the viewport */
+  left: 0; /* Align to the left edge */
+  width: 100%; /* Full-width footer */
+  background-color: rgba(34, 34, 34, 0.4);
+  color: #fff; /* White text */
+  padding: 20px 0;
+  text-align: center;
+  z-index: 1000; /* Keep it above other content */
+  backdrop-filter: blur(6px);
+}
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer-logo {
+  width: 40px;
+  height: 40px;
+}
+.footer-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover {
+  color: #ff3d3d; /* Highlight color on hover */
+}
+/* Hide the footer when it has the 'hidden' class */
+.footer.hidden {
+  display: none;
+}
+/* Style for the close button */
+#toggleFooter {
+  position: absolute;
+  right: 20px; /* Positions the button on the right */
+  top: 50%;
+  transform: translateY(-50%); /* Centers it vertically */
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+#toggleFooter:hover {
+  color: #ff3d3d; /* Change color when hovering */
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius:5px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
