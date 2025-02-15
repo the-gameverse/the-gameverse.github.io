@@ -3,16 +3,15 @@
   height: 150px;
   width: 150px;
   border-radius: 20%;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
+
 /* Page loader */
 #loader-container {
   position: absolute;
   top: 50%; /* 50% from the top of the page */
   left: 50%; /* 50% from the left of the page */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Translate it back by 50% of its own size to truly center */
+  transform: translate(-50%, -50%); /* Center the container */
   width: 300px;
   height: 30px;
   background-color: rgba(255, 255, 255, 0.2);
@@ -20,6 +19,7 @@
   overflow: hidden;
   margin: 0;
   z-index: 1000;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
 
 #loader {
@@ -28,20 +28,25 @@
   background-color: red;
   animation: loadingBar 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
   border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
+
 #loaderblue {
   height: 100%;
   width: 0;
   background-color: red;
   animation: loadingBarblue 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
   border-radius: 15px;
+  box-shadow: 0 0 15px rgba(61, 126, 255, 0.5); /* Neon blue glow */
 }
+
 #loadergreen {
   height: 100%;
   width: 0;
   background-color: red;
   animation: loadingBargreen 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
   border-radius: 15px;
+  box-shadow: 0 0 15px rgba(61, 255, 61, 0.5); /* Neon green glow */
 }
 
 #loadertext {
@@ -53,7 +58,9 @@
   margin-top: 10px; /* Space between loader and text */
   font-size: 1.2em; /* Optional, adjust as needed */
   color: white;
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon glow effect */
 }
+
 @keyframes loadingBar {
   0% {
     width: 0;
@@ -68,6 +75,7 @@
     background-color: red;
   }
 }
+
 @keyframes loadingBargreen {
   0% {
     width: 0;
@@ -82,6 +90,7 @@
     background-color: green;
   }
 }
+
 @keyframes loadingBarblue {
   0% {
     width: 0;
@@ -96,6 +105,7 @@
     background-color: blue;
   }
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -113,6 +123,7 @@
     transform: rotate(360deg);
   }
 }
+
 /* Add animation to "page content" */
 .animate-bottom {
   position: relative;
@@ -148,48 +159,19 @@
   display: none;
   text-align: center;
 }
+
 /* New UI (2.0) */
 body {
   margin: 0;
   padding-bottom: 250px;
 }
 
-#search {
-  width: 500px;
-  padding: 10px;
-  font-size: 20px;
-  font-family: Bebas Neue;
-  border: 1px solid #ddd;
-  margin: 0;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-}
-#searchBar {
-  width: 500px;
-  padding: 10px;
-  font-size: 20px;
-  font-family: Bebas Neue;
-  border: 1px solid #ddd;
-  margin: 0;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-}
-#sortOptions {
-  padding: 10px;
-  font-size: 20px;
-  font-family: Bebas Neue;
-  border: 1px solid #ddd;
-  margin: 0;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-}
+/* Input & Control Styling with Neon Glow */
+#search,
+#searchBar,
+#sortOptions,
 #toggleUsageData {
+  width: 500px;
   padding: 10px;
   font-size: 20px;
   font-family: Bebas Neue;
@@ -199,15 +181,20 @@ body {
   border-radius: 5px;
   background-color: black;
   color: white;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
+
 #toggleUsageData:hover {
   background-color: red;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.6); /* Enhanced glow on hover */
 }
 
 .game {
-  position: relative; /* Add position relative to allow positioning of the favorite icon */
+  position: relative; /* Allows positioning of the favorite icon */
   background-color: black;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
+
 #gameCount {
   margin: 15px;
   font-size: 16px;
@@ -215,10 +202,12 @@ body {
   text-align: center;
   color: white;
 }
+
 .last-updated-text {
   color: white;
   font-weight: bold;
 }
+
 #gameMenu {
   display: flex;
   flex-wrap: wrap;
@@ -226,6 +215,7 @@ body {
   justify-content: center;
   padding: 20px;
 }
+
 .game a.disabled {
   pointer-events: none;
   cursor: not-allowed;
@@ -233,9 +223,10 @@ body {
 }
 
 .game a {
-  z-index: 0; /* Make sure the link is below */
+  z-index: 0; /* Make sure the link is below other elements */
 }
 
+/* Game Container */
 .game {
   position: relative;
   width: 150px;
@@ -243,11 +234,13 @@ body {
   text-align: center;
   overflow: hidden; /* Ensures content stays inside the rounded container */
   border-radius: 15%; /* Apply consistent rounding */
-  transition: transform 0.3s ease; /* Optional: smooth scaling on the container itself */
+  transition: transform 0.3s ease; /* Smooth scaling transition */
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
+
 .click-count {
-  position: absolute; /* Position it outside the image area */
-  top: 5px; /* Adjust the positioning as needed */
+  position: absolute; /* Positioned outside the image area */
+  top: 5px; /* Adjust positioning as needed */
   left: 50%;
   transform: translateX(-50%);
   font-size: 14px;
@@ -255,23 +248,28 @@ body {
   background-color: black;
   padding: 5px;
   border-radius: 5px;
-  z-index: 10; /* Ensure it stays above other elements */
+  z-index: 10; /* Stays above other elements */
   width: 120px;
+  text-shadow: 0 0 5px rgba(255, 61, 61, 0.5); /* Subtle neon text glow */
 }
+
 .game img {
   width: 100%; /* Match container dimensions */
   height: 100%; /* Ensure full coverage */
   object-fit: cover; /* Maintain image proportions */
-  border-radius: inherit; /* Inherit rounding from the parent container */
+  border-radius: inherit; /* Inherit container rounding */
   transition: transform 0.3s ease; /* Smooth scaling effect */
 }
 
 .game:hover img {
-  transform: scale(1.3); /* Scale the image smoothly */
+  transform: scale(1.3); /* Scale image smoothly on hover */
 }
+
 .game:hover {
-  transform: scale(1.1); /* Scale the image smoothly */
+  transform: scale(1.1); /* Scale container smoothly on hover */
+  box-shadow: 0 0 20px rgba(255, 61, 61, 0.6); /* Enhanced neon glow on hover */
 }
+
 .game-name {
   position: absolute;
   top: 0;
@@ -284,10 +282,11 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  border-radius: inherit; /* Ensure it matches the container's rounding */
+  border-radius: inherit; /* Matches container rounding */
   opacity: 0;
   transition: opacity 0.3s ease; /* Smooth fade-in */
   backdrop-filter: blur(6px);
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon text glow */
 }
 
 .game:hover .game-name {
@@ -295,14 +294,16 @@ body {
 }
 
 .favorite-icon {
-  position: absolute; /* Position it absolutely within the game container */
-  top: 12px; /* Adjust top, left, or bottom values as needed */
+  position: absolute; /* Positioned absolutely within the game container */
+  top: 12px; /* Adjust top/right/bottom values as needed */
   right: 12px;
-  font-size: 30px; /* Adjust the font size for better visibility */
+  font-size: 30px; /* Adjust size for visibility */
   cursor: pointer;
   color: yellow;
-  z-index: 10; /* Ensure it sits above other elements */
+  z-index: 10; /* Sits above other elements */
+  text-shadow: 0 0 10px yellow; /* Neon glow for the icon */
 }
+
 .controls {
   margin: 16px 0;
 }
@@ -312,8 +313,10 @@ body {
   top: 10px;
   right: 10px;
   font-size: 24px;
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon glow effect */
 }
-/* Rotate color */
+
+/* Rotate color animation for dynamic effect */
 @keyframes colorRotate {
   from {
     color: #6666ff;
@@ -331,5 +334,3 @@ body {
     color: #6666ff;
   }
 }
-
-/* */
