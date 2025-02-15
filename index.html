@@ -1,207 +1,246 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <title>GameVerse - Say Goodbye to Blocked Websites</title>
-    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+  <title>GameVerse - Say Goodbye to Blocked Websites</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: radial-gradient(circle, #121212, #1d1d1d);
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
 
-        .gradient-red {
-            background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+    /* Neon Glow Animation for Text */
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 61, 61, 0.8), 0 0 20px rgba(255, 61, 61, 0.8), 0 0 30px rgba(255, 61, 61, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(255, 61, 61, 1), 0 0 30px rgba(255, 61, 61, 1), 0 0 40px rgba(255, 61, 61, 1);
+      }
+    }
 
-        h1, h3 {
-            margin: 0;
-        }
-        .content-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-              background-color: rgba(34, 34, 34, 0.4); 
-  backdrop-filter: blur(6px);
-  border-radius:5px;
-        }
+    /* Gradient Text with Neon Glow */
+    .gradient-red {
+      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
 
-        .content-row.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    h1, h3 {
+      margin: 0;
+    }
 
-        .content-text {
-            flex: 1;
-            padding: 20px;
-        }
+    /* Content Rows */
+    .content-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      margin: 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+      background-color: rgba(34, 34, 34, 0.4);
+      backdrop-filter: blur(6px);
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(255, 61, 61, 0.3);
+    }
 
-        .content-image {
-            flex: 0 0 300px;
-            height: 300px;
-            object-fit: cover;
-        }
+    .content-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+    .content-row:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 61, 61, 0.6);
+    }
 
-        .popup.visible {
-            visibility: visible;
-            opacity: 1;
-        }
+    .content-text {
+      flex: 1;
+      padding: 20px;
+    }
 
-        .popup-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+    .content-image {
+      flex: 0 0 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ff3d3d;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    /* Popup Styles */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-        button:hover {
-            background-color: #e62b2b;
-        }
+    .popup.visible {
+      visibility: visible;
+      opacity: 1;
+    }
 
-        hr {
-            border: none;
-            border-top: 1px solid #ccc;
-            margin: 40px 0;
-        }
-    </style>
+    .popup-content {
+      background: #1d1d1d;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Button Styles */
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff3d3d;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e62b2b;
+      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 40px 0;
+    }
+
+    /* Centered Header */
+    center {
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation bar -->
-    <div id="navbar"></div>
-    <script src="/javascript/navbar.js"></script>
-    <br>
-    <br>
-    <br>
-    <!-- Popup for legal documents 
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Agree to Legal Documents</h2>
-            <p>Please read and agree to our Terms and Conditions, Privacy Policy, and Code Licensing to continue.</p>
-            <p style="color:gray; font-size:10px;">This popup will stop showing when you agree.</p>
-            <button id="agreeButton">I Agree</button>
-            <button id="disagreeButton">I Don't Agree</button>
-        </div>
+  <!-- Navigation bar -->
+  <div id="navbar"></div>
+  <script src="/javascript/navbar.js"></script>
+  
+  <br><br><br>
+  
+  <!-- (Optional) Popup for legal documents -->
+  <!--
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Agree to Legal Documents</h2>
+      <p>Please read and agree to our Terms and Conditions, Privacy Policy, and Code Licensing to continue.</p>
+      <p style="color:gray; font-size:10px;">This popup will stop showing when you agree.</p>
+      <button id="agreeButton">I Agree</button>
+      <button id="disagreeButton">I Don't Agree</button>
     </div>
--->
-    <!-- Main content -->
-    <center>
-        <img src="/uploads/branding/favicon.png" alt="GameVerse Logo" height="150px" width="150px">
-        <h1 class="gradient-red">GameVerse</h1>
-        <hr>
-    </center>
-
-    <div class="content-row">
-        <div class="content-text">
-            <h3 class="gradient-red">SCHOOL FRIENDLY AND UNBLOCKED</h3>
-            <p>GameVerse uses content from school-approved, kid-safe websites. If your school ever has any problems, they can reach out to us, and we will gladly help out.</p>
-        </div>
-        <img class="content-image" src="/uploads/images/blockedwebsites.png" alt="Blocked Websites Icon">
-    </div>
+  </div>
+  -->
+  
+  <!-- Main content -->
+  <center>
+    <img src="/uploads/branding/favicon.png" alt="GameVerse Logo" height="150px" width="150px">
+    <h1 class="gradient-red">GameVerse</h1>
     <hr>
+  </center>
 
-    <div class="content-row">
-        <div class="content-text">
-            <h3 class="gradient-red">MORE CONTENT</h3>
-            <p>Instead of just adding games, GameVerse has multiple domains of content, for anyone to enjoy. WatchVerse, and MusicVerse use YouTube to provide content. If your school blocks YouTube, the other domains will adjust to that, and won't show the content. Try out WatchVerse, and MusicVerse too!</p>
-        </div>
-        <img class="content-image" src="/uploads/images/contentimg.png" alt="Extra Content Icon">
+  <div class="content-row">
+    <div class="content-text">
+      <h3 class="gradient-red">SCHOOL FRIENDLY AND UNBLOCKED</h3>
+      <p>GameVerse uses content from school-approved, kid-safe websites. If your school ever has any problems, they can reach out to us, and we will gladly help out.</p>
     </div>
-    <hr>
+    <img class="content-image" src="/uploads/images/blockedwebsites.png" alt="Blocked Websites Icon">
+  </div>
+  <hr>
 
-    <div class="content-row">
-        <div class="content-text">
-            <h3 class="gradient-red">A NEW MISSION</h3>
-            <p>We have focused away from providing unblocked content, and more on staying approved by schools, unblocked, and user-friendly. 100% of the way. This means there won't be any proxies or unsafe content.</p>
-        </div>
-        <img class="content-image" src="/uploads/images/missionimg.png" alt="Mission Icon">
+  <div class="content-row">
+    <div class="content-text">
+      <h3 class="gradient-red">MORE CONTENT</h3>
+      <p>Instead of just adding games, GameVerse has multiple domains of content for anyone to enjoy. WatchVerse and MusicVerse use YouTube to provide content. If your school blocks YouTube, the other domains will adjust accordingly and won't show the content. Try out WatchVerse and MusicVerse too!</p>
     </div>
-    <hr>
+    <img class="content-image" src="/uploads/images/contentimg.png" alt="Extra Content Icon">
+  </div>
+  <hr>
 
-    <div class="content-row">
-        <div class="content-text">
-            <h3 class="gradient-red">UPDATES ALWAYS COMING</h3>
-            <p>The site is constantly being updated to provide more content and fix bugs. Time sensitive matters will be fixed as soon as possible.</p>
-        </div>
-        <img class="content-image" src="/uploads/images/pendingUpdates.png" alt="Updates Icon">
+  <div class="content-row">
+    <div class="content-text">
+      <h3 class="gradient-red">A NEW MISSION</h3>
+      <p>We've shifted our focus from just providing unblocked content to staying approved by schools, remaining unblocked, and being user-friendly—100% of the way. This means no proxies or unsafe content.</p>
     </div>
-    <hr>
+    <img class="content-image" src="/uploads/images/missionimg.png" alt="Mission Icon">
+  </div>
+  <hr>
 
-    <!-- Particles.js -->
-    <div id="particles-js"></div>
-    <script src="/javascript/particles.js"></script>
-    <script src="/javascript/particles-config.js"></script>
+  <div class="content-row">
+    <div class="content-text">
+      <h3 class="gradient-red">UPDATES ALWAYS COMING</h3>
+      <p>The site is constantly being updated to provide more content and fix bugs. Time-sensitive matters will be addressed as soon as possible.</p>
+    </div>
+    <img class="content-image" src="/uploads/images/pendingUpdates.png" alt="Updates Icon">
+  </div>
+  <hr>
 
-    <!-- Scroll Animation Script -->
-    <script>
-        const rows = document.querySelectorAll('.content-row');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.5 });
+  <!-- Particles.js Background -->
+  <div id="particles-js"></div>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
 
-        rows.forEach(row => observer.observe(row));
+  <!-- Scroll Animation Script -->
+  <script>
+    const rows = document.querySelectorAll('.content-row');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.5 });
+    rows.forEach(row => observer.observe(row));
 
-        // Popup behavior
+    // Popup behavior (if using popup)
     const popup = document.getElementById('popup');
     const agreeButton = document.getElementById('agreeButton');
     const disagreeButton = document.getElementById('disagreeButton');
 
-    // Check localStorage for agreement status
     window.onload = () => {
-        if (!localStorage.getItem('agreedToTerms')) {
-            popup.classList.add('visible');
-        }
+      if (popup && !localStorage.getItem('agreedToTerms')) {
+        popup.classList.add('visible');
+      }
     };
 
-    agreeButton.onclick = () => {
+    if (agreeButton) {
+      agreeButton.onclick = () => {
         localStorage.setItem('agreedToTerms', 'true');
         popup.classList.remove('visible');
-    };
+      };
+    }
 
-    disagreeButton.onclick = () => {
+    if (disagreeButton) {
+      disagreeButton.onclick = () => {
         alert('You need to agree to continue using the site.');
-    };
-</script>
-
-    </script>
-    <script src="javascript/scrollbar.js"></script>
+      };
+    }
+  </script>
+  <script src="/javascript/scrollbar.js"></script>
 </body>
 </html>
