@@ -1,94 +1,110 @@
-    body {
-      margin: 0;
-      background-color: #121212;
-      /* add padding-top to avoid content hiding behind fixed navbar */
-      padding-top: 80px;
-      font-family: sans-serif;
-      color: white;
-    }
-    /* Full width navbar container */
-    .navbar {
-      position: fixed;
-      top: 10px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      box-sizing: border-box;
-      z-index: 1000;
-    }
-    /* Left section container with rounded background */
-    .nav-left-bg {
-      background-color: rgba(34, 34, 34, 0.4);
-      backdrop-filter: blur(6px);
-      padding: 5px 10px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    /* Right section container with rounded background */
-    .nav-right-bg {
-      background-color: rgba(34, 34, 34, 0.4);
-      backdrop-filter: blur(6px);
-      padding: 5px 10px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-    }
-    /* Logo styling */
-    .logo img {
-      height: 40px;
-      width: auto;
-    }
-    /* Navigation links styling */
-    .nav-links {
-      display: flex;
-      gap: 10px;
-    }
-    .nav-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      text-decoration: none;
-      /* Gradient background for each button */
-      background:red;
-      transition: background 0.3s ease;
-    }
-    .nav-links a:hover {
-      background: black;
-    }
-    .nav-links a i {
-      color: white;
-      font-size: 1.5em;
-    }
-    /* Profile section styling */
-    .profile-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: white;
-      gap: 8px;
-      font-size: 1em;
-    }
-    .profile-img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 2px solid #FA1228;
-    }
+body {
+  margin: 0;
+  background-color: #121212;
+  /* add padding-top to avoid content hiding behind fixed navbar */
+  padding-top: 80px;
+  font-family: sans-serif;
+  color: white;
+}
+
+.navbar {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Glowing effect for navbar */
+}
+
+/* Left section container with rounded background */
+.nav-left-bg {
+  background-color: rgba(34, 34, 34, 0.4);
+  backdrop-filter: blur(6px);
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect */
+}
+
+/* Right section container with rounded background */
+.nav-right-bg {
+  background-color: rgba(34, 34, 34, 0.4);
+  backdrop-filter: blur(6px);
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect */
+}
+
+/* Logo styling */
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+/* Navigation links styling */
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  text-decoration: none;
+  background: red;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect on buttons */
+}
+
+.nav-links a:hover {
+  background: black;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.8); /* Enhanced glow on hover */
+}
+
+.nav-links a i {
+  color: white;
+  font-size: 1.5em;
+  text-shadow: 0 0 5px rgba(255, 61, 61, 0.8); /* Text glow */
+}
+
+/* Profile section styling */
+.profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  gap: 8px;
+  font-size: 1em;
+}
+
+.profile-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #FA1228;
+}
+
 html,
 body {
   margin: 0;
   height: 100%; /* Ensure the body fills the viewport */
   padding-bottom: 250px;
 }
-/* Ensure the footer sticks to the bottom */
+
+/* Footer styling */
 .footer {
   position: fixed; /* Fix the footer in place */
   bottom: 0; /* Align to the bottom of the viewport */
@@ -101,6 +117,7 @@ body {
   z-index: 1000; /* Keep it above other content */
   backdrop-filter: blur(6px);
 }
+
 .footer-container {
   display: flex;
   flex-direction: column;
@@ -108,35 +125,43 @@ body {
   justify-content: center;
   gap: 10px;
 }
+
 .footer-brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .footer-logo {
   width: 40px;
   height: 40px;
 }
+
 .footer-name {
   font-size: 1.5rem;
   font-weight: bold;
 }
+
 .footer-links {
   display: flex;
   gap: 20px;
 }
+
 .footer-links a {
   color: #fff;
   text-decoration: none;
   transition: color 0.3s;
 }
+
 .footer-links a:hover {
   color: #ff3d3d; /* Highlight color on hover */
 }
+
 /* Hide the footer when it has the 'hidden' class */
 .footer.hidden {
   display: none;
 }
+
 /* Style for the close button */
 #toggleFooter {
   position: absolute;
@@ -149,26 +174,29 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
+
 #toggleFooter:hover {
   color: #ff3d3d; /* Change color when hovering */
 }
-/* width */
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
-/* Track */
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-/* Handle */
+
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius:5px;
+  border-radius: 5px;
 }
-/* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 .navbar-verify img {
   height: 30px;
   width: 30px;
