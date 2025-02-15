@@ -1,7 +1,6 @@
 body {
   margin: 0;
   background-color: #121212;
-  /* add padding-top to avoid content hiding behind fixed navbar */
   padding-top: 80px;
   font-family: sans-serif;
   color: white;
@@ -15,42 +14,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  box-sizing: border-box;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 50px;
+  box-shadow: inset 0 0 10px rgba(255, 61, 61, 0.5), 0 0 10px rgba(255, 61, 61, 0.8);
   z-index: 1000;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Glowing effect for navbar */
 }
 
-/* Left section container with rounded background */
-.nav-left-bg {
+.nav-left-bg, .nav-right-bg {
   background-color: rgba(34, 34, 34, 0.4);
   backdrop-filter: blur(6px);
   padding: 5px 10px;
   border-radius: 50px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect */
 }
 
-/* Right section container with rounded background */
-.nav-right-bg {
-  background-color: rgba(34, 34, 34, 0.4);
-  backdrop-filter: blur(6px);
-  padding: 5px 10px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect */
-}
-
-/* Logo styling */
-.logo img {
-  height: 60px;
-  width: auto;
-}
-
-/* Navigation links styling */
 .nav-links {
   display: flex;
   gap: 10px;
@@ -66,21 +45,19 @@ body {
   text-decoration: none;
   background: red;
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5); /* Glow effect on buttons */
+  box-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
 }
 
 .nav-links a:hover {
   background: black;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.8); /* Enhanced glow on hover */
+  box-shadow: 0 0 15px rgba(255, 61, 61, 1);
 }
 
 .nav-links a i {
   color: white;
   font-size: 1.5em;
-  text-shadow: 0 0 5px rgba(255, 61, 61, 0.8); /* Text glow */
 }
 
-/* Profile section styling */
 .profile-link {
   display: flex;
   align-items: center;
@@ -97,24 +74,22 @@ body {
   border: 2px solid #FA1228;
 }
 
-html,
-body {
+html, body {
   margin: 0;
-  height: 100%; /* Ensure the body fills the viewport */
+  height: 100%;
   padding-bottom: 250px;
 }
 
-/* Footer styling */
 .footer {
-  position: fixed; /* Fix the footer in place */
-  bottom: 0; /* Align to the bottom of the viewport */
-  left: 0; /* Align to the left edge */
-  width: 100%; /* Full-width footer */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: rgba(34, 34, 34, 0.4);
-  color: #fff; /* White text */
+  color: #fff;
   padding: 20px 0;
   text-align: center;
-  z-index: 1000; /* Keep it above other content */
+  z-index: 1000;
   backdrop-filter: blur(6px);
 }
 
@@ -126,27 +101,6 @@ body {
   gap: 10px;
 }
 
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-logo {
-  width: 40px;
-  height: 40px;
-}
-
-.footer-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.footer-links {
-  display: flex;
-  gap: 20px;
-}
-
 .footer-links a {
   color: #fff;
   text-decoration: none;
@@ -154,20 +108,18 @@ body {
 }
 
 .footer-links a:hover {
-  color: #ff3d3d; /* Highlight color on hover */
+  color: #ff3d3d;
 }
 
-/* Hide the footer when it has the 'hidden' class */
 .footer.hidden {
   display: none;
 }
 
-/* Style for the close button */
 #toggleFooter {
   position: absolute;
-  right: 20px; /* Positions the button on the right */
+  right: 20px;
   top: 50%;
-  transform: translateY(-50%); /* Centers it vertically */
+  transform: translateY(-50%);
   background-color: transparent;
   border: none;
   color: white;
@@ -176,10 +128,10 @@ body {
 }
 
 #toggleFooter:hover {
-  color: #ff3d3d; /* Change color when hovering */
+  color: #ff3d3d;
 }
 
-/* Scrollbar styling */
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
