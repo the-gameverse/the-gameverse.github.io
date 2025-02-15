@@ -169,3 +169,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.navbar-verify img {
+  height: 30px;
+  width: 30px;
+  margin: 3px;
+}
