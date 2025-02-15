@@ -57,11 +57,11 @@
       border-radius: 50%;
       text-decoration: none;
       /* Gradient background for each button */
-      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background:red;
       transition: background 0.3s ease;
     }
     .nav-links a:hover {
-      background: #d32f2f;
+      background: black;
     }
     .nav-links a i {
       color: white;
