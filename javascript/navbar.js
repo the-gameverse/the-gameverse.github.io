@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   plusIcon.addEventListener('click', () => {
     if (extraLinks.style.display === 'none') {
-      extraLinks.style.display = 'inline-block';
+      extraLinks.style.display = 'inline';
       plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
     } else {
       extraLinks.style.display = 'none';
