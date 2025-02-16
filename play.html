@@ -24,19 +24,18 @@
     </div>
     
  <script src="/javascript/viewers.js"></script>
-        <script>
-            window.addEventListener('load', function() {
-            // Get the stored game link from localStorage
-            const gameLink = localStorage.getItem('gameLink');
+<script>
+    function redirectIframe(link) {
+        const iframe = document.getElementById('myIframe');
+        iframe.src = link;
+    }
 
-            // If a game link exists, start the redirect process
-            if (gameLink) {
-                // Start by loading the loading page first
-                redirectIframe(gameLink);
-            } else {
-                // Optionally handle the case where no game link is stored (maybe show an error page or redirect)
-                //window.location.href = "/games";
-            }
-        });
-        </script>
+    window.addEventListener('load', function() {
+        const gameLink = localStorage.getItem('gameLink');
+        if (gameLink) {
+            redirectIframe(gameLink);
+        }
+    });
+</script>
+        
 </html>
