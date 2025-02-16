@@ -40,32 +40,12 @@
  
 
 <br>
-  <!-- Game menu scripts and features -->
-<div class="controls">
-  <!-- Search input field -->
-  <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-
-  <!-- Button to toggle click count visibility -->
-  <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-
-  <!-- Sorting dropdown menu -->
-  <select id="sortOptions" onchange="sortGames()">
-    <option value="favorites">Sort by Favorites</option>
-    <option value="clickCount">Sort by Usage</option>
-    <option value="alphabetical">Sort Alphabetically</option>
-  </select>
-
-</div>
-
-
-    <p id="gameCount">Games Loaded: 0</p>
-  </div>
-  <div id="gameMenu" class="game-menu"></div>
-  <script src="/javascript/menu.js"></script>
-  <!-- Game menu END -->
-
-</div>
-</div>  
+<div id="counterDisplay"></div>
+        <br>
+        <div class="button-container" id="buttonContainer"></div>
+    </center>
+    <div id="particles-js"></div>
+    <script src="/javascript/menu.js"></script>
 </center>
 
 
