@@ -344,11 +344,21 @@ body {
   }
 }
 /* Add CSS for loading animation */
-.game img {
+.game img.blurred {
   filter: blur(10px);
-  transition: filter 0.3s ease-in-out;
+  transition: filter 1s ease-in-out;
 }
 
 .game img.loaded {
   filter: blur(0);
+}
+
+/* Disable link and hover effect */
+a.disabled-link {
+  pointer-events: none;
+  cursor: default;
+}
+
+a.disabled-link:hover {
+  background-color: transparent;
 }
