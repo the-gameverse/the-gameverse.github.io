@@ -1,7 +1,7 @@
 // Add games 
 
 const games = [
-{ name: "Tiny Fishing", image: "/uploads/covers/tinyfishing.png", link: "/storage/games/tinyfishing", clickCount: 0, isFavorited: false, path: "/play" },
+{ name: "Tiny Fishing", image: "/uploads/covers/tinyfishing.png", link: "https://www.w3schools.com/howto/default.asp", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Snow Rider 3D", image: "/uploads/covers/snowrider3d.png", link: "/storage/games/snowrider3d", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Guess Word", image: "/uploads/covers/guessword.png", link: "/storage/games/guessword", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Draw To Smash!", image: "/uploads/covers/drawsmash.png", link: "/storage/games/drawsmash", clickCount: 0, isFavorited: false, path: "/play" },
