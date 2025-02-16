@@ -1,20 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Inject the CSS for horizontal layout of extra links
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .extra-links {
-      display: flex;
-      gap: 10px; /* Adjust space between the icons */
-      flex-wrap: nowrap; /* Prevent wrapping */
-      margin-top: 10px; /* Adjust top margin if needed */
-    }
-    
-    .extra-links a {
-      display: inline-block;
-    }
-  `;
-  document.head.appendChild(style);
-
   // Check for a logged-in user in localStorage
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon.png' };
@@ -67,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   plusIcon.addEventListener('click', () => {
     if (extraLinks.style.display === 'none') {
-      extraLinks.style.display = 'flex'; // Change to 'flex' for horizontal layout
+      extraLinks.style.display = 'inline-block';
       plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
     } else {
       extraLinks.style.display = 'none';
