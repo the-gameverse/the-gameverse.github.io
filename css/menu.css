@@ -343,3 +343,12 @@ body {
     color: #6666ff;
   }
 }
+/* Add CSS for loading animation */
+.game img {
+  filter: blur(10px);
+  transition: filter 0.3s ease-in-out;
+}
+
+.game img.loaded {
+  filter: blur(0);
+}
