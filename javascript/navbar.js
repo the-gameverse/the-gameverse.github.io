@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const style = document.createElement('style');
   style.innerHTML = `
     .extra-links {
-      /*display: flex;
-      gap: 10px;  Adjust space between the icons 
+      display: flex;
+      /*gap: 10px;  Adjust space between the icons 
       flex-wrap: nowrap; Prevent wrapping */
     }
     
     .extra-links a {
-      display: inline-block;
+     /* display: inline-block;*/
     }
   `;
   document.head.appendChild(style);
