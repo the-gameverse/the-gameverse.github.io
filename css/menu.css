@@ -346,7 +346,7 @@ body {
 /* Add CSS for loading animation */
 .game img.blurred {
   filter: blur(10px);
-  transition: filter 1s ease-in-out;
+  transition: filter 0.3s ease-in-out;
 }
 
 .game img.loaded {
