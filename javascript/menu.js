@@ -247,15 +247,13 @@ function displayGames(filter = "") {
     gameDiv.appendChild(gameLink);
     gameDiv.appendChild(clickCountElement);
 
-    // Increment click count when the gameDiv is clicked
-    gameDiv.addEventListener("click", () => {
-      game.clickCount++;
-      const iframe = document.getElementById('myIframe');
-      iframe.src = game.link;
-      localStorage.setItem('gameLink', game.link);
-      saveClickCountsToLocalStorage(); // Save updated click count
-      displayGames(filter); // Re-render the games
-    });
+  // Increment click count and save game link when the gameDiv is clicked
+gameDiv.addEventListener("click", () => {
+    game.clickCount++;
+    localStorage.setItem('gameLink', game.link); // Save game link to localStorage
+    saveClickCountsToLocalStorage(); // Save updated click count
+    displayGames(filter); // Re-render the games
+});
 
     // Append the gameDiv to the gameMenu
     gameMenu.appendChild(gameDiv);
