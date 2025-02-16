@@ -281,13 +281,57 @@ function displayRandomGames() {
   randomGameContainer.innerHTML = ''; // Clear previous content
 
   randomGames.forEach(game => {
-    const gameLink = document.createElement('a');
-    gameLink.href = game.link;
-    gameLink.textContent = game.name;
-    randomGameContainer.appendChild(gameLink);
-    randomGameContainer.appendChild(document.createElement('br')); // Add line break for better readability
+    const gameDiv = document.createElement("div");
+    gameDiv.classList.add("game");
+
+    // Create the favorite icon (star)
+    const favoriteIcon = document.createElement("div");
+    favoriteIcon.classList.add("favorite-icon");
+    favoriteIcon.innerHTML = game.isFavorited ? "★" : "☆"; // Filled or empty star
+    favoriteIcon.title = game.isFavorited ? "Unfavorite" : "Favorite";
+    favoriteIcon.style.cursor = "pointer";
+    favoriteIcon.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent triggering other click events
+      game.isFavorited = !game.isFavorited;
+      saveFavoritesToLocalStorage(); // Save favorites after toggling
+      displayRandomGames(); // Re-render the games
+    });
+
+    // Create the click count display
+    const clickCountElement = document.createElement("div");
+    clickCountElement.classList.add("click-count");
+    clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
+
+    // Create the game link and image
+    const gameLink = document.createElement("a");
+    gameLink.href = game.path;
+    const gameImage = document.createElement("img");
+    gameImage.src = game.image;
+    gameLink.appendChild(gameImage);
+
+    // Apply blur effect and remove it after 4 seconds
+    setTimeout(() => {
+      gameImage.classList.add("loaded");
+    }, 2000);
+
+    // Create the game name
+    const gameName = document.createElement("div");
+    gameName.classList.add("game-name");
+    gameName.textContent = game.name;
+    gameLink.appendChild(gameName);
+
+    // Add all elements to the gameDiv
+    gameDiv.appendChild(favoriteIcon);
+    gameDiv.appendChild(gameLink);
+    gameDiv.appendChild(clickCountElement);
+
+    // Append the gameDiv to the randomGameContainer
+    randomGameContainer.appendChild(gameDiv);
   });
 }
+
+// Call the function to display random games on load
+window.addEventListener('load', displayRandomGames);
 
 // Call the function to display random games on load
 window.addEventListener('load', displayRandomGames);
