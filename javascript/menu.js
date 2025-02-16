@@ -333,8 +333,5 @@ function displayRandomGames() {
 // Call the function to display random games on load
 window.addEventListener('load', displayRandomGames);
 
-// Call the function to display random games on load
-window.addEventListener('load', displayRandomGames);
-
 // Initial display of games
 displayGames();
