@@ -233,11 +233,11 @@ function displayGames(filter = "") {
     gameLink.href = game.path;
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
+    gameLink.classList.add("disabled-link");
     gameLink.appendChild(gameImage);
 
     // Apply blur effect and remove it after 4 seconds
     gameImage.classList.add("blurred");
-    gameLink.classList.add("disabled-link");
     setTimeout(() => {
       gameImage.classList.remove("blurred");
       gameLink.classList.remove("disabled-link");
@@ -270,4 +270,3 @@ function displayGames(filter = "") {
   // Update the game count text
   gameCount.textContent = `Games Loaded: ${filteredGames.length}`;
 }
-
