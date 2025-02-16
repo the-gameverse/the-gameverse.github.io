@@ -291,12 +291,15 @@ body {
   border-radius: inherit; /* Matches container rounding */
   opacity: 0;
   transition: opacity 0.3s ease; /* Smooth fade-in */
+  transition: color 1s ; /* Smooth fade-in */
   backdrop-filter: blur(6px);
   text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon text glow */
 }
 
 .game:hover .game-name {
   opacity: 1;
+  color:red;
+  text-shadow: 0 0 10px red; /* Neon text glow */
 }
 
 .favorite-icon {
