@@ -181,8 +181,8 @@ function sortGames() {
 
 // Function to display the games
 function displayGames(filter = "") {
-  const gameMenu = document.getElementById("gameMenu"); // Ensure you have an element with id 'gameMenu'
-  const gameCount = document.getElementById("gameCount"); // Ensure you have an element with id 'gameCount'
+  const gameMenu = document.getElementById("gameMenu");
+  const gameCount = document.getElementById("gameCount");
   gameMenu.innerHTML = ""; // Clear the menu
 
   // Sort games based on current sort option
@@ -222,7 +222,6 @@ function displayGames(filter = "") {
     const clickCountElement = document.createElement("div");
     clickCountElement.classList.add("click-count");
     if (showClickCounts) {
-          console.log("Click count shown:", game.clickCount); // Debugging line
       clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
       clickCountElement.style.display = "block";
     } else {
@@ -236,6 +235,11 @@ function displayGames(filter = "") {
     gameImage.src = game.image;
     gameLink.appendChild(gameImage);
 
+    // Apply blur effect and remove it after 4 seconds
+    setTimeout(() => {
+      gameImage.classList.add("loaded");
+    }, 4000);
+
     // Create the game name
     const gameName = document.createElement("div");
     gameName.classList.add("game-name");
@@ -247,14 +251,14 @@ function displayGames(filter = "") {
     gameDiv.appendChild(gameLink);
     gameDiv.appendChild(clickCountElement);
 
-// Increment click count and save game link and name when the gameDiv is clicked
-gameDiv.addEventListener("click", () => {
-    game.clickCount++;
-    localStorage.setItem('gameLink', game.link); // Save game link to localStorage
-    localStorage.setItem('gameName', game.name); // Save game name to localStorage
-    saveClickCountsToLocalStorage(); // Save updated click count
-    displayGames(filter); // Re-render the games
-});
+    // Increment click count and save game link and name when the gameDiv is clicked
+    gameDiv.addEventListener("click", () => {
+      game.clickCount++;
+      localStorage.setItem('gameLink', game.link); // Save game link to localStorage
+      localStorage.setItem('gameName', game.name); // Save game name to localStorage
+      saveClickCountsToLocalStorage(); // Save updated click count
+      displayGames(filter); // Re-render the games
+    });
 
     // Append the gameDiv to the gameMenu
     gameMenu.appendChild(gameDiv);
@@ -266,3 +270,4 @@ gameDiv.addEventListener("click", () => {
 
 // Initial display of games
 displayGames();
+
