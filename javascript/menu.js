@@ -284,35 +284,12 @@ function displayRandomGames() {
     const gameDiv = document.createElement("div");
     gameDiv.classList.add("game");
 
-    // Create the favorite icon (star)
-    const favoriteIcon = document.createElement("div");
-    favoriteIcon.classList.add("favorite-icon");
-    favoriteIcon.innerHTML = game.isFavorited ? "★" : "☆"; // Filled or empty star
-    favoriteIcon.title = game.isFavorited ? "Unfavorite" : "Favorite";
-    favoriteIcon.style.cursor = "pointer";
-    favoriteIcon.addEventListener("click", (e) => {
-      e.stopPropagation(); // Prevent triggering other click events
-      game.isFavorited = !game.isFavorited;
-      saveFavoritesToLocalStorage(); // Save favorites after toggling
-      displayRandomGames(); // Re-render the games
-    });
-
-    // Create the click count display
-    const clickCountElement = document.createElement("div");
-    clickCountElement.classList.add("click-count");
-    clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
-
     // Create the game link and image
     const gameLink = document.createElement("a");
-    gameLink.href = game.path;
+    gameLink.href = "#"; // Use '#' to prevent default link behavior
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
     gameLink.appendChild(gameImage);
-
-    // Apply blur effect and remove it after 4 seconds
-    setTimeout(() => {
-      gameImage.classList.add("loaded");
-    }, 2000);
 
     // Create the game name
     const gameName = document.createElement("div");
@@ -320,10 +297,16 @@ function displayRandomGames() {
     gameName.textContent = game.name;
     gameLink.appendChild(gameName);
 
+    // Add click event listener to redirect iframe
+    gameLink.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent default link behavior
+      redirectIframe(game.link, game.name); // Call the redirect function with the game link and name
+      localStorage.setItem('gameLink', game.link); // Save game link to localStorage
+      localStorage.setItem('gameName', game.name); // Save game name to localStorage
+    });
+
     // Add all elements to the gameDiv
-
     gameDiv.appendChild(gameLink);
-
 
     // Append the gameDiv to the randomGameContainer
     randomGameContainer.appendChild(gameDiv);
@@ -333,5 +316,7 @@ function displayRandomGames() {
 // Call the function to display random games on load
 window.addEventListener('load', displayRandomGames);
 
+// Initial display of games
+displayGames();
 // Initial display of games
 displayGames();
