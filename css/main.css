@@ -1,169 +1,124 @@
-/* Import fonts and icons */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
-
-/* Fix pushup footer issue */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%; /* Ensure the body fills the viewport */
-  padding-bottom:250px;
-}
-/* Text styling */
-p {
-    font-family:Space Grotesk;
-    font-size:15px;
-    color:white;
-}
-h1 {
-    font-family:Bebas Neue;
-    font-size:50px;
-    color:white;
-}
-h2 {
-    font-family:Bebas Neue;
-    font-size:40px;
-    color:white;
-}
-h3 {
-    font-family:Bebas Neue;
-    font-size:30px;
-    color:white;
-}
-h4 {
-    font-family:Bebas Neue;
-    font-size:20px;
-    color:white;
-}
-body {
-    font-family:Space Grotesk;
-}
-/* Background coloring */
-body {
-    background-color:black;
-}
-/* Buttons */
-
-
-
-/* Particles.JS */
-#particles-js {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-/* Gradient branding */
-    /* Neon Glow Animation for Text */
-    @keyframes glow {
-      0%, 100% {
-        text-shadow: 0 0 10px rgba(255, 61, 61, 0.8), 0 0 20px rgba(255, 61, 61, 0.8), 0 0 30px rgba(255, 61, 61, 0.8);
-      }
-      50% {
-        text-shadow: 0 0 20px rgba(255, 61, 61, 1), 0 0 30px rgba(255, 61, 61, 1), 0 0 40px rgba(255, 61, 61, 1);
-      }
-    }
-
-    /* Gradient Text with Neon Glow */
-    .gradient-red {
-      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
-      animation: glow 1.5s infinite alternate;
-    }
-.gradient-blue {
-  background: linear-gradient(to right, #7eafff, #3d7eff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(61, 126, 255, 0.8);
-  animation: glow-blue 1.5s infinite alternate;
+.search {
+    background-color: #87CEEB;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 500;
+    font-family: Space Grotesk;
+    color: #fff;
+    width: 30%;
+    outline: none;
 }
 
-@keyframes glow-blue {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(61, 126, 255, 0.8),
-                 0 0 20px rgba(61, 126, 255, 0.8),
-                 0 0 30px rgba(61, 126, 255, 0.8);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(61, 126, 255, 1),
-                 0 0 30px rgba(61, 126, 255, 1),
-                 0 0 40px rgba(61, 126, 255, 1);
-  }
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 60px;
 }
 
-.gradient-green {
-  background: linear-gradient(to right, #7eff7e, #3dff3d);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(61, 255, 61, 0.8);
-  animation: glow-green 1.5s infinite alternate;
+.menu-button {
+    position: relative;
+    margin: 10px;
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 15%;
+    cursor: pointer;
+    text-align: center;
+    color: lightblue;
+    text-decoration: none;
+    transition: transform 0.5s ease;
+    box-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
 }
 
-@keyframes glow-green {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(61, 255, 61, 0.8),
-                 0 0 20px rgba(61, 255, 61, 0.8),
-                 0 0 30px rgba(61, 255, 61, 0.8);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(61, 255, 61, 1),
-                 0 0 30px rgba(61, 255, 61, 1),
-                 0 0 40px rgba(61, 255, 61, 1);
-  }
+.menu-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 20, 147, 1);
 }
 
-            .rainbow {
-  display:inline-block;
-  background: linear-gradient(45deg,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 400% 400%;
-  
-  -webkit-animation: rainbowanim 10s ease infinite;
-     -moz-animation: rainbowanim 10s ease infinite;
-          animation: rainbowanim 10s ease infinite;
+.menu-button img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
 }
-/* Links */
-a:link {color: white;}      /* unvisited link */
-       a:visited {color: white;}   /* visited link */
-       a:hover {color: white;}     /* mouse over link */
-       a:active {color: white;}    /* selected link */
 
+.menu-button:hover img {
+    transform: scale(1.3);
+}
 
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(34, 34, 34, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s, color 0.3s;
+    font-family: 'Space Grotesk', sans-serif;
+    color: white;
+}
 
-/* Button styling */
+.menu-button:hover .overlay {
+    opacity: 1;
+    backdrop-filter: blur(3px);
+    color: pink;
+}
+#counterDisplay {
+    color: lightblue;
+    font-size: 20px;
+}
+
+#counterDisplay:hover {
+    cursor: default;
+}
+
+.menu-button {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
 button {
-  padding: 10px 20px;
-  background-color: black;
-  color: white;
-  border: 1.5px solid white;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color .2s;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-button:hover {
-  background-color: red;
-    border: .5px solid white;
+#sortOptions {
+    padding: 9px;
+    font-size: 16px;
+    background-color: rgba(210, 180, 140, 1);
+    color: white;
+    border: 2px solid lightblue;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
 }
 
-button:nth-child(2) {
-  background-color: #f44336;
+#sortOptions:hover {
+    background-color: lightblue;
+}
+#sortOptions option {
+    padding: 9px;
+    font-size: 16px;
+    background-color: rgba(210, 180, 140, 1);
+    color: white;
+    border: 2px solid lightblue;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
 }
 
-button:nth-child(2):hover {
-  background-color: #da190b;
-}
-
-
-/* Home page boxes */
