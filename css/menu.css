@@ -6,32 +6,30 @@
   box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
 
-/* Page loader container */
+/* Page loader container (no background) */
 #loader-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 210px; /* 3x size */
-  height: 210px;
+  width: 140px; /* Adjusted to fit the 2x size loader */
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 0, 0, 0.1); /* Slight red tint */
   border-radius: 50%;
   z-index: 1000;
-  box-shadow: 0 0 40px rgba(255, 61, 61, 0.7); /* Stronger neon glow */
 }
 
-/* Circular spinning loader */
+/* Circular spinning loader (2x size) */
 #loader {
-  width: 150px; /* 3x size */
-  height: 150px;
-  border: 15px solid rgba(255, 0, 0, 0.3); /* Thicker border */
+  width: 100px; /* 2x size */
+  height: 100px;
+  border: 10px solid rgba(255, 0, 0, 0.3); /* Adjusted border thickness */
   border-top-color: red; /* Solid red for animation */
   border-radius: 50%;
   animation: spinLoad 0.7s linear infinite;
-  box-shadow: 0 0 30px rgba(255, 61, 61, 0.8); /* Enhanced glow */
+  box-shadow: 0 0 25px rgba(255, 61, 61, 0.8); /* Enhanced glow */
 }
 
 @keyframes spinLoad {
@@ -63,18 +61,19 @@
   box-shadow: 0 0 15px rgba(61, 255, 61, 0.5); /* Neon green glow */
 }
 
+/* LOADING... text (larger for better visibility) */
 #loadertext {
   position: absolute;
-  top: calc(50% + 100px); /* Adjusted to align below the bigger loader */
+  top: calc(50% + 75px); /* Adjusted for 2x size loader */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  font-size: 2.5em; /* Increased size for better visibility */
+  font-size: 2em; /* Increased size to match the loader */
   font-weight: bold;
   color: white;
   text-shadow: 0 0 20px rgba(255, 61, 61, 1), 
                0 0 40px rgba(255, 61, 61, 0.8), 
-               0 0 60px rgba(255, 61, 61, 0.6); /* Stronger neon glow */
+               0 0 60px rgba(255, 61, 61, 0.6); /* Strong neon glow */
   animation: pulseGlowLoad 1.5s infinite alternate ease-in-out;
 }
 
