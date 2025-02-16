@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GameVerse - ALL Games</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="/javascript/pageload.js"></script>
+</head>
+
+    <!-- Navigation bar -->
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
+    <script src="/javascript/footer.js"></script>
+    <br><br><br>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
+
+<h1 style="font-size:50px;" class="gradient-red"> Choose Language </h1> 
+<p class="gradient-red" style=font-size:15px;>Translate  GameVerse to your language!</p>
+<hr style="border:3px solid white">
+
+           <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <!-- Add more languages as needed -->
+    </select>
+    <button onclick="saveLanguage()">Save</button>
+
+    <script>
+        function saveLanguage() {
+            var language = document.getElementById('language-select').value;
+            localStorage.setItem('selectedLanguage', language);
+            window.location.href = 'index.html'; // Redirect back to the homepage
+        }
+    </script>
+   
+
+<center>
+    
+
+
+
+</center>
+
+
+
+
+
+         </body>
+    
+    <!-- Particles.JS start -->
+    <div id="particles-js"></div>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+    <!-- Particles.JS end -->
+    <script src="/javascript/scrollbar.js"></script>
+</html>
