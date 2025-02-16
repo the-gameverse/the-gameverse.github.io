@@ -247,10 +247,11 @@ function displayGames(filter = "") {
     gameDiv.appendChild(gameLink);
     gameDiv.appendChild(clickCountElement);
 
-  // Increment click count and save game link when the gameDiv is clicked
+// Increment click count and save game link and name when the gameDiv is clicked
 gameDiv.addEventListener("click", () => {
     game.clickCount++;
     localStorage.setItem('gameLink', game.link); // Save game link to localStorage
+    localStorage.setItem('gameName', game.name); // Save game name to localStorage
     saveClickCountsToLocalStorage(); // Save updated click count
     displayGames(filter); // Re-render the games
 });
