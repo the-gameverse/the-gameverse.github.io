@@ -18,7 +18,7 @@ body {
         background-color: black;
     }
     to {
-        background-color: #1a1a1a;
+        background-color: black; /* Ensure the final color is black */
     }
 }
 
@@ -41,6 +41,7 @@ iframe {
 /* Animate the navbar */
 #navbar {
     opacity: 0;
+    transform: translateY(-100%); /* Ensure initial position is off-screen */
     animation: slideDownNavbar 1s ease-in-out forwards;
 }
 
