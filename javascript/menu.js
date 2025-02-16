@@ -1,5 +1,4 @@
-// Add games 
-
+// Modify games array to always point to play.html
 const games = [
   { name: "Tiny Fishing", image: "/uploads/covers/tinyfishing.png", link: "/storage/games/tinyfishing", clickCount: 0, isFavorited: false },
   { name: "Snow Rider 3D", image: "/uploads/covers/snowrider3d.png", link: "/storage/games/snowrider3d", clickCount: 0, isFavorited: false },
@@ -90,89 +89,8 @@ const games = [
   { name: "Sky Speedster", image: "/uploads/covers/skyspeedster.png", link: "/storage/games/skyspeedster", clickCount: 0, isFavorited: false },
   { name: "Car Rush", image: "/uploads/covers/carrush.png", link: "/storage/games/carrush", clickCount: 0, isFavorited: false },
   { name: "Climbable Arrow", image: "/uploads/covers/climbablearrow.png", link: "/storage/games/climbablearrow", clickCount: 0, isFavorited: false }
+  
 ];
-
-
-// Variable to toggle click count visibility
-let showClickCounts = false;
-let currentSortOption = 'favorites';  // Default sort option
-
-// Toggle click counts visibility
-function toggleClickCounts() {
-      console.log("Toggle Click Counts triggered"); // Debugging line
-  showClickCounts = !showClickCounts;
-  const button = document.getElementById("toggleUsageData");
-  
-  button.textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
-  displayGames(); // Re-render the games
-}
-
-// Filter games based on search input
-function filterGames() {
-  const search = document.getElementById("search").value;
-  displayGames(search);
-}
-
-// Save favorites to localStorage
-function saveFavoritesToLocalStorage() {
-  const favorites = games.reduce((acc, game) => {
-    acc[game.name] = game.isFavorited;
-    return acc;
-  }, {});
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-// Load favorites from localStorage
-function loadFavoritesFromLocalStorage() {
-  const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
-  if (storedFavorites) {
-    games.forEach(game => {
-      if (storedFavorites[game.name] !== undefined) {
-        game.isFavorited = storedFavorites[game.name];
-      }
-    });
-  } else {
-    // Set all games to non-favorited if no favorites are found in localStorage
-    games.forEach(game => {
-      game.isFavorited = false;
-    });
-  }
-}
-
-// Save click counts to localStorage
-function saveClickCountsToLocalStorage() {
-  const clickCounts = games.reduce((acc, game) => {
-    acc[game.name] = game.clickCount;
-    return acc;
-  }, {});
-  localStorage.setItem("clickCounts", JSON.stringify(clickCounts));
-}
-
-// Load click counts from localStorage
-function loadClickCountsFromLocalStorage() {
-  const storedClickCounts = JSON.parse(localStorage.getItem("clickCounts"));
-  if (storedClickCounts) {
-    games.forEach(game => {
-      if (storedClickCounts[game.name] !== undefined) {
-        game.clickCount = storedClickCounts[game.name];
-      }
-    });
-  }
-}
-
-// Load favorites and click counts initially
-loadFavoritesFromLocalStorage();
-loadClickCountsFromLocalStorage();
-
-// Handle sorting
-function sortGames() {
-  const sortDropdown = document.getElementById("sortOptions");
-  if (!sortDropdown) return; // Check if sortDropdown exists
-  
-  currentSortOption = sortDropdown.value;
-  console.log(`Sorting by: ${currentSortOption}`);
-  displayGames(); // Re-render games with new sort option
-}
 
 // Function to display the games
 function displayGames(filter = "") {
@@ -219,48 +137,31 @@ function displayGames(filter = "") {
     if (showClickCounts) {
           console.log("Click count shown:", game.clickCount); // Debugging line
       clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
-      clickCountElement.style.display = "block";
     } else {
-      clickCountElement.style.display = "none";
+      clickCountElement.textContent = ''; // Hide click count if the option is off
     }
 
-    // Create the game link and image
-    const gameLink = document.createElement("a");
-    gameLink.href = /play;
+    // Create the game image and link
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
-    gameLink.appendChild(gameImage);
+    gameImage.alt = game.name;
 
-    // Create the game name
-    const gameName = document.createElement("div");
-    gameName.classList.add("game-name");
-    gameName.textContent = game.name;
-    gameLink.appendChild(gameName);
-
-    // Add all elements to the gameDiv
-    gameDiv.appendChild(favoriteIcon);
-    gameDiv.appendChild(gameLink);
-    gameDiv.appendChild(clickCountElement);
-
-    // Increment click count when the gameDiv is clicked
+    // Add a click event to redirect to play.html when any game is clicked
     gameDiv.addEventListener("click", () => {
+      window.location.href = game.link; // This will now always navigate to play.html
       game.clickCount++;
-      saveClickCountsToLocalStorage(); // Save updated click count
-      displayGames(filter); // Re-render the games
-      sessionStorage.setItem('gameLink', game.link);
-      const iframe = document.getElementById('myIframe');
-      iframe.src = game.link;
-      window.location.href = '/play';
+      saveClickCountsToLocalStorage(); // Save click counts after incrementing
     });
 
-    // Append the gameDiv to the gameMenu
+    // Append elements to the game div
+    gameDiv.appendChild(gameImage);
+    gameDiv.appendChild(favoriteIcon);
+    gameDiv.appendChild(clickCountElement);
+
+    // Append the game div to the game menu
     gameMenu.appendChild(gameDiv);
   });
 
-  // Update the game count text
-  gameCount.textContent = `Games Loaded: ${filteredGames.length}`;
+  // Update the game count display
+  gameCount.textContent = `Games Available: ${filteredGames.length}`;
 }
-
-// Initial display of games
-displayGames();
-
