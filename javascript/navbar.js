@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
             <a href="/personalization"><i class="fa-solid fa-paintbrush fa-lg"></i></a>
             <a href="/screentime"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
-            <a href="/translate"><i class="fa-solid fa-language fa-lg"></i></a>
+            <a disabled style="opacity:50%" href="/translate"><i class="fa-solid fa-language fa-lg"></i></a>
             <a onClick="alert('Attempting to resume your last played game.')" href="/play" ><i class="fa-solid fa-play fa-lg"></i></a>
           </div>
         </div>
@@ -77,35 +77,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
- // Insert the Google Translate script for language selection
-  var selectedLanguage = localStorage.getItem('selectedLanguage');
-  if (selectedLanguage) {
-    var translateScript = document.createElement('script');
-    translateScript.type = 'text/javascript';
-    translateScript.innerHTML = `
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,fr', // Add more languages as needed
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    `;
-    document.body.appendChild(translateScript);
-
-    var gtScript = document.createElement('script');
-    gtScript.type = 'text/javascript';
-    gtScript.async = true;
-    gtScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    document.body.appendChild(gtScript);
-
-    setTimeout(function() {
-      var select = document.querySelector('select.goog-te-combo');
-      if (select) {
-        select.value = selectedLanguage;
-        select.dispatchEvent(new Event('change'));
-      }
-    }, 1000);
-  }
-});
+ 
