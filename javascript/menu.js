@@ -251,8 +251,8 @@ function displayGames(filter = "") {
     gameDiv.addEventListener("click", () => {
       game.clickCount++;
       const iframe = document.getElementById('myIframe');
-      iframe.src = button.link;
-      sessionStorage.setItem('gameLink', game.link);
+      iframe.src = game.link;
+      localStorage.setItem('gameLink', game.link);
       saveClickCountsToLocalStorage(); // Save updated click count
       displayGames(filter); // Re-render the games
     });
