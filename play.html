@@ -7,12 +7,86 @@
         <link rel="stylesheet" href="/css/navbar.css">
         <script src="/javascript/menu.js"></script>
         <style>
-            body {
-                background-color: black;
-            }
-            iframe {
-                background-color: black;
-            }
+/* Animate the body background color */
+body {
+    background-color: black;
+    animation: fadeInBackground 2s ease-in-out forwards;
+}
+
+@keyframes fadeInBackground {
+    from {
+        background-color: black;
+    }
+    to {
+        background-color: #1a1a1a;
+    }
+}
+
+/* Animate the iframe */
+iframe {
+    background-color: black;
+    opacity: 0;
+    animation: fadeInIframe 2s ease-in-out 1s forwards;
+}
+
+@keyframes fadeInIframe {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animate the navbar */
+#navbar {
+    opacity: 0;
+    animation: slideDownNavbar 1s ease-in-out forwards;
+}
+
+@keyframes slideDownNavbar {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animate the controls */
+.controls {
+    opacity: 0;
+    animation: fadeInControls 2s ease-in-out 1.5s forwards;
+}
+
+@keyframes fadeInControls {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animate the buttons */
+.buttons button {
+    opacity: 0;
+    transform: scale(0.5);
+    animation: fadeInButtons 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInButtons {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
         </style>
     </head>
 
