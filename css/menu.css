@@ -23,13 +23,24 @@
 }
 
 #loader {
-  height: 100%;
-  width: 0;
-  background-color: red;
-  animation: loadingBar 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 0, 0, 0.3); /* Light red border */
+  border-top-color: red; /* Solid red top for animation */
+  border-radius: 50%;
+  animation: spinLoad 0.7s linear infinite;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.8); /* Neon glow effect */
 }
+
+@keyframes spinLoad {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 #loaderblue {
   height: 100%;
