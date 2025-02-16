@@ -4,123 +4,117 @@
         <title>GameVerse - Play</title>
         <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
         <link rel=stylesheet href=/css/viewers.css>
-            <!--<link rel="stylesheet" href="/css/main.css">-->
-            <link rel="stylesheet" href="/css/navbar.css">
-        
+        <link rel="stylesheet" href="/css/navbar.css">
         <script src="/javascript/menu.js"></script>
     </head>
 
     <body>
-    <div id="navbar"></div>
-    <script src="/javascript/navbar.js"></script>
+        <div id="navbar"></div>
+        <script src="/javascript/navbar.js"></script>
 
-   <iframe id="myIframe" src="" allowfullscreen></iframe>
+        <iframe id="myIframe" src="" allowfullscreen></iframe>
 
-    <div class="controls">
-        
-        <div class="game-info">
-            <h2></h2>
+        <div class="controls">
+            <div class="game-info">
+                <h2></h2>
+            </div>
+            <div class="buttons">
+                <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+                <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
+                <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+                <button id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>
+            </div>
         </div>
-        <div class="buttons">
-            <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
-            <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
-            <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
-            <button id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>
-        </div>
-    </div>
-    
- <!--<script src="/javascript/viewers.js"></script>-->
-<script>
-    // Define the redirectIframe function
-    function redirectIframe(link, name) {
-        const iframe = document.getElementById('myIframe');
-        iframe.src = link;
-        
-        const gameInfo = document.querySelector('.game-info h2');
-        gameInfo.textContent = name;
-        
-        document.title = `GameVerse - ${name}`;
-    }
 
-    window.addEventListener('load', function() {
-        const gameLink = localStorage.getItem('gameLink');
-        const gameName = localStorage.getItem('gameName');
-        if (gameLink && gameName) {
-            redirectIframe(gameLink, gameName);
-        }
-    });
+        <!--<script src="/javascript/viewers.js"></script>-->
+        <script>
+            // Define the redirectIframe function
+            function redirectIframe(link, name) {
+                const iframe = document.getElementById('myIframe');
+                iframe.src = link;
 
-      // Function to toggle sound
-    function toggleSound() {
-        const iframe = document.getElementById('myIframe');
-        const muteButton = document.getElementById('muteButton');
-        const isMuted = iframe.muted || false;
-        iframe.muted = !isMuted;
-        muteButton.innerHTML = isMuted ? '<i class="fa fa-volume-up fa-lg"></i>' : '<i class="fa fa-volume-mute fa-lg"></i>';
-    }
+                const gameInfo = document.querySelector('.game-info h2');
+                gameInfo.textContent = name;
 
-    // Controls
-
-    // Iframe controls for viewers
-const iframe = document.getElementById('gameFrame');
-        const reloadButton = document.getElementById('reloadButton');
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        const homeButton = document.getElementById('homeButton');
-
-        reloadButton.addEventListener('click', () => {
-            iframe.src = iframe.src;
-        });
-
-        fullscreenButton.addEventListener('click', () => {
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
+                document.title = `GameVerse - ${name}`;
             }
-        });
-        
-        homeButton.addEventListener('click', () => {
-    const currentURL = window.location.href; // Get the current URL of the page
 
-    if (currentURL.includes("/storage/tv")) {
-        location.replace("/tv"); // Redirect to the /tv page
-    } else if (currentURL.includes("/storage/games")) {
-        location.replace("/games"); // Redirect to the /games page
-    } else if (currentURL.includes("/storage/music")) {
-        location.replace("/music"); // Redirect to the /music page
-    } else {
-        location.replace("/"); // Fallback redirect if no match
-    }
-});
+            window.addEventListener('load', function() {
+                const gameLink = localStorage.getItem('gameLink');
+                const gameName = localStorage.getItem('gameName');
+                if (gameLink && gameName) {
+                    redirectIframe(gameLink, gameName);
+                }
 
-        const muteButton = document.getElementById('muteButton');
-        muteButton.addEventListener('click', toggleSound);
+                const muteButton = document.getElementById('muteButton');
+                muteButton.addEventListener('click', toggleSound);
 
-    // Load iframe 
+                // Call temporaryRedirect with example links
+                const tempLink = '/storage/loading';
+                if (gameLink) {
+                    temporaryRedirect(tempLink, gameLink);
+                }
+            });
 
-        // Function to temporarily redirect the iframe
-    function temporaryRedirect(tempLink, originalLink) {
-        const iframe = document.getElementById('myIframe');
-        iframe.src = tempLink;
-        setTimeout(() => {
-            iframe.src = originalLink;
-        }, 4000); // 4000 milliseconds = 4 seconds
-    }
+            // Function to toggle sound
+            function toggleSound() {
+                const iframe = document.getElementById('myIframe');
+                const muteButton = document.getElementById('muteButton');
+                const isMuted = iframe.muted || false;
+                iframe.muted = !isMuted;
+                muteButton.innerHTML = isMuted ? '<i class="fa fa-volume-up fa-lg"></i>' : '<i class="fa fa-volume-mute fa-lg"></i>';
+            }
 
-            // Call temporaryRedirect with example links
-        const tempLink = '/storage/loading';
-        if (gameLink) {
-            temporaryRedirect(tempLink, gameLink);
-        }
-    });
-</script>
-           <!-- Particles.JS start -->
-    <div id="particles-js"></div>
-    <script src="/javascript/particles.js"></script>
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end --> 
+            // Function to temporarily redirect the iframe
+            function temporaryRedirect(tempLink, originalLink) {
+                const iframe = document.getElementById('myIframe');
+                iframe.src = tempLink;
+                setTimeout(() => {
+                    iframe.src = originalLink;
+                }, 4000); // 4000 milliseconds = 4 seconds
+            }
+
+            // Iframe controls for viewers
+            const iframe = document.getElementById('myIframe');
+            const reloadButton = document.getElementById('reloadButton');
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            const homeButton = document.getElementById('homeButton');
+
+            reloadButton.addEventListener('click', () => {
+                iframe.src = iframe.src;
+            });
+
+            fullscreenButton.addEventListener('click', () => {
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.mozRequestFullScreen) { // Firefox
+                    iframe.mozRequestFullScreen();
+                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) { // IE/Edge
+                    iframe.msRequestFullscreen();
+                }
+            });
+
+            homeButton.addEventListener('click', () => {
+                const currentURL = window.location.href; // Get the current URL of the page
+
+                if (currentURL.includes("/storage/tv")) {
+                    location.replace("/tv"); // Redirect to the /tv page
+                } else if (currentURL.includes("/storage/games")) {
+                    location.replace("/games"); // Redirect to the /games page
+                } else if (currentURL.includes("/storage/music")) {
+                    location.replace("/music"); // Redirect to the /music page
+                } else {
+                    location.replace("/"); // Fallback redirect if no match
+                }
+            });
+
+        </script>
+        <!-- Particles.JS start -->
+        <div id="particles-js"></div>
+        <script src="/javascript/particles.js"></script>
+        <script src="/javascript/particles-config.js"></script>
+        <!-- Particles.JS end --> 
+    </body>
 </html>
