@@ -105,6 +105,12 @@ function toggleClickCounts() {
   button.textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
   displayGames(); // Re-render the games
 }
+function saveGameLinkToSessionStorage(gameLink) {
+  // Save the game's link to sessionStorage
+  sessionStorage.setItem("gameLink", gameLink);
+  console.log("Game link saved:", gameLink); // Debugging line
+}
+
 
 // Filter games based on search input
 function filterGames() {
@@ -258,4 +264,5 @@ function displayGames(filter = "") {
 
 // Initial display of games
 displayGames();
+
 
