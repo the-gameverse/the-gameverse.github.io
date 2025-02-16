@@ -226,7 +226,7 @@ function displayGames(filter = "") {
 
     // Create the game link and image
     const gameLink = document.createElement("a");
-    gameLink.href = game.link;
+    gameLink.href = /play;
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
     gameLink.appendChild(gameImage);
@@ -249,7 +249,7 @@ function displayGames(filter = "") {
       displayGames(filter); // Re-render the games
       sessionStorage.setItem('gameLink', game.link);
       const iframe = document.getElementById('myIframe');
-      iframe.src = button.link;
+      iframe.src = game.link;
       window.location.href = '/play';
     });
 
