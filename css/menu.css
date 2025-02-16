@@ -63,6 +63,8 @@
 
 /* LOADING... text (larger for better visibility) */
 #loadertext {
+  visibility:hidden;
+  display:none;
   position: absolute;
   top: calc(50% + 75px); /* Adjusted for 2x size loader */
   left: 50%;
