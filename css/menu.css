@@ -1,124 +1,345 @@
-.search {
-    background-color: #87CEEB;
-    border: 3px solid #fff;
-    border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 500;
-    font-family: Space Grotesk;
-    color: #fff;
-    width: 30%;
-    outline: none;
+/* Image styling */
+.image {
+  height: 150px;
+  width: 150px;
+  border-radius: 20%;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
 
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-left: 50px;
-    margin-right: 60px;
+/* Page loader */
+#loader-container {
+  position: absolute;
+  top: 50%; /* 50% from the top of the page */
+  left: 50%; /* 50% from the left of the page */
+  transform: translate(-50%, -50%); /* Center the container */
+  width: 300px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 0;
+  z-index: 1000;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
 
-.menu-button {
-    position: relative;
-    margin: 10px;
-    width: 140px;
-    height: 140px;
-    overflow: hidden;
-    border-radius: 15%;
-    cursor: pointer;
-    text-align: center;
-    color: lightblue;
-    text-decoration: none;
-    transition: transform 0.5s ease;
-    box-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
+#loader {
+  height: 100%;
+  width: 0;
+  background-color: red;
+  animation: loadingBar 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
 
-.menu-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 20, 147, 1);
+#loaderblue {
+  height: 100%;
+  width: 0;
+  background-color: red;
+  animation: loadingBarblue 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(61, 126, 255, 0.5); /* Neon blue glow */
 }
 
-.menu-button img {
+#loadergreen {
+  height: 100%;
+  width: 0;
+  background-color: red;
+  animation: loadingBargreen 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(61, 255, 61, 0.5); /* Neon green glow */
+}
+
+#loadertext {
+  position: absolute;
+  top: 52%; /* Position it right below the loader */
+  left: 50%;
+  transform: translateX(-50%); /* Center the text horizontally */
+  z-index: 1;
+  margin-top: 10px; /* Space between loader and text */
+  font-size: 1.2em; /* Optional, adjust as needed */
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon glow effect */
+}
+
+@keyframes loadingBar {
+  0% {
+    width: 0;
+    background-color: red;
+  }
+  50% {
+    width: 50%;
+    background-color: white;
+  }
+  100% {
     width: 100%;
-    height: 100%;
-    transition: transform 0.5s ease;
+    background-color: red;
+  }
 }
 
-.menu-button:hover img {
-    transform: scale(1.3);
+@keyframes loadingBargreen {
+  0% {
+    width: 0;
+    background-color: green;
+  }
+  50% {
+    width: 50%;
+    background-color: white;
+  }
+  100% {
+    width: 100%;
+    background-color: green;
+  }
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(34, 34, 34, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@keyframes loadingBarblue {
+  0% {
+    width: 0;
+    background-color: blue;
+  }
+  50% {
+    width: 50%;
+    background-color: white;
+  }
+  100% {
+    width: 100%;
+    background-color: blue;
+  }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -100px;
     opacity: 0;
-    transition: opacity 0.3s, color 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-    color: white;
-}
-
-.menu-button:hover .overlay {
+  }
+  to {
+    bottom: 0px;
     opacity: 1;
-    backdrop-filter: blur(3px);
-    color: pink;
-}
-#counterDisplay {
-    color: lightblue;
-    font-size: 20px;
+  }
 }
 
-#counterDisplay:hover {
-    cursor: default;
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
 }
 
-.menu-button {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
+#myDiv {
+  display: none;
+  text-align: center;
 }
 
-button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+/* New UI (2.0) */
+body {
+  margin: 0;
+  padding-bottom: 250px;
 }
 
-#sortOptions {
-    padding: 9px;
-    font-size: 16px;
-    background-color: rgba(210, 180, 140, 1);
-    color: white;
-    border: 2px solid lightblue;
-    cursor: pointer;
-    border-radius: 5px;
-    outline: none;
+/* Input & Control Styling */
+/* Reverted to original styles (without centering/max-width changes) */
+#search,
+#searchBar,
+#sortOptions,
+#toggleUsageData {
+  width: 500px;
+  padding: 10px;
+  font-size: 20px;
+  font-family: Bebas Neue;
+  border: 1px solid #ddd;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
 }
 
-#sortOptions:hover {
-    background-color: lightblue;
-}
-#sortOptions option {
-    padding: 9px;
-    font-size: 16px;
-    background-color: rgba(210, 180, 140, 1);
-    color: white;
-    border: 2px solid lightblue;
-    cursor: pointer;
-    border-radius: 5px;
-    outline: none;
+.controls {
+  margin: 16px 0;
 }
 
+#toggleUsageData:hover {
+  background-color: red;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.6); /* Enhanced glow on hover */
+}
+
+/* Game and related UI elements */
+.game {
+  position: relative; /* Allows positioning of the favorite icon */
+  background-color: black;
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
+}
+
+#gameCount {
+  margin: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.last-updated-text {
+  color: white;
+  font-weight: bold;
+}
+
+#gameMenu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.game a.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.game a {
+  z-index: 0; /* Ensure the link stays behind other elements */
+}
+
+/* Game Container */
+.game {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  overflow: hidden; /* Ensures content stays within the rounded container */
+  border-radius: 15%; /* Consistent rounding */
+  transition: transform 0.3s ease; /* Smooth scaling transition */
+  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
+}
+
+.click-count {
+  position: absolute; /* Positioned outside the image area */
+  top: 5px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 10; /* Stays above other elements */
+  width: 120px;
+  text-shadow: 0 0 5px rgba(255, 61, 61, 0.5); /* Subtle neon text glow */
+}
+
+.game img {
+  width: 100%; /* Full container width */
+  height: 100%; /* Full container height */
+  object-fit: cover; /* Maintain image proportions */
+  border-radius: inherit; /* Inherit container rounding */
+  transition: transform 0.3s ease; /* Smooth scaling effect */
+}
+
+.game:hover img {
+  transform: scale(1.3); /* Smooth image scaling on hover */
+}
+
+.game:hover {
+  transform: scale(1.1); /* Smooth container scaling on hover */
+  box-shadow: 0 0 20px rgba(255, 61, 61, 0.6); /* Enhanced neon glow on hover */
+}
+
+.game-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: inherit; /* Matches container rounding */
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Smooth fade-in */
+  transition: color 1s ; /* Smooth fade-in */
+  backdrop-filter: blur(6px);
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon text glow */
+}
+
+.game:hover .game-name {
+  opacity: 1;
+  color:red;
+  text-shadow: 0 0 10px red; /* Neon text glow */
+}
+
+.favorite-icon {
+  position: absolute; /* Positioned within the game container */
+  top: 12px; /* Adjust as needed */
+  right: 12px;
+  font-size: 30px; /* For better visibility */
+  cursor: pointer;
+  color: red;
+  z-index: 10; /* Sits above other elements */
+  text-shadow: 0 0 10px red; /* Neon glow for the icon */
+}
+
+.controls {
+  margin: 16px 0;
+}
+
+.fire-emoji {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon glow effect */
+}
+
+/* Rotate color animation for dynamic effect */
+@keyframes colorRotate {
+  from {
+    color: #6666ff;
+  }
+  10% {
+    color: #0099ff;
+  }
+  50% {
+    color: #00ff00;
+  }
+  75% {
+    color: #ff3399;
+  }
+  100% {
+    color: #6666ff;
+  }
+}
