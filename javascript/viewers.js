@@ -1,3 +1,4 @@
+#
 // G tag
 // Create the <script> element for the Google tag (gtag.js)
 var script1 = document.createElement('script');
@@ -169,3 +170,4 @@ window.onload = function() {
     // Append the second script to the body
     document.body.appendChild(particlesConfigScript);
 };
+
