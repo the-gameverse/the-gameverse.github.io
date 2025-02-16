@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
       display: flex;
       gap: 10px; /* Adjust space between the icons */
       flex-wrap: nowrap; /* Prevent wrapping */
-      margin-top: 10px; /* Adjust top margin if needed */
     }
     
     .extra-links a {
