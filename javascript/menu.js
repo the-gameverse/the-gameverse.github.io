@@ -321,9 +321,9 @@ function displayRandomGames() {
     gameLink.appendChild(gameName);
 
     // Add all elements to the gameDiv
-    gameDiv.appendChild(favoriteIcon);
+
     gameDiv.appendChild(gameLink);
-    gameDiv.appendChild(clickCountElement);
+
 
     // Append the gameDiv to the randomGameContainer
     randomGameContainer.appendChild(gameDiv);
