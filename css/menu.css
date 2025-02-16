@@ -340,12 +340,3 @@ body {
     color: #6666ff;
   }
 }
-      /* Add a smooth transition for the blur effect */
-      img {
-        transition: filter 0.5s ease;
-      }
-
-      /* When an image has the loading class, it will be blurred */
-      .loading-image {
-        filter: blur(10px);
-      }
