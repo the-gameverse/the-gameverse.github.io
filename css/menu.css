@@ -305,7 +305,7 @@ body {
   right: 12px;
   font-size: 30px; /* For better visibility */
   cursor: pointer;
-  color: yellow;
+  color: red;
   z-index: 10; /* Sits above other elements */
   text-shadow: 0 0 10px yellow; /* Neon glow for the icon */
 }
