@@ -268,5 +268,29 @@ function displayGames(filter = "") {
   gameCount.textContent = `Games Loaded: ${filteredGames.length}`;
 }
 
+// Function to get random games
+function getRandomGames(num) {
+  const shuffled = games.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
+}
+
+// Function to display random games
+function displayRandomGames() {
+  const randomGames = getRandomGames(8); // Change the number to the desired count of random games
+  const randomGameContainer = document.getElementById('randomGameContainer');
+  randomGameContainer.innerHTML = ''; // Clear previous content
+
+  randomGames.forEach(game => {
+    const gameLink = document.createElement('a');
+    gameLink.href = game.link;
+    gameLink.textContent = game.name;
+    randomGameContainer.appendChild(gameLink);
+    randomGameContainer.appendChild(document.createElement('br')); // Add line break for better readability
+  });
+}
+
+// Call the function to display random games on load
+window.addEventListener('load', displayRandomGames);
+
 // Initial display of games
 displayGames();
