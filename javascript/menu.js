@@ -1,21 +1,6 @@
-/**
- * Global constant for the image loading time (in milliseconds).
- * Adjust this value to change how long the blur effect lasts.
- * @constant {number}
- */
-const LOADING_TIME = 2000;
-
-/**
- * Array of game objects. Each object includes:
- * - name: The name of the game.
- * - image: The URL to the game's cover image.
- * - link: The URL to the game.
- * - clickCount: Number of times the game was clicked.
- * - isFavorited: Boolean indicating if the game is favorited.
- * @type {Array<Object>}
- */
-const games = [
-  { name: "Tiny Fishing", image: "/uploads/covers/tinyfishing.png", link: "/storage/games/tinyfishing", clickCount: 0, isFavorited: false },
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = [
+        { name: "Tiny Fishing", image: "/uploads/covers/tinyfishing.png", link: "/storage/games/tinyfishing", clickCount: 0, isFavorited: false },
   { name: "Snow Rider 3D", image: "/uploads/covers/snowrider3d.png", link: "/storage/games/snowrider3d", clickCount: 0, isFavorited: false },
   { name: "Guess Word", image: "/uploads/covers/guessword.png", link: "/storage/games/guessword", clickCount: 0, isFavorited: false },
   { name: "Draw To Smash!", image: "/uploads/covers/drawsmash.png", link: "/storage/games/drawsmash", clickCount: 0, isFavorited: false },
@@ -105,75 +90,93 @@ const games = [
   { name: "Car Rush", image: "/uploads/covers/carrush.png", link: "/storage/games/carrush", clickCount: 0, isFavorited: false },
   { name: "Climbable Arrow", image: "/uploads/covers/climbablearrow.png", link: "/storage/games/climbablearrow", clickCount: 0, isFavorited: false }
 
- ];
+    ];
+    const buttonContainer = document.getElementById('buttonContainer');
+    const searchInput = document.getElementById('search');
+    const counterDisplay = document.getElementById('counterDisplay');
+    const sortOptions = document.getElementById('sortOptions');
 
-/**
- * Saves the game link to sessionStorage.
- * @param {string} gameLink - The link of the game.
- */
-function saveGameLinkToSessionStorage(gameLink) {
-  sessionStorage.setItem("gameLink", gameLink);
-  console.log("Game link saved to sessionStorage:", gameLink);
-}
+    let showClickCounts = false;
 
-/**
- * Renders the game menu.
- * @param {string} [filter=""] - Optional search filter string.
- */
-function displayGames(filter = "") {
-  const gameMenu = document.getElementById("gameMenu");
-  const gameCount = document.getElementById("gameCount");
-  gameMenu.innerHTML = ""; // Clear the current menu
+    // Function to get the click count for a specific button from localStorage
+    function getClickCount(buttonName) {
+        const count = localStorage.getItem(buttonName);
+        return count ? parseInt(count) : 0;
+    }
 
-  // Filter and sort the games based on current settings.
-  const filteredGames = games
-    .filter(game => game.name.toLowerCase().includes(filter.toLowerCase()))
-    .sort((a, b) => {
-      if (currentSortOption === "favorites") {
-        if (a.isFavorited !== b.isFavorited) {
-          return b.isFavorited - a.isFavorited;
+    // Function to set the click count for a specific button in localStorage
+    function setClickCount(buttonName, count) {
+        localStorage.setItem(buttonName, count);
+    }
+
+    // Function to create each button
+    function createButton(button) {
+        const a = document.createElement('a');
+        a.className = 'menu-button';
+        a.href = button.path;
+
+        let count = getClickCount(button.name);
+
+        const img = document.createElement('img');
+        img.src = button.image;
+        a.appendChild(img);
+
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        overlay.innerText = button.name;
+        a.appendChild(overlay);
+
+        const popUp = document.createElement('div');
+        popUp.className = 'popup';
+        popUp.innerText = `Clicked: ${count} clicks`;
+        a.appendChild(popUp);
+
+        a.addEventListener('click', () => {
+            count++;
+            setClickCount(button.name, count);
+            sessionStorage.setItem('gameLink', button.link);
+
+            // Update iframe on the current page instead of navigating to viewer.html
+            const iframe = document.getElementById('myIframe');
+            iframe.src = button.link;
+        });
+
+        return a;
+    }
+
+    // Function to render buttons and filter them by search input
+    function renderButtons(filter = '', sortBy = 'alphabetical') {
+        buttonContainer.innerHTML = ''; // Clear current buttons
+
+        let sortedButtons;
+
+        if (sortBy === 'clickCount') {
+            sortedButtons = buttons.sort((a, b) => {
+                const countA = getClickCount(a.name);
+                const countB = getClickCount(b.name);
+                return countB - countA;
+            });
+        } else if (sortBy === 'alphabetical') {
+            sortedButtons = buttons.sort((a, b) => a.name.localeCompare(b.name));
         }
-      } else if (currentSortOption === "clickCount") {
-        return b.clickCount - a.clickCount;
-      } else if (currentSortOption === "alphabetical") {
-        return a.name.localeCompare(b.name);
-      }
-      return 0;
+
+        const filteredButtons = sortedButtons.filter(button => button.name.toLowerCase().includes(filter.toLowerCase()));
+
+        filteredButtons.forEach(button => {
+            buttonContainer.appendChild(createButton(button));
+        });
+
+        counterDisplay.textContent = `${filteredButtons.length} Games Loaded`;
+    }
+
+    // Event listeners for search and sort inputs
+    searchInput.addEventListener('input', (e) => {
+        renderButtons(e.target.value, sortOptions.value);
     });
 
-  // Loop through each filtered game and create its DOM elements.
-  filteredGames.forEach(game => {
-    // Create container for the game.
-    const gameDiv = document.createElement("div");
-    gameDiv.classList.add("game");
-
-    // Create image for the game.
-    const gameImage = document.createElement("img");
-    gameImage.src = game.image;
-    gameImage.alt = game.name;
-
-    // Create name for the game.
-    const gameName = document.createElement("h3");
-    gameName.textContent = game.name;
-
-    // Create the button that will save the game link to sessionStorage.
-    const gameLinkButton = document.createElement("button");
-    gameLinkButton.textContent = "Play Game";
-    
-    // Add event listener to save the game link to sessionStorage when clicked.
-    gameLinkButton.addEventListener("click", function() {
-      saveGameLinkToSessionStorage(game.link);
+    sortOptions.addEventListener('change', (e) => {
+        renderButtons(searchInput.value, e.target.value);
     });
 
-    // Append elements to the game div.
-    gameDiv.appendChild(gameImage);
-    gameDiv.appendChild(gameName);
-    gameDiv.appendChild(gameLinkButton);
-
-    // Append game div to the game menu.
-    gameMenu.appendChild(gameDiv);
-  });
-
-  // Update the game count display.
-  gameCount.textContent = `Total Games: ${filteredGames.length}`;
-}
+    renderButtons();
+});
