@@ -12,26 +12,26 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70px; /* Adjusted to fit the circular loader */
-  height: 70px;
+  width: 210px; /* 3x size */
+  height: 210px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 0, 0, 0.1); /* Slight red tint */
   border-radius: 50%;
   z-index: 1000;
-  box-shadow: 0 0 20px rgba(255, 61, 61, 0.5); /* Stronger neon glow */
+  box-shadow: 0 0 40px rgba(255, 61, 61, 0.7); /* Stronger neon glow */
 }
 
-
+/* Circular spinning loader */
 #loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 0, 0, 0.3); /* Light red border */
-  border-top-color: red; /* Solid red top for animation */
+  width: 150px; /* 3x size */
+  height: 150px;
+  border: 15px solid rgba(255, 0, 0, 0.3); /* Thicker border */
+  border-top-color: red; /* Solid red for animation */
   border-radius: 50%;
   animation: spinLoad 0.7s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.8); /* Neon glow effect */
+  box-shadow: 0 0 30px rgba(255, 61, 61, 0.8); /* Enhanced glow */
 }
 
 @keyframes spinLoad {
@@ -42,6 +42,7 @@
     transform: rotate(360deg);
   }
 }
+
 
 
 #loaderblue {
@@ -64,15 +65,32 @@
 
 #loadertext {
   position: absolute;
-  top: 52%; /* Position it right below the loader */
+  top: calc(50% + 100px); /* Adjusted to align below the bigger loader */
   left: 50%;
-  transform: translateX(-50%); /* Center the text horizontally */
+  transform: translateX(-50%);
   z-index: 1;
-  margin-top: 10px; /* Space between loader and text */
-  font-size: 1.2em; /* Optional, adjust as needed */
+  font-size: 2.5em; /* Increased size for better visibility */
+  font-weight: bold;
   color: white;
-  text-shadow: 0 0 10px rgba(255, 61, 61, 0.8); /* Neon glow effect */
+  text-shadow: 0 0 20px rgba(255, 61, 61, 1), 
+               0 0 40px rgba(255, 61, 61, 0.8), 
+               0 0 60px rgba(255, 61, 61, 0.6); /* Stronger neon glow */
+  animation: pulseGlowLoad 1.5s infinite alternate ease-in-out;
 }
+
+/* Smooth glowing effect */
+@keyframes pulseGlowLoad {
+  0% {
+    text-shadow: 0 0 15px rgba(255, 61, 61, 0.8), 
+                 0 0 30px rgba(255, 61, 61, 0.6);
+  }
+  100% {
+    text-shadow: 0 0 25px rgba(255, 61, 61, 1), 
+                 0 0 50px rgba(255, 61, 61, 0.9), 
+                 0 0 70px rgba(255, 61, 61, 0.7);
+  }
+}
+
 
 @keyframes loadingBar {
   0% {
