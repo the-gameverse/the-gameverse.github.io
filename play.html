@@ -97,13 +97,27 @@ iframe {
         transform: scale(1);
     }
 }
+
+/* Flexbox for horizontal layout */
+#randomGameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.game {
+    flex: 0 1 20%; /* Adjust this value to control the width of the game items */
+    margin: 10px;
+    text-align: center;
+    color: white;
+}
         </style>
     </head>
 
     <body>
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
-<div id="randomGameContainer" style="color: white; padding: 20px;"></div>
+        <div id="randomGameContainer"></div>
         <iframe id="myIframe" src="" allowfullscreen></iframe>
 
         <div class="controls">
