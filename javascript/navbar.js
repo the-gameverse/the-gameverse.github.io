@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Inject the CSS for horizontal layout of extra links
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .extra-links {
+      display: flex;
+      gap: 10px; /* Adjust space between the icons */
+      flex-wrap: nowrap; /* Prevent wrapping */
+      margin-top: 10px; /* Adjust top margin if needed */
+    }
+    
+    .extra-links a {
+      display: inline-block;
+    }
+  `;
+  document.head.appendChild(style);
+
   // Check for a logged-in user in localStorage
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon.png' };
@@ -24,11 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <!-- Hidden extra links -->
           <div class="extra-links" style="display: none;">
-          <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
-          <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
-          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="/personalization"><i class="fa-solid fa-paintbrush fa-lg"></i></a>
-          <a href="/screentime"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
+            <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
+            <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
+            <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+            <a href="/personalization"><i class="fa-solid fa-paintbrush fa-lg"></i></a>
+            <a href="/screentime"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
           </div>
         </div>
       </div>
@@ -36,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="nav-right-bg">
         <a href="/editprofile.html" class="profile-link">
           <img src="${user.photo}" alt="${user.username}" class="profile-img">
-          <span class="username">${user.username}</span><img height=30px width=30px src="/uploads/images/profile-verified.png" alt="This is a verified GameVerse profile" title="This is a verified GameVerse profile">
+          <span class="username">${user.username}</span><img height="30px" width="30px" src="/uploads/images/profile-verified.png" alt="This is a verified GameVerse profile" title="This is a verified GameVerse profile">
         </a>
       </div>
     </nav>
@@ -51,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   plusIcon.addEventListener('click', () => {
     if (extraLinks.style.display === 'none') {
-      extraLinks.style.display = 'inline';
+      extraLinks.style.display = 'flex'; // Show the extra links horizontally
       plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
     } else {
       extraLinks.style.display = 'none';
