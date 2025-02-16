@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const style = document.createElement('style');
   style.innerHTML = `
     .extra-links {
-      display: flex;
-      /*gap: 10px;  Adjust space between the icons 
+      /*display: flex;
+      gap: 10px;  Adjust space between the icons 
       flex-wrap: nowrap; Prevent wrapping */
     }
     
