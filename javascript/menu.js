@@ -169,7 +169,7 @@ function sortGames() {
   if (!sortDropdown) return; // Check if sortDropdown exists
   
   currentSortOption = sortDropdown.value;
-  console.log(Sorting by: ${currentSortOption});
+  console.log(`Sorting by: ${currentSortOption}`);
   displayGames(); // Re-render games with new sort option
 }
 
@@ -217,7 +217,7 @@ function displayGames(filter = "") {
     clickCountElement.classList.add("click-count");
     if (showClickCounts) {
           console.log("Click count shown:", game.clickCount); // Debugging line
-      clickCountElement.textContent = Your Clicks: ${game.clickCount};
+      clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
       clickCountElement.style.display = "block";
     } else {
       clickCountElement.style.display = "none";
@@ -253,7 +253,7 @@ function displayGames(filter = "") {
   });
 
   // Update the game count text
-  gameCount.textContent = Games Loaded: ${filteredGames.length};
+  gameCount.textContent = `Games Loaded: ${filteredGames.length}`;
 }
 
 // Initial display of games
