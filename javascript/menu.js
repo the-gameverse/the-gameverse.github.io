@@ -236,8 +236,11 @@ function displayGames(filter = "") {
     gameLink.appendChild(gameImage);
 
     // Apply blur effect and remove it after 4 seconds
+    gameImage.classList.add("blurred");
+    gameLink.classList.add("disabled-link");
     setTimeout(() => {
-      gameImage.classList.add("loaded");
+      gameImage.classList.remove("blurred");
+      gameLink.classList.remove("disabled-link");
     }, 4000);
 
     // Create the game name
@@ -267,7 +270,4 @@ function displayGames(filter = "") {
   // Update the game count text
   gameCount.textContent = `Games Loaded: ${filteredGames.length}`;
 }
-
-// Initial display of games
-displayGames();
 
