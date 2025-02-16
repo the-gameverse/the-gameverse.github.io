@@ -1,4 +1,3 @@
-#
 // G tag
 // Create the <script> element for the Google tag (gtag.js)
 var script1 = document.createElement('script');
