@@ -307,7 +307,7 @@ body {
   cursor: pointer;
   color: red;
   z-index: 10; /* Sits above other elements */
-  text-shadow: 0 0 10px yellow; /* Neon glow for the icon */
+  text-shadow: 0 0 10px red; /* Neon glow for the icon */
 }
 
 .controls {
