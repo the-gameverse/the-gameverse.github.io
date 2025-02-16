@@ -102,6 +102,7 @@ function toggleClickCounts() {
       console.log("Toggle Click Counts triggered"); // Debugging line
   showClickCounts = !showClickCounts;
   const button = document.getElementById("toggleUsageData");
+  
   button.textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
   displayGames(); // Re-render the games
 }
@@ -246,6 +247,10 @@ function displayGames(filter = "") {
       game.clickCount++;
       saveClickCountsToLocalStorage(); // Save updated click count
       displayGames(filter); // Re-render the games
+      sessionStorage.setItem('gameLink', game.link);
+      const iframe = document.getElementById('myIframe');
+      iframe.src = button.link;
+      window.location.href = '/play';
     });
 
     // Append the gameDiv to the gameMenu
