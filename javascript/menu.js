@@ -105,7 +105,7 @@ function toggleClickCounts() {
   button.textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
   displayGames(); // Re-render the games
 }
-function saveGameLinkToSessionStorage(gameLink) {
+function saveClickCountsToLocalStorage(gameLink) {
   // Save the game's link to sessionStorage
   sessionStorage.setItem("gameLink", gameLink);
   console.log("Game link saved:", gameLink); // Debugging line
@@ -250,6 +250,8 @@ function displayGames(filter = "") {
     // Increment click count when the gameDiv is clicked
     gameDiv.addEventListener("click", () => {
       game.clickCount++;
+      const iframe = document.getElementById('myIframe');
+      iframe.src = button.link;
       saveClickCountsToLocalStorage(); // Save updated click count
       displayGames(filter); // Re-render the games
     });
