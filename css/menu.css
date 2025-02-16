@@ -6,21 +6,23 @@
   box-shadow: 0 0 15px rgba(255, 61, 61, 0.5); /* Neon glow effect */
 }
 
-/* Page loader */
+/* Page loader container */
 #loader-container {
   position: absolute;
-  top: 50%; /* 50% from the top of the page */
-  left: 50%; /* 50% from the left of the page */
-  transform: translate(-50%, -50%); /* Center the container */
-  width: 300px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  overflow: hidden;
-  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px; /* Adjusted to fit the circular loader */
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 0, 0, 0.1); /* Slight red tint */
+  border-radius: 50%;
   z-index: 1000;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.3); /* Neon glow effect */
+  box-shadow: 0 0 20px rgba(255, 61, 61, 0.5); /* Stronger neon glow */
 }
+
 
 #loader {
   width: 50px;
