@@ -17,10 +17,9 @@ body {
   padding: 10px 20px;
   box-sizing: border-box;
   z-index: 1000;
-  background-color: rgba(34, 34, 34, 0.7);
+  background-color: transparent;
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.3); /* Reduced excessive glow */
-  border-radius: 10px;
+  box-shadow: none;
 }
 
 .nav-left-bg, .nav-right-bg {
