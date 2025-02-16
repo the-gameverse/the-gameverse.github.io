@@ -12,7 +12,14 @@ body {
     background-color: black;
     animation: fadeInBackground 2s ease-in-out forwards;
 }
-
+    .gradient-red {
+      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
 @keyframes fadeInBackground {
     from {
         background-color: black;
