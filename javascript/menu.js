@@ -177,3 +177,8 @@ function displayGames(filter = "") {
   // Update the game count display.
   gameCount.textContent = `Total Games: ${filteredGames.length}`;
 }
+// Call displayGames initially with no filter.
+window.onload = function() {
+  displayGames();
+};
+
