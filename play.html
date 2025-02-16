@@ -6,12 +6,12 @@
         <link rel=stylesheet href=/css/viewers.css>
         <link rel="stylesheet" href="/css/navbar.css">
         <script src="/javascript/menu.js"></script>
-                <style>
+        <style>
             body {
-                background-color:black;
+                background-color: black;
             }
             iframe {
-                background-color:black;
+                background-color: black;
             }
         </style>
     </head>
@@ -30,7 +30,7 @@
                 <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
                 <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
                 <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
-                <button disabled style="opacity:50%" id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>
+                <button disabled style="opacity: 50%" id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>
             </div>
         </div>
 
@@ -62,6 +62,17 @@
                 if (gameLink) {
                     temporaryRedirect(tempLink, gameLink);
                 }
+
+                // Set a timer to detect iframe unresponsiveness
+                const iframe = document.getElementById('myIframe');
+                let iframeUnresponsive = setTimeout(() => {
+                    iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
+                }, 5000); // 5000 milliseconds = 5 seconds
+
+                // Add an event listener to reset the timer on successful load
+                iframe.addEventListener('load', () => {
+                    clearTimeout(iframeUnresponsive);
+                });
             });
 
             // Function to toggle sound
@@ -87,16 +98,17 @@
             }
 
             // Iframe controls for viewers
-            const iframe = document.getElementById('myIframe');
             const reloadButton = document.getElementById('reloadButton');
             const fullscreenButton = document.getElementById('fullscreenButton');
             const homeButton = document.getElementById('homeButton');
 
             reloadButton.addEventListener('click', () => {
+                const iframe = document.getElementById('myIframe');
                 iframe.src = iframe.src;
             });
 
             fullscreenButton.addEventListener('click', () => {
+                const iframe = document.getElementById('myIframe');
                 if (iframe.requestFullscreen) {
                     iframe.requestFullscreen();
                 } else if (iframe.mozRequestFullScreen) { // Firefox
