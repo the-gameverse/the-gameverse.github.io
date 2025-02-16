@@ -231,7 +231,7 @@ function displayGames(filter = "") {
 
     // Create the game link and image
     const gameLink = document.createElement("a");
-    gameLink.href = game.link;
+    gameLink.href = game.path;
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
     gameLink.appendChild(gameImage);
