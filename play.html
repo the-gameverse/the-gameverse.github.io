@@ -31,15 +31,21 @@
  <script src="/javascript/viewers.js"></script>
 <script>
     // Define the redirectIframe function
-    function redirectIframe(link) {
+    function redirectIframe(link, name) {
         const iframe = document.getElementById('myIframe');
         iframe.src = link;
+        
+        const gameInfo = document.querySelector('.game-info h2');
+        gameInfo.textContent = name;
+        
+        document.title = `GameVerse - ${name}`;
     }
 
     window.addEventListener('load', function() {
         const gameLink = localStorage.getItem('gameLink');
-        if (gameLink) {
-            redirectIframe(gameLink);
+        const gameName = localStorage.getItem('gameName');
+        if (gameLink && gameName) {
+            redirectIframe(gameLink, gameName);
         }
     });
 </script>
