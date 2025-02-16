@@ -101,12 +101,12 @@ iframe {
     <body>
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
-
+<div id="randomGameContainer" style="color: white; padding: 20px;"></div>
         <iframe id="myIframe" src="" allowfullscreen></iframe>
 
         <div class="controls">
             <div class="game-info">
-                <h2 id=gradient-red></h2>
+                <h2 class="gradient-red"></h2>
             </div>
             <div class="buttons">
                 <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
@@ -116,7 +116,9 @@ iframe {
             </div>
         </div>
 
-        <!--<script src="/javascript/viewers.js"></script>-->
+        <!-- Container for random games -->
+        
+
         <script>
             // Define the redirectIframe function
             function redirectIframe(link, name) {
