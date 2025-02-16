@@ -76,3 +76,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+ // Insert the Google Translate script for language selection
+  var selectedLanguage = localStorage.getItem('selectedLanguage');
+  if (selectedLanguage) {
+    var translateScript = document.createElement('script');
+    translateScript.type = 'text/javascript';
+    translateScript.innerHTML = `
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,es,fr', // Add more languages as needed
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    `;
+    document.body.appendChild(translateScript);
+
+    var gtScript = document.createElement('script');
+    gtScript.type = 'text/javascript';
+    gtScript.async = true;
+    gtScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.body.appendChild(gtScript);
+
+    setTimeout(function() {
+      var select = document.querySelector('select.goog-te-combo');
+      if (select) {
+        select.value = selectedLanguage;
+        select.dispatchEvent(new Event('change'));
+      }
+    }, 1000);
+  }
+});
