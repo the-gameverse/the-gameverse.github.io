@@ -108,7 +108,6 @@ function toggleClickCounts() {
 }
 function saveClickCountsToLocalStorage(gameLink) {
   // Save the game's link to sessionStorage
-  sessionStorage.setItem("gameLink", gameLink);
   console.log("Game link saved:", gameLink); // Debugging line
 }
 
@@ -253,6 +252,7 @@ function displayGames(filter = "") {
       game.clickCount++;
       const iframe = document.getElementById('myIframe');
       iframe.src = button.link;
+      sessionStorage.setItem("gameLink", gameLink);
       saveClickCountsToLocalStorage(); // Save updated click count
       displayGames(filter); // Re-render the games
     });
