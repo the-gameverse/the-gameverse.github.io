@@ -1,10 +1,10 @@
 // Add shows
 
 const shows = [
-  { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", link: "/storage/tv/phineasandferb", clickCount: 0, isFavorited: false },
-  { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", link: "/storage/tv/gravityfalls", clickCount: 0, isFavorited: false },
-  { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", link: "/storage/tv/theamazingworldofgumball", clickCount: 0, isFavorited: false },
-  { name: "Bluey", image: "/uploads/covers/bluey.png", link: "/storage/tv/bluey", clickCount: 0, isFavorited: false }
+  { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", link: "/storage/tv/phineasandferb", clickCount: 0, isFavorited: false, path: "/watch" },
+  { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", link: "/storage/tv/gravityfalls", clickCount: 0, isFavorited: false, path: "/watch"  },
+  { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", link: "/storage/tv/theamazingworldofgumball", clickCount: 0, isFavorited: false, path: "/watch"  },
+  { name: "Bluey", image: "/uploads/covers/bluey.png", link: "/storage/tv/bluey", clickCount: 0, isFavorited: false, path: "/watch"  }
 ];
 
 // Variable to toggle click count visibility
