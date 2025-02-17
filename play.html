@@ -139,16 +139,23 @@ iframe {
         
 
         <script>
-            // Define the redirectIframe function
-            function redirectIframe(link, name) {
-                const iframe = document.getElementById('myIframe');
-                iframe.src = link;
+function redirectIframe(link, name) {
+    const iframe = document.getElementById('myIframe');
+    const tempLink = '/storage/loading';
 
-                const gameInfo = document.querySelector('.game-info h2');
-                gameInfo.textContent = name;
+    // Temporarily redirect to loading page
+    iframe.src = tempLink;
 
-                document.title = `GameVerse - ${name}`;
-            }
+    // Update the game info
+    const gameInfo = document.querySelector('.game-info h2');
+    gameInfo.textContent = name;
+    document.title = `GameVerse - ${name}`;
+
+    // Set a timeout to redirect to the actual game link after 4 seconds
+    setTimeout(() => {
+        iframe.src = link;
+    }, 4000); // 4000 milliseconds = 4 seconds
+}
 
             window.addEventListener('load', function() {
                 const gameLink = localStorage.getItem('gameLink');
