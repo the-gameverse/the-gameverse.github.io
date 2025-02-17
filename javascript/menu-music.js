@@ -133,7 +133,7 @@ function displayPlaylists(filter = "") {
 
         // Create the playlist link and image
         const playlistLink = document.createElement("a");
-        playlistLink.href = "/listen";
+        playlistLink.href = playlist.link;
         const playlistImage = document.createElement("img");
         playlistImage.src = playlist.image;
         playlistLink.appendChild(playlistImage);
