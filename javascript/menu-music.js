@@ -1,9 +1,9 @@
 // Add music playlists
 
 const playlists = [
-    { name: "Guitar Music", image: "/uploads/covers/guitar.png", link: "/storage/music/guitar", clickCount: 0 },
-    { name: "Lofi Beats", image: "/uploads/covers/lofi.png", link: "/storage/music/lofi", clickCount: 0 },
-    { name: "Piano Music", image: "/uploads/covers/piano.png", link: "/storage/music/piano", clickCount: 0 }
+    { name: "Guitar Music", image: "/uploads/covers/guitar.png", link: "/storage/music/guitar", clickCount: 0, isFavorited: false },
+    { name: "Lofi Beats", image: "/uploads/covers/lofi.png", link: "/storage/music/lofi", clickCount: 0, isFavorited: false },
+    { name: "Piano Music", image: "/uploads/covers/piano.png", link: "/storage/music/piano", clickCount: 0, isFavorited: false }
 ];
 
 // Variable to toggle click count visibility
@@ -19,15 +19,36 @@ function toggleClickCounts() {
     displayPlaylists(); // Re-render the playlists
 }
 
-function saveClickCountsToLocalStorage(playlistLink) {
-    // Save the playlist's link to sessionStorage
-    console.log("Playlist link saved:", playlistLink); // Debugging line
-}
-
 // Filter playlists based on search input
 function filterPlaylists() {
-    const search = document.getElementById("search").value;
+    const search = document.getElementById("searchBar").value;
     displayPlaylists(search);
+}
+
+// Save favorites to localStorage
+function saveFavoritesToLocalStorage() {
+    const favorites = playlists.reduce((acc, playlist) => {
+        acc[playlist.name] = playlist.isFavorited;
+        return acc;
+    }, {});
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+// Load favorites from localStorage
+function loadFavoritesFromLocalStorage() {
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+    if (storedFavorites) {
+        playlists.forEach(playlist => {
+            if (storedFavorites[playlist.name] !== undefined) {
+                playlist.isFavorited = storedFavorites[playlist.name];
+            }
+        });
+    } else {
+        // Set all playlists to non-favorited if no favorites are found in localStorage
+        playlists.forEach(playlist => {
+            playlist.isFavorited = false;
+        });
+    }
 }
 
 // Save click counts to localStorage
@@ -51,7 +72,8 @@ function loadClickCountsFromLocalStorage() {
     }
 }
 
-// Load click counts initially
+// Load favorites and click counts initially
+loadFavoritesFromLocalStorage();
 loadClickCountsFromLocalStorage();
 
 // Handle sorting
@@ -86,6 +108,19 @@ function displayPlaylists(filter = "") {
         const playlistDiv = document.createElement("div");
         playlistDiv.classList.add("playlist");
 
+        // Create the favorite icon (star)
+        const favoriteIcon = document.createElement("div");
+        favoriteIcon.classList.add("favorite-icon");
+        favoriteIcon.innerHTML = playlist.isFavorited ? "★" : "☆"; // Filled or empty star
+        favoriteIcon.title = playlist.isFavorited ? "Unfavorite" : "Favorite";
+        favoriteIcon.style.cursor = "pointer";
+        favoriteIcon.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent triggering other click events
+            playlist.isFavorited = !playlist.isFavorited;
+            saveFavoritesToLocalStorage(); // Save favorites after toggling
+            displayPlaylists(filter); // Re-render the playlists
+        });
+
         // Create the click count display
         const clickCountElement = document.createElement("div");
         clickCountElement.classList.add("click-count");
@@ -110,6 +145,7 @@ function displayPlaylists(filter = "") {
         playlistLink.appendChild(playlistName);
 
         // Add all elements to the playlistDiv
+        playlistDiv.appendChild(favoriteIcon);
         playlistDiv.appendChild(playlistLink);
         playlistDiv.appendChild(clickCountElement);
 
