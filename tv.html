@@ -33,6 +33,14 @@
 
         <center>
           <input id="searchBar" type="text" placeholder="SEARCH ALL SHOWS">
+          <div id="controls" class="controls">
+              <select id="sortOptions" onchange="sortShows()">
+                  <option value="favorites">Sort by Favorites</option>
+                  <option value="clickCount">Sort by Click Count</option>
+                  <option value="alphabetical">Sort Alphabetically</option>
+              </select>
+              <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+          </div>
           <div id="showCount"></i>Shows Loaded: 0</div>
           <div id="showMenu"></div>
 
