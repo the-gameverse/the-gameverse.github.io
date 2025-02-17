@@ -133,7 +133,7 @@ function displayPlaylists(filter = "") {
 
         // Create the playlist link and image
         const playlistLink = document.createElement("a");
-        playlistLink.href = playlist.link;
+        playlistLink.href = "/listen";
         const playlistImage = document.createElement("img");
         playlistImage.src = playlist.image;
         playlistLink.appendChild(playlistImage);
@@ -156,6 +156,7 @@ function displayPlaylists(filter = "") {
             localStorage.setItem('playlistName', playlist.name); // Save playlist name to localStorage
             saveClickCountsToLocalStorage(); // Save updated click count
             displayPlaylists(filter); // Re-render the playlists
+            window.location.href = "/listen"; // Redirect to /listen
         });
 
         // Append the playlistDiv to the playlistMenu
