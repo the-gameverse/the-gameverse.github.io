@@ -17,12 +17,25 @@ body {
     overflow:auto;
 }
 .gradient-blue {
-    background: linear-gradient(to right, #7ea7ff, #3d61ff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(61, 126, 255, 0.8);
-    animation: glow 1.5s infinite alternate;
+  background: linear-gradient(to right, #7eafff, #3d7eff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(61, 126, 255, 0.8);
+  animation: glow-blue 1.5s infinite alternate;
+}
+
+@keyframes glow-blue {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(61, 126, 255, 0.8),
+                 0 0 20px rgba(61, 126, 255, 0.8),
+                 0 0 30px rgba(61, 126, 255, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(61, 126, 255, 1),
+                 0 0 30px rgba(61, 126, 255, 1),
+                 0 0 40px rgba(61, 126, 255, 1);
+  }
 }
 @keyframes fadeInBackground {
     from {
