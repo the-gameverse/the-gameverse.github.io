@@ -1,9 +1,9 @@
 // Add music playlists
 
 const playlists = [
-    { name: "Guitar Music", image: "/uploads/covers/guitar.png", link: "/storage/music/guitar", clickCount: 0, isFavorited: false },
-    { name: "Lofi Beats", image: "/uploads/covers/lofi.png", link: "/storage/music/lofi", clickCount: 0, isFavorited: false },
-    { name: "Piano Music", image: "/uploads/covers/piano.png", link: "/storage/music/piano", clickCount: 0, isFavorited: false }
+    { name: "Guitar Music", image: "/uploads/covers/guitar.png", link: "https://www.youtube.com/embed/OPOxe-0NW0U?autoplay=1", clickCount: 0, isFavorited: false },
+    { name: "Lofi Beats", image: "/uploads/covers/lofi.png", link: "https://www.youtube.com/embed/mmKguZohAck?autoplay=1", clickCount: 0, isFavorited: false },
+    { name: "Piano Music", image: "/uploads/covers/piano.png", link: "https://www.youtube.com/embed/3NycM9lYdRI?autoplay=1", clickCount: 0, isFavorited: false }
 ];
 
 // Variable to toggle click count visibility
