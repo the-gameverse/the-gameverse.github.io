@@ -276,7 +276,7 @@ function getRandomGames(num) {
 
 // Function to display random games
 function displayRandomGames() {
-  const randomGames = getRandomGames(8); // Change the number to the desired count of random games
+  const randomGames = getRandomGames(7); // Change the number to the desired count of random games
   const randomGameContainer = document.getElementById('randomGameContainer');
   randomGameContainer.innerHTML = ''; // Clear previous content
 
