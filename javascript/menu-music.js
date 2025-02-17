@@ -100,6 +100,8 @@ function displayPlaylists(filter = "") {
                 return b.clickCount - a.clickCount; // Sort by click count
             } else if (currentSortOption === "alphabetical") {
                 return a.name.localeCompare(b.name); // Alphabetical sorting
+            } else if (currentSortOption === "favorites") {
+                return b.isFavorited - a.isFavorited; // Sort by favorites
             }
             return 0;
         });
