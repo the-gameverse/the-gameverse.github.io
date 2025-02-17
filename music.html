@@ -38,10 +38,11 @@
             <input id="searchBar" type="text" placeholder="SEARCH ALL MUSIC" oninput="filterPlaylists()">
             <div class="controls">
                 <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-                <select id="sortOptions" onchange="sortPlaylists()">
-                    <option value="alphabetical">Alphabetical</option>
-                    <option value="clickCount">Click Count</option>
-                </select>
+<select id="sortOptions" onchange="sortPlaylists()">
+    <option value="alphabetical">Alphabetical</option>
+    <option value="clickCount">Click Count</option>
+    <option value="favorites">Favorites</option>
+</select>
             </div>
             <div id="playlistCount"></div>
             <div id="playlistMenu"></div>
