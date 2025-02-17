@@ -35,7 +35,14 @@
             <h1 style="font-size:50px;" class="gradient-blue">Music</h1>
             <p>Press play and let the magic begin! ✨🎵</p>
             <hr style="border:3px solid white">
-            <input id="searchBar" type="text" placeholder="SEARCH ALL MUSIC">
+            <input id="searchBar" type="text" placeholder="SEARCH ALL MUSIC" oninput="filterPlaylists()">
+            <div class="controls">
+                <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                <select id="sortOptions" onchange="sortPlaylists()">
+                    <option value="alphabetical">Alphabetical</option>
+                    <option value="clickCount">Click Count</option>
+                </select>
+            </div>
             <div id="playlistCount"></div>
             <div id="playlistMenu"></div>
             <script src="/javascript/menu-music.js"></script>
