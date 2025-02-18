@@ -60,7 +60,7 @@ const games = [
 { name: "Solitaire", image: "/uploads/covers/solitaire.png", link: "https://www.hoodamath.com/mobile/games/freecell-solitaire/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Checkers", image: "/uploads/covers/checkers.png", link: "https://www.hoodamath.com/mobile/games/checkers/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Orange", image: "/uploads/covers/orange.png", link: "https://www.hoodamath.com/mobile/games/orange/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Head Soccer 2022", image: "/uploads/covers/headsoccer2022.png", link: "https://www.hoodamath.com/mobile/games/head-soccer-2022/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Head Soccer 2022", image: "/uploads/covers/headsoccer2022.png", link: "https://www.hoodamath.com/mobile/games/head-soccer/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Fall Beans", image: "/uploads/covers/fallbeans.png", link: "https://www.hoodamath.com/mobile/games/fall-beans/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Ball Blast", image: "/uploads/covers/ballblast.png", link: "https://scratch.mit.edu/projects/472077983/embed", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Cookie Clicker", image: "/uploads/covers/cookieclicker.png", link: "https://www.hoodamath.com/mobile/games/cookie-clicker/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
