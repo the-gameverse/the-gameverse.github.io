@@ -26,7 +26,7 @@
 
 <div id=zoom>
 <center>
-<h1 style="font-size:50px;" class="gradient-red" id="gameTitle"> Games </h1> 
+<h1 style="font-size:50px;" class="gradient-red" id="gameTitle"> Games <span id="cc"></span></h1> 
 <p class="gradient-red" style=font-size:15px;>major glowup frfr</p>
 <hr style="border:3px solid white">
 
@@ -81,6 +81,7 @@
         gameTitle.addEventListener("click", () => {
             clicks += 1;
             if (clicks === 69) {
+                document.querySelector("#cc").innerHTML = clicks;
                 clicks = 0;
                 alert("Easter Egg Found!!!")
             }
