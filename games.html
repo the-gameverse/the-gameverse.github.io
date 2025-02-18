@@ -74,6 +74,18 @@
 
 
          </body>
+<!--   Easter Egg code   -->
+    <script>
+        let clicks = 0;
+        const gameTitle = document.querySelector("#gameTitle");
+        gameTitle.addEventListener("click", () => {
+            clicks += 1;
+            if (clicks = 69) {
+                clicks = 0;
+                alert("Easter Egg Found!!!")
+            }
+        })
+    </script>
     
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
