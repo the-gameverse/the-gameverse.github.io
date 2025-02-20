@@ -40,6 +40,7 @@
       margin: 0;
     }
 
+    /* Content Rows */
     .content-row {
       display: flex;
       align-items: center;
@@ -78,6 +79,57 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
+    /* Popup Styles */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .popup.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .popup-content {
+      background: #1d1d1d;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Button Styles */
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff3d3d;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e62b2b;
+      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 40px 0;
+    }
     .settings-form {
       display: flex;
       flex-direction: column;
@@ -103,21 +155,18 @@
     .settings-form label {
       font-size: 1.2em;
     }
+
   </style>
 </head>
 <body>
   <!-- Navigation bar -->
   <div id="navbar"></div>
   <script src="/javascript/navbar.js"></script>
-
-  <center>
-    <img src="/uploads/branding/favicon.png" alt="GameVerse Logo" height="150px" width="150px">
-    <h1 class="gradient-red">Cloaking Settings</h1>
-    <hr>
-  </center>
-
-  <div class="content-row">
-    <div class="content-text">
+  <script src="/javascript/cloaking.js"></script>
+  
+  <br><br><br>
+   <h1 class="gradient-red">Settings</h1>
+  <hr>
       <h3 class="gradient-red">Update Cloak Settings</h3>
       <form class="settings-form" id="cloakSettingsForm">
         <label for="newTitle">New Cloak Title:</label>
@@ -126,10 +175,7 @@
         <input type="url" id="newFavicon" name="newFavicon" required>
         <button type="submit">Update</button>
       </form>
-    </div>
-  </div>
-
-  <script>
+    <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const newTitle = document.getElementById('newTitle').value;
@@ -138,5 +184,6 @@
       alert('Cloak settings updated!');
     });
   </script>
+  <script src="/javascript/scrollbar.js"></script>
 </body>
 </html>
