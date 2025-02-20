@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GameVerse - Settings</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: #000; /* Pure black background */
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* Neon Glow Animation for Text */
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 61, 61, 0.8), 0 0 20px rgba(255, 61, 61, 0.8), 0 0 30px rgba(255, 61, 61, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(255, 61, 61, 1), 0 0 30px rgba(255, 61, 61, 1), 0 0 40px rgba(255, 61, 61, 1);
+      }
+    }
+
+    /* Gradient Text with Neon Glow */
+    .gradient-red {
+      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
+
+    h1, h3 {
+      margin: 0;
+    }
+
+    .content-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      margin: 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+      background-color: rgba(34, 34, 34, 0.4);
+      backdrop-filter: blur(6px);
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(255, 61, 61, 0.3);
+    }
+
+    .content-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .content-row:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 61, 61, 0.6);
+    }
+
+    .content-text {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .content-image {
+      flex: 0 0 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .settings-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .settings-form input, .settings-form button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff3d3d;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .settings-form input:hover, .settings-form button:hover {
+      background-color: #e62b2b;
+      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
+    }
+
+    .settings-form label {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <div id="navbar"></div>
+  <script src="/javascript/navbar.js"></script>
+
+  <center>
+    <img src="/uploads/branding/favicon.png" alt="GameVerse Logo" height="150px" width="150px">
+    <h1 class="gradient-red">Cloaking Settings</h1>
+    <hr>
+  </center>
+
+  <div class="content-row">
+    <div class="content-text">
+      <h3 class="gradient-red">Update Cloak Settings</h3>
+      <form class="settings-form" id="cloakSettingsForm">
+        <label for="newTitle">New Cloak Title:</label>
+        <input type="text" id="newTitle" name="newTitle" required>
+        <label for="newFavicon">New Cloak Favicon URL:</label>
+        <input type="url" id="newFavicon" name="newFavicon" required>
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const newTitle = document.getElementById('newTitle').value;
+      const newFavicon = document.getElementById('newFavicon').value;
+      cloak.setCloak(newTitle, newFavicon);
+      alert('Cloak settings updated!');
+    });
+  </script>
+</body>
+</html>
