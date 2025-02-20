@@ -37,13 +37,13 @@
       margin: 0;
     }
 
-    .settings-form {
+    .settings-form, .screen-time-form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .settings-form input, .settings-form button, .settings-form select {
+    .settings-form input, .settings-form button, .settings-form select, .screen-time-form input, .screen-time-form button, .screen-time-form select {
       padding: 10px;
       margin: 5px;
       border: none;
@@ -54,13 +54,97 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .settings-form input:hover, .settings-form button:hover, .settings-form select:hover {
+    .settings-form input:hover, .settings-form button:hover, .settings-form select:hover, .screen-time-form input:hover, .screen-time-form button:hover, .screen-time-form select:hover {
       background-color: #e62b2b;
       box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
     }
 
-    .settings-form label {
+    .settings-form label, .screen-time-form label {
       font-size: 1.2em;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      text-align: left;
+      color: black;
+    }
+
+    .time-display {
+      font-size: 1.5em;
+      color: black;
+    }
+
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      color: black;
+    }
+
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      color: black;
+    }
+
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      -webkit-animation: fadeEffect 1s;
+      animation: fadeEffect 1s;
+      color: black;
+    }
+
+    @-webkit-keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    body {
+      color: black;
+    }
+
+    p {
+      color: black;
+    }
+
+    h2 {
+      color: black;
     }
   </style>
 </head>
@@ -76,6 +160,7 @@
     <hr>
   </center>
 
+  <!-- Cloak Settings Form -->
   <form class="settings-form" id="cloakSettingsForm">
     <label for="cloakSelect">Select Cloak:</label>
     <select id="cloakSelect" name="cloakSelect" data-cloak-select>
@@ -86,11 +171,69 @@
     <label for="newTitle">New Cloak Title:</label>
     <input type="text" id="newTitle" name="newTitle" required>
     <label for="newFavicon">New Cloak Favicon URL:</label>
-    <input  id="newFavicon" name="newFavicon" required>
+    <input type="text" id="newFavicon" name="newFavicon" required>
     <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
     <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
     <button type="submit">Update</button>
   </form>
+
+  <!-- Screen Time Settings Form -->
+  <div class="section" id="trackerDisplay">
+    <p>Time Spent Today: <span id="timeSpent" class="time-display">00:00:00</span></p>
+    <p>Time Remaining: <span id="timeRemaining" class="time-display">-</span></p>
+  </div>
+
+  <div class="section" id="settings">
+    <h2>Screen Time Settings</h2>
+    <form class="screen-time-form" id="settingsForm">
+      <!-- Enable/Disable Limit -->
+      <label>
+        <input type="checkbox" id="limitActiveCheckbox">
+        Enable Usage Limit
+      </label>
+
+      <!-- Usage Limit: Preset times and Custom option -->
+      <label>
+        Usage Limit:
+        <select id="presetTimeDropdown">
+          <option value="900">00:15:00</option>
+          <option value="1800">00:30:00</option>
+          <option value="3600" selected>01:00:00</option>
+          <option value="7200">02:00:00</option>
+          <option value="10800">03:00:00</option>
+          <option value="custom">Custom</option>
+        </select>
+        <span id="customTimeContainer" style="display: none;">
+          Custom Time (HH:MM:SS): 
+          <input type="text" id="customTimeInput" placeholder="HH:MM:SS">
+        </span>
+      </label>
+
+      <!-- Action When Limit is Reached -->
+      <label>
+        Action on Limit Reached:
+        <select id="limitActionDropdown">
+          <option value="reminder">Redirect every 5 minutes (Reminder)</option>
+          <option value="lockout">Immediate Lockout</option>
+        </select>
+      </label>
+
+      <!-- Disable Tracking -->
+      <label>
+        Disable Tracking for:
+        <select id="disableDaysDropdown">
+          <option value="0">Today</option>
+          <option value="1">1 Day</option>
+          <option value="2">2 Days</option>
+          <option value="3">3 Days</option>
+        </select>
+        <button type="button" id="disableButton">Disable Tracking</button>
+      </label>
+
+      <!-- Save Settings -->
+      <button type="button" id="saveSettingsButton">Save Settings</button>
+    </form>
+  </div>
 
   <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
@@ -104,7 +247,38 @@
     // Initialize the toggle state based on localStorage
     const toggleCheckbox = document.getElementById('toggleAntiTabClose');
     toggleCheckbox.checked = localStorage.getItem("antiTabCloseEnabled") === "true";
+
+    // When the preset dropdown changes, show/hide the custom time input
+    document.getElementById('presetTimeDropdown').addEventListener('change', function() {
+      if (this.value === 'custom') {
+        document.getElementById('customTimeContainer').style.display = 'inline';
+      } else {
+        document.getElementById('customTimeContainer').style.display = 'none';
+      }
+    });
+
+    // Initialize the anti-tab close functionality
+    function toggleAntiTabClose(enable) {
+      if (enable) {
+        window.addEventListener('beforeunload', beforeUnloadHandler);
+        window.onbeforeunload = function() { return "Anti-tab close enabled."; };
+      } else {
+        window.removeEventListener('beforeunload', beforeUnloadHandler);
+        window.onbeforeunload = null;
+      }
+      localStorage.setItem("antiTabCloseEnabled", enable);
+    }
+
+    function beforeUnloadHandler(e) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+
+    if (toggleCheckbox.checked) {
+      toggleAntiTabClose(true);
+    }
   </script>
+
   <script src="/javascript/scrollbar.js"></script>
   <!-- Particles.JS start -->
   <div id="particles-js"></div>
