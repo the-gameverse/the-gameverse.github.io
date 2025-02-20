@@ -78,11 +78,13 @@
 
   <form class="settings-form" id="cloakSettingsForm">
     <label for="cloakSelect">Select Cloak:</label>
-    <select id="cloakSelect" name="cloakSelect" data-cloak-select>
-      <option value="cloak1">Google </option>
-      <option value="cloak2">Google Drive</option>
-      <option value="cloak3">Cloak 3</option>
-    </select>
+<select name="cloak" data-cloak-select>
+  <option value="default">Default (no cloak)</option>
+  <option value="gdrive">Google Drive</option>
+  <option value="google">Google</option>
+  <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
+</select>
+    <button onClick="cloak.reset();">RESET CLOAK</button>
     <label for="newTitle">New Cloak Title:</label>
     <input type="text" id="newTitle" name="newTitle" required>
     <label for="newFavicon">New Cloak Favicon URL:</label>
@@ -92,6 +94,16 @@
     <button type="submit">Update</button>
   </form>
 
+
+<script>
+  const cloaks = [
+    { name: "default", icon: "/uploads/branding/favicon.png", title: "GameVerse" },
+    { name: "gdrive", icon: "https://google.com/favicon.ico", title: "Google" },
+    { name: "google", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive" },
+    { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak" },
+  ];
+</script>
+  
   <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
       event.preventDefault();
