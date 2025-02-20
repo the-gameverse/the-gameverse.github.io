@@ -1,3 +1,9 @@
+const cloaks = [
+    { id: 'cloak1', title: 'Google', favicon: 'https://www.google.com/favicon.ico' },
+    { id: 'cloak2', title: 'Google Drive', favicon: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png' },
+    { id: 'cloak3', title: 'Cloak 3', favicon: 'url_to_favicon3' }
+];
+
 const logo = "\x1b[91m[GameVerse Cloak]\x1b[0m";
 
 const cloak = {
