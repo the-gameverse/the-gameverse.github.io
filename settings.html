@@ -12,7 +12,6 @@
       padding: 0;
       overflow-x: hidden;
       background: #000; /* Pure black background */
-
       color: #fff;
     }
 
@@ -41,31 +40,13 @@
     }
 
 
-    /* Button Styles */
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff3d3d;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #e62b2b;
-      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
-    }
-
-
     .settings-form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .settings-form input, .settings-form button {
+    .settings-form input, .settings-form button, .settings-form select {
       padding: 10px;
       margin: 5px;
       border: none;
@@ -76,7 +57,7 @@
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .settings-form input:hover, .settings-form button:hover {
+    .settings-form input:hover, .settings-form button:hover, .settings-form select:hover {
       background-color: #e62b2b;
       box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
     }
@@ -84,28 +65,39 @@
     .settings-form label {
       font-size: 1.2em;
     }
-
   </style>
 </head>
 <body>
-  <center>
   <!-- Navigation bar -->
   <div id="navbar"></div>
   <script src="/javascript/navbar.js"></script>
   <script src="/javascript/cloaking.js"></script>
-  
-  <br><br><br>
-   <h1 class="gradient-red">Settings</h1>
-  <hr>
-      <h3 class="gradient-red">Update Cloak Settings</h3>
+  <script src="/javascript/antitabclose.js"></script>
+
+  <center>
+    <h1 class="gradient-red">Settings</h1>
+    <hr>
+  </center>
+
+
       <form class="settings-form" id="cloakSettingsForm">
+        <label for="cloakSelect">Select Cloak:</label>
+        <select id="cloakSelect" name="cloakSelect" data-cloak-select>
+          <option value="cloak1">Cloak 1</option>
+          <option value="cloak2">Cloak 2</option>
+          <option value="cloak3">Cloak 3</option>
+        </select>
         <label for="newTitle">New Cloak Title:</label>
         <input type="text" id="newTitle" name="newTitle" required>
         <label for="newFavicon">New Cloak Favicon URL:</label>
-        <input type="url" id="newFavicon" name="newFavicon" required>
+        <input  id="newFavicon" name="newFavicon" required>
+        <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
+        <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
         <button type="submit">Update</button>
       </form>
-    <script>
+
+
+  <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const newTitle = document.getElementById('newTitle').value;
@@ -113,7 +105,11 @@
       cloak.setCloak(newTitle, newFavicon);
       alert('Cloak settings updated!');
     });
+
+    // Initialize the toggle state based on localStorage
+    const toggleCheckbox = document.getElementById('toggleAntiTabClose');
+    toggleCheckbox.checked = localStorage.getItem("antiTabCloseEnabled") === "true";
   </script>
   <script src="/javascript/scrollbar.js"></script>
-</body></center>
+</body>
 </html>
