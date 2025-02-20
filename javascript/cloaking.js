@@ -1,10 +1,4 @@
-const cloaks = [
-    { id: 'cloak1', title: 'Google', favicon: 'https://www.google.com/favicon.ico', link: 'https://www.google.com' },
-    { id: 'cloak2', title: 'Google Drive', favicon: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png', link: 'https://drive.google.com' },
-    { id: 'cloak3', title: 'Cloak 3', favicon: 'url_to_favicon3', link: 'https://www.google.com/' }
-];
-
-const logo = "\x1b[91m[GameVerse Cloak]\x1b[0m";
+const logo = "\x1b[91m[Parcoil Cloak]\x1b[0m";
 
 const cloak = {
   getFavicon() {
@@ -14,39 +8,28 @@ const cloak = {
   setFavicon(url) {
     const icons = document.querySelectorAll('link[rel="icon"]');
     icons.forEach((icon) => (icon.href = url));
+    localStorage.setItem("cloakFavicon", url);
   },
   getTitle() {
     return document.title;
   },
   setTitle(newTitle) {
     document.title = newTitle;
+    localStorage.setItem("cloakTitle", newTitle);
   },
-  setCloak(newTitle, url) {
+  setLink(newLink) {
+    localStorage.setItem("cloakLink", newLink);
+  },
+  setCloak(newTitle, url, link) {
     this.setTitle(newTitle);
     this.setFavicon(url);
-    localStorage.setItem("cloakTitle", newTitle);
-    localStorage.setItem("cloakFavicon", url);
-    
+    this.setLink(link);
   },
   init() {
-    let cloakTitle = localStorage.getItem("cloakTitle");
-    let cloakFavicon = localStorage.getItem("cloakFavicon");
-
-    if (!cloakTitle || !cloakFavicon) {
-      console.log(logo, "Initializing cloak settings...");
-      const newTitle = this.getTitle();
-      const newFavicon = this.getFavicon();
-      if (!cloakTitle) {
-        localStorage.setItem("cloakTitle", newTitle);
-      }
-      if (!cloakFavicon && newFavicon) {
-        localStorage.setItem("cloakFavicon", newFavicon);
-      }
-      cloakTitle = localStorage.getItem("cloakTitle");
-      cloakFavicon = localStorage.getItem("cloakFavicon");
-    }
-
-    this.setCloak(cloakTitle, cloakFavicon);
+    console.warn(
+      logo,
+      "cloak.init() has been deprecated. theres no need to call it anymore."
+    );
   },
   aboutBlank(url) {
     if (!url) url = "https://www.google.com/search?q=how+many+seconds+in+a+day";
@@ -61,22 +44,22 @@ const cloak = {
     newWindow.document.body.appendChild(iframe);
     window.location.replace(url);
   },
-  reset() {
+  reset(reload = true) {
     localStorage.removeItem("cloakTitle");
     localStorage.removeItem("cloakFavicon");
-    window.location.reload();
+    console.log(
+      logo,
+      "Cloak reset. Title and favicon will remain unset until needed."
+    );
+    if (reload === true) {
+      window.location.reload();
+    }
   },
 };
 
 window.cloak = cloak;
 
 document.addEventListener("DOMContentLoaded", () => {
-  let savedTitle = localStorage.getItem("cloakTitle");
-  let savedFavicon = localStorage.getItem("cloakFavicon");
-
-  cloak.setFavicon(savedFavicon);
-  cloak.setTitle(savedTitle);
-
   const cloakSelect = document.querySelector("[data-cloak-select]");
 
   if (cloakSelect) {
@@ -87,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (selectedCloak) {
-        cloak.setCloak(selectedCloak.title, selectedCloak.icon);
+        cloak.setCloak(selectedCloak.title, selectedCloak.icon, selectedCloak.link);
         console.log(logo, `Set cloak to: ${selectedCloak.title}`);
       } else {
         console.error(
@@ -96,6 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-cloak.init();
+  const savedTitle = localStorage.getItem("cloakTitle");
+  const savedFavicon = localStorage.getItem("cloakFavicon");
+  if (savedTitle && savedFavicon) {
+    cloak.setTitle(savedTitle);
+    cloak.setFavicon(savedFavicon);
+  }
+});

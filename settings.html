@@ -43,25 +43,28 @@
       align-items: center;
     }
 
-    .settings-form input, .settings-form button, .settings-form select {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff3d3d;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .settings-form input:hover, .settings-form button:hover, .settings-form select:hover {
-      background-color: #e62b2b;
-      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
-    }
-
-    .settings-form label {
-      font-size: 1.2em;
-    }
+        input {
+          padding: 5px;
+          font-size: 12px;
+          font-family: Space Grotesk;
+          border: 1px solid #ddd;
+          margin: 0;
+          box-sizing: border-box;
+          border-radius: 5px;
+          background-color: black;
+          color: white;
+        }
+        select {
+          padding: 5px;
+          font-size: 12px;
+          font-family: Space Grotesk;
+          border: 1px solid #ddd;
+          margin: 0;
+          box-sizing: border-box;
+          border-radius: 5px;
+          background-color: black;
+          color: white;
+        }
   </style>
 </head>
 <body>
@@ -70,21 +73,40 @@
   <script src="/javascript/navbar.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
-
+<br><br><br>
   <center>
     <h1 class="gradient-red">Settings</h1>
     <hr>
-  </center>
 
-  <form class="settings-form" id="cloakSettingsForm">
-    <label for="cloakSelect">Select Cloak:</label>
+
+
 <select name="cloak" data-cloak-select>
-  <option value="default">Default (no cloak)</option>
+  <option value="gdoc">Fake Google Doc</option>
+  <option value="gslides">Fake Google Slides</option>
+  <option value="gsheets">Fake Google Sheets</option>
+  <option value="calculator">Fake Calculator Search</option>
+  <option value="desmoscalc">Desmos Calculator</option>
   <option value="gdrive">Google Drive</option>
   <option value="google">Google</option>
+  <option value="gassign">Google Assignments</option>
   <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
 </select>
-    <button onClick="cloak.reset();">RESET CLOAK</button>
+  <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
+  <script>
+  const cloaks = [
+    { name: "gdoc", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/GDocs_Favicon_Recreation.png", title: "Untitled document - Google Docs", link: "https://docs.google.com" },
+    { name: "google", icon: "https://google.com/favicon.ico", title: "Google", link:"https://google.com" },
+    { name: "calculator", icon: "https://google.com/favicon.ico", title: "Calculator - Google Search", link: "https://www.google.com/search?surl=1&q=calculator&safe=active&ssui=on" },
+    { name: "desmoscalc", icon: "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.desmos.com/scientific&size=16", title: "Desmos | Scientific Calculator", link:"https://www.desmos.com/" },
+    { name: "gsheets", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNXTR1xAC3DHMeBcw4bB2hcNEu_UQTZOaqNVdAiyGgllO_ALM:https://art.pixilart.com/be52957fc0b0ec8.png&s", title: "Untitled spreadsheet - Google Sheets", link: "https://sheets.google.com" },
+    { name: "gslides", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Google_Slides_logo_%282014-2020%29.svg/1489px-Google_Slides_logo_%282014-2020%29.svg.png", title: "Untitled presentation - Google Slides", link: "https://slides.google.com" },
+    { name: "gdrive", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive", link:"https://drive.google.com" },
+    { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak", link:"https://google.com" },
+  ];
+</script>
+  
+   <!--   <form class="settings-form" id="cloakSettingsForm">
+    <label for="cloakSelect">Select Cloak:</label>
     <label for="newTitle">New Cloak Title:</label>
     <input type="text" id="newTitle" name="newTitle" required>
     <label for="newFavicon">New Cloak Favicon URL:</label>
@@ -92,17 +114,10 @@
     <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
     <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
     <button type="submit">Update</button>
-  </form>
+  </form>-->
 
+  </center>
 
-<script>
-  const cloaks = [
-    { name: "default", icon: "/uploads/branding/favicon.png", title: "GameVerse" },
-    { name: "gdrive", icon: "https://google.com/favicon.ico", title: "Google" },
-    { name: "google", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive" },
-    { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak" },
-  ];
-</script>
   
   <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
@@ -123,6 +138,7 @@
   <script src="/javascript/particles.js"></script>
   <script src="/javascript/particles-config.js"></script>
   <script src="/javascript/panic.js"></script>
+  <script src="/javascript/cloaking.js"></script>
   <!-- Particles.JS end -->
 </body>
 </html>
