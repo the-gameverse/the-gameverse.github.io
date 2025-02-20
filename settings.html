@@ -82,8 +82,13 @@
 
 <select name="cloak" data-cloak-select>
   <option value="gdoc">Fake Google Doc</option>
+  <option value="gslides">Fake Google Slides</option>
+  <option value="gsheets">Fake Google Sheets</option>
+  <option value="calculator">Fake Calculator Search</option>
+  <option value="desmoscalc">Desmos Calculator</option>
   <option value="gdrive">Google Drive</option>
   <option value="google">Google</option>
+  <option value="gassign">Google Assignments</option>
   <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
 </select>
   <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
@@ -91,6 +96,11 @@
   const cloaks = [
     { name: "gdoc", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/GDocs_Favicon_Recreation.png", title: "Untitled document - Google Docs" },
     { name: "google", icon: "https://google.com/favicon.ico", title: "Google" },
+    { name: "calculator", icon: "https://google.com/favicon.ico", title: "Calculator - Google Search" },
+    { name: "gassign", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR-J3-UKoF0e9wn9YMzyGDrOVWcx4gluXJuQvlgJJDynqjScTf:https://static.wikia.nocookie.net/logopedia/images/d/dc/GoogleAssignments.svg/revision/latest%3Fcb%3D20220320205807&s", title: "Google Assignments" },
+    { name: "desmoscalc", icon: "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.desmos.com/scientific&size=16", title: "Desmos | Scientific Calculator" },
+    { name: "gsheets", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNXTR1xAC3DHMeBcw4bB2hcNEu_UQTZOaqNVdAiyGgllO_ALM:https://art.pixilart.com/be52957fc0b0ec8.png&s", title: "Untitled spreadsheet - Google Sheets" },
+    { name: "gslides", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Google_Slides_logo_%282014-2020%29.svg/1489px-Google_Slides_logo_%282014-2020%29.svg.png", title: "Untitled presentation - Google Slides" },
     { name: "gdrive", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive" },
     { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak" },
   ];
