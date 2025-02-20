@@ -78,21 +78,22 @@
 
 
 <select name="cloak" data-cloak-select>
-  <option value="default">Default (no cloak)</option>
+  <option value="gdoc">Fake Google Doc</option>
   <option value="gdrive">Google Drive</option>
   <option value="google">Google</option>
   <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
 </select>
+  <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
   <script>
   const cloaks = [
-    { name: "default", icon: "/uploads/branding/favicon.png", title: "GameVerse" },
-    { name: "gdrive", icon: "https://google.com/favicon.ico", title: "Google" },
-    { name: "google", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive" },
+    { name: "gdoc", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/GDocs_Favicon_Recreation.png", title: "Untitled document - Google Docs" },
+    { name: "google", icon: "https://google.com/favicon.ico", title: "Google" },
+    { name: "gdrive", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive" },
     { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak" },
   ];
 </script>
   
-   <!-- <button onClick="cloak.reset();">RESET CLOAK</button>  <form class="settings-form" id="cloakSettingsForm">
+   <!--   <form class="settings-form" id="cloakSettingsForm">
     <label for="cloakSelect">Select Cloak:</label>
     <label for="newTitle">New Cloak Title:</label>
     <input type="text" id="newTitle" name="newTitle" required>
