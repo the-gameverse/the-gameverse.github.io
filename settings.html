@@ -43,25 +43,28 @@
       align-items: center;
     }
 
-    .settings-form input, .settings-form button, .settings-form select {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff3d3d;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .settings-form input:hover, .settings-form button:hover, .settings-form select:hover {
-      background-color: #e62b2b;
-      box-shadow: 0 0 10px rgba(255, 61, 61, 0.7);
-    }
-
-    .settings-form label {
-      font-size: 1.2em;
-    }
+        input {
+          padding: 5px;
+          font-size: 12px;
+          font-family: Space Grotesk;
+          border: 1px solid #ddd;
+          margin: 0;
+          box-sizing: border-box;
+          border-radius: 5px;
+          background-color: black;
+          color: white;
+        }
+        select {
+          padding: 5px;
+          font-size: 12px;
+          font-family: Space Grotesk;
+          border: 1px solid #ddd;
+          margin: 0;
+          box-sizing: border-box;
+          border-radius: 5px;
+          background-color: black;
+          color: white;
+        }
   </style>
 </head>
 <body>
@@ -74,7 +77,7 @@
   <center>
     <h1 class="gradient-red">Settings</h1>
     <hr>
-  </center>
+
 
 
 <select name="cloak" data-cloak-select>
@@ -104,7 +107,7 @@
     <button type="submit">Update</button>
   </form>-->
 
-
+  </center>
 
   
   <script>
