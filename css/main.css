@@ -76,6 +76,7 @@ body {
       color: transparent;
       text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
       animation: glow 1.5s infinite alternate;
+      user-select: none;
     }
 .gradient-blue {
   background: linear-gradient(to right, #7eafff, #3d7eff);

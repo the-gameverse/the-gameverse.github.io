@@ -77,19 +77,25 @@
 <!--   Easter Egg code   -->
     <script>
         let clicks = 0;
+        let eastereggfoundyet = false;
         const gameTitle = document.querySelector("#gameTitle");
         gameTitle.addEventListener("click", () => {
             clicks += 1;
             document.querySelector("#cc").innerHTML = clicks;
-            if (clicks === 69) {
-                clicks = "";
-                alert("Easter Egg Found!!!")
+            if (!eastereggfoundyet) {
+              if (clicks === 69) {
+                eastereggfoundyet = true;
+                clicks = null;
+                document.querySelector("#cc").innerHTML = null;
+                alert("Easter Egg Game Found!!! Now how to play it?😜");
             }
-        })
+            }
+        });
     </script>
     
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
+    <script src="/javascript/panic.js"></script>
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
     <!-- Particles.JS end -->
