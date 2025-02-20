@@ -81,6 +81,7 @@
         const gameTitle = document.querySelector("#gameTitle");
         gameTitle.addEventListener("click", () => {
             clicks += 1;
+            gameTitle.focus();
             document.querySelector("#cc").innerHTML = clicks;
             if (!eastereggfoundyet) {
               if (clicks === 69) {
