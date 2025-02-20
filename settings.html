@@ -8,8 +8,6 @@
   <style>
     /* Base Styles */
     body {
-      margin: 0;
-      padding: 0;
       overflow-x: hidden;
       background: #000; /* Pure black background */
       color: #fff;
@@ -38,7 +36,6 @@
     h1, h3 {
       margin: 0;
     }
-
 
     .settings-form {
       display: flex;
@@ -79,23 +76,21 @@
     <hr>
   </center>
 
-
-      <form class="settings-form" id="cloakSettingsForm">
-        <label for="cloakSelect">Select Cloak:</label>
-        <select id="cloakSelect" name="cloakSelect" data-cloak-select>
-          <option value="cloak1">Cloak 1</option>
-          <option value="cloak2">Cloak 2</option>
-          <option value="cloak3">Cloak 3</option>
-        </select>
-        <label for="newTitle">New Cloak Title:</label>
-        <input type="text" id="newTitle" name="newTitle" required>
-        <label for="newFavicon">New Cloak Favicon URL:</label>
-        <input  id="newFavicon" name="newFavicon" required>
-        <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
-        <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
-        <button type="submit">Update</button>
-      </form>
-
+  <form class="settings-form" id="cloakSettingsForm">
+    <label for="cloakSelect">Select Cloak:</label>
+    <select id="cloakSelect" name="cloakSelect" data-cloak-select>
+      <option value="cloak1">Cloak 1</option>
+      <option value="cloak2">Cloak 2</option>
+      <option value="cloak3">Cloak 3</option>
+    </select>
+    <label for="newTitle">New Cloak Title:</label>
+    <input type="text" id="newTitle" name="newTitle" required>
+    <label for="newFavicon">New Cloak Favicon URL:</label>
+    <input  id="newFavicon" name="newFavicon" required>
+    <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
+    <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
+    <button type="submit">Update</button>
+  </form>
 
   <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
@@ -111,10 +106,10 @@
     toggleCheckbox.checked = localStorage.getItem("antiTabCloseEnabled") === "true";
   </script>
   <script src="/javascript/scrollbar.js"></script>
-        <!-- Particles.JS start -->
-    <div id="particles-js"></div>
-    <script src="/javascript/particles.js"></script>
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
+  <!-- Particles.JS start -->
+  <div id="particles-js"></div>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  <!-- Particles.JS end -->
 </body>
 </html>
