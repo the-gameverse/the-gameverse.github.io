@@ -17,9 +17,13 @@ const cloak = {
     document.title = newTitle;
     localStorage.setItem("cloakTitle", newTitle);
   },
-  setCloak(newTitle, url) {
+  setLink(newLink) {
+    localStorage.setItem("cloakLink", newLink);
+  },
+  setCloak(newTitle, url, link) {
     this.setTitle(newTitle);
     this.setFavicon(url);
+    this.setLink(link);
   },
   init() {
     console.warn(
@@ -66,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (selectedCloak) {
-        cloak.setCloak(selectedCloak.title, selectedCloak.icon);
+        cloak.setCloak(selectedCloak.title, selectedCloak.icon, selectedCloak.link);
         console.log(logo, `Set cloak to: ${selectedCloak.title}`);
       } else {
         console.error(
