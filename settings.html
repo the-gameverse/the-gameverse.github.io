@@ -70,32 +70,20 @@
   <script src="/javascript/navbar.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
-
+<br><br><br>
   <center>
     <h1 class="gradient-red">Settings</h1>
     <hr>
   </center>
 
-  <form class="settings-form" id="cloakSettingsForm">
-    <label for="cloakSelect">Select Cloak:</label>
+
 <select name="cloak" data-cloak-select>
   <option value="default">Default (no cloak)</option>
   <option value="gdrive">Google Drive</option>
   <option value="google">Google</option>
   <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
 </select>
-    <button onClick="cloak.reset();">RESET CLOAK</button>
-    <label for="newTitle">New Cloak Title:</label>
-    <input type="text" id="newTitle" name="newTitle" required>
-    <label for="newFavicon">New Cloak Favicon URL:</label>
-    <input  id="newFavicon" name="newFavicon" required>
-    <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
-    <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
-    <button type="submit">Update</button>
-  </form>
-
-
-<script>
+  <script>
   const cloaks = [
     { name: "default", icon: "/uploads/branding/favicon.png", title: "GameVerse" },
     { name: "gdrive", icon: "https://google.com/favicon.ico", title: "Google" },
@@ -103,6 +91,20 @@
     { name: "sparkles", icon: "./cloaks/sparkles.ico", title: "Sparkle Cloak" },
   ];
 </script>
+  
+   <!-- <button onClick="cloak.reset();">RESET CLOAK</button>  <form class="settings-form" id="cloakSettingsForm">
+    <label for="cloakSelect">Select Cloak:</label>
+    <label for="newTitle">New Cloak Title:</label>
+    <input type="text" id="newTitle" name="newTitle" required>
+    <label for="newFavicon">New Cloak Favicon URL:</label>
+    <input  id="newFavicon" name="newFavicon" required>
+    <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
+    <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
+    <button type="submit">Update</button>
+  </form>-->
+
+
+
   
   <script>
     document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
