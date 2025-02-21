@@ -33,7 +33,7 @@ const cloak = {
   },
   aboutBlank(url) {
     if (!url) url = "https://www.google.com/search?q=how+many+seconds+in+a+day";
-    const newWindow = window.open("chrome://newtab", "_blank");
+    const newWindow = window.open("", "_blank");
     const iframe = newWindow.document.createElement("iframe");
     newWindow.document.body.style.margin = "0";
     newWindow.document.body.style.height = "100vh";
