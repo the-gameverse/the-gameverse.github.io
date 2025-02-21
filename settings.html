@@ -65,6 +65,41 @@
           background-color: black;
           color: white;
         }
+    input[type="checkbox"] {
+    width: 20px; /* Adjust width for better visibility */
+    height: 20px; /* Adjust height for better visibility */
+    padding: 0; /* No padding for checkboxes */
+    appearance: none; /* Remove default checkbox styling */
+    border: 1px solid #ddd;
+    border-radius: 3px; /* Slightly round edges for aesthetics */
+    background-color: black; /* Background color */
+    cursor: pointer; /* Change cursor on hover */
+    position: relative; /* Positioning for the checkmark */
+    outline: none; /* Remove outline on focus */
+}
+
+input[type="checkbox"]:checked {
+    background-color: black; /* Maintain same background when checked */
+    border: 1px solid #ddd; /* Maintain same border */
+}
+
+input[type="checkbox"]:checked::after {
+    content: ''; /* Create checkmark */
+    position: absolute; /* Position it */
+    top: 2px; /* Adjust according to checkbox size */
+    left: 6px; /* Adjust according to checkbox size */
+    width: 6px; /* Size of checkmark */
+    height: 12px; /* Size of checkmark */
+    border: solid white; /* Color of checkmark */
+    border-width: 0 2px 2px 0; /* Create a checkmark shape */
+    transform: rotate(45deg); /* Rotate to create checkmark */
+}
+
+/* Optional: Styling for hover */
+input[type="checkbox"]:hover {
+    border-color: #aaa; /* Change border color on hover */
+}
+
   </style>
   <style>
     /* Tab styling from your provided template (if needed for other pages) */
@@ -172,7 +207,8 @@
     <hr>
 
 
-<h2 class="gradient-red">Cloak</h2>
+<h2 class="gradient-red">Cloaking Settings</h2>
+    <p>Disguises the tab with a click of a button!</p>
 <select name="cloak" data-cloak-select>
   <option value="gdoc">Fake Google Doc</option>
   <option value="gslides">Fake Google Slides</option>
@@ -187,13 +223,16 @@
   <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
   <hr>
   <h2 class="gradient-red">Panic Key</h2>
+    <p>Set a custom key that redirects to a page, based on your cloak. [For those who used The Arcade, it's like the Emergency Canvas button.]</p>
   <button onClick="listenForKey()">Start Listening</button>
   <hr>
   <h2 class="gradient-red">Anti-Tab Close</h2>
+    <p>Stops teachers, or anyone from closing your tab. Say goodbye to lost progress.</p>
   <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
   <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
   <hr>
-  <h2 class="gradient-red">Particle</h2>
+  <h2 class="gradient-red">Particle Customization</h2>
+    <p>Customize the particles animation to your liking! </p>
   <div
           class="profile-container"
           style="
@@ -283,7 +322,8 @@
             Reset to Default
           </button>
         </div>
-        <h1 class="gradient-red">Screen Time Settings</h1>
+        <h2 class="gradient-red">Screen Time Settings</h2>
+    <p>Look at your usage data, and set a time limit if necessary.</p>
       <!-- Display Section -->
       <div class="section" id="trackerDisplay">
         <p>
@@ -353,7 +393,7 @@
     { name: "gdoc", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/GDocs_Favicon_Recreation.png", title: "Untitled document - Google Docs", link: "https://docs.google.com" },
     { name: "google", icon: "https://google.com/favicon.ico", title: "Google", link:"https://google.com" },
     { name: "calculator", icon: "https://google.com/favicon.ico", title: "Calculator - Google Search", link: "https://www.google.com/search?surl=1&q=calculator&safe=active&ssui=on" },
-    { name: "desmoscalc", icon: "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.desmos.com/scientific&size=16", title: "Desmos | Scientific Calculator", link:"https://www.desmos.com/" },
+    { name: "desmoscalc", icon: "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.desmos.com/scientific&size=16", title: "Desmos | Scientific Calculator", link:"https://www.desmos.com/scientific" },
     { name: "gsheets", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNXTR1xAC3DHMeBcw4bB2hcNEu_UQTZOaqNVdAiyGgllO_ALM:https://art.pixilart.com/be52957fc0b0ec8.png&s", title: "Untitled spreadsheet - Google Sheets", link: "https://sheets.google.com" },
     { name: "gslides", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Google_Slides_logo_%282014-2020%29.svg/1489px-Google_Slides_logo_%282014-2020%29.svg.png", title: "Untitled presentation - Google Slides", link: "https://slides.google.com" },
     { name: "gdrive", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive", link:"https://drive.google.com" },
