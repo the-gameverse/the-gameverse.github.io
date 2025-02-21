@@ -186,6 +186,13 @@
 </select>
   <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
   <hr>
+  <h2 class="gradient-red">Panic Key</h2>
+  <button onClick="listenForKey()">Start Listening</button>
+  <hr>
+  <h2 class="gradient-red">Anti-Tab Close</h2>
+  <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
+  <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
+  <hr>
   <h2 class="gradient-red">Particle</h2>
   <div
           class="profile-container"
@@ -366,6 +373,26 @@
   </form>-->
 
   </center>
+
+  <script>
+    let isListening = false;
+  
+    function listenForKey() {
+      if (isListening) return; // Prevent multiple listeners
+  
+      isListening = true;
+      alert("Press a key to set as your Panic Key...");
+  
+      function keyHandler(event) {
+        localStorage.setItem("panicKey", event.key);
+        alert("Panic key set to: " + event.key);
+        document.removeEventListener("keydown", keyHandler);
+        isListening = false;
+      }
+  
+      document.addEventListener("keydown", keyHandler);
+    }
+  </script>
 
   <!-- Cloak Script -->
   <script>
