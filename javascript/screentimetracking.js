@@ -153,8 +153,8 @@
       if (timeSpentElem) timeSpentElem.style.color = "red";
       if (timeRemainingElem) timeRemainingElem.style.color = "red";
     } else {
-      if (timeSpentElem) timeSpentElem.style.color = "black";
-      if (timeRemainingElem) timeRemainingElem.style.color = "black";
+      if (timeSpentElem) timeSpentElem.style.color = "white";
+      if (timeRemainingElem) timeRemainingElem.style.color = "white";
     }
   }
 

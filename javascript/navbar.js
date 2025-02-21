@@ -42,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
             <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
             <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-            <a href="/personalization"><i class="fa-solid fa-paintbrush fa-lg"></i></a>
-            <a href="/screentime"><i class="fa-solid fa-hourglass-end fa-lg"></i></a>
+            <a href="/settings"><i class="fa-solid fa-gear fa-lg"></i></a>
             <a disabled style="opacity:50%" href="/translate"><i class="fa-solid fa-language fa-lg"></i></a>
             <a onClick="alert('Attempting to resume your last played game.')" href="/play" ><i class="fa-solid fa-play fa-lg"></i></a>
           </div>
