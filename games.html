@@ -7,8 +7,45 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/menu.css">
     <script src="/javascript/pageload.js"></script>
+    <style>
+        /* Popup styling */
+        .messagePopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 400px;
+            z-index: 1000;
+            display: none;
+        }
+        .messagePopup button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .messagePopup button:hover {
+            background: darkred;
+        }
+    </style>
 </head>
-<body onload="myFunction()" style="margin:0;">
+<body onload="showMessagePopup()" style="margin:0;">
+    <!-- Message Popup -->
+    <div id="messagePopup" class="messagePopup">
+        <h2>📢 Message of the Day</h2>
+        <p>We reached out to Alpine School District to stay unblocked, but they ignored us, blocked more links, and monitored our browsing activity. Because of this, we now focus on providing unblocked and enjoyable content with advanced tab cloaking and more features.</p>
+        <button onclick="closeMessagePopup()">Got it!</button>
+    </div>
+
     <!-- Navigation bar -->
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
@@ -17,64 +54,42 @@
     <noscript>
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
-<div id=loader-container>
-<div id="loader"></div>
-</div>
-<br>
-<div id=loadertext><h3>Loading...</h3></div>
-<div style="display:none;" id="myDiv" class="animate-bottom">
+    <div id="loader-container">
+        <div id="loader"></div>
+    </div>
+    <br>
+    <div id="loadertext"><h3>Loading...</h3></div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div id="zoom">
+            <center>
+                <h1 style="font-size:50px;" class="gradient-red" id="gameTitle">Games <span id="cc"></span></h1> 
+                <p class="gradient-red" style="font-size:15px;">"Shut your face" - Mr.Romrell 2025 (From Zeke M.)</p>
+                <hr style="border:3px solid white">
+                <br>
 
-<div id=zoom>
-<center>
-<h1 style="font-size:50px;" class="gradient-red" id="gameTitle"> Games <span id="cc"></span></h1> 
-<p class="gradient-red" style=font-size:15px;>"Shut your face" - Mr.Romrell 2025 (From Zeke M.)</p>
-<hr style="border:3px solid white">
+                <!-- Game menu scripts and features -->
+                <div class="controls">
+                    <!-- Search input field -->
+                    <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
+                    <!-- Button to toggle click count visibility -->
+                    <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                    <!-- Sorting dropdown menu -->
+                    <select id="sortOptions" onchange="sortGames()">
+                        <option value="favorites">Sort by Favorites</option>
+                        <option value="clickCount">Sort by Usage</option>
+                        <option value="alphabetical">Sort Alphabetically</option>
+                    </select>
+                </div>
 
-   
-   
-
-
+                <p id="gameCount">Games Loaded: 0</p>
+            </center>
+        </div>
+        <div id="gameMenu" class="game-menu"></div>
+        <script src="/javascript/menu.js"></script>
+        <!-- Game menu END -->
+    </div>
     
-
-    
- 
-
-<br>
-  <!-- Game menu scripts and features -->
-<div class="controls">
-  <!-- Search input field -->
-  <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-
-  <!-- Button to toggle click count visibility -->
-  <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-
-  <!-- Sorting dropdown menu -->
-  <select id="sortOptions" onchange="sortGames()">
-    <option value="favorites">Sort by Favorites</option>
-    <option value="clickCount">Sort by Usage</option>
-    <option value="alphabetical">Sort Alphabetically</option>
-  </select>
-
-</div>
-
-
-    <p id="gameCount">Games Loaded: 0</p>
-  </div>
-  <div id="gameMenu" class="game-menu"></div>
-  <script src="/javascript/menu.js"></script>
-  <!-- Game menu END -->
-
-</div>
-</div> 
-
-</center>
-
-
-
-
-
-         </body>
-<!--   Easter Egg code   -->
+    <!-- Easter Egg code -->
     <script>
         let clicks = 0;
         let eastereggfoundyet = false;
@@ -83,15 +98,22 @@
             clicks += 1;
             gameTitle.focus();
             document.querySelector("#cc").innerHTML = clicks;
-            if (!eastereggfoundyet) {
-              if (clicks === 69) {
+            if (!eastereggfoundyet && clicks === 69) {
                 eastereggfoundyet = true;
                 clicks = null;
                 document.querySelector("#cc").innerHTML = null;
                 alert("Easter Egg Game Found!!! Now how to play it?😜");
             }
-            }
         });
+
+        // Message popup functions
+        function showMessagePopup() {
+            document.getElementById("messagePopup").style.display = "block";
+        }
+
+        function closeMessagePopup() {
+            document.getElementById("messagePopup").style.display = "none";
+        }
     </script>
     
     <!-- Particles.JS start -->
@@ -103,4 +125,5 @@
     <script src="/javascript/particles-config.js"></script>
     <!-- Particles.JS end -->
     <script src="/javascript/scrollbar.js"></script>
+</body>
 </html>
