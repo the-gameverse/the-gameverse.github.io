@@ -38,10 +38,7 @@
         }
     </style>
 </head>
-<body onload="showMessagePopup()" style="margin:0;">
-    <!-- Message Popup -->
-
-
+<body style="margin:0;">
     <!-- Navigation bar -->
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
@@ -50,17 +47,23 @@
     <noscript>
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
+
+    <!-- Page Loader -->
     <div id="loader-container">
         <div id="loader"></div>
     </div>
     <br>
     <div id="loadertext"><h3>Loading...</h3></div>
-    <div style="display:none;" id="myDiv" class="animate-bottom">
-        <div id="zoom">    <div id="messagePopup" class="messagePopup">
+
+    <!-- Message Popup -->
+    <div id="messagePopup" class="messagePopup">
         <h2>📢 Important Message</h2>
         <p>We reached out to Alpine School District to stay unblocked, but they ignored us, blocked more links, and monitored our browsing activity. Because of this, we now focus on providing unblocked and enjoyable content with advanced tab cloaking and more features.</p>
         <button onclick="closeMessagePopup()">Got it!</button>
     </div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div id="zoom">
             <center>
                 <h1 style="font-size:50px;" class="gradient-red" id="gameTitle">Games <span id="cc"></span></h1> 
                 <p class="gradient-red" style="font-size:15px;">"Shut your face" - Mr.Romrell 2025 (From Zeke M.)</p>
@@ -86,7 +89,6 @@
         </div>
         <div id="gameMenu" class="game-menu"></div>
         <script src="/javascript/menu.js"></script>
-        <!-- Game menu END -->
     </div>
     
     <!-- Easter Egg code -->
@@ -114,6 +116,14 @@
         function closeMessagePopup() {
             document.getElementById("messagePopup").style.display = "none";
         }
+
+        // Ensure both the page loader and popup work
+        window.onload = function() {
+            if (typeof myFunction === "function") {
+                myFunction(); // Runs the page loader function from pageload.js
+            }
+            showMessagePopup(); // Show the message popup
+        };
     </script>
     
     <!-- Particles.JS start -->
