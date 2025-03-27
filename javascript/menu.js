@@ -90,7 +90,8 @@ const games = [
 { name: "Sky Speedster", image: "/uploads/covers/skyspeedster.png", link: "https://www.hoodamath.com/mobile/games/sky-speedster/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Car Rush", image: "/uploads/covers/carrush.png", link: "https://www.hoodamath.com/mobile/games/car-rush/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Climbable Arrow", image: "/uploads/covers/climbablearrow.png", link: "https://www.hoodamath.com/mobile/games/climbable-arrow/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Cubeform", image: "/uploads/covers/cubeform.png", link: "https://www.hoodamath.com/mobile/games/cubeform/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false }      
+{ name: "Cubeform", image: "/uploads/covers/cubeform.png", link: "https://www.hoodamath.com/mobile/games/cubeform/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Stimulation Clicker", image: "/uploads/covers/stimulationclicker.png", link: "https://neal.fun/stimulation-clicker/", path: "/play", clickCount: 0, isFavorited: false }
 
 ];
 
