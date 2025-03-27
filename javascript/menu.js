@@ -30,7 +30,6 @@ const games = [
 { name: "Spacebar Clicker", image: "/uploads/covers/spacebarclicker.png", link: "https://www.hoodamath.com/mobile/games/spacebar-clicker/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Stack", image: "/uploads/covers/stack.png", link: "https://www.hoodamath.com/mobile/games/stack-game/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Capybara Clicker", image: "/uploads/covers/capybaraclicker.png", link: "https://www.hoodamath.com/mobile/games/capybara-clicker/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
-{ name: "Lordz.io", image: "/uploads/covers/lordz.png", link: "https://www.lordz.io", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Candy Clicker", image: "/uploads/covers/candyclicker.png", link: "https://www.hoodamath.com/mobile/games/candy-clicker/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Candy Clicker 2", image: "/uploads/covers/candyclicker2.png", link: "https://www.hoodamath.com/mobile/games/candy-clicker-2/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "2048", image: "/uploads/covers/2048.png", link: "https://www.hoodamath.com/mobile/games/2048-game/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
@@ -92,7 +91,6 @@ const games = [
 { name: "Car Rush", image: "/uploads/covers/carrush.png", link: "https://www.hoodamath.com/mobile/games/car-rush/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Climbable Arrow", image: "/uploads/covers/climbablearrow.png", link: "https://www.hoodamath.com/mobile/games/climbable-arrow/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Cubeform", image: "/uploads/covers/cubeform.png", link: "https://www.hoodamath.com/mobile/games/cubeform/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Stimulation Clicker", image: "/uploads/covers/stimulationclicker.png", link: "https://neal.fun/stimulation-clicker/", path: "/play", clickCount: 0, isFavorited: false }
 
 ];
 
