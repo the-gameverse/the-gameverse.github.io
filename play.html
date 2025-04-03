@@ -198,14 +198,37 @@ function redirectIframe(link, name) {
                 }
             }
 
-            // Function to temporarily redirect the iframe
-            function temporaryRedirect(tempLink, originalLink) {
-                const iframe = document.getElementById('myIframe');
-                iframe.src = tempLink;
-                setTimeout(() => {
-                    iframe.src = originalLink;
-                }, 4000); // 4000 milliseconds = 4 seconds
-            }
+            // Function to redirect the iframe to multiple pages sequentially
+function redirectIframeSequence(pages, delays) {
+    if (pages.length !== delays.length) {
+        console.error("Pages and delays arrays must have the same length.");
+        return;
+    }
+
+    let currentIndex = 0;
+
+    function redirectNext() {
+        if (currentIndex < pages.length) {
+            iframe.src = pages[currentIndex];
+            setTimeout(() => {
+                currentIndex++;
+                redirectNext();
+            }, delays[currentIndex]);
+        } else {
+            // After all redirects, reset to the original source
+            iframe.src = originalSrc;
+        }
+    }
+
+    // Start the sequence
+    redirectNext();
+}
+
+// Example usage: Redirect to two pages and then back to the original source
+redirectIframeSequence(
+    ["/storage/loading.html", "/storage/advertisement.html"], // Pages to redirect to
+    [4000, 4000] // Delays in milliseconds for each page
+);
 
             // Iframe controls for viewers
             const reloadButton = document.getElementById('reloadButton');
