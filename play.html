@@ -183,6 +183,9 @@ function redirectIframe(link, name) {
                 iframe.addEventListener('load', () => {
                     clearTimeout(iframeUnresponsive);
                 });
+
+                // Call the redirection sequence on page load
+                redirectIframeSequence();
             });
 
             // Function to toggle sound
@@ -198,37 +201,26 @@ function redirectIframe(link, name) {
                 }
             }
 
-            // Function to redirect the iframe to multiple pages sequentially
-function redirectIframeSequence(pages, delays) {
-    if (pages.length !== delays.length) {
-        console.error("Pages and delays arrays must have the same length.");
-        return;
-    }
+            // Function to handle the iframe redirection sequence
+            function redirectIframeSequence() {
+                const iframe = document.getElementById('myIframe');
+                const originalSrc = iframe.src; // Save the original source of the iframe
+                const loadingPage = '/storage/loading.html'; // Loading page URL
+                const anotherPage = '/storage/another-page'; // Another page URL
 
-    let currentIndex = 0;
+                // Step 1: Redirect to the loading page
+                iframe.src = loadingPage;
 
-    function redirectNext() {
-        if (currentIndex < pages.length) {
-            iframe.src = pages[currentIndex];
-            setTimeout(() => {
-                currentIndex++;
-                redirectNext();
-            }, delays[currentIndex]);
-        } else {
-            // After all redirects, reset to the original source
-            iframe.src = originalSrc;
-        }
-    }
+                // Step 2: After 3 seconds, redirect to another page
+                setTimeout(() => {
+                    iframe.src = anotherPage;
 
-    // Start the sequence
-    redirectNext();
-}
-
-// Example usage: Redirect to two pages and then back to the original source
-redirectIframeSequence(
-    ["/storage/loading.html", "/storage/advertisement.html"], // Pages to redirect to
-    [4000, 4000] // Delays in milliseconds for each page
-);
+                    // Step 3: After 5 seconds, redirect back to the original source
+                    setTimeout(() => {
+                        iframe.src = originalSrc;
+                    }, 5000); // 5000 milliseconds = 5 seconds
+                }, 3000); // 3000 milliseconds = 3 seconds
+            }
 
             // Iframe controls for viewers
             const reloadButton = document.getElementById('reloadButton');
