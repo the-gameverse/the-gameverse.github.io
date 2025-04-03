@@ -77,20 +77,37 @@ const iframe = document.getElementById('gameFrame');
 // Store the original src of the iframe
 const originalSrc = iframe.src;
 
-// Function to redirect the iframe to a specific page
-function redirectIframe(newSrc, delay) {
-    // Update the iframe to the new source
-    iframe.src = "/storage/loading.html";
+// Function to redirect the iframe to multiple pages sequentially
+function redirectIframeSequence(pages, delays) {
+    if (pages.length !== delays.length) {
+        console.error("Pages and delays arrays must have the same length.");
+        return;
+    }
 
-    // Reset the iframe to its original source after the specified delay
-    setTimeout(() => {
-        iframe.src = newSrc;
-    
-    }, delay);
+    let currentIndex = 0;
+
+    function redirectNext() {
+        if (currentIndex < pages.length) {
+            iframe.src = pages[currentIndex];
+            setTimeout(() => {
+                currentIndex++;
+                redirectNext();
+            }, delays[currentIndex]);
+        } else {
+            // After all redirects, reset to the original source
+            iframe.src = originalSrc;
+        }
+    }
+
+    // Start the sequence
+    redirectNext();
 }
 
-// Redirect the iframe and reset after 4000 seconds (1000000 milliseconds)
-redirectIframe(iframe.src, 4000);
+// Example usage: Redirect to two pages and then back to the original source
+redirectIframeSequence(
+    ["/storage/loading.html", "/storage/advertisement.html"], // Pages to redirect to
+    [4000, 4000] // Delays in milliseconds for each page
+);
 
 /* Dynamic update fav */
 
