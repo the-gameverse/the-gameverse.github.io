@@ -3,115 +3,126 @@
     <head>
         <title>GameVerse - Play</title>
         <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-        <link rel="stylesheet" href="/css/viewers.css">
+        <link rel=stylesheet href=/css/viewers.css>
         <link rel="stylesheet" href="/css/navbar.css">
         <link rel="stylesheet" href="/css/menu.css">
         <script src="/javascript/menu.js"></script>
         <script src="/javascript/scrollbar.js"></script>
         <style>
-            /* Animate the body background color */
-            body {
-                background-color: black;
-                animation: fadeInBackground 2s ease-in-out forwards;
-                margin-top: 1px;
-                overflow: auto;
-            }
+/* Animate the body background color */
+body {
+    background-color: black;
+    animation: fadeInBackground 2s ease-in-out forwards;
+    margin-top:1px;
+    overflow:auto;
+}
+    .gradient-red {
+      background: linear-gradient(to right, #ff7e7e, #ff3d3d);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
+@keyframes fadeInBackground {
+    from {
+        background-color: black;
+    }
+    to {
+        background-color: black; /* Ensure the final color is black */
+    }
+}
 
-            .gradient-red {
-                background: linear-gradient(to right, #ff7e7e, #ff3d3d);
-                background-clip: text;
-                -webkit-background-clip: text;
-                color: transparent;
-                text-shadow: 0 0 10px rgba(255, 61, 61, 0.8);
-                animation: glow 1.5s infinite alternate;
-            }
+/* Animate the iframe */
+iframe {
+    background-color: black;
+    opacity: 0;
+    animation: fadeInIframe 2s ease-in-out 1s forwards;
+}
 
-            @keyframes fadeInBackground {
-                from {
-                    background-color: black;
-                }
-                to {
-                    background-color: black; /* Ensure the final color is black */
-                }
-            }
+@keyframes fadeInIframe {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-            /* Animate the iframe */
-            iframe {
-                background-color: black;
-                opacity: 0;
-                animation: fadeInIframe 2s ease-in-out 1s forwards;
-            }
+/* Animate the navbar */
+#navbar {
+    opacity: 0;
+    transform: translateY(-100%); /* Ensure initial position is off-screen */
+    animation: slideDownNavbar 1s ease-in-out forwards;
+    margin-bottom:none;
+}
 
-            @keyframes fadeInIframe {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
+@keyframes slideDownNavbar {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-            /* Animate the navbar */
-            #navbar {
-                opacity: 0;
-                transform: translateY(-100%);
-                animation: slideDownNavbar 1s ease-in-out forwards;
-            }
+/* Animate the controls */
+.controls {
+    opacity: 0;
+    animation: fadeInControls 2s ease-in-out 1.5s forwards;
+}
 
-            @keyframes slideDownNavbar {
-                from {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
+@keyframes fadeInControls {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-            /* Animate the controls */
-            .controls {
-                opacity: 0;
-                animation: fadeInControls 2s ease-in-out 1.5s forwards;
-            }
+/* Animate the buttons */
+.buttons button {
+    opacity: 0;
+    transform: scale(0.5);
+    animation: fadeInButtons 0.5s ease-in-out forwards;
+}
 
-            @keyframes fadeInControls {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
+@keyframes fadeInButtons {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 
-            /* Flexbox for horizontal layout */
-            #randomGameContainer {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-            }
+/* Flexbox for horizontal layout */
+#randomGameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
-            .game {
-                flex: 0 1 150px;
-                text-align: center;
-                color: white;
-                margin: 5px;
-            }
+.game {
+    flex: 0 1 150px; /* Adjust this value to control the width of the game items */
+    text-align: center;
+    color: white;
+    margin: 5px; /* Add margin to create the gap */
+}
         </style>
     </head>
 
     <body>
-        <!-- Navbar -->
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
-
-        <!-- Random Game Container -->
         <div id="randomGameContainer"></div>
-
-        <!-- Main Iframe -->
         <iframe id="myIframe" src="" allowfullscreen></iframe>
 
-        <!-- Controls -->
         <div class="controls">
             <div class="game-info">
                 <h2 class="gradient-red"></h2>
@@ -120,77 +131,127 @@
                 <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
                 <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
                 <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+                <!--<button style="opacity: 50%" id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>-->
             </div>
         </div>
 
-        <!-- Script Section -->
+        <!-- Container for random games -->
+        
+
         <script>
-            // Function to redirect iframe to a sequence of pages
-            function redirectIframeSequence() {
+function redirectIframe(link, name) {
+    const iframe = document.getElementById('myIframe');
+    const tempLink = '/storage/loading';
+
+    // Temporarily redirect to loading page
+    iframe.src = tempLink;
+
+    // Update the game info
+    const gameInfo = document.querySelector('.game-info h2');
+    gameInfo.textContent = name;
+    document.title = `GameVerse - ${name}`;
+
+    // Set a timeout to redirect to the actual game link after 4 seconds
+    setTimeout(() => {
+        iframe.src = link;
+    }, 4000); // 4000 milliseconds = 4 seconds
+}
+
+            window.addEventListener('load', function() {
+                const gameLink = localStorage.getItem('gameLink');
+                const gameName = localStorage.getItem('gameName');
+                if (gameLink && gameName) {
+                    redirectIframe(gameLink, gameName);
+                }
+
+                const muteButton = document.getElementById('muteButton');
+                muteButton.addEventListener('click', toggleSound);
+
+                // Call temporaryRedirect with example links
+                const tempLink = '/storage/loading';
+                if (gameLink) {
+                    temporaryRedirect(tempLink, gameLink);
+                }
+
+                // Set a timer to detect iframe unresponsiveness
                 const iframe = document.getElementById('myIframe');
-                const originalSrc = iframe.src; // Save the original source of the iframe
-                const firstPage = '/storage/loading.html'; // First page URL
-                const secondPage = '/storage/another-page'; // Second page URL
+                let iframeUnresponsive = setTimeout(() => {
+                    iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
+                }, 5000); // 5000 milliseconds = 5 seconds
 
-                // Step 1: Redirect to the first page
-                iframe.src = firstPage;
-
-                // Step 2: After 3 seconds, redirect to the second page
-                setTimeout(() => {
-                    iframe.src = secondPage;
-
-                    // Step 3: After 5 seconds, redirect back to the original source
-                    setTimeout(() => {
-                        iframe.src = originalSrc;
-                    }, 5000); // 5000 milliseconds = 5 seconds
-                }, 3000); // 3000 milliseconds = 3 seconds
-            }
-
-            // Event listeners for iframe controls
-            document.getElementById('reloadButton').addEventListener('click', () => {
-                const iframe = document.getElementById('myIframe');
-                iframe.src = iframe.src; // Reload the iframe
+                // Add an event listener to reset the timer on successful load
+                iframe.addEventListener('load', () => {
+                    clearTimeout(iframeUnresponsive);
+                });
             });
 
-            document.getElementById('fullscreenButton').addEventListener('click', () => {
+            // Function to toggle sound
+            function toggleSound() {
+                const iframe = document.getElementById('myIframe');
+                const muteButton = document.getElementById('muteButton');
+                const iframeWindow = iframe.contentWindow;
+
+                if (iframeWindow) {
+                    iframeWindow.postMessage({ action: 'toggleMute' }, '*');
+                    muteButton.classList.toggle('muted');
+                    muteButton.innerHTML = muteButton.classList.contains('muted') ? '<i class="fa fa-volume-up fa-lg"></i>' : '<i class="fa fa-volume-mute fa-lg"></i>';
+                }
+            }
+
+            // Function to temporarily redirect the iframe
+            function temporaryRedirect(tempLink, originalLink) {
+                const iframe = document.getElementById('myIframe');
+                iframe.src = tempLink;
+                setTimeout(() => {
+                    iframe.src = originalLink;
+                }, 4000); // 4000 milliseconds = 4 seconds
+            }
+
+            // Iframe controls for viewers
+            const reloadButton = document.getElementById('reloadButton');
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            const homeButton = document.getElementById('homeButton');
+
+            reloadButton.addEventListener('click', () => {
+                const iframe = document.getElementById('myIframe');
+                iframe.src = iframe.src;
+            });
+
+            fullscreenButton.addEventListener('click', () => {
                 const iframe = document.getElementById('myIframe');
                 if (iframe.requestFullscreen) {
                     iframe.requestFullscreen();
-                } else if (iframe.mozRequestFullScreen) {
+                } else if (iframe.mozRequestFullScreen) { // Firefox
                     iframe.mozRequestFullScreen();
-                } else if (iframe.webkitRequestFullscreen) {
+                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
                     iframe.webkitRequestFullscreen();
-                } else if (iframe.msRequestFullscreen) {
+                } else if (iframe.msRequestFullscreen) { // IE/Edge
                     iframe.msRequestFullscreen();
                 }
             });
 
-            document.getElementById('homeButton').addEventListener('click', () => {
-                const currentURL = window.location.href;
+            homeButton.addEventListener('click', () => {
+                const currentURL = window.location.href; // Get the current URL of the page
 
-                if (currentURL.includes('/storage/tv')) {
-                    location.replace('/tv');
-                } else if (currentURL.includes('/storage/games')) {
-                    location.replace('/games');
-                } else if (currentURL.includes('/storage/music')) {
-                    location.replace('/music');
+                if (currentURL.includes("/storage/tv")) {
+                    location.replace("/tv"); // Redirect to the /tv page
+                } else if (currentURL.includes("/storage/games")) {
+                    location.replace("/games"); // Redirect to the /games page
+                } else if (currentURL.includes("/storage/music")) {
+                    location.replace("/music"); // Redirect to the /music page
                 } else {
-                    location.replace('/games');
+                    location.replace("/games"); // Fallback redirect if no match
                 }
             });
 
-            // Call the redirection sequence on page load
-            window.addEventListener('load', () => {
-                redirectIframeSequence();
-            });
         </script>
-
-        <!-- Particles.JS -->
+        <!-- Particles.JS start -->
         <div id="particles-js"></div>
         <script src="/javascript/particles.js"></script>
         <script src="/javascript/particles-config.js"></script>
         <script src="/javascript/panic.js"></script>
         <script src="/javascript/cloaking.js"></script>
         <script src="/javascript/antitabclose.js"></script>
+        <!-- Particles.JS end --> 
     </body>
 </html>
