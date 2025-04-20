@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  background-color: #121212;
-  padding-top: 90px; /* Adjusted to prevent overlap */
+  background-color: #000;
+  padding-top: 90px;
   font-family: sans-serif;
   color: white;
 }
@@ -22,14 +22,14 @@ body {
 }
 
 .nav-left-bg, .nav-right-bg {
-  background-color: rgba(34, 34, 34, 0.5);
-  backdrop-filter: blur(6px);
+  background-color: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
   padding: 5px 15px;
   border-radius: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.4);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 25px rgba(138, 43, 226, 0.4);
 }
 
 .logo img {
@@ -50,21 +50,21 @@ body {
   height: 50px;
   border-radius: 50%;
   text-decoration: none;
-  background: red;
+  background: #111;
   transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 61, 61, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 30px rgba(138, 43, 226, 0.4);
 }
 
 .nav-links a:hover {
-  background: black;
-  box-shadow: 0 0 15px rgba(255, 61, 61, 0.8);
+  background: #000;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(138, 43, 226, 0.8);
   transform: scale(1.1);
 }
 
 .nav-links a i {
   color: white;
   font-size: 1.5em;
-  text-shadow: 0 0 5px rgba(255, 61, 61, 0.8);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 15px rgba(138, 43, 226, 0.8);
   transition: transform 0.3s ease;
 }
 
@@ -85,7 +85,7 @@ body {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  border: 2px solid #FA1228;
+  border: 2px solid #8A2BE2; /* Purple */
 }
 
 html, body {
@@ -99,12 +99,13 @@ html, body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(34, 34, 34, 0.4);
+  background-color: rgba(20, 20, 20, 0.5);
   color: #fff;
   padding: 20px 0;
   text-align: center;
   z-index: 1000;
   backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1), 0 0 20px rgba(138, 43, 226, 0.3);
 }
 
 .footer-container {
@@ -143,7 +144,7 @@ html, body {
 }
 
 .footer-links a:hover {
-  color: #ff3d3d;
+  color: #8A2BE2;
 }
 
 .footer.hidden {
@@ -163,7 +164,7 @@ html, body {
 }
 
 #toggleFooter:hover {
-  color: #ff3d3d;
+  color: #8A2BE2;
 }
 
 ::-webkit-scrollbar {
@@ -175,12 +176,12 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #666;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #8A2BE2;
 }
 
 .navbar-verify img {
