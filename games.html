@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GameVerse - ALL Games</title>
+    <!-- Page Title and Favicon -->
+    <title>starship - ALL Games</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/menu.css">
+
+    <!-- JavaScript for Page Load -->
     <script src="/javascript/pageload.js"></script>
+
+    <!-- Inline Styles for Popup -->
     <style>
         /* Popup styling */
         .messagePopup {
@@ -39,11 +46,14 @@
     </style>
 </head>
 <body style="margin:0;">
-    <!-- Navigation bar -->
+    <!-- Navigation Bar -->
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
+
+    <!-- Footer -->
     <script src="/javascript/footer.js"></script>
-    <br><br><br>
+
+    <!-- NoScript Fallback -->
     <noscript>
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
@@ -52,26 +62,27 @@
     <div id="loader-container">
         <div id="loader"></div>
     </div>
-    <br>
-    <div id="loadertext"><h3>Loading...</h3></div>
+    <div id="loadertext">
+        <h3>Loading...</h3>
+    </div>
 
-
-
+    <!-- Main Content -->
     <div style="display:none;" id="myDiv" class="animate-bottom">
         <div id="zoom">
             <center>
-                <h1 style="font-size:50px;" class="gradient-red" id="gameTitle">Games <span id="cc"></span></h1> 
-                <p class="gradient-red" style="font-size:15px;">GameVerse is back up! FOREVER! 🪐</p>
+                <!-- Page Header -->
+                <h1 style="font-size:50px;" class="gradient-red" id="gameTitle">Games <span id="cc"></span></h1>
+                <p class="gradient-red" style="font-size:15px;">starship is back up! FOREVER! 🪐</p>
                 <hr style="border:3px solid white">
                 <br>
 
-                <!-- Game menu scripts and features -->
+                <!-- Game Menu Controls -->
                 <div class="controls">
-                    <!-- Search input field -->
+                    <!-- Search Input -->
                     <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-                    <!-- Button to toggle click count visibility -->
+                    <!-- Toggle Click Count Button -->
                     <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
-                    <!-- Sorting dropdown menu -->
+                    <!-- Sorting Dropdown -->
                     <select id="sortOptions" onchange="sortGames()">
                         <option value="favorites">Sort by Favorites</option>
                         <option value="clickCount">Sort by Usage</option>
@@ -79,14 +90,17 @@
                     </select>
                 </div>
 
+                <!-- Game Count -->
                 <p id="gameCount">Games Loaded: 0</p>
             </center>
         </div>
+
+        <!-- Game Menu -->
         <div id="gameMenu" class="game-menu"></div>
         <script src="/javascript/menu.js"></script>
     </div>
-    
-    <!-- Easter Egg code -->
+
+    <!-- Easter Egg Script -->
     <script>
         let clicks = 0;
         let eastereggfoundyet = false;
@@ -103,7 +117,7 @@
             }
         });
 
-        // Message popup functions
+        // Message Popup Functions
         function showMessagePopup() {
             document.getElementById("messagePopup").style.display = "block";
         }
@@ -112,7 +126,7 @@
             document.getElementById("messagePopup").style.display = "none";
         }
 
-        // Ensure both the page loader and popup work
+        // Page Loader and Popup Initialization
         window.onload = function() {
             if (typeof myFunction === "function") {
                 myFunction(); // Runs the page loader function from pageload.js
@@ -120,15 +134,16 @@
             showMessagePopup(); // Show the message popup
         };
     </script>
-    
-    <!-- Particles.JS start -->
+
+    <!-- Particles.JS Background -->
     <div id="particles-js"></div>
     <script src="/javascript/panic.js"></script>
     <script src="/javascript/cloaking.js"></script>
     <script src="/javascript/antitabclose.js"></script>
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
+
+    <!-- Scrollbar Customization -->
     <script src="/javascript/scrollbar.js"></script>
 </body>
 </html>

@@ -1,95 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GameVerse - ALL Blog Posts</title>
+    <!-- Page Title and Favicon -->
+    <title>starship - Blog</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/blogmenu.css">
+
+    <!-- JavaScript for Page Load -->
     <script src="/javascript/pageload.js"></script>
-</head>
+
     <!-- Google Analytics -->
     <script src="https://www.googletagmanager.com/gtag/js?id=G-MKDF11ZW6N" async></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MKDF11ZW6N');
-</script>
-    <!-- Google Analytics END -->
+    <script>
+        // Google Analytics setup
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MKDF11ZW6N');
+    </script>
+</head>
 <body onload="myFunction()" style="margin:0;">
-    <!-- Navigation bar -->
+    <!-- Navigation Bar -->
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
+
+    <!-- Footer -->
     <script src="/javascript/footer.js"></script>
-    <br><br><br>
+
+    <!-- NoScript Fallback -->
     <noscript>
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
-<div id=loader-container>
-<div id="loader"></div>
-</div>
-<br>
-<div id=loadertext><h3>Loading...</h3></div>
-<div style="display:none;" id="myDiv" class="animate-bottom">
 
-<div id=zoom>
+    <!-- Loader Section -->
+    <div id="loader-container">
+        <div id="loader"></div>
+    </div>
+    <div id="loadertext">
+        <h3>Loading...</h3>
+    </div>
 
-<h1 style="font-size:50px;" class="gradient-red"> Blog </h1> 
-<p class="gradient-red" style=font-size:15px;>LATEST NEWS: GameVerse February Updates</p>
-<hr style="border:3px solid white">
+    <!-- Main Content -->
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div id="zoom">
+            <!-- Blog Header -->
+            <h1 style="font-size:50px;" class="gradient-red">Blog</h1>
+            <p class="gradient-red" style="font-size:15px;">LATEST NEWS: starship February Updates</p>
+            <hr style="border:3px solid white">
 
-   
-   
+            <!-- Blog Controls -->
+            <div class="controls">
+                <!-- Search Input -->
+                <input type="text" id="search" placeholder="Search all blog posts" oninput="filterBlogPosts()" />
 
-<center>
-    
+                <!-- Sorting Dropdown -->
+                <select id="sortOptions" onchange="sortBlogPosts()">
+                    <option value="age">Sort by Age</option>
+                    <option value="alphabetical">Sort Alphabetically</option>
+                </select>
+            </div>
 
-    
- 
+            <!-- Blog Overlay -->
+            <div id="overlay">
+                <button class="close-btn" onclick="closeOverlay()"><i class="fas fa-times"></i></button>
+                <div class="overlay-content">
+                    <h2 id="blogTitle"></h2>
+                    <p id="blogContent"></p>
+                </div>
+            </div>
 
-<br>
-<div class="controls">
-  <input type="text" id="search" placeholder="Search all blog posts" oninput="filterBlogPosts()" />
+            <!-- Blog Post Count -->
+            <p id="blogPostCount">Blog Posts Loaded: 0</p>
 
-  <!-- Sorting dropdown menu -->
-  <select id="sortOptions" onchange="sortBlogPosts()">
-    <option value="age">Sort by Age</option>
-    <option value="alphabetical">Sort Alphabetically</option>
-  </select>
+            <!-- Blog Post Menu -->
+            <div id="blogPostMenu" class="blog-post-menu"></div>
+            <script src="/javascript/blogmenu.js"></script>
+        </div>
+    </div>
 
-</div>
-
-<div id="overlay">
-  <button class="close-btn" onclick="closeOverlay()"><i class="fas fa-times"></i></button>
-  <div class="overlay-content">
-            <h2 id="blogTitle"></h2>
-      <p id="blogContent"></p>
-  </div>
-</div>
-    <p id="blogPostCount">Blog Posts Loaded: 0</p>
-  </div>
-  <div id="blogPostMenu" class="blog-post-menu"></div>
-  <script src="/javascript/blogmenu.js"></script>
-  <!-- Blog menu END -->
-
-</div>
-</div>  
-</center>
-
-
-
-
-
-         </body>
-    
-    <!-- Particles.JS start -->
+    <!-- Particles.JS Background -->
     <div id="particles-js"></div>
     <script src="/javascript/panic.js"></script>
     <script src="/javascript/cloaking.js"></script>
     <script src="/javascript/antitabclose.js"></script>
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
+
+    <!-- Scrollbar Customization -->
     <script src="/javascript/scrollbar.js"></script>
+</body>
 </html>

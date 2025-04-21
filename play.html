@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GameVerse - Play</title>
+        <title>starship - Play</title>
         <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
         <link rel=stylesheet href=/css/viewers.css>
         <link rel="stylesheet" href="/css/navbar.css">
@@ -131,7 +131,6 @@ iframe {
                 <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
                 <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
                 <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
-                <!--<button style="opacity: 50%" id="muteButton"><i class="fa fa-volume-mute fa-lg"></i></button>-->
             </div>
         </div>
 
@@ -149,7 +148,7 @@ function redirectIframe(link, name) {
     // Update the game info
     const gameInfo = document.querySelector('.game-info h2');
     gameInfo.textContent = name;
-    document.title = `GameVerse - ${name}`;
+    document.title = `starship - ${name}`;
 
     // Set a timeout to redirect to the actual game link after 4 seconds
     setTimeout(() => {
@@ -164,15 +163,6 @@ function redirectIframe(link, name) {
                     redirectIframe(gameLink, gameName);
                 }
 
-                const muteButton = document.getElementById('muteButton');
-                muteButton.addEventListener('click', toggleSound);
-
-                // Call temporaryRedirect with example links
-                const tempLink = '/storage/loading';
-                if (gameLink) {
-                    temporaryRedirect(tempLink, gameLink);
-                }
-
                 // Set a timer to detect iframe unresponsiveness
                 const iframe = document.getElementById('myIframe');
                 let iframeUnresponsive = setTimeout(() => {
@@ -184,28 +174,6 @@ function redirectIframe(link, name) {
                     clearTimeout(iframeUnresponsive);
                 });
             });
-
-            // Function to toggle sound
-            function toggleSound() {
-                const iframe = document.getElementById('myIframe');
-                const muteButton = document.getElementById('muteButton');
-                const iframeWindow = iframe.contentWindow;
-
-                if (iframeWindow) {
-                    iframeWindow.postMessage({ action: 'toggleMute' }, '*');
-                    muteButton.classList.toggle('muted');
-                    muteButton.innerHTML = muteButton.classList.contains('muted') ? '<i class="fa fa-volume-up fa-lg"></i>' : '<i class="fa fa-volume-mute fa-lg"></i>';
-                }
-            }
-
-            // Function to temporarily redirect the iframe
-            function temporaryRedirect(tempLink, originalLink) {
-                const iframe = document.getElementById('myIframe');
-                iframe.src = tempLink;
-                setTimeout(() => {
-                    iframe.src = originalLink;
-                }, 4000); // 4000 milliseconds = 4 seconds
-            }
 
             // Iframe controls for viewers
             const reloadButton = document.getElementById('reloadButton');
