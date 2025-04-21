@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-          <a href="/settings"><i class="fa-solid fa-gear fa-lg"></i></a>
+          
           <a href="https://github.com/the-gameverse"><i class="fa-brands fa-square-github fa-lg"></i></a>
 
           <!-- Plus icon link to show extra links -->
@@ -40,12 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <!-- Hidden extra links -->
           <div class="extra-links" style="display: none;">
+          <a href="/settings"><i class="fa-solid fa-gear fa-lg"></i></a>
+          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
             <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
-            <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
             
-            <a disabled style="opacity:50%" href="/translate"><i class="fa-solid fa-language fa-lg"></i></a>
-            <a onClick="alert('Attempting to resume your last played game.')" href="/play" ><i class="fa-solid fa-play fa-lg"></i></a>
+            <!--<a onClick="alert('Attempting to resume your last played game.')" href="/play" ><i class="fa-solid fa-play fa-lg"></i></a>
+            <a disabled style="opacity:50%" href="/translate"><i class="fa-solid fa-language fa-lg"></i></a>-->
+            
           </div>
         </div>
       </div>
