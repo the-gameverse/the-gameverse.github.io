@@ -116,7 +116,7 @@ particlesJS('particles-js',
         let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || {
             particles: {
                 number: { value: 80 },
-                color: { value: "#db0007" },
+                color: { value: "#8A2BE2" },
                 size: { value: 3 },
                 speed: { value: 1.5 }
             }
