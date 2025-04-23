@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- Left section: Logo and navigation links -->
       <div class="nav-left-bg">
         <a href="/index.html" class="logo">
-          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
+          <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
         </a>
         <div class="nav-links">
           <a href="/"><i class="fa fa-home fa-lg"></i></a>
