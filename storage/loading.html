@@ -50,7 +50,7 @@
         position: absolute;
         height: 100%;
         width: 0;
-        background-color: red;
+        background-color: #8A2BE2;
         animation: loadingBar 4s forwards, fadeInOut 2s 4s infinite; /* 3-second loading + 2s fade in/out after */
         border-radius: 15px;
     }
@@ -58,7 +58,7 @@
     @keyframes loadingBar {
         0% {
             width: 0;
-            background-color: red;
+            background-color: #8A2BE2;
         }
         50% {
             width: 50%;
@@ -66,14 +66,14 @@
         }
         100% {
             width: 100%;
-            background-color: red;
+            background-color: #8A2BE2;
         }
     }
 
     /* Fade in and out from white effect */
     @keyframes fadeInOut {
         0% {
-            background-color: red;
+            background-color: #8A2BE2;
             opacity: 1;
         }
         50% {
@@ -81,7 +81,7 @@
             opacity: 0.5;
         }
         100% {
-            background-color: red;
+            background-color: #8A2BE2;
             opacity: 1;
         }
     }
@@ -113,13 +113,13 @@
 
     @keyframes fadeRedWhite {
         0% {
-            color: red;
+            color: #8A2BE2;
         }
         50% {
             color: white;
         }
         100% {
-            color: red;
+            color: #8A2BE2;
         }
     }
 
@@ -138,12 +138,13 @@
         border-radius: 10px;
         text-align: center;
         z-index: 2000;
+        border: 2px solid #8A2BE2; /* Updated border color */
     }
     </style>
 </head>
 <body>
     <video id="background-video" autoplay muted loop>
-        <source src="https://codehs.com/uploads/81555135d4959f552b49a74c7535eca4" type="video/mp4">
+        <source src="/storage/loadvid.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -168,9 +169,9 @@
 
     <script>
         const phrases = [
-         "preparing for launch... <i class='fas fa-cogs fa-spin'></i>",
-         "engaging thrusters... <i class='fas fa-bolt'></i>"
-         "blasting off... <i class='fas fa-rocket'></i>",
+            "preparing for launch... <i class='fas fa-cogs fa-spin'></i>",
+            "engaging thrusters... <i class='fas fa-bolt'></i>",
+            "blasting off... <i class='fas fa-rocket'></i>",
         ];
 
         function rollThroughText() {
