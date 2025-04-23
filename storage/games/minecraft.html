@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>WhittCraft</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/classes1_mod.js"></script>
+<style type="text/css">
+a.nolink, a.nolink:link, a.nolink:hover, a.nolink:visited {
+	color: white;
+}
+a.nolink:active {
+	color: yellow;
+}
+#available {
+	position: fixed;
+	background-color: #333333;
+	top: 0px;
+	right: 0px;
+	padding: 10px 30px;
+	width:min(80vw,250px);
+	color:white;
+}
+#available_hide {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	margin: 10px;
+	padding: 2px;
+	font-weight: bold;
+	border: 1px solid white;
+	font-size: 12px;
+	line-height: 12px;
+	cursor: pointer;
+	background-color: #333333;
+}
+</style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/eag-web-sp@1.0.4/assets_uri.js"></script>
+
+<script type="text/javascript">
+function base64ToUint8Array(base64) {
+    eval("function KAInfiniteLoopProtect(){}");
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
+}
+window.assetsData=base64ToUint8Array(window.assetsUri.slice(28));
+window.addEventListener("load", function(){
+window.minecraftOpts = [
+	"game_frame","",
+];
+main();
+});
+</script>
+</head>
+<body style="margin:0px;width:100vw;height:100vh;" id="game_frame"></body>
+</html>
