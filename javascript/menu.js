@@ -91,6 +91,7 @@ const games = [
 { name: "Car Rush", image: "/uploads/covers/carrush.png", link: "https://www.hoodamath.com/mobile/games/car-rush/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Climbable Arrow", image: "/uploads/covers/climbablearrow.png", link: "https://www.hoodamath.com/mobile/games/climbable-arrow/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Cubeform", image: "/uploads/covers/cubeform.png", link: "https://www.hoodamath.com/mobile/games/cubeform/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Drive Mad", image: "/uploads/covers/drivemad.png", link: "/storage/games/drivemad.html", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
