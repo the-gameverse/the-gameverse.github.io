@@ -94,6 +94,10 @@ const games = [
 { name: "Drive Mad", image: "/uploads/covers/drivemad.png", link: "/storage/games/drivemad.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Minecraft", image: "/uploads/covers/minecraft.png", link: "/storage/games/minecraft.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Arena King", image: "/uploads/covers/arenaking.png", link: "https://script.google.com/macros/s/AKfycbz6GTepbaULO9dEqHBzfb2Rm0C3pdSKcKnaOGr6qAWXxoppLkkA65v3vTgsDS4o7W56aQ/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Cookie Clicker", image: "/uploads/covers/cookieclicker.png", link: "https://script.google.com/macros/s/AKfycbxGM35J29NkO-2LYjxWj_cA9IUaaXypkUy-LqXyLRbGTz0R6lXmAEapz1STN1jlTIRavw/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "slowroads.io", image: "/uploads/covers/slowroadsio.png", link: "https://script.google.com/macros/s/AKfycbzqDA2SnuVZ3DRelxxbUxSV9Z1RJz_gQfDRx06WUpgppWgrdDEErtZ1Lev9O6j2w9ioBQ/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Moto X3M", image: "/uploads/covers/motox3m.png", link: "https://script.google.com/macros/s/AKfycbw7_zG02ZMXnPSdwCx0CcmN8eX_0Bk3715TSP-Eglb1DyVhp7RxShuXq4qJ8Q2s7cnW/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Stickman Parkour", image: "/uploads/covers/stickmanparkour.png", link: "https://script.google.com/macros/s/AKfycbwmHiH-ifVw054CFLpPM7qyZfLfwebB1KTGCqKzm0iJopITachomI745g6ttdHt2NZ6/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
