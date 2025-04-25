@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           
-          <a href="https://github.com/the-gameverse"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
 
           <!-- Plus icon link to show extra links -->
           <a href="javascript:void(0);" class="plus-icon"><i class="fa fa-plus fa-lg"></i></a>
