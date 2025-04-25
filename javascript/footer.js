@@ -5,7 +5,7 @@ const footerHTML = `
       <!-- Logo and Name -->
       <div class="footer-brand">
         <img src="/uploads/branding/favicon.png" alt="Site Logo" class="footer-logo">
-        <span class="footer-name">Starship</span>
+        <span class="footer-name">starship</span>
         
       </div>
       <span>Thank you for using our website.</span>
