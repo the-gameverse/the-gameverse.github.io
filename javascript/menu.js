@@ -98,6 +98,9 @@ const games = [
 { name: "slowroads.io", image: "/uploads/covers/slowroadsio.png", link: "https://script.google.com/macros/s/AKfycbzqDA2SnuVZ3DRelxxbUxSV9Z1RJz_gQfDRx06WUpgppWgrdDEErtZ1Lev9O6j2w9ioBQ/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Moto X3M", image: "/uploads/covers/motox3m.png", link: "https://script.google.com/macros/s/AKfycbw7_zG02ZMXnPSdwCx0CcmN8eX_0Bk3715TSP-Eglb1DyVhp7RxShuXq4qJ8Q2s7cnW/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Stickman Parkour", image: "/uploads/covers/stickmanparkour.png", link: "https://script.google.com/macros/s/AKfycbwmHiH-ifVw054CFLpPM7qyZfLfwebB1KTGCqKzm0iJopITachomI745g6ttdHt2NZ6/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Speed Cube", image: "/uploads/covers/speedcube.png", link: "https://www.hoodamath.com/mobile/games/speed-cube/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Flicking Soccer", image: "/uploads/covers/flickingsoccer.png", link: "https://www.hoodamath.com/mobile/games/flicking-soccer/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Number Snake", image: "/uploads/covers/numbersnake.png", link: "https://www.hoodamath.com/mobile/games/number-snake/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
