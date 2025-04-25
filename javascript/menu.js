@@ -93,6 +93,7 @@ const games = [
 { name: "Cubeform", image: "/uploads/covers/cubeform.png", link: "https://www.hoodamath.com/mobile/games/cubeform/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Drive Mad", image: "/uploads/covers/drivemad.png", link: "/storage/games/drivemad.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Minecraft", image: "/uploads/covers/minecraft.png", link: "/storage/games/minecraft.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Arena King", image: "/uploads/covers/arenaking.png", link: "https://script.google.com/macros/s/AKfycbz6GTepbaULO9dEqHBzfb2Rm0C3pdSKcKnaOGr6qAWXxoppLkkA65v3vTgsDS4o7W56aQ/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
