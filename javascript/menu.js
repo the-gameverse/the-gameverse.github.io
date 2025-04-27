@@ -46,7 +46,7 @@ const games = [
 { name: "Idle Breakout", image: "/uploads/covers/idlebreakout.png", link: "https://www.hoodamath.com/mobile/games/idle-breakout/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Rolly Vortex", image: "/uploads/covers/rollyvortex.png", link: "https://www.hoodamath.com/mobile/games/rolly-vortex/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Shortcut Race", image: "/uploads/covers/shortcutrace.png", link: "https://www.hoodamath.com/mobile/games/shortcut-race/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Slope", image: "/uploads/covers/slope.png", link: "https://www.hoodamath.com/mobile/games/rolling-ball-3d/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Slope", image: "/uploads/covers/slope.png", link: "https://slope-game.github.io/rungame/slope3/", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Electron Dash", image: "/uploads/covers/electrondash.png", link: "https://www.hoodamath.com/mobile/games/electron-dash/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Freehead Skate", image: "/uploads/covers/freeheadskate.png", link: "https://www.hoodamath.com/mobile/games/freehead-skate/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Burger Time", image: "/uploads/covers/burgertime.png", link: "https://www.hoodamath.com/mobile/games/burger-time/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
