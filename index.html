@@ -15,6 +15,36 @@
       color: #fff;
     }
 
+    /* Banner Section */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: url('/uploads/images/banner.jpg') no-repeat center center/cover;
+    }
+
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .banner-text p {
+      font-size: 1.2em;
+      margin: 10px 0 0;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Content Rows */
     .content-row {
       display: flex;
       align-items: center;
@@ -29,22 +59,36 @@
       transform: translateY(50px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
+
     .content-row.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .content-image {
+      width: 120px;
+      height: auto;
+    }
+
+    .content-text {
+      max-width: 70%;
+    }
   </style>
 </head>
 <body>
+  <!-- Navigation Bar -->
   <div id="navbar"></div>
   <script src="/javascript/navbar.js"></script>
-  <br><br><br>
-  <center>
-    <img src="/uploads/branding/favicon.png" alt="starship Logo" height="150px" width="150px">
-    <h1 class="gradient-red">starship</h1>
-    <hr>
-  </center>
 
+  <!-- Image Banner -->
+  <div class="banner">
+    <div class="banner-text">
+      <h1 class="gradient-red">starship</h1>
+      <p>play, listen, watch, and explore. uninterrupted. all with 20,000+ views, and 500+ loving users. </p>
+    </div>
+  </div>
+
+  <!-- Content Sections -->
   <div class="content-row">
     <div class="content-text">
       <h3 class="gradient-red">UNBLOCKED GAMES, ANYTIME</h3>
@@ -81,6 +125,7 @@
   </div>
   <hr>
 
+  <!-- Intersection Observer Animation -->
   <script>
     const rows = document.querySelectorAll('.content-row');
     const observer = new IntersectionObserver((entries) => {
@@ -93,14 +138,12 @@
     rows.forEach(row => observer.observe(row));
   </script>
 
-    <!-- Particles.JS start -->
-    <div id="particles-js"></div>
-    <script src="/javascript/panic.js"></script>
-    <script src="/javascript/cloaking.js"></script>
-    <script src="/javascript/antitabclose.js"></script>
-    <script src="/javascript/particles.js"></script>
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Particles.JS end -->
-    <script src="/javascript/scrollbar.js"></script>
+  <!-- Additional Scripts -->
+  <script src="/javascript/panic.js"></script>
+  <script src="/javascript/cloaking.js"></script>
+  <script src="/javascript/antitabclose.js"></script>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  <script src="/javascript/scrollbar.js"></script>
 </body>
 </html>
