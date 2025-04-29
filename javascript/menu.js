@@ -244,10 +244,6 @@ function displayGames(filter = "") {
 
     // Create the game link and image
     const gameLink = document.createElement("a");
-    if (game.name = "Minecraft") {
-          gameLink.target = "_blank"
-          gameLink.href = "../storage/games/minecraft.html"
-    }
     gameLink.href = game.path;
     const gameImage = document.createElement("img");
     gameImage.src = game.image;
