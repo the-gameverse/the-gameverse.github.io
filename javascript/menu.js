@@ -246,6 +246,7 @@ function displayGames(filter = "") {
     const gameLink = document.createElement("a");
     if (game.name = "Minecraft") {
           gameLink.target = "_blank"
+          gameLink.href = "../storage/games/minecraft.html"
     }
     gameLink.href = game.path;
     const gameImage = document.createElement("img");
