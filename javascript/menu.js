@@ -33,7 +33,7 @@ const games = [
 { name: "Candy Clicker", image: "/uploads/covers/candyclicker.png", link: "https://www.hoodamath.com/mobile/games/candy-clicker/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Candy Clicker 2", image: "/uploads/covers/candyclicker2.png", link: "https://www.hoodamath.com/mobile/games/candy-clicker-2/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "2048", image: "/uploads/covers/2048.png", link: "https://www.hoodamath.com/mobile/games/2048-game/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
-{ name: "Block Blast!", image: "/uploads/covers/blockblast.png", link: "https://www.hoodamath.com/mobile/games/block-blast/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
+{ name: "Block Blast!", image: "/uploads/covers/blockblast.png", link: "/storage/games/blockblast.html", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Find Me", image: "/uploads/covers/findme.png", link: "https://www.hoodamath.com/mobile/games/find-me/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Suika Game", image: "/uploads/covers/suika.png", link: "https://www.hoodamath.com/mobile/games/watermelon-game/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
 { name: "Thorn And Balloons", image: "/uploads/covers/thornandballoons.png", link: "https://www.hoodamath.com/mobile/games/thorn-and-balloons/game.html?nocheckorient=1", clickCount: 0, isFavorited: false, path: "/play" },
@@ -101,6 +101,7 @@ const games = [
 { name: "Speed Cube", image: "/uploads/covers/speedcube.png", link: "https://www.hoodamath.com/mobile/games/speed-cube/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Flicking Soccer", image: "/uploads/covers/flickingsoccer.png", link: "https://www.hoodamath.com/mobile/games/flicking-soccer/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Number Snake", image: "/uploads/covers/numbersnake.png", link: "https://www.hoodamath.com/mobile/games/number-snake/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Crossy Road", image: "/uploads/covers/crossyroad.png", link: "/storage/games/crossyroad.html", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
