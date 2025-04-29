@@ -102,6 +102,7 @@ const games = [
 { name: "Flicking Soccer", image: "/uploads/covers/flickingsoccer.png", link: "https://www.hoodamath.com/mobile/games/flicking-soccer/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Number Snake", image: "/uploads/covers/numbersnake.png", link: "https://www.hoodamath.com/mobile/games/number-snake/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Crossy Road", image: "/uploads/covers/crossyroad.png", link: "/storage/games/crossyroad.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Bacon May Die", image: "/uploads/covers/baconmaydie.png", link: "/storage/games/baconmaydie.html", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
