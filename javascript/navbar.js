@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-          
+          <a class="special" href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
 
           <!-- Plus icon link to show extra links -->
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- Hidden extra links -->
           <div class="extra-links" style="display: none;">
           <a href="/settings"><i class="fa-solid fa-gear fa-lg"></i></a>
-          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+          
             <a href="/share"><i class="fa fa-share-square fa-lg"></i></a>
             <a href="/contact"><i class="fa fa-envelope fa-lg"></i></a>
             
