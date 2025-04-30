@@ -68,6 +68,32 @@ body {
   transition: transform 0.3s ease;
 }
 
+.nav-links .special a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-decoration: none;
+  background: #111;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.7), 0 0 30px rgba(255, 255, 0, 0.5);
+  animation: movingShadow 2s infinite;
+}
+
+@keyframes movingShadow {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.7), 0 0 30px rgba(255, 255, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 255, 0, 0.9), 0 0 50px rgba(255, 255, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.7), 0 0 30px rgba(255, 255, 0, 0.5);
+  }
+}
+
 .nav-links a:hover i {
   transform: scale(1.3);
 }
