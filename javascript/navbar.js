@@ -117,6 +117,46 @@ document.addEventListener('DOMContentLoaded', () => {
     return `🔥 ${streakData.streak} days`;
   }
 
+  // Function to show "view counter"
+  function showViewCounter(views) {
+    dynamicIsland.innerHTML = `
+      <div class="view-counter">
+        👀 ${views} Views
+      </div>
+    `;
+    currentState = 'view-counter';
+  }
+
+  // Function to show "5-star rating"
+  function showFiveStarRating() {
+    dynamicIsland.innerHTML = `
+      <div class="five-star-rating">
+        <p>★★★★★</p>
+        <br>
+        <p> 5 star rating</p>
+      </div>
+    `;
+    currentState = 'five-star-rating';
+  }
+
+  // Function to show "launching game"
+  function showLaunchingGame() {
+    dynamicIsland.classList.add('expanded');
+    dynamicIsland.innerHTML = `
+      <div class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+    currentState = 'launching-game';
+
+    setTimeout(() => {
+      dynamicIsland.classList.remove('expanded');
+      resetToDefault();
+    }, 5000); // 5 seconds
+  }
+
   // Function to show checkmark animation
   function showCheckmarkAnimation() {
     dynamicIsland.classList.add('expanded-checkmark');
@@ -142,6 +182,22 @@ document.addEventListener('DOMContentLoaded', () => {
     currentState = 'streak';
   }
 
+  // Periodically change the center section's content
+  function periodicUpdates() {
+    if (currentState === 'streak') {
+      const randomValue = Math.random();
+      if (randomValue < 0.2) {
+        showViewCounter(Math.floor(Math.random() * 1000)); // 20% chance for view counter
+      } else if (randomValue < 0.4) {
+        showFiveStarRating(); // 20% chance for 5-star rating
+      } else {
+        resetToDefault(); // 60% chance to reset to streak
+      }
+    } else {
+      resetToDefault();
+    }
+  }
+
   // Add event listener for all clickable elements (buttons, links, etc.)
   document.addEventListener('click', (event) => {
     const isLinkOrButton =
@@ -155,21 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Detect if on play.html and show "Launching Game"
   if (window.location.pathname.includes('play')) {
-    dynamicIsland.classList.add('expanded');
-    dynamicIsland.innerHTML = `
-      <div class="loading">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    `;
-    currentState = 'launching-game';
-
-    setTimeout(() => {
-      dynamicIsland.classList.remove('expanded');
-      resetToDefault();
-    }, 5000); // 5 seconds
+    showLaunchingGame();
   } else {
     resetToDefault();
+    setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
 });
