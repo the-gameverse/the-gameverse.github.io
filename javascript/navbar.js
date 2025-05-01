@@ -31,14 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-          
-          
-        </div>
-        <!-- Plus icon to toggle extra links -->
+                  <!-- Plus icon to toggle extra links -->
         <div class="plus-icon">
           <i class="fa fa-plus fa-lg"></i>
         </div>
-        <div class="extra-links">
+        </div>
+
+        <div id="extra-links" class="nav-links">
         <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
