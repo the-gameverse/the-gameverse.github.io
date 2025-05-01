@@ -239,7 +239,7 @@ html, body {
 
 /* Expanded state for animations */
 .nav-center-bg.expanded {
-  width: 300px;
+  width: 200px;
   height: 100px;
   border-radius: 25px;
   background-color: rgba(20, 20, 20, 0.95);
