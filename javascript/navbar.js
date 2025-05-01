@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Detect if on play.html and show "Launching Game"
-  if (window.location.pathname.includes('play.html')) {
+  if (window.location.pathname.includes('play')) {
     showLaunchingGame();
   } else {
     resetToDefault();
