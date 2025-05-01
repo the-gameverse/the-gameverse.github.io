@@ -3,13 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const style = document.createElement('style');
   style.innerHTML = `
     .extra-links {
-      display: flex;
+      display: none; /* Initially hidden */
       gap: 10px; /* Adjust space between the icons */
-      /*flex-wrap: nowrap; Prevent wrapping */
     }
     
     .extra-links a {
-     /* display: inline-block;*/
+      /* Display inline block if needed */
     }
   `;
   document.head.appendChild(style);
@@ -32,8 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-          <a class="special" href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          
+          
+        </div>
+        <!-- Plus icon to toggle extra links -->
+        <div class="plus-icon">
+          <i class="fa fa-plus fa-lg"></i>
+        </div>
+        <div class="extra-links">
+        <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
+          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
         </div>
       </div>
 
@@ -63,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (plusIcon && extraLinks) {
     plusIcon.addEventListener('click', () => {
-      if (extraLinks.style.display === 'none') {
+      if (extraLinks.style.display === 'none' || extraLinks.style.display === '') {
         extraLinks.style.display = 'flex'; // Show the extra links horizontally
         plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
       } else {
@@ -108,30 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return `🔥 ${streakData.streak} days`;
   }
 
-  // Function to show "view counter"
-  function showViewCounter(views) {
+  // Reset to default streak
+  function resetToDefault() {
+    const streak = updateStreak();
     dynamicIsland.innerHTML = `
-      <div class="view-counter">
-        👀 ${views} Views
+      <div id="streak" class="streak-container">
+        <span class="streak-text">${streak}</span>
       </div>
     `;
-    currentState = 'view-counter';
+    currentState = 'streak';
   }
 
-  // Function to show "5-star rating"
-  function showFiveStarRating() {
-    dynamicIsland.innerHTML = `
-      <div class="five-star-rating">
-        <p>★★★★★</p>
-        <br>
-        <p> 5 star rating</p>
-      </div>
-    `;
-    currentState = 'five-star-rating';
-  }
-
-  // Function to show "launching game"
-  function showLaunchingGame() {
+  // Detect if on play.html and show "Launching Game"
+  if (window.location.pathname.includes('play')) {
     dynamicIsland.classList.add('expanded');
     dynamicIsland.innerHTML = `
       <div class="loading">
@@ -146,58 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dynamicIsland.classList.remove('expanded');
       resetToDefault();
     }, 5000); // 5 seconds
-  }
-
-  // Function to show checkmark animation
-  function showCheckmarkAnimation() {
-    dynamicIsland.classList.add('expanded-checkmark');
-    dynamicIsland.innerHTML = `
-      <div class="checkmark">✓</div>
-    `;
-
-    // Remove the expanded-checkmark class and reset after 2 seconds
-    setTimeout(() => {
-      dynamicIsland.classList.remove('expanded-checkmark');
-      resetToDefault();
-    }, 2000); // Adjust duration as needed
-  }
-
-  // Reset to default streak
-  function resetToDefault() {
-    const streak = updateStreak();
-    dynamicIsland.innerHTML = `
-      <div id="streak" class="streak-container">
-        <span class="streak-text">${streak}</span>
-      </div>
-    `;
-    currentState = 'streak';
-  }
-
-  // Periodically change the center section's content
-  function periodicUpdates() {
-    if (currentState === 'streak') {
-      if (Math.random() > 0.5) {
-        showViewCounter(Math.floor(Math.random() * 1000)); // Random view count
-      } else {
-        showFiveStarRating();
-      }
-    } else {
-      resetToDefault();
-    }
-  }
-
-  // Add event listener to all buttons on the page
-  document.addEventListener('click', (event) => {
-    if (event.target.tagName === 'BUTTON') {
-      showCheckmarkAnimation();
-    }
-  });
-
-  // Detect if on play.html and show "Launching Game"
-  if (window.location.pathname.includes('play')) {
-    showLaunchingGame();
   } else {
     resetToDefault();
-    setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
 });
