@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/music"><i class="fa fa-music fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-                  <!-- Plus icon to toggle extra links -->
-        <div class="plus-icon">
-          <i class="fa fa-plus fa-lg"></i>
-        </div>
+          <!-- Plus icon to toggle extra links -->
+          <div class="plus-icon">
+            <i class="fa fa-plus fa-lg"></i>
+          </div>
         </div>
 
-        <div id="extra-links" class="nav-links">
-        <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+        <div class="extra-links">
+          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
@@ -70,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const extraLinks = document.querySelector('.extra-links');
 
   if (plusIcon && extraLinks) {
-    plusIcon.addEventListener('click', () => {
+    plusIcon.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent triggering other click listeners
       if (extraLinks.style.display === 'none' || extraLinks.style.display === '') {
         extraLinks.style.display = 'flex'; // Show the extra links horizontally
         plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
@@ -116,6 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return `🔥 ${streakData.streak} days`;
   }
 
+  // Function to show checkmark animation
+  function showCheckmarkAnimation() {
+    dynamicIsland.classList.add('expanded-checkmark');
+    dynamicIsland.innerHTML = `
+      <div class="checkmark">✓</div>
+    `;
+
+    // Remove the expanded-checkmark class and reset after 2 seconds
+    setTimeout(() => {
+      dynamicIsland.classList.remove('expanded-checkmark');
+      resetToDefault();
+    }, 2000); // Adjust duration as needed
+  }
+
   // Reset to default streak
   function resetToDefault() {
     const streak = updateStreak();
@@ -126,6 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     currentState = 'streak';
   }
+
+  // Add event listener for all clickable elements (buttons, links, etc.)
+  document.addEventListener('click', (event) => {
+    const isLinkOrButton =
+      event.target.closest('a') || event.target.closest('button');
+
+    // Avoid triggering the checkmark animation for the "plus icon" toggle
+    if (isLinkOrButton && !event.target.closest('.plus-icon')) {
+      showCheckmarkAnimation();
+    }
+  });
 
   // Detect if on play.html and show "Launching Game"
   if (window.location.pathname.includes('play')) {
