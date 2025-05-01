@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   style.innerHTML = `
     .extra-links {
       display: flex;
-      gap: 10px;  Adjust space between the icons 
+      gap: 10px; /* Adjust space between the icons */
       /*flex-wrap: nowrap; Prevent wrapping */
     }
     
@@ -18,41 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon.png' };
 
-// Construct the navbar HTML
-const navbarHTML = `
-  <nav class="navbar">
-    <!-- Left section: Logo and navigation links -->
-    <div class="nav-left-bg">
-      <a href="/index.html" class="logo">
-        <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
-      </a>
-      <div class="nav-links">
-        <a href="/"><i class="fa fa-home fa-lg"></i></a>
-        <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
-        <a href="/music"><i class="fa fa-music fa-lg"></i></a>
-        <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
-        <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-        <a class="special" href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-        <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+  // Construct the navbar HTML
+  const navbarHTML = `
+    <nav class="navbar">
+      <!-- Left section: Logo and navigation links -->
+      <div class="nav-left-bg">
+        <a href="/index.html" class="logo">
+          <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
+        </a>
+        <div class="nav-links">
+          <a href="/"><i class="fa fa-home fa-lg"></i></a>
+          <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
+          <a href="/music"><i class="fa fa-music fa-lg"></i></a>
+          <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
+          <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
+          <a class="special" href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+        </div>
       </div>
-    </div>
 
-    <!-- Center section: Streak display -->
-    <div class="nav-center-bg">
-      <div id="streak" class="streak-container">
-        <span class="streak-text">🔥 0 Days</span>
+      <!-- Center section: Streak display -->
+      <div class="nav-center-bg">
+        <div id="streak" class="streak-container">
+          <span class="streak-text">🔥 0 Days</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Right section: Profile information -->
-    <div class="nav-right-bg">
-      <a href="/editprofile.html" class="profile-link">
-        <img src="${user.photo}" alt="${user.username}" class="profile-img">
-        <span class="username">${user.username}</span>
-      </a>
-    </div>
-  </nav>
-`;
+      <!-- Right section: Profile information -->
+      <div class="nav-right-bg">
+        <a href="/editprofile.html" class="profile-link">
+          <img src="${user.photo}" alt="${user.username}" class="profile-img">
+          <span class="username">${user.username}</span>
+        </a>
+      </div>
+    </nav>
+  `;
 
   // Inject the navbar at the very top of the body
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
@@ -61,15 +61,17 @@ const navbarHTML = `
   const plusIcon = document.querySelector('.plus-icon');
   const extraLinks = document.querySelector('.extra-links');
 
-  plusIcon.addEventListener('click', () => {
-    if (extraLinks.style.display === 'none') {
-      extraLinks.style.display = 'flex'; // Show the extra links horizontally
-      plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
-    } else {
-      extraLinks.style.display = 'none';
-      plusIcon.innerHTML = '<i class="fa fa-plus fa-lg"></i>'; // Change minus back to plus
-    }
-  });
+  if (plusIcon && extraLinks) {
+    plusIcon.addEventListener('click', () => {
+      if (extraLinks.style.display === 'none') {
+        extraLinks.style.display = 'flex'; // Show the extra links horizontally
+        plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
+      } else {
+        extraLinks.style.display = 'none';
+        plusIcon.innerHTML = '<i class="fa fa-plus fa-lg"></i>'; // Change minus back to plus
+      }
+    });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -144,6 +146,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000); // 5 seconds
   }
 
+  // Function to show checkmark animation
+  function showCheckmarkAnimation() {
+    dynamicIsland.classList.add('expanded-checkmark');
+    dynamicIsland.innerHTML = `
+      <div class="checkmark">✔</div>
+    `;
+
+    // Remove the expanded-checkmark class and reset after 2 seconds
+    setTimeout(() => {
+      dynamicIsland.classList.remove('expanded-checkmark');
+      resetToDefault();
+    }, 2000); // Adjust duration as needed
+  }
+
   // Reset to default streak
   function resetToDefault() {
     const streak = updateStreak();
@@ -168,8 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Add event listener to all buttons on the page
+  document.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+      showCheckmarkAnimation();
+    }
+  });
+
   // Detect if on play.html and show "Launching Game"
-  if (window.location.pathname.includes('play')) {
+  if (window.location.pathname.includes('play.html')) {
     showLaunchingGame();
   } else {
     resetToDefault();
