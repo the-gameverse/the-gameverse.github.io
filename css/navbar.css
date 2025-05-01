@@ -215,3 +215,53 @@ html, body {
   width: 30px;
   margin: 3px;
 }
+
+/* Center section for streak display */
+.nav-center-bg {
+  background-color: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 5px 15px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 25px rgba(138, 43, 226, 0.4);
+  position: absolute;
+  top: 10px; /* Adjust for navbar height */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 150px; /* Adjust as needed for streak text */
+  text-align: center;
+}
+
+/* Streak container styling */
+.streak-container {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.streak-container .streak-text {
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Active streak glow */
+.streak-container.active-streak {
+  animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7), 0 0 30px rgba(138, 43, 226, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.9), 0 0 50px rgba(138, 43, 226, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7), 0 0 30px rgba(138, 43, 226, 0.5);
+  }
+}
