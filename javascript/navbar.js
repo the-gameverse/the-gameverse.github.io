@@ -120,8 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFiveStarRating() {
     dynamicIsland.innerHTML = `
       <div class="five-star-rating">
-        <span class="stars">★★★★★</span>
-        <p>5 Star Rating</p>
+        <p>★★★★★ 5 star rating</p>
       </div>
     `;
     currentState = 'five-star-rating';
@@ -132,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dynamicIsland.classList.add('expanded');
     dynamicIsland.innerHTML = `
       <div class="loading">
-        Launching Game
         <span></span>
         <span></span>
         <span></span>
