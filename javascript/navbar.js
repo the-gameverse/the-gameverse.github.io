@@ -73,54 +73,108 @@ const navbarHTML = `
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Get today's date
-  const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+  const dynamicIsland = document.querySelector('.nav-center-bg');
+  const streakElement = `
+    <div id="streak" class="streak-container">
+      <span class="streak-text">🔥 0 Days</span>
+    </div>
+  `;
 
-  // Retrieve streak data from localStorage
-  let streakData = JSON.parse(localStorage.getItem('streak')) || { streak: 0, lastDate: null };
+  let currentState = 'streak';
 
-  // Check if the user visited yesterday
-  if (streakData.lastDate) {
-    const lastDate = new Date(streakData.lastDate);
-    const differenceInDays = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
+  // Function to update the streak display
+  function updateStreak() {
+    const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    let streakData = JSON.parse(localStorage.getItem('streak')) || { streak: 0, lastDate: null };
 
-    if (differenceInDays === 1) {
-      // Increment streak if they logged in consecutively
-      streakData.streak++;
-    } else if (differenceInDays > 1) {
-      // Reset streak if they missed a day
-      streakData.streak = 1; // Restart the streak
-    }
-  } else {
-    // First-time visit, initialize streak
-    streakData.streak = 1;
-  }
+    if (streakData.lastDate) {
+      const lastDate = new Date(streakData.lastDate);
+      const differenceInDays = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
 
-  // Update the lastDate to today
-  streakData.lastDate = today;
-
-  // Save updated streak data to localStorage
-  localStorage.setItem('streak', JSON.stringify(streakData));
-
-  // Update the streak display in the navbar
-  updateStreakDisplay(streakData.streak);
-});
-
-// Function to update the streak display
-function updateStreakDisplay(streak) {
-  const streakElement = document.querySelector('#streak .streak-text');
-  if (streakElement) {
-    if (streak > 0) {
-      streakElement.innerHTML = `🔥 ${streak} days`;
-      document.querySelector('#streak').classList.add('active-streak');
+      if (differenceInDays === 1) {
+        streakData.streak++;
+      } else if (differenceInDays > 1) {
+        streakData.streak = 1; // Reset streak
+      }
     } else {
-      streakElement.innerHTML = `🧯 Streak Lost`;
-      document.querySelector('#streak').classList.remove('active-streak');
+      streakData.streak = 1; // Initialize streak
+    }
+
+    streakData.lastDate = today; // Update lastDate
+    localStorage.setItem('streak', JSON.stringify(streakData));
+
+    return `🔥 ${streakData.streak} days`;
+  }
+
+  // Function to show "view counter"
+  function showViewCounter(views) {
+    dynamicIsland.innerHTML = `
+      <div class="view-counter">
+        👀 ${views} Views
+      </div>
+    `;
+    currentState = 'view-counter';
+  }
+
+  // Function to show "5-star rating"
+  function showFiveStarRating() {
+    dynamicIsland.innerHTML = `
+      <div class="five-star-rating">
+        <span class="stars">★★★★★</span>
+        <p>5 Star Rating</p>
+      </div>
+    `;
+    currentState = 'five-star-rating';
+  }
+
+  // Function to show "launching game"
+  function showLaunchingGame() {
+    dynamicIsland.classList.add('expanded');
+    dynamicIsland.innerHTML = `
+      <div class="loading">
+        Launching Game
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+    currentState = 'launching-game';
+
+    setTimeout(() => {
+      dynamicIsland.classList.remove('expanded');
+      resetToDefault();
+    }, 5000); // 5 seconds
+  }
+
+  // Reset to default streak
+  function resetToDefault() {
+    const streak = updateStreak();
+    dynamicIsland.innerHTML = `
+      <div id="streak" class="streak-container">
+        <span class="streak-text">${streak}</span>
+      </div>
+    `;
+    currentState = 'streak';
+  }
+
+  // Periodically change the center section's content
+  function periodicUpdates() {
+    if (currentState === 'streak') {
+      if (Math.random() > 0.5) {
+        showViewCounter(Math.floor(Math.random() * 1000)); // Random view count
+      } else {
+        showFiveStarRating();
+      }
+    } else {
+      resetToDefault();
     }
   }
-}
 
-
-
-
- 
+  // Detect if on play.html and show "Launching Game"
+  if (window.location.pathname.includes('play.html')) {
+    showLaunchingGame();
+  } else {
+    resetToDefault();
+    setInterval(periodicUpdates, 10000); // Update every 10 seconds
+  }
+});
