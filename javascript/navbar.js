@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showCheckmarkAnimation() {
     dynamicIsland.classList.add('expanded-checkmark');
     dynamicIsland.innerHTML = `
-      <div class="checkmark">✔</div>
+      <div class="checkmark">✓</div>
     `;
 
     // Remove the expanded-checkmark class and reset after 2 seconds
