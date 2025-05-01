@@ -322,7 +322,7 @@ html, body {
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 20px;
+  font-size: 80px;
   opacity: 0;
   animation: fadeInOut 1.6s ease-in-out;
 }
