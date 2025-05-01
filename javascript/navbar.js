@@ -122,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFiveStarRating() {
     dynamicIsland.innerHTML = `
       <div class="five-star-rating">
-        <p>★★★★★ 5 star rating</p>
+        <p>★★★★★</p>
+        <br>
+        <p> 5 star rating</p>
       </div>
     `;
     currentState = 'five-star-rating';
@@ -192,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Detect if on play.html and show "Launching Game"
-  if (window.location.pathname.includes('play.html')) {
+  if (window.location.pathname.includes('play')) {
     showLaunchingGame();
   } else {
     resetToDefault();
