@@ -225,10 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Detect if on play.html and show "Launching Game"
-  if (window.location.pathname.includes('play')) {
+// Detect if on play.html or games.html and show "Launching Game"
+if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
     showLaunchingGame();
-  } else {
+} else {
     resetToDefault();
     setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
