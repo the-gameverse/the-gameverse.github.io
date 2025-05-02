@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dynamicIsland.innerHTML = `
         <div class="notification">
           <i class="fa fa-bell"></i>
-          <p>New Notification! Click to expand.</p>
+          <p>You have 1 unread notification</p>
         </div>
       `;
       currentState = 'notification';
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentState === 'notification') {
       dynamicIsland.innerHTML = `
         <div class="notification-expanded">
-          <p>This is your detailed notification!</p>
+          <p>Tab cloaking and extra features are fully available! Explore awesome settings by clicking <i class="fa fa-gear"></i>. </p>
           <button id="close-notification" class="close-notification">X</button>
         </div>
       `;
