@@ -81,6 +81,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  let typingTimeout; // Variable to track the typing timeout
+
+  // Detect typing in the search box to trigger game-launching animation
+  const searchBox = document.querySelector('#search');
+  if (searchBox) {
+    searchBox.addEventListener('input', () => {
+      clearTimeout(typingTimeout); // Clear the previous timeout
+
+      showLaunchingGame(); // Trigger the game-launching animation
+
+      // Set a timeout to reset the dynamic island back to the streak display
+      typingTimeout = setTimeout(() => {
+        resetToDefault(); // Reset to the normal streak display
+      }, 2000); // Adjust the delay period as needed (e.g., 2000ms = 2 seconds)
+    });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
