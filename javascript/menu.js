@@ -136,7 +136,7 @@ function filterGames() {
     showLaunchingGame(); // Trigger the game-launching animation
     typingTimeout = setTimeout(() => {
         resetToDefault(); // Reset to the normal streak display
-    }, 2000); // Adjust the delay period as needed (e.g., 2000ms = 2 seconds)
+    }, 1000); // Adjust the delay period as needed (e.g., 2000ms = 2 seconds)
 }
 
 // Save favorites to localStorage
