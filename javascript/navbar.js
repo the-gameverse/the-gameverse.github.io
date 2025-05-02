@@ -148,9 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFiveStarRating() {
     dynamicIsland.innerHTML = `
       <div class="five-star-rating">
-        <p>★★★★★</p>
-        <br>
-        <p> 5 star rating</p>
+        <p>★★★★★</p> 5 Stars
       </div>
     `;
     currentState = 'five-star-rating';
