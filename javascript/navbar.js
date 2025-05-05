@@ -83,6 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // Dynamic adjustment of body padding to avoid overlap
+  const adjustBodyPadding = () => {
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      const navbarHeight = navbar.offsetHeight;
+      document.body.style.paddingTop = `${navbarHeight}px`;
+    }
+  };
+
+  // Adjust padding on load and resize
+  window.addEventListener('load', adjustBodyPadding);
+  window.addEventListener('resize', adjustBodyPadding);
+});
+  
   let typingTimeout; // Variable to track the typing timeout
 
   // Detect typing in the search box to trigger game-launching animation
