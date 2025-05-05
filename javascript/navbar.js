@@ -32,21 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
-          <!-- Plus icon to toggle extra links 
-          <div id="plus-icon">
-            <i class="fa fa-plus fa-lg"></i>
-          </div>-->
         </div>
 
         <div id="nav-links" class="extra-links">
           <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
-          
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
         </div>
       </div>
 
-      <!-- Center section: Streak display -->
+      <!-- Center section: Dynamic Island -->
       <div class="nav-center-bg">
         <div id="streak" class="streak-container">
           <span class="streak-text">🔥 0 Days</span>
@@ -85,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   let typingTimeout; // Variable to track the typing timeout
 
   // Detect typing in the search box to trigger game-launching animation
@@ -113,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
 
   let currentState = 'streak';
+  let hasUnreadNotification = true; // Flag for unread notifications
 
   // Function to update the streak display
   function updateStreak() {
@@ -138,24 +134,46 @@ document.addEventListener('DOMContentLoaded', () => {
     return `🔥 ${streakData.streak} days`;
   }
 
-  // Function to show "view counter"
-  function showViewCounter(views) {
+  // Function to show a notification indicator
+  function showNotificationIndicator() {
+    dynamicIsland.classList.add('notification-active');
     dynamicIsland.innerHTML = `
-      <div class="view-counter">
-        👀 ${views} Views
+      <div class="notification">
+        <p>🔔 You have an unread notification!</p>
       </div>
     `;
-    currentState = 'view-counter';
+    currentState = 'notification';
   }
 
-  // Function to show "5-star rating"
-  function showFiveStarRating() {
+  // Function to expand notification content
+  function expandNotificationContent() {
+    dynamicIsland.classList.add('expanded');
     dynamicIsland.innerHTML = `
-      <div class="five-star-rating">
-        <p>★★★★★</p> 5 Stars
+      <div class="notification-expanded">
+        <p>📣 This is the content of your notification!</p>
+        <button class="close-notification">X</button>
       </div>
     `;
-    currentState = 'five-star-rating';
+
+    // Attach event listener to close button
+    const closeButton = dynamicIsland.querySelector('.close-notification');
+    closeButton.addEventListener('click', () => {
+      resetToDefault();
+      hasUnreadNotification = false; // Mark notification as read
+      localStorage.setItem('hasUnreadNotification', 'false'); // Persist the state
+    });
+  }
+
+  // Reset to default streak
+  function resetToDefault() {
+    const streak = updateStreak();
+    dynamicIsland.classList.remove('expanded', 'notification-active');
+    dynamicIsland.innerHTML = `
+      <div id="streak" class="streak-container">
+        <span class="streak-text">${streak}</span>
+      </div>
+    `;
+    currentState = 'streak';
   }
 
   // Function to show "launching game"
@@ -190,15 +208,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000); // Adjust duration as needed
   }
 
-  // Reset to default streak
-  function resetToDefault() {
-    const streak = updateStreak();
+  // Function to show "view counter"
+  function showViewCounter(views) {
     dynamicIsland.innerHTML = `
-      <div id="streak" class="streak-container">
-        <span class="streak-text">${streak}</span>
+      <div class="view-counter">
+        👀 ${views} Views
       </div>
     `;
-    currentState = 'streak';
+    currentState = 'view-counter';
+  }
+
+  // Function to show "5-star rating"
+  function showFiveStarRating() {
+    dynamicIsland.innerHTML = `
+      <div class="five-star-rating">
+        <p>★★★★★</p> 5 Stars
+      </div>
+    `;
+    currentState = 'five-star-rating';
   }
 
   // Periodically change the center section's content
@@ -217,22 +244,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Add event listener for all clickable elements (buttons, links, etc.)
-  document.addEventListener('click', (event) => {
-    const isLinkOrButton =
-      event.target.closest('a') || event.target.closest('button');
-
-    // Avoid triggering the checkmark animation for the "plus icon" toggle
-    if (isLinkOrButton && !event.target.closest('.plus-icon')) {
-      showCheckmarkAnimation();
+  // Event listener for notification click
+  dynamicIsland.addEventListener('click', () => {
+    if (currentState === 'notification') {
+      expandNotificationContent();
     }
   });
 
-// Detect if on play.html or games.html and show "Launching Game"
-if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
-    showLaunchingGame();
-} else {
+  // Check for unread notifications on load
+  hasUnreadNotification = JSON.parse(localStorage.getItem('hasUnreadNotification')) !== false;
+  if (hasUnreadNotification) {
+    showNotificationIndicator();
+  } else {
     resetToDefault();
-    setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
+
+  // Start periodic updates
+  setInterval(periodicUpdates, 10000); // Update every 10 seconds
 });
