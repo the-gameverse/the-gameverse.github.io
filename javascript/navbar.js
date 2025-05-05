@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="nav-links">
           <a href="/"><i class="fa fa-home fa-lg"></i></a>
           <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
-          <a href="/music"><i class="fa fa-music fa-lg"></i></a>
+          <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
