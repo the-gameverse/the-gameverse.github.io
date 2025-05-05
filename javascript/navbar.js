@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
       </div>
     </nav>
+    <br>
+    <br>
+    <br>
   `;
 
   // Inject the navbar at the very top of the body
