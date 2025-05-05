@@ -104,6 +104,7 @@ const games = [
 { name: "Crossy Road", image: "/uploads/covers/crossyroad.png", link: "/storage/games/crossyroad.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Bacon May Die", image: "/uploads/covers/baconmaydie.png", link: "/storage/games/baconmaydie.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Stickman Hook", image: "/uploads/covers/stickmanhook.png", link: "/storage/games/stickmanhook.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "CrazyCattle3D", image: "/uploads/covers/crazycattle3d.png", link: "/storage/games/crazycattle3d.html", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
