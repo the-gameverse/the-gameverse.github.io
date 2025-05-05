@@ -32,10 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/tv"><i class="fa fa-television fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
+          <!-- Plus icon to toggle extra links 
+          <div id="plus-icon">
+            <i class="fa fa-plus fa-lg"></i>
+          </div>-->
         </div>
 
         <div id="nav-links" class="extra-links">
           <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
         </div>
@@ -61,12 +66,49 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inject the navbar at the very top of the body
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
 
+  // Add event listener to toggle the visibility of extra links
+  const plusIcon = document.querySelector('.plus-icon');
+  const extraLinks = document.querySelector('.extra-links');
+
+  if (plusIcon && extraLinks) {
+    plusIcon.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent triggering other click listeners
+      if (extraLinks.style.display === 'none' || extraLinks.style.display === '') {
+        extraLinks.style.display = 'flex'; // Show the extra links horizontally
+        plusIcon.innerHTML = '<i class="fa fa-minus fa-lg"></i>'; // Change plus to minus
+      } else {
+        extraLinks.style.display = 'none';
+        plusIcon.innerHTML = '<i class="fa fa-plus fa-lg"></i>'; // Change minus back to plus
+      }
+    });
+  }
+
   let typingTimeout; // Variable to track the typing timeout
+
+  // Detect typing in the search box to trigger game-launching animation
+  const searchBox = document.querySelector('#search');
+  if (searchBox) {
+    searchBox.addEventListener('input', () => {
+      clearTimeout(typingTimeout); // Clear the previous timeout
+
+      showLaunchingGame(); // Trigger the game-launching animation
+
+      // Set a timeout to reset the dynamic island back to the streak display
+      typingTimeout = setTimeout(() => {
+        resetToDefault(); // Reset to the normal streak display
+      }, 2000); // Adjust the delay period as needed (e.g., 2000ms = 2 seconds)
+    });
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   const dynamicIsland = document.querySelector('.nav-center-bg');
-  let notificationActive = true; // State to control notification visibility
+  const streakElement = `
+    <div id="streak" class="streak-container">
+      <span class="streak-text">🔥 0 Days</span>
+    </div>
+  `;
+
   let currentState = 'streak';
 
   // Function to update the streak display
@@ -128,43 +170,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       dynamicIsland.classList.remove('expanded');
       resetToDefault();
-    }, 2000); // Adjusted to 2 seconds for games.html
+    }, 5000); // 5 seconds
   }
 
-  // Notification system
-  function showNotification() {
-    if (notificationActive) {
-      dynamicIsland.innerHTML = `
-        <div class="notification">
-          <i class="fa fa-bell"></i>
-          <p>You have 1 unread notification</p>
-        </div>
-      `;
-      currentState = 'notification';
+  // Function to show checkmark animation
+  function showCheckmarkAnimation() {
+    dynamicIsland.classList.add('expanded-checkmark');
+    dynamicIsland.innerHTML = `
+      <div class="checkmark">✓</div>
+    `;
 
-      // Clicking expands the notification
-      dynamicIsland.addEventListener('click', expandNotification);
-    }
-  }
-
-  function expandNotification() {
-    if (currentState === 'notification') {
-      dynamicIsland.innerHTML = `
-        <div class="notification-expanded">
-          <p>Tab cloaking and extra features are fully available! Explore awesome settings by clicking <i class="fa fa-gear"></i>. </p>
-          <button id="close-notification" class="close-notification">X</button>
-        </div>
-      `;
-
-      // Add event listener for close button
-      const closeNotificationBtn = document.querySelector('#close-notification');
-      if (closeNotificationBtn) {
-        closeNotificationBtn.addEventListener('click', () => {
-          notificationActive = false; // Disable further notifications
-          resetToDefault();
-        });
-      }
-    }
+    // Remove the expanded-checkmark class and reset after 2 seconds
+    setTimeout(() => {
+      dynamicIsland.classList.remove('expanded-checkmark');
+      resetToDefault();
+    }, 2000); // Adjust duration as needed
   }
 
   // Reset to default streak
@@ -205,15 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Detect if on play.html or games.html and show "Launching Game"
-  if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
+// Detect if on play.html or games.html and show "Launching Game"
+if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
     showLaunchingGame();
-  } else {
-    if (notificationActive) {
-      showNotification();
-    } else {
-      resetToDefault();
-    }
+} else {
+    resetToDefault();
     setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
 });
