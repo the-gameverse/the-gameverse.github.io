@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>starship - Privacy, License, and Terms</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      background-color: #222;
+      border-bottom: 2px solid #444;
+    }
+
+    .tab {
+      padding: 15px 20px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+      background: #222;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    .tab:hover, .tab.active {
+      background: #444;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      transform: scale(0.95); /* Start slightly smaller for transition */
+      opacity: 0; /* Start invisible */
+      transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scaling and fading */
+    }
+
+    .tab-content.active {
+      display: block;
+      transform: scale(1); /* Full size */
+      opacity: 1; /* Fully visible */
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+    }
+
+    p {
+      line-height: 1.5;
+      font-size: 1em;
+    }
+
+    .privacy-section h3, .code-license-section h3, .terms-section h3 {
+      margin-bottom: 10px;
+    }
+
+    .privacy-section ul, .terms-section ul {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div id="navbar"></div>
+  <script src="/javascript/navbar.js"></script>
+
+  <!-- Tabbed Interface -->
+  <div class="tabs">
+    <button class="tab active" onclick="openTab(event, 'privacy-policy')">Privacy Policy</button>
+    <button class="tab" onclick="openTab(event, 'code-license')">Code License</button>
+    <button class="tab" onclick="openTab(event, 'terms-of-use')">Terms of Use</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="privacy-policy" class="tab-content active">
+    <h2>Privacy Policy</h2>
+    <div class="privacy-section">
+      <h3>1. Information We Collect</h3>
+      <p>
+        We only collect the minimum amount of information necessary to provide our services. This may include:
+      </p>
+      <ul>
+        <li>Your email address (if you contact us for support or feedback).</li>
+        <li>Anonymous usage data to help us improve the platform.</li>
+      </ul>
+      <h3>2. How We Use Your Information</h3>
+      <p>
+        We use the information we collect to:
+      </p>
+      <ul>
+        <li>Provide and improve our services.</li>
+        <li>Respond to your inquiries or feedback.</li>
+        <li>Ensure the security and functionality of the platform.</li>
+      </ul>
+      <h3>3. Data Sharing</h3>
+      <p>
+        We do not sell, rent, or share your personal information with third parties, except in the following circumstances:
+      </p>
+      <ul>
+        <li>If required by law or legal processes.</li>
+        <li>To protect the rights, property, or safety of Starship, its users, or others.</li>
+      </ul>
+      <h3>4. Cookies and Tracking</h3>
+      <p>
+        We may use cookies or similar technologies to enhance your experience on the platform. You can adjust your browser settings to refuse cookies, but this may limit some functionality.
+      </p>
+      <h3>5. Changes to This Policy</h3>
+      <p>
+        This Privacy Policy may be updated periodically. We will notify users of significant changes by posting the updated policy on our website.
+      </p>
+      <p>
+        For any questions or concerns, please contact us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.
+      </p>
+    </div>
+  </div>
+
+  <div id="code-license" class="tab-content">
+    <h2>Code License</h2>
+    <div class="code-license-section">
+      <h3>Restrictions on Use</h3>
+      <p>
+        The code contained within this repository is proprietary and protected by copyright laws. Unauthorized use, modification, reproduction, or distribution of the code is strictly prohibited without explicit written permission from the repository owner.
+      </p>
+      <h3>Permissions</h3>
+      <p>
+        To request permission for any use, please contact the repository owner at <a href="mailto:your-email@example.com">your-email@example.com</a>. Permission must be granted in writing and is subject to terms and conditions outlined by the repository owner.
+      </p>
+      <h3>Disclaimer</h3>
+      <p>
+        This code is provided "as is" without warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement. The owner is not liable for any damages or issues arising from the use of this code.
+      </p>
+    </div>
+  </div>
+
+  <div id="terms-of-use" class="tab-content">
+    <h2>Terms of Use</h2>
+    <div class="terms-section">
+      <h3>1. Respect Intellectual Property</h3>
+      <p>
+        You must respect the intellectual property rights of the content, design, and features provided on this platform.
+      </p>
+      <h3>2. Prohibited Activities</h3>
+      <p>
+        You are prohibited from misusing the platform by engaging in activities such as:
+      </p>
+      <ul>
+        <li>Attempting to hack, reverse-engineer, or exploit the platform.</li>
+        <li>Using the platform for illegal purposes.</li>
+        <li>Uploading harmful content or malware.</li>
+      </ul>
+      <h3>3. Compliance with Laws</h3>
+      <p>
+        You agree to adhere to all local, national, and international laws while using the platform.
+      </p>
+      <h3>4. Changes to the Terms</h3>
+      <p>
+        The terms may be updated periodically. Continued use of the platform signifies your acceptance of the updated terms.
+      </p>
+      <h3>5. Liability Disclaimer</h3>
+      <p>
+        The platform is provided "as is" without warranties of any kind. The owners are not responsible for issues arising from the use of the platform.
+      </p>
+      <p>
+        For questions or concerns, feel free to contact us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- JavaScript for Tab Functionality -->
+  <script>
+    function openTab(event, tabId) {
+      // Hide all tab content
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+      });
+
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Show the selected tab content and mark the tab as active
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+
+  <!-- Additional Scripts -->
+  <script src="/javascript/panic.js"></script>
+  <script src="/javascript/cloaking.js"></script>
+  <script src="/javascript/antitabclose.js"></script>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  <script src="/javascript/scrollbar.js"></script>
+</body>
+</html>
