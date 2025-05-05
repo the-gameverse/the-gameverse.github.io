@@ -13,8 +13,8 @@
 body {
     background-color: black;
     animation: fadeInBackground 2s ease-in-out forwards;
-    margin-top:1px;
-    overflow:auto;
+    margin-top: 1px;
+    overflow: auto;
 }
 
 @keyframes fadeInBackground {
@@ -26,72 +26,45 @@ body {
     }
 }
 
+/* New Scale and Slide-Up Animation */
+@keyframes scaleAndSlideUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 /* Animate the iframe */
 iframe {
     background-color: black;
     opacity: 0;
-    animation: fadeInIframe 2s ease-in-out 1s forwards;
-}
-
-@keyframes fadeInIframe {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    transform: scale(0.9) translateY(20px);
+    animation: scaleAndSlideUp 1s ease-in-out forwards;
 }
 
 /* Animate the navbar */
 #navbar {
     opacity: 0;
-    transform: translateY(-100%); /* Ensure initial position is off-screen */
-    animation: slideDownNavbar 1s ease-in-out forwards;
-    margin-bottom:none;
-}
-
-@keyframes slideDownNavbar {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    transform: scale(0.9) translateY(-30px); /* Slide from above */
+    animation: scaleAndSlideUp 1s ease-in-out forwards;
 }
 
 /* Animate the controls */
 .controls {
     opacity: 0;
-    animation: fadeInControls 2s ease-in-out 1.5s forwards;
-}
-
-@keyframes fadeInControls {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    transform: scale(0.9) translateY(20px);
+    animation: scaleAndSlideUp 1s ease-in-out 1.5s forwards;
 }
 
 /* Animate the buttons */
 .buttons button {
     opacity: 0;
-    transform: scale(0.5);
-    animation: fadeInButtons 0.5s ease-in-out forwards;
-}
-
-@keyframes fadeInButtons {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    transform: scale(0.9) translateY(20px);
+    animation: scaleAndSlideUp 0.5s ease-in-out forwards;
 }
 
 /* Flexbox for horizontal layout */
