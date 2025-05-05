@@ -354,38 +354,42 @@ html, body {
   }
 }
 
-/* Notification styles */
-.notification {
+/* Notification active state */
+.nav-center-bg.notification-active {
+  width: 200px; /* Expand slightly for notification */
+  height: 60px;
+  background-color: rgba(255, 165, 0, 0.9); /* Orange background for notification */
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  animation: slideInWithScale 0.6s ease-out; /* Reuse existing animation */
+}
+
+/* Expanded notification content */
+.nav-center-bg.expanded {
+  width: 300px; /* Expanded width for content */
+  height: 100px;
+  background-color: rgba(20, 20, 20, 0.95); /* Dark background */
+  border-radius: 15px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   color: white;
   font-size: 1rem;
+  animation: slideInWithScale 0.6s ease-out;
 }
 
-.notification i {
-  font-size: 2rem;
-  color: gold;
-}
-
-.notification-expanded {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: white;
-  font-size: 1rem;
-}
-
-.notification-expanded p {
-  margin: 0;
+.nav-center-bg.expanded .notification-expanded {
   text-align: center;
 }
 
-.close-notification {
+.nav-center-bg.expanded .close-notification {
+  position: absolute;
+  top: 5px;
+  right: 10px;
   background-color: #8A2BE2; /* Purple */
   color: white;
   border: none;
@@ -395,6 +399,6 @@ html, body {
   cursor: pointer;
 }
 
-.close-notification:hover {
+.nav-center-bg.expanded .close-notification:hover {
   background-color: #5A189A; /* Darker Purple */
 }
