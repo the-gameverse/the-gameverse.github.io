@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>starship - play, and explore.</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* Banner Section */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: url('/uploads/images/banner.png') no-repeat center center/cover;
+    }
+
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner-text h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .banner-text p {
+      font-size: 1.2em;
+      margin: 10px 0 0;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Content Rows */
+    .content-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      margin: 20px;
+      background-color: rgba(34, 34, 34, 0.4);
+      backdrop-filter: blur(6px);
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .content-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .content-image {
+      width: 120px;
+      height: auto;
+    }
+
+    .content-text {
+      max-width: 70%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div id="navbar"></div>
+  <script src="/javascript/navbar.js"></script>
+
+<center>
+<i class="fa-solid fa-hourglass-end fa-5x fa-spin"></i>
+  <h1>Apps coming soon</h1>
+  <p>Explore apps like SoundCloud, Amazon, and more. Coming soon.</p>
+</center>
+
+  <!-- Intersection Observer Animation -->
+  <script>
+    const rows = document.querySelectorAll('.content-row');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.5 });
+    rows.forEach(row => observer.observe(row));
+  </script>
+
+  <!-- Additional Scripts -->
+  <script src="/javascript/panic.js"></script>
+  <script src="/javascript/cloaking.js"></script>
+  <script src="/javascript/antitabclose.js"></script>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  <script src="/javascript/scrollbar.js"></script>
+</body>
+</html>
