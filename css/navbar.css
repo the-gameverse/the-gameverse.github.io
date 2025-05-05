@@ -6,6 +6,17 @@ body {
   color: white;
 }
 
+@keyframes slideInWithScale {
+  0% {
+    transform: translateY(-100%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -19,6 +30,7 @@ body {
   z-index: 1000;
   background-color: transparent;
   box-shadow: none;
+  animation: slideInWithScale 0.6s ease-out;
 }
 
 .nav-left-bg, .nav-right-bg {
