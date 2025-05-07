@@ -335,6 +335,38 @@ function displayRandomGames() {
   });
 }
 
+// Function to display skeleton loaders
+function displaySkeletonLoaders(count = 10) {
+    const gameMenu = document.getElementById("gameMenu");
+    gameMenu.innerHTML = ""; // Clear the menu
+
+    for (let i = 0; i < count; i++) {
+        const skeletonDiv = document.createElement("div");
+        skeletonDiv.classList.add("game");
+
+        const skeletonImage = document.createElement("div");
+        skeletonImage.classList.add("skeleton", "skeleton-game");
+
+        const skeletonText = document.createElement("div");
+        skeletonText.classList.add("skeleton", "skeleton-text");
+
+        skeletonDiv.appendChild(skeletonImage);
+        skeletonDiv.appendChild(skeletonText);
+
+        gameMenu.appendChild(skeletonDiv);
+    }
+}
+
+// Call the skeleton loader function on page load
+displaySkeletonLoaders();
+
+// Replace skeleton loaders with actual game data
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        displayGames(); // Replace with actual game data
+    }, 2000); // Simulate a 2-second loading delay
+});
+
 // Call the function to display random games on load
 window.addEventListener('load', displayRandomGames);
 
