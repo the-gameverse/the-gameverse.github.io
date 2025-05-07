@@ -13,7 +13,7 @@ We provide security updates and support for all versions of this project.
 If you discover a security vulnerability, please follow these steps:
 
 1. **Do Not Disclose Publicly**: Do not post about the vulnerability publicly or share details in public forums.
-2. **Contact Us**: Report the vulnerability by emailing us at [security@example.com] with details about the issue, including:
+2. **Contact Us**: Report the vulnerability by emailing us at [starship.site@gmail.com] with details about the issue, including:
    - Steps to reproduce the issue
    - Potential impact
    - Any suggested fixes
