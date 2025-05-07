@@ -109,12 +109,28 @@
   animation-duration: 1s;
 }
 @-webkit-keyframes animatebottom {
-  from { bottom: -100px; opacity: 0; }
-  to   { bottom:   0px; opacity: 1; }
+  from { 
+    bottom: -100px; 
+    opacity: 0; 
+    transform: scale(0.8); /* Add scale effect */
+  }
+  to { 
+    bottom: 0; 
+    opacity: 1; 
+    transform: scale(1); /* Return to original size */
+  }
 }
 @keyframes animatebottom {
-  from { bottom: -100px; opacity: 0; }
-  to   { bottom:   0;   opacity: 1; }
+  from { 
+    bottom: -100px; 
+    opacity: 0; 
+    transform: scale(0.8); /* Add scale effect */
+  }
+  to { 
+    bottom: 0; 
+    opacity: 1; 
+    transform: scale(1); /* Return to original size */
+  }
 }
 
 #myDiv {
