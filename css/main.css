@@ -144,6 +144,10 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
+a {
+    cursor: url('/uploads/branding/custompointer.cur'), auto;
+}
+
 /* Button styling */
 button {
   padding: 10px 20px;
@@ -151,7 +155,7 @@ button {
   color: white;
   border: 1.5px solid white;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: url('/uploads/branding/custompointer.cur'), auto;
   margin: 10px;
   transition: background-color 0.2s, box-shadow 0.3s;
   box-shadow: 0 0 10px rgba(174, 84, 255, 0.3);
