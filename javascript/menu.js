@@ -105,6 +105,8 @@ const games = [
 { name: "Bacon May Die", image: "/uploads/covers/baconmaydie.png", link: "/storage/games/baconmaydie.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Stickman Hook", image: "/uploads/covers/stickmanhook.png", link: "/storage/games/stickmanhook.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "CrazyCattle3D", image: "/uploads/covers/crazycattle3d.png", link: "/storage/games/crazycattle3d.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Space Huggers", image: "/uploads/covers/spacehuggers.png", link: "https://openprocessing.org/sketch/2093028/embed", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Super Mario 64", image: "/uploads/covers/spacemario64.png", link: "https://openprocessing.org/sketch/2455285/embed", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
