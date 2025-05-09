@@ -106,7 +106,7 @@ const games = [
 { name: "Stickman Hook", image: "/uploads/covers/stickmanhook.png", link: "/storage/games/stickmanhook.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "CrazyCattle3D", image: "/uploads/covers/crazycattle3d.png", link: "/storage/games/crazycattle3d.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Space Huggers", image: "/uploads/covers/spacehuggers.png", link: "https://openprocessing.org/sketch/2093028/embed", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Super Mario 64", image: "/uploads/covers/spacemario64.png", link: "https://openprocessing.org/sketch/2455285/embed", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Super Mario 64", image: "/uploads/covers/supermario64.png", link: "https://openprocessing.org/sketch/2455285/embed", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Sandbox", image: "/uploads/covers/sandbox.png", link: "https://sga4schools.harag.cz/s/sandbox", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Thisissand", image: "/uploads/covers/thisissand.png", link: "https://thisissand.com/", path: "/play", clickCount: 0, isFavorited: false },
 
