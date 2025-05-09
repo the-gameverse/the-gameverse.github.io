@@ -107,6 +107,7 @@ const games = [
 { name: "CrazyCattle3D", image: "/uploads/covers/crazycattle3d.png", link: "/storage/games/crazycattle3d.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Space Huggers", image: "/uploads/covers/spacehuggers.png", link: "https://openprocessing.org/sketch/2093028/embed", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Super Mario 64", image: "/uploads/covers/spacemario64.png", link: "https://openprocessing.org/sketch/2455285/embed", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Sandbox", image: "/uploads/covers/sandbox.png", link: "https://sga4schools.harag.cz", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
