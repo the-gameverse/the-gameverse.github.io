@@ -1,33 +1,151 @@
-  <script src="/javascript/particles.js"></script>
-  <script src="/javascript/particles-config.js"></script>
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>starship - play, and explore.</title>
-  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/main.css">
+    <!-- Page Title and Favicon -->
+    <title>starship - app menu</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/menu.css">
+
+    <!-- JavaScript for Page Load -->
+    <script src="/javascript/pageload.js"></script>
+
+    <!-- Inline Styles for Popup -->
+    <style>
+        /* Popup styling */
+        .messagePopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 400px;
+            z-index: 1000;
+            display: none;
+        }
+        .messagePopup button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .messagePopup button:hover {
+            background: darkred;
+        }
+    </style>
 </head>
-<body>
-  <!-- Navigation Bar -->
-  <div id="navbar"></div>
-  <script src="/javascript/navbar.js"></script>
+<body style="margin:0;">
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
 
-<center>
-<br><br><br><br><br><br>
-  <i class="fa-solid fa-hourglass-end fa-5x fa-spin"></i>
-  <h1>Apps coming soon</h1>
-  <p>Explore apps like SoundCloud, Amazon, and more. Coming soon.</p>
-</center>
+    <!-- Footer -->
+    <script src="/javascript/footer.js"></script>
 
+    <!-- NoScript Fallback -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
 
+    <!-- Page Loader -->
+    <div id="loader-container">
+        <div id="loader"></div>
+    </div>
+    <div id="loadertext">
+        <h3>Loading...</h3>
+    </div>
 
-  <!-- Additional Scripts -->
-  <script src="/javascript/panic.js"></script>
-  <script src="/javascript/cloaking.js"></script>
-  <script src="/javascript/antitabclose.js"></script>
+    <!-- Main Content -->
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div id="zoom">
+            
+            </center>
 
-  <script src="/javascript/scrollbar.js"></script>
+        <center>
+                <!-- Page Header -->
+                <h1 style="font-size:50px;" class="gradient-red" id="appTitle">Apps <span id="cc"></span></h1>
+                <p class="gradient-red" style="font-size:15px;">is trevor here?? - english sub 2025</p>
+                <hr style="border:3px solid white">
+                <br>
+
+                <!-- App Menu Controls -->
+                <div class="controls">
+                    <!-- Search Input -->
+                    <input type="text" id="search" placeholder="Search all apps" oninput="filterApps()" />
+                    <!-- Toggle Click Count Button -->
+                    <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                    <!-- Sorting Dropdown -->
+                    <select id="sortOptions" onchange="sortApps()">
+                        <option value="favorites">Sort by Favorites</option>
+                        <option value="clickCount">Sort by Usage</option>
+                        <option value="alphabetical">Sort Alphabetically</option>
+                    </select>
+                </div>
+
+                <!-- App Count -->
+                <p id="appCount">Apps Loaded: 0</p>
+
+        <!-- App Menu -->
+        <div id="appMenu" class="app-menu"></div>
+        <script src="/javascript/menu-apps.js"></script>
+</div>        
+            </div>
+
+    <!-- Easter Egg Script -->
+    <script>
+        let clicks = 0;
+        let eastereggfoundyet = false;
+        const appTitle = document.querySelector("#appTitle");
+        appTitle.addEventListener("click", () => {
+            clicks += 1;
+            appTitle.focus();
+            document.querySelector("#cc").innerHTML = clicks;
+            if (!eastereggfoundyet && clicks === 69) {
+                eastereggfoundyet = true;
+                clicks = null;
+                document.querySelector("#cc").innerHTML = null;
+                alert("Easter Egg App Found!!! Now how to use it?😜");
+            }
+        });
+
+        // Message Popup Functions
+        function showMessagePopup() {
+            document.getElementById("messagePopup").style.display = "block";
+        }
+
+        function closeMessagePopup() {
+            document.getElementById("messagePopup").style.display = "none";
+        }
+
+        // Page Loader and Popup Initialization
+        window.onload = function() {
+            if (typeof myFunction === "function") {
+                myFunction(); // Runs the page loader function from pageload.js
+            }
+            showMessagePopup(); // Show the message popup
+        };
+    </script>
+
+    <!-- Particles.JS Background -->
+    <div id="particles-js"></div>
+    <script src="/javascript/panic.js"></script>
+    <script src="/javascript/cloaking.js"></script>
+    <script src="/javascript/antitabclose.js"></script>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+
+    <!-- Scrollbar Customization -->
+    <script src="/javascript/scrollbar.js"></script>
 </body>
 </html>
