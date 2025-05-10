@@ -1,10 +1,7 @@
 // Add apps
 
 const apps = [
-    { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", path: "/frog/ixl/hvtrs8%2F-dksaopd%2Ccmm-lmgkn", clickCount: 0, isFavorited: false },
-    { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", path: "/gravityfalls", clickCount: 0, isFavorited: false },
-    { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", path: "/theamazingworldofgumball", clickCount: 0, isFavorited: false },
-    { name: "Bluey", image: "/uploads/covers/bluey.png", path: "/bluey", clickCount: 0, isFavorited: false }
+    { name: "Discord", image: "/uploads/covers/discord.png", path: "/frog/ixl/hvtrs8%2F-dksaopd%2Ccmm-lmgkn", clickCount: 0, isFavorited: false },
   ];
   
   // Variable to toggle click count visibility
