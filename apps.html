@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/menu-apps.css">
 
-
+    <!-- JavaScript for Page Load -->
+    <script src="/javascript/pageload.js"></script>
 
     <!-- Inline Styles for Popup -->
     <style>
@@ -57,13 +58,50 @@
         <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
 
+    <!-- Page Loader -->
+    <div id="loader-container">
+        <div id="loader"></div>
+    </div>
+    <div id="loadertext">
+        <h3>Loading...</h3>
+    </div>
 
-<center><i class="fa-solid fa-skull-crossbones fa-5x">
-  <h1>Critical Error</h1>
-  <p>Due to safety issues, apps have been blocked by starship. A fix is being implemented. The rest of the website will work fine, but apps are unavailable. </p>
-</i>
-</center>    
+    <!-- Main Content -->
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <div id="zoom">
+            
+            </center>
+
+        <center>
+                <!-- Page Header -->
+                <h1 style="font-size:50px;" class="gradient-red" id="appTitle">Apps (BETA)<span id="cc"></span></h1>
+                <p class="gradient-red" style="font-size:15px;">Welcome to Apps! This is a BETA feature! You need to press <i class="fa-solid fa-group-arrows-rotate"></i> until it opens for now.</p>
+                <hr style="border:3px solid white">
+                <br>
+
+                <!-- App Menu Controls -->
+                <div class="controls">
+                    <!-- Search Input -->
+                    <input type="text" id="search" placeholder="Search all apps" oninput="filterApps()" />
+                    <!-- Toggle Click Count Button -->
+                    <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                    <!-- Sorting Dropdown -->
+                    <select id="sortOptions" onchange="sortApps()">
+                        <option value="favorites">Sort by Favorites</option>
+                        <option value="clickCount">Sort by Usage</option>
+                        <option value="alphabetical">Sort Alphabetically</option>
+                    </select>
+                </div>
+
+                <!-- App Count -->
+                <p id="appCount">Apps Loaded: 0</p>
+
+        <!-- App Menu -->
+        <div id="appMenu" class="app-menu"></div>
+        <script src="/javascript/menu-apps.js"></script>
+</div>        
             </div>
+
     <!-- Easter Egg Script -->
     <script>
         let clicks = 0;
