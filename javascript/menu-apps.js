@@ -2,6 +2,7 @@
 
 const apps = [
     { name: "Discord", image: "/uploads/covers/discord.png", path: "/4ppz/discord.html", clickCount: 0, isFavorited: false },
+    { name: "YouTube", image: "/uploads/covers/youtube.png", path: "/4ppz/youtube.html", clickCount: 0, isFavorited: false },
   ];
   
   // Variable to toggle click count visibility
