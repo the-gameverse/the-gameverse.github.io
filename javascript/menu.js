@@ -291,7 +291,7 @@ function displayGames(filter = "") {
   });
 
   // Update the game count text
-  gameCount.textContent = `${filteredGames.length} were loaded out of ${games.length} games.`;
+  gameCount.textContent = `${filteredGames.length} out of ${games.length} games were loaded.`;
 }
 
 // Function to get random games
