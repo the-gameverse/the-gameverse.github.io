@@ -89,6 +89,7 @@
 
             // Set a timeout to redirect to the actual app link after 4 seconds
             setTimeout(() => {
+                currentDomainIndex = 0; // Start with the first domain
                 updateIframe();
             }, 4000); // 4000 milliseconds = 4 seconds
         }
