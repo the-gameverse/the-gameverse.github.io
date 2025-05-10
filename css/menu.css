@@ -147,7 +147,7 @@ body {
 /* Input & Control Styling */
 #sortOptions,
 #toggleUsageData {
-  width: 200px;
+
   padding: 10px;
   font-size: 20px;
   font-family: Inter, sans-serif;
@@ -161,7 +161,12 @@ body {
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
   cursor: pointer; /* Pointer cursor for interactivity */
 }
-
+#toggleUsageData {
+  width: 200px;
+}
+#sortOptions {
+  width: 250px;
+}
 #sortOptions:hover,
 #toggleUsageData:hover {
   background-color: #AE54FF; /* Change background color on hover */
