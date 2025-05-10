@@ -80,12 +80,12 @@
                     <!-- Search Input -->
                     <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
                     <!-- Toggle Click Count Button -->
-                    <button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>
+                    <!--<button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>-->
                     <!-- Sorting Dropdown -->
                     <select id="sortOptions" onchange="sortGames()">
-                        <option value="favorites">Sort by Favorites</option>
-                        <option value="clickCount">Sort by Usage</option>
-                        <option value="alphabetical">Sort Alphabetically</option>
+                        <option value="favorites">Sort by Favorites <i class="fa-solid fa-ranking-star"></i></option>
+                        <option value="clickCount">Sort by Usage <i class="fa fa-hourglass"></i></option>
+                        <option value="alphabetical">Sort Alphabetically <i class="fa-solid fa-arrow-down-a-z"></i></option>
                     </select>
                 </div>
 
