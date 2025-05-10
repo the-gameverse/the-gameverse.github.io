@@ -1,7 +1,7 @@
 // Add apps
 
 const apps = [
-    { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", path: "/u/liftoff/https%253A%252F%252Fwuw%2Cgmoelg.aoo%2F", clickCount: 0, isFavorited: false },
+    { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", path: "/uv/service/aHR0cHM6Ly93d3cuaHVsdS5jb20vd2VsY29tZQ", clickCount: 0, isFavorited: false },
     { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", path: "/gravityfalls", clickCount: 0, isFavorited: false },
     { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", path: "/theamazingworldofgumball", clickCount: 0, isFavorited: false },
     { name: "Bluey", image: "/uploads/covers/bluey.png", path: "/bluey", clickCount: 0, isFavorited: false }
