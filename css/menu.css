@@ -145,7 +145,6 @@ body {
 }
 
 /* Input & Control Styling */
-
 #sortOptions,
 #toggleUsageData {
   width: 200px;
@@ -155,10 +154,27 @@ body {
   border: 1px solid #ddd;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 25px; /* Rounded corners */
   background-color: black;
   color: white;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
+  transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
+  cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+#sortOptions:hover,
+#toggleUsageData:hover {
+  background-color: #AE54FF; /* Change background color on hover */
+  color: white; /* Ensure text remains visible */
+  box-shadow: 0 0 20px rgba(174, 84, 255, 0.6); /* Glow effect on hover */
+}
+
+#sortOptions:focus,
+#toggleUsageData:focus {
+  outline: none; /* Remove default outline */
+  border-color: #AE54FF; /* Change border color on focus */
+  box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow on focus */
+  transform: scale(1.05); /* Slightly grow the dropdown or button */
 }
 #search,
 #searchBar {
