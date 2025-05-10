@@ -149,10 +149,11 @@ body {
 #searchBar,
 #sortOptions,
 #toggleUsageData {
-  width: 500px;
+  width: 200px;
   padding: 10px;
   font-size: 20px;
-  font-family: Bebas Neue;
+  border-radius:50%;
+  font-family: Inter, sans-serif;
   border: 1px solid #ddd;
   margin: 0;
   box-sizing: border-box;
