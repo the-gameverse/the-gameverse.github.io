@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>starship - launching an app</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="stylesheet" href="/css/viewers.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <script src="/javascript/menu-apps.js"></script>
+    <script src="/javascript/scrollbar.js"></script>
+    <style>
+        /* Styling for the domain switch button */
+        #switchDomainButton {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #AE54FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 0 10px rgba(174, 84, 255, 0.6);
+        }
+        #switchDomainButton:hover {
+            background-color: #8e3bcc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
+
+    <!-- App Launch Iframe -->
+    <iframe id="myIframe" src="" allowfullscreen></iframe>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="app-info">
+            <h2 class="gradient-red"></h2>
+        </div>
+        <div class="buttons">
+            <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+            <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
+            <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+            <button id="switchDomainButton">Switch Domain</button>
+        </div>
+    </div>
+
+    <script>
+        // List of domains
+        const domains = [
+            "domain1.com",
+            "domain2.com",
+            "domain3.com"
+        ];
+        let currentDomainIndex = 0;
+
+        // Function to update the iframe with the current domain and path
+        function updateIframe() {
+            const path = localStorage.getItem('launchPath') || "/";
+            const domain = domains[currentDomainIndex];
+            const iframe = document.getElementById('myIframe');
+            iframe.src = `https://${domain}${path}`;
+        }
+
+        // Function to switch to the next domain
+        function switchDomain() {
+            currentDomainIndex = (currentDomainIndex + 1) % domains.length; // Cycle through domains
+            updateIframe();
+        }
+
+        // Redirect iframe with the saved path
+        function redirectIframe(path, name) {
+            const iframe = document.getElementById('myIframe');
+            const tempLink = '/storage/loading';
+
+            // Temporarily redirect to loading page
+            iframe.src = tempLink;
+
+            // Update the app info
+            const appInfo = document.querySelector('.app-info h2');
+            appInfo.textContent = name;
+
+            // Save the path to localStorage
+            localStorage.setItem('launchPath', path);
+
+            // Set a timeout to redirect to the actual app link after 4 seconds
+            setTimeout(() => {
+                updateIframe();
+            }, 4000); // 4000 milliseconds = 4 seconds
+        }
+
+        window.addEventListener('load', function() {
+            const appPath = localStorage.getItem('launchPath');
+            const appName = localStorage.getItem('appName');
+            if (appPath && appName) {
+                redirectIframe(appPath, appName);
+            }
+
+            // Set a timer to detect iframe unresponsiveness
+            const iframe = document.getElementById('myIframe');
+            let iframeUnresponsive = setTimeout(() => {
+                iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
+            }, 5000); // 5000 milliseconds = 5 seconds
+
+            // Add an event listener to reset the timer on successful load
+            iframe.addEventListener('load', () => {
+                clearTimeout(iframeUnresponsive);
+            });
+        });
+
+        // Iframe controls for viewers
+        const reloadButton = document.getElementById('reloadButton');
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        const homeButton = document.getElementById('homeButton');
+        const switchDomainButton = document.getElementById('switchDomainButton');
+
+        reloadButton.addEventListener('click', () => {
+            const iframe = document.getElementById('myIframe');
+            iframe.src = iframe.src;
+        });
+
+        fullscreenButton.addEventListener('click', () => {
+            const iframe = document.getElementById('myIframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+
+        homeButton.addEventListener('click', () => {
+            location.replace("/apps.html"); // Redirect to the apps menu
+        });
+
+        switchDomainButton.addEventListener('click', switchDomain);
+    </script>
+
+    <!-- Particles.JS Background -->
+    <div id="particles-js"></div>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+    <script src="/javascript/panic.js"></script>
+    <script src="/javascript/cloaking.js"></script>
+    <script src="/javascript/antitabclose.js"></script>
+</body>
+</html>

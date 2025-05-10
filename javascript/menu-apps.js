@@ -1,10 +1,10 @@
 // Add apps
 
 const apps = [
-    { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", link: "/storage/apps/phineasandferb", clickCount: 0, isFavorited: false, path: "/launch" },
-    { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", link: "/storage/apps/gravityfalls", clickCount: 0, isFavorited: false, path: "/launch" },
-    { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", link: "/storage/apps/theamazingworldofgumball", clickCount: 0, isFavorited: false, path: "/launch" },
-    { name: "Bluey", image: "/uploads/covers/bluey.png", link: "/storage/apps/bluey", clickCount: 0, isFavorited: false, path: "/launch" }
+    { name: "Phineas And Ferb", image: "/uploads/covers/phineasandferb.png", path: "/phineasandferb", clickCount: 0, isFavorited: false },
+    { name: "Gravity Falls", image: "/uploads/covers/gravityfalls.png", path: "/gravityfalls", clickCount: 0, isFavorited: false },
+    { name: "The Amazing World Of Gumball", image: "/uploads/covers/theamazingworldofgumball.png", path: "/theamazingworldofgumball", clickCount: 0, isFavorited: false },
+    { name: "Bluey", image: "/uploads/covers/bluey.png", path: "/bluey", clickCount: 0, isFavorited: false }
   ];
   
   // Variable to toggle click count visibility
@@ -138,7 +138,7 @@ const apps = [
   
       // Create the app link and image
       const appLink = document.createElement("a");
-      appLink.href = app.path;
+      appLink.href = "#"; // Prevent default navigation
       const appImage = document.createElement("img");
       appImage.src = app.image;
       appLink.appendChild(appImage);
@@ -159,13 +159,13 @@ const apps = [
       appDiv.appendChild(appLink);
       appDiv.appendChild(clickCountElement);
   
-      // Increment click count and save app link and name when the appDiv is clicked
+      // Increment click count and save app path and name when the appDiv is clicked
       appDiv.addEventListener("click", () => {
         app.clickCount++;
-        localStorage.setItem('launchLink', app.link); // Save app link to localStorage
+        localStorage.setItem('launchPath', app.path); // Save app path to localStorage
         localStorage.setItem('appName', app.name); // Save app name to localStorage
         saveClickCountsToLocalStorage(); // Save updated click count
-        displayApps(filter); // Re-render the apps
+        window.location.href = "/launch.html"; // Redirect to the launch page
       });
   
       // Append the appDiv to the appMenu
@@ -176,53 +176,7 @@ const apps = [
     appCount.textContent = `Apps Loaded: ${filteredApps.length}`;
   }
   
-  // Function to get random apps
-  function getRandomApps(num) {
-    const shuffled = apps.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, num);
-  }
-  
-  // Function to display random apps
-  function displayRandomApps() {
-    const randomApps = getRandomApps(7); // Change the number to the desired count of random apps
-    const randomAppContainer = document.getElementById('randomAppContainer');
-    randomAppContainer.innerHTML = ''; // Clear previous content
-  
-    randomApps.forEach(app => {
-      const appDiv = document.createElement("div");
-      appDiv.classList.add("app");
-  
-      // Create the app link and image
-      const appLink = document.createElement("a");
-      appLink.href = "#"; // Use '#' to prevent default link behavior
-      const appImage = document.createElement("img");
-      appImage.src = app.image;
-      appLink.appendChild(appImage);
-  
-      // Create the app name
-      const appName = document.createElement("div");
-      appName.classList.add("app-name");
-      appName.textContent = app.name;
-      appLink.appendChild(appName);
-  
-      // Add click event listener to redirect iframe
-      appLink.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent default link behavior
-        redirectIframe(app.link, app.name); // Call the redirect function with the app link and name
-        localStorage.setItem('launchLink', app.link); // Save app link to localStorage
-        localStorage.setItem('appName', app.name); // Save app name to localStorage
-      });
-  
-      // Add all elements to the appDiv
-      appDiv.appendChild(appLink);
-  
-      // Append the appDiv to the randomAppContainer
-      randomAppContainer.appendChild(appDiv);
-    });
-  }
-  
-  // Call the function to display random apps on load
-  window.addEventListener('load', displayRandomApps);
-  
-  // Initial display of apps
-  displayApps();
+  // Call the function to display apps on load
+  window.addEventListener('load', () => {
+    displayApps();
+  });
