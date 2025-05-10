@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Loading</title>
+    <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        color: white;
+        font-family: Space Grotesk;
+    }
+
+    #background-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    #loader-container {
+        text-align: center;
+        z-index: 1000;
+    }
+
+    /* Bar Loader Styles */
+    .bar-loader-container {
+        position: relative;
+        width: 300px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .bar-loader {
+        position: absolute;
+        height: 100%;
+        width: 0;
+        background-color: #8A2BE2;
+        animation: loadingBar 4s forwards, fadeInOut 2s 4s infinite; /* 3-second loading + 2s fade in/out after */
+        border-radius: 15px;
+    }
+
+    @keyframes loadingBar {
+        0% {
+            width: 0;
+            background-color: #8A2BE2;
+        }
+        50% {
+            width: 50%;
+            background-color: white;
+        }
+        100% {
+            width: 100%;
+            background-color: #8A2BE2;
+        }
+    }
+
+    /* Fade in and out from white effect */
+    @keyframes fadeInOut {
+        0% {
+            background-color: #8A2BE2;
+            opacity: 1;
+        }
+        50% {
+            background-color: white;
+            opacity: 0.5;
+        }
+        100% {
+            background-color: #8A2BE2;
+            opacity: 1;
+        }
+    }
+
+    #popup {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        animation: slideUp 1s forwards;
+    }
+
+    @keyframes slideUp {
+        0% { bottom: -50px; }
+        100% { bottom: 20px; }
+    }
+
+    /* Fading color animation for text */
+    .fadeColor {
+        animation: fadeRedWhite 3s infinite;
+    }
+
+    @keyframes fadeRedWhite {
+        0% {
+            color: #8A2BE2;
+        }
+        50% {
+            color: white;
+        }
+        100% {
+            color: #8A2BE2;
+        }
+    }
+
+    /* Warning message styles */
+    #warning {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px 40px;
+        font-size: 2em;
+        font-weight: bold;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 2000;
+        border: 2px solid #8A2BE2; /* Updated border color */
+    }
+    </style>
+</head>
+<body>
+    <video id="background-video" autoplay muted loop>
+        <source src="/storage/loadvid-app.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div id="loader-container">
+        <!-- Bar loader -->
+        <div class="bar-loader-container">
+            <div class="bar-loader"></div>
+        </div>
+        <div id="popup">
+            hang tight... <i class="fas fa-wrench"></i> 
+        </div>
+    </div>
+
+    <!-- Warning message -->
+    <div id="warning" style="color:red;border:2px solid white">
+        <img src=/uploads/branding/favicon.png height=100px width=100px>
+        <h1>FATAL ERROR</h1>
+        <p>Game wasn't launched within 10 seconds, there may be something wrong with the launch script.</p>
+        <br>
+        If this continues to happen, please <a href=/contact> submit a bug report. </a>
+    </div>
+
+    <script>
+        const phrases = [
+            "removing restrictions... <i class='fas fa-hourglass fa-spin'></i>",
+            "opening app... <i class='fas fa-cube'></i>",
+            "speeding it up... <i class='fas fa-rocket'></i>",
+        ];
+
+        function rollThroughText() {
+            const popup = document.getElementById('popup');
+            let index = 0;
+
+            // Roll through all phrases except the last one
+            const interval = setInterval(() => {
+                if (index < phrases.length - 1) {
+                    popup.innerHTML = phrases[index]; // Use innerHTML to include HTML
+                    popup.classList.remove('fadeColor'); // Reset color animation
+                    void popup.offsetWidth; // Trigger reflow to reset the animation
+                    popup.classList.add('fadeColor'); // Start color animation
+                    index++;
+                } else {
+                    clearInterval(interval); // Stop rolling
+                    setTimeout(() => {
+                        // Show the final phrase
+                        popup.innerHTML = phrases[phrases.length - 1]; // Final phrase with icon
+                        popup.classList.remove('fadeColor'); // Reset color animation
+                        void popup.offsetWidth; // Trigger reflow to reset the animation
+                        popup.classList.add('fadeColor'); // Start color animation
+                    }, 0); // Wait 1 second before showing the last phrase
+                }
+            }, 1000); // Change text every 2 seconds
+        }
+
+        // Function to hide loader, popup, video and show warning after 10 seconds
+        function showWarningAfterDelay() {
+            setTimeout(() => {
+                // Hide the loader, popup, and background video
+                document.getElementById('loader-container').style.display = 'none';
+                document.getElementById('background-video').style.display = 'none';
+
+                // Show the warning
+                document.getElementById('warning').style.display = 'block';
+            }, 10000); // 10 seconds delay
+        }
+
+        // Start the rolling text and show warning after 10 seconds
+        rollThroughText();
+        showWarningAfterDelay();
+    </script>
+</body>
+</html>
