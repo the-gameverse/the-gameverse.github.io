@@ -1,7 +1,7 @@
 // Add apps
 
 const apps = [
-    { name: "Discord", image: "/uploads/covers/discord.png", path: "%2F4ppz%2Fdiscord.html", clickCount: 0, isFavorited: false },
+    { name: "Discord", image: "/uploads/covers/discord.png", path: "/4ppz/discord.html", clickCount: 0, isFavorited: false },
   ];
   
   // Variable to toggle click count visibility
