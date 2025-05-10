@@ -234,7 +234,7 @@ function displayGames(filter = "") {
     // Create the favorite icon (star)
     const favoriteIcon = document.createElement("div");
     favoriteIcon.classList.add("favorite-icon");
-    favoriteIcon.innerHTML = game.isFavorited ? '<i class="fa-solid fa-heart-circle-plus"></i>' : '<i class="fa-solid fa-heart-circle-check"></i>'; // Filled or empty star
+    favoriteIcon.innerHTML = game.isFavorited ? '<i class="fa-solid fa-heart-circle-check"></i>' : '<i class="fa-solid fa-heart-circle-plus"></i>'; // Filled or empty star
     favoriteIcon.title = game.isFavorited ? "Unfavorite" : "Favorite";
     favoriteIcon.style.cursor = "pointer";
     favoriteIcon.addEventListener("click", (e) => {
