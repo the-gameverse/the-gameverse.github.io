@@ -91,7 +91,7 @@ iframe {
             cursor: pointer;
             background-color:black;
             color:white;
-            border: 2px solid white;
+            border-color: #AE54FF; /* Change border color to purple */
             transition: box-shadow 0.5s;
         }
 
