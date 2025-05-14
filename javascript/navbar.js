@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
         </div>
 
-        <div id="nav-links" class="extra-links">
+        <div class="nav-links" id="extra-links">
           <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
