@@ -109,6 +109,17 @@ const games = [
 { name: "Super Mario 64", image: "/uploads/covers/supermario64.png", link: "https://openprocessing.org/sketch/2455285/embed", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Sandbox", image: "/uploads/covers/sandbox.png", link: "https://sga4schools.harag.cz/s/sandbox", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Thisissand", image: "/uploads/covers/thisissand.png", link: "https://thisissand.com/", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Mini Golf Master", image: "/uploads/covers/minigolfmaster.png", link: "https://script.google.com/macros/s/AKfycbw5p1tly8IoRN92yaOqJ49QCKGyleyB5HHjyKEbO_n0zlBCpUF1FYvWNjBbJZkcGQQ3Bg/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Paper.io 2", image: "/uploads/covers/paperio2.png", link: "https://script.google.com/macros/s/AKfycbwNxCzUuQVmLRWTwYK2D4yTqpWg2O-qge8BwCkxhLmqWd1DtXynwJXPEDClPt7ERZr-/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Eggy Car", image: "/uploads/covers/eggycar.png", link: "https://script.google.com/macros/s/AKfycbxGFiHgVNVoous7yjguN7bcuwa6lejCHgh6V1weh1vNalyCzpMmaMH9NhTisNSqkUo3/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Omega Nugget Clicker", image: "/uploads/covers/omeganuggetclicker.png", link: "https://script.google.com/macros/s/AKfycbzjgnGGeTNL2DTjJzVx3WGvsLjEyA47O6xYss-ijTLWWwrQv9siK9Gn_QqNDlDkrc27/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Cooking Fever", image: "/uploads/covers/cookingfever.png", link: "https://script.google.com/macros/s/AKfycbyjI0zmcSCEH1KYPHLRli9aaHyQettbfiqOyaKVDeJn8rccfLOQYK6pJze4xP-EFJKg/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Snake.is", image: "/uploads/covers/snakeis.png", link: "https://script.google.com/macros/s/AKfycbwXhPAppqZUy69d6b26B3Z6daQdZmzPsiaSsywQseSBMh94FLNnVTmupJqtonwt9oaQLw/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Roblox Obby", image: "/uploads/covers/robloxobby.png", link: "https://storage.googleapis.com/test-41376.appspot.com/obby.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Candy Crush", image: "/uploads/covers/candycrush.png", link: "https://script.google.com/macros/s/AKfycbzQTx2iYEacv65AXzQtwQfo_IJjCWxNMlPlGC6Jrn8_JjT9jgozigOP8IhrXkTelccQcQ/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Among Us", image: "/uploads/covers/amongus.png", link: "https://script.google.com/macros/s/AKfycbyix6sPjvsn_izDvhJLVuif1buj9ZtARvj9D_FEQ0rscRXgl-RgArs0t4oJw_OHm5Dr5A/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Geometry Dash Lite", image: "/uploads/covers/geometrydashlite.png", link: "https://script.google.com/macros/s/AKfycbydNb9Y8FIM3D0vcweKtYCYbjJcSXghedO6MN0aWbP5qIwamjjSkBDirvuMHR_6sc4/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Smash Karts", image: "/uploads/covers/smashkarts.png", link: "https://script.google.com/macros/s/AKfycbx63iRe5mtf5PQGIn_eGwKePxCA1iU6w-YApn57Mh4phi2ZB-G-GCJA1YTV9jKrwoqb/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
