@@ -394,3 +394,30 @@ a.disabled-link:hover {
     height: 20px;
     margin: 10px auto;
 }
+/* Hide extra-links by default */
+.extra-links {
+  display: none;
+  gap: 10px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show extra-links on hover */
+.nav-left-bg:hover .extra-links {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Add animation for individual links */
+.extra-links a {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-left-bg:hover .extra-links a {
+  transform: scale(1);
+  opacity: 1;
+}
