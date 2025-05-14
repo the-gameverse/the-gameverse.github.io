@@ -32,14 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
-        </div>
-
-        <div class="nav-links" id="extra-links">
+          <div class="extra-links">
           <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
           <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
           <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
+            </div>
+          </div>
         </div>
-      </div>
 
       <!-- Center section: Streak display -->
       <div class="nav-center-bg">
