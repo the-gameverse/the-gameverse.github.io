@@ -64,7 +64,8 @@ iframe {
         iframe {
             width: 80%;
             height: 60vh;
-            border: 2px solid #ccc;
+            border-color: #AE54FF; /* Change border color to purple */
+            box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
             border-radius: 8px;
             margin-bottom: 16px;
         }
