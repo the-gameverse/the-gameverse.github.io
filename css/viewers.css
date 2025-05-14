@@ -116,8 +116,10 @@ iframe {
         }
 
         .game-info h2 {
-            margin: 0;
-            font-size: 30px;
-            color:white;
-            font-family:Bebas Neue;
+            background: linear-gradient(to right, #ffffff, #ae54ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
+            user-select: none;
         }
