@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showViewCounter(views) {
     dynamicIsland.innerHTML = `
       <div class="view-counter">
-        👀 ${views} Views
+        140k views a month!
       </div>
     `;
     currentState = 'view-counter';
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFiveStarRating() {
     dynamicIsland.innerHTML = `
       <div class="five-star-rating">
-        <p>★★★★★</p> 5 Stars
+        5 star rating!
       </div>
     `;
     currentState = 'five-star-rating';
