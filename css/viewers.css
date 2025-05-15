@@ -24,79 +24,87 @@
             overflow:hidden;
         }
 
-        /* Adjust iframe to visually connect with controls */
-        iframe {
-            width: 900px; /* Set a fixed width */
-            height: 500px; /* Adjust height for better proportions */
-            border: 4px solid #AE54FF; /* Purple border */
-            box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
-            border-radius: 12px 12px 0 0; /* Rounded top corners only */
-            margin-bottom: -4px; /* Overlap the controls slightly for a seamless connection */
-            z-index: 1; /* Ensure the iframe is above the controls */
-        }
+/* Unified container for iframe and controls */
+.game-container {
+    width: 1000px; /* Set a larger fixed width */
+    background-color: rgba(20, 20, 20, 0.95); /* Unified background for iframe and controls */
+    border: 4px solid #AE54FF; /* Purple border around the entire container */
+    border-radius: 12px; /* Rounded corners for the entire container */
+    box-shadow: 0 0 30px rgba(174, 84, 255, 0.8); /* Enhanced glow for the container */
+    overflow: hidden; /* Ensure content stays within the rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto; /* Center the container on the page */
+}
 
-        /* Style the controls container */
-        .controls {
-            width: 900px; /* Match the width of the iframe */
-            background-color: rgba(20, 20, 20, 0.9); /* Slightly darker semi-transparent background */
-            border: 4px solid #AE54FF; /* Purple border */
-            border-top: none; /* Remove top border to connect with iframe */
-            border-radius: 0 0 12px 12px; /* Rounded bottom corners only */
-            box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
-            padding: 20px;
-            margin-top: -4px; /* Overlap with the iframe for a seamless connection */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 0; /* Ensure it sits below the iframe */
-        }
+/* Adjust iframe to fit within the unified container */
+iframe {
+    width: 100%; /* Take the full width of the container */
+    height: 600px; /* Increase height for better proportions */
+    border: none; /* Remove individual iframe border */
+    border-bottom: 4px solid #AE54FF; /* Add a connecting border at the bottom */
+    box-shadow: none; /* Remove individual iframe shadow */
+    z-index: 1; /* Ensure it stays above the controls */
+}
 
-        /* Style the buttons */
-        .buttons {
-            display: flex;
-            gap: 12px; /* Add spacing between buttons */
-        }
+/* Style the controls container */
+.controls {
+    width: 100%; /* Match the width of the container */
+    background-color: rgba(20, 20, 20, 0.9); /* Slightly darker semi-transparent background */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0; /* Ensure it sits below the iframe */
+}
 
-        .buttons button {
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-            border: 2px solid #AE54FF; /* Purple border */
-            transition: box-shadow 0.3s, transform 0.2s;
-        }
+/* Style the buttons */
+.buttons {
+    display: flex;
+    gap: 12px; /* Add spacing between buttons */
+}
 
-        .buttons button:hover {
-            box-shadow: 0 0 15px rgba(174, 84, 255, 0.8); /* Subtle glow on hover */
-            transform: scale(1.05); /* Slightly enlarge the button on hover */
-        }
+.buttons button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: 2px solid #AE54FF; /* Purple border */
+    transition: box-shadow 0.3s, transform 0.2s;
+}
 
-        /* Style the game-info section */
-        .game-info {
-            text-align: center;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px; /* Add spacing between elements */
-        }
+.buttons button:hover {
+    box-shadow: 0 0 15px rgba(174, 84, 255, 0.8); /* Subtle glow on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
 
-        .game-info img {
-            max-width: 150px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
+/* Style the game-info section */
+.game-info {
+    text-align: center;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Add spacing between elements */
+}
 
-        .game-info h2 {
-            margin: 0;
-            font-size: 28px;
-            font-family: 'Bebas Neue', sans-serif;
-            background: linear-gradient(to right, #ffffff, #ae54ff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
-            user-select: none;
-        }
+.game-info img {
+    max-width: 150px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.game-info h2 {
+    margin: 0;
+    font-size: 32px; /* Slightly larger font size */
+    font-family: 'Bebas Neue', sans-serif;
+    background: linear-gradient(to right, #ffffff, #ae54ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
+    user-select: none;
+}

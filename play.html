@@ -87,19 +87,21 @@ iframe {
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
         <div id="randomGameContainer"></div>
-        <iframe id="myIframe" src="" allowfullscreen></iframe>
-
-        <div class="controls">
-            <div class="game-info">
-                <h2 class="gradient-red"></h2>
-            </div>
-            <div class="buttons">
-                <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
-                <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
-                <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+        
+               <!-- Unified container for iframe and controls -->
+        <div class="game-container">
+            <iframe id="myIframe" src="" allowfullscreen></iframe>
+            <div class="controls">
+                <div class="game-info">
+                    <h2 class="gradient-red">Game Title</h2>
+                </div>
+                <div class="buttons">
+                    <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+                    <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
+                    <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+                </div>
             </div>
         </div>
-
         <!-- Container for random games -->
         
 
