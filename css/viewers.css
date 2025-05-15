@@ -1,43 +1,6 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-/*body {
-    background-color:black;
-    color:white;
-    font-family:Space Grotesk;
-    overflow:hidden;
-}
-button {
-  background-color: black;
-  border: 1px solid white;
-  color: white;
-  padding: 4px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 1px 1px;
-  font-family:Space Grotesk;
-  border-radius:10%;
-}
-button:hover {
-    cursor:pointer;
-    background-color:white;
-    color:black;
-}
-iframe.fullScreen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-iframe {
-    width: 100%;
-    height: 100%;
-    position:absolute;
-    border:0;
-}*/
 #particles-js {
   position: fixed;
   top: 0;
@@ -61,23 +24,31 @@ iframe {
             overflow:hidden;
         }
 
+        /* Adjust iframe to visually connect with controls */
         iframe {
             width: 80%;
             height: 60vh;
-            border-color: #AE54FF; /* Change border color to purple */
+            border: 4px solid #AE54FF; /* Purple border */
             box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
-            border-radius: 8px;
-            margin-bottom: 16px;
+            border-radius: 8px 8px 0 0; /* Rounded top corners only */
+            margin-bottom: 0; /* Remove bottom margin to connect with controls */
         }
 
+        /* Style the controls container */
         .controls {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            flex-direction: column;
+            align-items: center;
             width: 80%;
-            margin-top: 16px;
+            background-color: rgba(20, 20, 20, 0.8); /* Semi-transparent background */
+            border: 4px solid #AE54FF; /* Purple border */
+            border-top: none; /* Remove top border to connect with iframe */
+            border-radius: 0 0 8px 8px; /* Rounded bottom corners only */
+            box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
+            padding: 16px;
         }
 
+        /* Style the buttons */
         .buttons {
             display: flex;
             gap: 10px;
@@ -88,20 +59,21 @@ iframe {
             font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
-            background-color:black;
-            color:white;
-            border-color: #AE54FF; /* Change border color to purple */
+            background-color: black;
+            color: white;
+            border: 2px solid #AE54FF; /* Purple border */
             transition: box-shadow 0.5s;
         }
 
         .buttons button:hover {
-            border:2px solid black;
             box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow */
-            border-color: #AE54FF; /* Change border color to purple */
+            border-color: #AE54FF;
         }
 
+        /* Style the game-info section */
         .game-info {
             text-align: center;
+            margin-bottom: 16px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -115,8 +87,8 @@ iframe {
 
         .game-info h2 {
             margin: 0;
-            font-size: 40px;
-            font-family:Bebas Neue;
+            font-size: 32px;
+            font-family: 'Bebas Neue', sans-serif;
             background: linear-gradient(to right, #ffffff, #ae54ff);
             background-clip: text;
             -webkit-background-clip: text;
