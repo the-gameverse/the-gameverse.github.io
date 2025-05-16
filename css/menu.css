@@ -147,7 +147,8 @@ body {
 /* Input & Control Styling */
 #sortOptions,
 #toggleUsageData {
-
+      background-color: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(6px); 
   padding: 10px;
   font-size: 20px;
   font-family: Inter, sans-serif;
@@ -155,7 +156,6 @@ body {
   margin: 0;
   box-sizing: border-box;
   border-radius: 25px; /* Rounded corners */
-  background-color: black;
   color: white;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
@@ -191,7 +191,8 @@ body {
   margin: 0;
   box-sizing: border-box;
   border-radius: 25px; /* Rounded corners */
-  background-color: black;
+      background-color: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(6px); 
   color: white;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
