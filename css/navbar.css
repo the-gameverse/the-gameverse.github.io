@@ -31,11 +31,14 @@ body {
   background-color: transparent;
   box-shadow: none;
   animation: slideInWithScale 0.6s ease-out;
+
+}
+.nav-left-bg, .nav-right-bg, .nav-center-bg {
+      background-color: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(6px); 
 }
 
 .nav-left-bg, .nav-right-bg {
-  background-color: rgba(20, 20, 20, 0.6);
-  backdrop-filter: blur(10px);
   padding: 5px 15px;
   border-radius: 50px;
   display: flex;
@@ -231,8 +234,7 @@ html, body {
 
 /* Center section for streak display */
 .nav-center-bg {
-  background-color: rgba(20, 20, 20, 0.6);
-  backdrop-filter: blur(10px);
+
   padding: 5px 15px;
   border-radius: 50px;
   display: flex;
@@ -248,6 +250,7 @@ html, body {
   height: 50px;
   text-align: center;
   transition: all 0.3s ease-in-out;
+  background-color: rgba(34, 34, 34, 0.2);
 }
 
 /* Expanded state for animations */

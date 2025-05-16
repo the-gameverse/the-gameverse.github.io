@@ -9,6 +9,7 @@
   height: 100%;
   z-index: -1;
 }
+
 /* New UI */
         body {
             margin: 0;
@@ -36,6 +37,10 @@
     flex-direction: column;
     align-items: center;
     margin: 20px auto; /* Center the container on the page */
+    padding: 0; /* Remove any internal padding */
+      background-color: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(6px); 
+  margin-bottom: 300px; /* Add space at the bottom */
 }
 
 /* Adjust iframe to fit within the unified container */
@@ -43,27 +48,31 @@ iframe {
     width: 100%; /* Take the full width of the container */
     height: 600px; /* Increase height for better proportions */
     border: none; /* Remove individual iframe border */
-    border-bottom: 4px solid #AE54FF; /* Add a connecting border at the bottom */
     box-shadow: none; /* Remove individual iframe shadow */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
     z-index: 1; /* Ensure it stays above the controls */
 }
 
 /* Style the controls container */
 .controls {
     width: 100%; /* Match the width of the container */
-    background-color: rgba(20, 20, 20, 0.9); /* Slightly darker semi-transparent background */
-    padding: 20px;
+
     display: flex;
+    height:100px;
     flex-direction: column;
     align-items: center;
+    margin: 0; /* Remove any margin */
     z-index: 0; /* Ensure it sits below the iframe */
+  
 }
 
 /* Style the buttons */
 .buttons {
     display: flex;
     gap: 12px; /* Add spacing between buttons */
-    float:right
+    float: right; /* Keep the float */
+    margin-right: 15px; /* Add spacing to the right */
 }
 
 .buttons button {
@@ -75,6 +84,7 @@ iframe {
     color: white;
     border: 2px solid #AE54FF; /* Purple border */
     transition: box-shadow 0.3s, transform 0.2s;
+
 }
 
 .buttons button:hover {
@@ -89,25 +99,27 @@ iframe {
     align-items: center;
     width: 100%; /* Full width of the container */
     padding: 16px;
-    background-color: rgba(20, 20, 20, 0.95); /* Slightly transparent background */
-    border: 4px solid #AE54FF; /* Purple border */
+
     border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 0 20px rgba(174, 84, 255, 0.8); /* Purple glow */
-    margin-top: 16px; /* Add spacing above the game-info section */
+    margin: 0; /* Remove any margin */
+
 }
 
 /* Style the game image */
 .game-info img {
-    max-width: 120px; /* Set a good size for the image */
+    width: 60px; /* Set a good size for the image */
+    height: 60px; /* Set a good size for the image */
     border-radius: 8px; /* Rounded corners for the image */
-    box-shadow: 0 0 10px rgba(174, 84, 255, 0.8); /* Purple glow for the image */
     margin-right: 16px; /* Add spacing between the image and the text */
+    box-shadow: 0 0 10px rgba(174, 84, 255, 0.8); /* Purple glow for the image */
+    margin-left:15px;
 }
 
 /* Style the game name */
 .game-info h2 {
     margin: 0;
-    font-size: 24px; /* Adjust font size for better readability */
+    
+    font-size: 30px; /* Adjust font size for better readability */
     font-family: 'Bebas Neue', sans-serif;
     background: linear-gradient(to right, #ffffff, #ae54ff); /* Gradient text */
     background-clip: text;
@@ -117,18 +129,17 @@ iframe {
     user-select: none;
 }
 
-/* Float the game image and name to the left */
+/* Align the game details (image and name) */
 .game-info .game-details {
     display: flex;
     align-items: center;
-    float: left; /* Float the image and name to the left */
 }
 
-/* Float the buttons to the right */
+/* Align the buttons */
 .game-info .buttons {
     display: flex;
     gap: 12px; /* Add spacing between buttons */
-    float: right; /* Float the buttons to the right */
+    
 }
 
 /* Style the buttons */
@@ -146,4 +157,35 @@ iframe {
 .game-info .buttons button:hover {
     box-shadow: 0 0 15px rgba(174, 84, 255, 0.8); /* Subtle glow on hover */
     transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Collapsed state for the random games container */
+#randomGameContainer.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+/* Expanded state for the random games container */
+#randomGameContainer {
+    max-height: 1000px; /* Adjust this value based on the content height */
+    overflow: auto;
+    transition: max-height 0.3s ease-in;
+}
+
+/* Style for the toggle button */
+.toggle-button {
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #8A2BE2;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #8e3bcc;
 }

@@ -13,7 +13,7 @@
 body {
     background-color: black;
     animation: fadeInBackground 2s ease-in-out forwards;
-    margin-top: 1px;
+
     overflow: auto;
 }
 
@@ -86,7 +86,12 @@ iframe {
     <body>
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
-        <div id="randomGameContainer"></div>
+
+        <!-- Button to toggle the random games container -->
+<!--<button id="toggleRandomGames" class="toggle-button"><i class="fa fa-shapes"></i>  Show Suggested Games</button>
+
+
+        <div id="randomGameContainer" class="collapsed"></div>-->
 
 <div class="game-container">
     <iframe id="myIframe" src="" allowfullscreen></iframe>
@@ -190,6 +195,20 @@ window.addEventListener('load', function() {
                 }
             });
 
+                document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.getElementById('toggleRandomGames');
+        const randomGameContainer = document.getElementById('randomGameContainer');
+
+        toggleButton.addEventListener('click', () => {
+            if (randomGameContainer.classList.contains('collapsed')) {
+                randomGameContainer.classList.remove('collapsed');
+                toggleButton.innerHTML = '<i class="fa-solid fa-circle-minus"></i> Hide Suggested Games';
+            } else {
+                randomGameContainer.classList.add('collapsed');
+                toggleButton.innerHTML = '<i class="fa fa-shapes"></i>  Show Suggested Games';
+            }
+        });
+    });
         </script>
         <!-- Particles.JS start -->
         <div id="particles-js"></div>
@@ -201,4 +220,3 @@ window.addEventListener('load', function() {
         <!-- Particles.JS end --> 
     </body>
 </html>
-``` 
