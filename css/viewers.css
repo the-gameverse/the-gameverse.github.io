@@ -63,6 +63,7 @@ iframe {
 .buttons {
     display: flex;
     gap: 12px; /* Add spacing between buttons */
+    float:right
 }
 
 .buttons button {
@@ -107,4 +108,5 @@ iframe {
     color: transparent;
     text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
     user-select: none;
+    float:left;
 }
