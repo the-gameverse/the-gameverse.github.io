@@ -87,12 +87,13 @@ iframe {
         <div id="navbar"></div>
         <script src="/javascript/navbar.js"></script>
         <div id="randomGameContainer"></div>
-        
+
                <!-- Unified container for iframe and controls -->
         <div class="game-container">
             <iframe id="myIframe" src="" allowfullscreen></iframe>
             <div class="controls">
                 <div class="game-info">
+                    <img src="" alt="Game Icon" class="game-img">
                     <h2 class="gradient-red">Game Title</h2>
                 </div>
                 <div class="buttons">
@@ -115,8 +116,14 @@ function redirectIframe(link, name) {
 
     // Update the game info
     const gameInfo = document.querySelector('.game-info h2');
+    const gameImage = document.querySelector('.game-info img');
+    const savedImage = localStorage.getItem('gameImage'); // Retrieve the saved game image
+
     gameInfo.textContent = name;
-    /*document.title = `starship - ${name}`;*/
+    if (savedImage) {
+        gameImage.src = savedImage; // Set the game image
+        gameImage.alt = name; // Set the alt text for accessibility
+    }
 
     // Set a timeout to redirect to the actual game link after 4 seconds
     setTimeout(() => {
@@ -124,24 +131,24 @@ function redirectIframe(link, name) {
     }, 4000); // 4000 milliseconds = 4 seconds
 }
 
-            window.addEventListener('load', function() {
-                const gameLink = localStorage.getItem('gameLink');
-                const gameName = localStorage.getItem('gameName');
-                if (gameLink && gameName) {
-                    redirectIframe(gameLink, gameName);
-                }
+window.addEventListener('load', function() {
+    const gameLink = localStorage.getItem('gameLink');
+    const gameName = localStorage.getItem('gameName');
+    if (gameLink && gameName) {
+        redirectIframe(gameLink, gameName);
+    }
 
-                // Set a timer to detect iframe unresponsiveness
-                const iframe = document.getElementById('myIframe');
-                let iframeUnresponsive = setTimeout(() => {
-                    iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
-                }, 5000); // 5000 milliseconds = 5 seconds
+    // Set a timer to detect iframe unresponsiveness
+    const iframe = document.getElementById('myIframe');
+    let iframeUnresponsive = setTimeout(() => {
+        iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
+    }, 5000); // 5000 milliseconds = 5 seconds
 
-                // Add an event listener to reset the timer on successful load
-                iframe.addEventListener('load', () => {
-                    clearTimeout(iframeUnresponsive);
-                });
-            });
+    // Add an event listener to reset the timer on successful load
+    iframe.addEventListener('load', () => {
+        clearTimeout(iframeUnresponsive);
+    });
+});
 
             // Iframe controls for viewers
             const reloadButton = document.getElementById('reloadButton');
@@ -191,3 +198,4 @@ function redirectIframe(link, name) {
         <!-- Particles.JS end --> 
     </body>
 </html>
+``` 

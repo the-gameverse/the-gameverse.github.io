@@ -293,6 +293,7 @@ function displayGames(filter = "") {
       game.clickCount++;
       localStorage.setItem('gameLink', game.link); // Save game link to localStorage
       localStorage.setItem('gameName', game.name); // Save game name to localStorage
+      localStorage.setItem('gameImage', game.image); // Save game name to localStorage
       saveClickCountsToLocalStorage(); // Save updated click count
       displayGames(filter); // Re-render the games
     });
