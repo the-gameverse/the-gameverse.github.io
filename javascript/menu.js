@@ -120,6 +120,7 @@ const games = [
 { name: "Among Us", image: "/uploads/covers/amongus.png", link: "https://script.google.com/macros/s/AKfycbyix6sPjvsn_izDvhJLVuif1buj9ZtARvj9D_FEQ0rscRXgl-RgArs0t4oJw_OHm5Dr5A/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Geometry Dash Lite", image: "/uploads/covers/geometrydashlite.png", link: "https://script.google.com/macros/s/AKfycbydNb9Y8FIM3D0vcweKtYCYbjJcSXghedO6MN0aWbP5qIwamjjSkBDirvuMHR_6sc4/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Smash Karts", image: "/uploads/covers/smashkarts.png", link: "https://script.google.com/macros/s/AKfycbx63iRe5mtf5PQGIn_eGwKePxCA1iU6w-YApn57Mh4phi2ZB-G-GCJA1YTV9jKrwoqb/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "PolyTrack", image: "/uploads/covers/polytrack.png", link: "https://script.google.com/macros/s/AKfycbzOmulSCFb0CwkaIrhIBdqglMVAfxQppFmVZmp2cp8-eHLj0j_LjbQtEhNyTClffFte/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
