@@ -121,6 +121,8 @@ const games = [
 { name: "Geometry Dash Lite", image: "/uploads/covers/geometrydashlite.png", link: "https://script.google.com/macros/s/AKfycbydNb9Y8FIM3D0vcweKtYCYbjJcSXghedO6MN0aWbP5qIwamjjSkBDirvuMHR_6sc4/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Smash Karts", image: "/uploads/covers/smashkarts.png", link: "https://script.google.com/macros/s/AKfycbx63iRe5mtf5PQGIn_eGwKePxCA1iU6w-YApn57Mh4phi2ZB-G-GCJA1YTV9jKrwoqb/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "PolyTrack", image: "/uploads/covers/polytrack.png", link: "https://script.google.com/macros/s/AKfycbzOmulSCFb0CwkaIrhIBdqglMVAfxQppFmVZmp2cp8-eHLj0j_LjbQtEhNyTClffFte/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Awesome Tanks", image: "/uploads/covers/awesometanks.png", link: "https://script.google.com/macros/s/AKfycbymevkeavNOsB5HAuBlRXCr11dpWboVy58LIy4v_Np9hzx4NgD3Os9Uow5yrKylc2uu/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Awesome Tanks 2", image: "/uploads/covers/awesometanks2.png", link: "https://script.google.com/macros/s/AKfycbyJgJSpZLYW4t7SEW5VCiR5pQyGtXlTSYP4ohz57LkTI3RFdVJNQEnLihXgleCe9wtudQ/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
