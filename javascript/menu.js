@@ -123,6 +123,9 @@ const games = [
 { name: "PolyTrack", image: "/uploads/covers/polytrack.png", link: "https://script.google.com/macros/s/AKfycbzOmulSCFb0CwkaIrhIBdqglMVAfxQppFmVZmp2cp8-eHLj0j_LjbQtEhNyTClffFte/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Awesome Tanks", image: "/uploads/covers/awesometanks.png", link: "https://script.google.com/macros/s/AKfycbymevkeavNOsB5HAuBlRXCr11dpWboVy58LIy4v_Np9hzx4NgD3Os9Uow5yrKylc2uu/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Awesome Tanks 2", image: "/uploads/covers/awesometanks2.png", link: "https://script.google.com/macros/s/AKfycbyJgJSpZLYW4t7SEW5VCiR5pQyGtXlTSYP4ohz57LkTI3RFdVJNQEnLihXgleCe9wtudQ/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Dig To China", image: "/uploads/covers/digtochina.png", link: "https://script.google.com/macros/s/AKfycbx7MEtbxM9ZlUT0kC5nfQA-x9-KT49crZXU6Lx66Hz1VvTyMA8bUuB--mqTNNhIYIL58Q/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Basketball Legends", image: "/uploads/covers/basketballlegends.png", link: "https://script.google.com/macros/s/AKfycbypcRAKupeX7kvdt4IDnmPNSI788HFppGG-P5V8QRCHzRKZ7AXFdtUjkNBi6QU9yYFc2Q/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Basketball Legends 2020", image: "/uploads/covers/basketballlegends2020.png", link: "https://script.google.com/macros/s/AKfycbwE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
