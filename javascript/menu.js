@@ -127,6 +127,7 @@ const games = [
 { name: "Basketball Legends", image: "/uploads/covers/basketballlegends.png", link: "https://script.google.com/macros/s/AKfycbypcRAKupeX7kvdt4IDnmPNSI788HFppGG-P5V8QRCHzRKZ7AXFdtUjkNBi6QU9yYFc2Q/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Basketball Legends 2020", image: "/uploads/covers/basketballlegends2020.png", link: "https://script.google.com/macros/s/AKfycbwE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Subway Surfers", image: "/uploads/covers/subwaysurfers.png", link: "/storage/games/subway-surfers/index.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Monkey Mart", image: "/uploads/covers/monkeymart.png", link: "/storage/games/monkey-mart/frame.html", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
