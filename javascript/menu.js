@@ -354,7 +354,41 @@ function displayRandomGames() {
 // Call the function to display random games on load
 window.addEventListener('load', displayRandomGames);
 
-// Initial display of games
-displayGames();
-// Initial display of games
-displayGames();
+function showSkeletonLoader() {
+    const gameMenu = document.getElementById("gameMenu");
+    gameMenu.innerHTML = ""; // Clear existing content
+
+    for (let i = 0; i < 40; i++) { // Add 40 skeleton loaders
+        const skeletonGame = document.createElement("div");
+        skeletonGame.classList.add("skeleton", "skeleton-game");
+
+        gameMenu.appendChild(skeletonGame); // Append only the skeleton game element
+    }
+}
+
+function displayGamesWithSkeleton() {
+    // Hide the search bar, dropdown, and game count
+    const searchBar = document.getElementById("search");
+    const sortDropdown = document.getElementById("sortOptions");
+    const gameCount = document.getElementById("gameCount");
+
+    if (searchBar) searchBar.style.display = "none";
+    if (sortDropdown) sortDropdown.style.display = "none";
+    if (gameCount) gameCount.style.display = "none";
+
+    // Show skeleton loaders
+    showSkeletonLoader();
+
+    setTimeout(() => {
+        // Replace skeletons with actual games
+        displayGames();
+
+        // Show the search bar, dropdown, and game count again
+        if (searchBar) searchBar.style.display = "inline-block";
+        if (sortDropdown) sortDropdown.style.display = "inline-block";
+        if (gameCount) gameCount.style.display = "block";
+    }, 5000); // 5-second delay
+}
+
+// Call the function on page load
+window.addEventListener("load", displayGamesWithSkeleton);
