@@ -84,49 +84,7 @@ body {
   user-select: none;
 }
 
-.gradient-blue {
-  background: linear-gradient(to right, #b9c9ff, #6a7aff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(138, 160, 255, 0.8);
-  animation: glow-blue 1.5s infinite alternate;
-}
 
-@keyframes glow-blue {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(138, 160, 255, 0.8),
-                 0 0 20px rgba(138, 160, 255, 0.8),
-                 0 0 30px rgba(138, 160, 255, 0.8);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(138, 160, 255, 1),
-                 0 0 30px rgba(138, 160, 255, 1),
-                 0 0 40px rgba(138, 160, 255, 1);
-  }
-}
-
-.gradient-green {
-  background: linear-gradient(to right, #aaffcc, #77ffdd);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(122, 255, 211, 0.8);
-  animation: glow-green 1.5s infinite alternate;
-}
-
-@keyframes glow-green {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(122, 255, 211, 0.8),
-                 0 0 20px rgba(122, 255, 211, 0.8),
-                 0 0 30px rgba(122, 255, 211, 0.8);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(122, 255, 211, 1),
-                 0 0 30px rgba(122, 255, 211, 1),
-                 0 0 40px rgba(122, 255, 211, 1);
-  }
-}
 
 
 
@@ -150,20 +108,23 @@ button {
   margin: 10px;
   transition: background-color 0.2s, box-shadow 0.3s;
   box-shadow: 0 0 10px rgba(174, 84, 255, 0.3);
+      background-color: rgba(34, 34, 34, 0.2); 
+
+  backdrop-filter: blur(6px); 
 }
 
 button:hover {
-  background-color: #1a1a1a;
   border: 0.5px solid white;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.6);
 }
 
 button:nth-child(2) {
-  background-color: #ae54ff;
+
+      background-color: rgba(34, 34, 34, 0.2); 
 }
 
 button:nth-child(2):hover {
-  background-color: #953fff;
+    background-color: rgba(174, 84, 255, 0.3);
   box-shadow: 0 0 20px rgba(174, 84, 255, 0.7);
 }
 

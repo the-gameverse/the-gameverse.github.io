@@ -22,56 +22,54 @@
 
       gtag('config', 'G-ZZH4JE7RJF');
     </script>
+  <style>
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      background-color: #222;
+      border-bottom: 2px solid #444;
+    }
 
-    <!-- Inline Styles for Tabs -->
-    <style>
-        /* Style the tab container */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
+    .tab {
+      padding: 15px 20px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+      background: #222;
+      outline: none;
+      transition: background 0.3s ease;
+    }
 
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
+    .tab:hover, .tab.active {
+      background: #444;
+    }
 
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
+    .tab-content {
+      display: none;
+      padding: 20px;
+      transform: scale(0.95); /* Start slightly smaller for transition */
+      opacity: 0; /* Start invisible */
+      transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scaling and fading */
+    }
 
-        /* Active tab button styling */
-        .tab button.active {
-            background-color: #ccc;
-        }
+    .tab-content.active {
+      display: block;
+      transform: scale(1); /* Full size */
+      opacity: 1; /* Fully visible */
+    }
 
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            animation: fadeEffect 1s;
-        }
+    h2 {
+      text-align: center;
+      color: #fff;
+    }
 
-        /* Fade-in animation for tab content */
-        @keyframes fadeEffect {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Hide scrollbar */
-        html::-webkit-scrollbar {
-            display: none;
-        }
+    p {
+      line-height: 1.5;
+      font-size: 1em;
+    }
     </style>
+    
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -80,10 +78,10 @@
 
     <!-- Footer -->
     <script src="/javascript/footer.js"></script>
-
-    <!-- Main Content -->
     <center>
-        <!-- Page Header -->
+    <!-- Main Content 
+
+        
         <h1 class="gradient-red">Contact & Support</h1>
         <p>
             Here at starship, YOU are our top priority. Get in touch and submit ideas here. Emails will be answered in a timely manner. Texts and phone calls will be answered during designated hours.
@@ -94,12 +92,12 @@
 
         </p>
         <hr>
-
+-->
         <!-- Tab Buttons -->
         <div class="tab">
-            <button class="tablink" onclick="openPage('suggestgame', this, 'red')" id="defaultOpen">Suggest a Game <i class="fa fa-gamepad fa-lg"></i></button>
-            <button class="tablink" onclick="openPage('suggestapp', this, 'red')">Suggest an App <i class="fa fa-cube fa-lg"></i></button>
-            <button class="tablink" onclick="openPage('contact', this, 'red')">Contact Form <i class="fa fa-phone fa-lg"></i></button>
+            <button class="tab" onclick="openPage('suggestgame', this)" id="defaultOpen">Suggest a Game <i class="fa fa-gamepad fa-lg"></i></button>
+            <button class="tab" onclick="openPage('suggestapp', this)">Suggest an App <i class="fa fa-cube fa-lg"></i></button>
+            <button class="tab" onclick="openPage('contact', this)">Contact Form <i class="fa fa-phone fa-lg"></i></button>
         </div>
 
         <!-- Tab Content -->

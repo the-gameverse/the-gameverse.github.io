@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
           <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
           <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
+          <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
           <div class="extra-links">
