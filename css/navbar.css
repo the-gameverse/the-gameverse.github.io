@@ -31,6 +31,7 @@ body {
   background-color: transparent;
   box-shadow: none;
   animation: slideInWithScale 0.6s ease-out;
+  transition: all 0.3s ease-in-out;
 
 }
 .nav-left-bg, .nav-right-bg, .nav-center-bg {
@@ -51,6 +52,14 @@ body {
 .logo img {
   height: 50px;
   width: auto;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  border-radius: 50px;
+}
+
+.logo img:hover {
+  background-color: rgba(0, 0, 0, 1); 
+  backdrop-filter: blur(6px);
+  transform: scale(1.1);
 }
 
 .nav-links {
@@ -66,7 +75,8 @@ body {
   height: 50px;
   border-radius: 50%;
   text-decoration: none;
-  background: #111;
+  background-color: rgba(0, 0, 0, 0.1); 
+  backdrop-filter: blur(6px);
   transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 0 0 30px rgba(138, 43, 226, 0.4);
 }
