@@ -1,237 +1,255 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>starship - playing a game</title>
-        <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-        <link rel=stylesheet href=/css/viewers.css>
-        <link rel="stylesheet" href="/css/navbar.css">
-        <link rel="stylesheet" href="/css/menu.css">
-        <script src="/javascript/menu.js"></script>
-        <script src="/javascript/scrollbar.js"></script>
+  <head>
+    <title>starship - playing a game</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
+    <link rel=stylesheet href=/css/viewers.css>
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/menu.css" />
+    <script src="/javascript/menu.js"></script>
+    <script src="/javascript/scrollbar.js"></script>
 
     <!-- Google AdSense and Google Analytics -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-     crossorigin="anonymous"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+      crossorigin="anonymous"
+    ></script>
 
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
+    ></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-ZZH4JE7RJF');
+      gtag("config", "G-ZZH4JE7RJF");
     </script>
 
-        <style>
-/* Animate the body background color */
-body {
-    background-color: black;
-    animation: fadeInBackground 2s ease-in-out forwards;
-
-    overflow: auto;
-}
-
-@keyframes fadeInBackground {
-    from {
+    <style>
+      /* Animate the body background color */
+      body {
         background-color: black;
-    }
-    to {
-        background-color: black; /* Ensure the final color is black */
-    }
-}
+        animation: fadeInBackground 2s ease-in-out forwards;
 
-/* New Scale and Slide-Up Animation */
-@keyframes scaleAndSlideUp {
-    from {
+        overflow: auto;
+      }
+
+      @keyframes fadeInBackground {
+        from {
+          background-color: black;
+        }
+        to {
+          background-color: black; /* Ensure the final color is black */
+        }
+      }
+
+      /* New Scale and Slide-Up Animation */
+      @keyframes scaleAndSlideUp {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      /* Animate the iframe */
+      iframe {
+        background-color: black;
         opacity: 0;
         transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
+        animation: scaleAndSlideUp 1s ease-in-out forwards;
+      }
 
-/* Animate the iframe */
-iframe {
-    background-color: black;
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-    animation: scaleAndSlideUp 1s ease-in-out forwards;
-}
+      /* Animate the navbar */
+      #navbar {
+        opacity: 0;
+        transform: scale(0.9) translateY(-30px); /* Slide from above */
+        animation: scaleAndSlideUp 1s ease-in-out forwards;
+      }
 
-/* Animate the navbar */
-#navbar {
-    opacity: 0;
-    transform: scale(0.9) translateY(-30px); /* Slide from above */
-    animation: scaleAndSlideUp 1s ease-in-out forwards;
-}
+      /* Animate the controls */
+      .controls {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        animation: scaleAndSlideUp 1s ease-in-out 1.5s forwards;
+      }
 
-/* Animate the controls */
-.controls {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-    animation: scaleAndSlideUp 1s ease-in-out 1.5s forwards;
-}
+      /* Animate the buttons */
+      .buttons button {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        animation: scaleAndSlideUp 0.5s ease-in-out forwards;
+      }
 
-/* Animate the buttons */
-.buttons button {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-    animation: scaleAndSlideUp 0.5s ease-in-out forwards;
-}
+      /* Flexbox for horizontal layout */
+      #randomGameContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
 
-/* Flexbox for horizontal layout */
-#randomGameContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
+      .game {
+        flex: 0 1 150px; /* Adjust this value to control the width of the game items */
+        text-align: center;
+        color: white;
+        margin: 5px; /* Add margin to create the gap */
+      }
+    </style>
+  </head>
 
-.game {
-    flex: 0 1 150px; /* Adjust this value to control the width of the game items */
-    text-align: center;
-    color: white;
-    margin: 5px; /* Add margin to create the gap */
-}
-        </style>
-    </head>
+  <body>
+    <div id="navbar"></div>
+    <script src="/javascript/navbar.js"></script>
 
-    <body>
-        <div id="navbar"></div>
-        <script src="/javascript/navbar.js"></script>
-
-        <!-- Button to toggle the random games container -->
-<!--<button id="toggleRandomGames" class="toggle-button"><i class="fa fa-shapes"></i>  Show Suggested Games</button>
+    <!-- Button to toggle the random games container -->
+    <!--<button id="toggleRandomGames" class="toggle-button"><i class="fa fa-shapes"></i>  Show Suggested Games</button>
 
 
-        <div id="randomGameContainer" class="collapsed"></div>-->
+        <div id="randomGameContainer" class="collapsed                                                                              "></div>-->
 
-<div class="game-container">
-    <iframe id="myIframe" src="" allowfullscreen></iframe>
-    <div class="controls">
+    <div class="game-container">
+      <iframe id="myIframe" src="" allowfullscreen></iframe>
+      <div class="controls">
         <div class="game-info">
-            <!-- Game details (image and name) floated to the left -->
-            <div class="game-details">
-                <img src="" alt="Game Icon" class="game-img">
-                <h2 class="gradient-red">Game Title</h2>
-            </div>
-            <!-- Buttons floated to the right -->
-            <div class="buttons">
-                <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
-                <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
-                <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
-            </div>
+          <!-- Game details (image and name) floated to the left -->
+          <div class="game-details">
+            <img src="" alt="Game Icon" class="game-img" />
+            <h2 class="gradient-red">Game Title</h2>
+          </div>
+          <!-- Buttons floated to the right -->
+          <div class="buttons">
+            <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+            <button id="reloadButton">
+              <i class="fa fa-refresh fa-lg"></i>
+            </button>
+            <button id="fullscreenButton">
+              <i class="fa fa-arrows-alt fa-lg"></i>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-        <!-- Container for random games -->
-        
+    <!-- Container for random games -->
 
-        <script>
-function redirectIframe(link, name) {
-    const iframe = document.getElementById('myIframe');
-    const tempLink = '/storage/loading';
+    <script>
+      function redirectIframe(link, name) {
+        const iframe = document.getElementById("myIframe");
+        const tempLink = "/storage/loading";
 
-    // Temporarily redirect to loading page
-    iframe.src = tempLink;
+        // Temporarily redirect to loading page
+        iframe.src = tempLink;
 
-    // Update the game info
-    const gameInfo = document.querySelector('.game-info h2');
-    const gameImage = document.querySelector('.game-info img');
-    const savedImage = localStorage.getItem('gameImage'); // Retrieve the saved game image
+        // Update the game info
+        const gameInfo = document.querySelector(".game-info h2");
+        const gameImage = document.querySelector(".game-info img");
+        const savedImage = localStorage.getItem("gameImage"); // Retrieve the saved game image
 
-    gameInfo.textContent = name;
-    if (savedImage) {
-        gameImage.src = savedImage; // Set the game image
-        gameImage.alt = name; // Set the alt text for accessibility
-    }
+        gameInfo.textContent = name;
+        if (savedImage) {
+          gameImage.src = savedImage; // Set the game image
+          gameImage.alt = name; // Set the alt text for accessibility
+        }
 
-    // Set a timeout to redirect to the actual game link after 4 seconds
-    setTimeout(() => {
-        iframe.src = link;
-    }, 4000); // 4000 milliseconds = 4 seconds
-}
+        // Set a timeout to redirect to the actual game link after 4 seconds
+        setTimeout(() => {
+          iframe.src = link;
+        }, 4000); // 4000 milliseconds = 4 seconds
+      }
 
-window.addEventListener('load', function() {
-    const gameLink = localStorage.getItem('gameLink');
-    const gameName = localStorage.getItem('gameName');
-    if (gameLink && gameName) {
-        redirectIframe(gameLink, gameName);
-    }
+      window.addEventListener("load", function () {
+        const gameLink = localStorage.getItem("gameLink");
+        const gameName = localStorage.getItem("gameName");
+        if (gameLink && gameName) {
+          redirectIframe(gameLink, gameName);
+        }
 
-    // Set a timer to detect iframe unresponsiveness
-    const iframe = document.getElementById('myIframe');
-    let iframeUnresponsive = setTimeout(() => {
-        iframe.src = '/errors/contentblocked'; // Redirect to error page if unresponsive
-    }, 5000); // 5000 milliseconds = 5 seconds
+        // Set a timer to detect iframe unresponsiveness
+        const iframe = document.getElementById("myIframe");
+        let iframeUnresponsive = setTimeout(() => {
+          iframe.src = "/errors/contentblocked"; // Redirect to error page if unresponsive
+        }, 5000); // 5000 milliseconds = 5 seconds
 
-    // Add an event listener to reset the timer on successful load
-    iframe.addEventListener('load', () => {
-        clearTimeout(iframeUnresponsive);
-    });
-});
-
-            // Iframe controls for viewers
-            const reloadButton = document.getElementById('reloadButton');
-            const fullscreenButton = document.getElementById('fullscreenButton');
-            const homeButton = document.getElementById('homeButton');
-
-            reloadButton.addEventListener('click', () => {
-                const iframe = document.getElementById('myIframe');
-                iframe.src = iframe.src;
-            });
-
-            fullscreenButton.addEventListener('click', () => {
-                const iframe = document.getElementById('myIframe');
-                if (iframe.requestFullscreen) {
-                    iframe.requestFullscreen();
-                } else if (iframe.mozRequestFullScreen) { // Firefox
-                    iframe.mozRequestFullScreen();
-                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                    iframe.webkitRequestFullscreen();
-                } else if (iframe.msRequestFullscreen) { // IE/Edge
-                    iframe.msRequestFullscreen();
-                }
-            });
-
-            homeButton.addEventListener('click', () => {
-                const currentURL = window.location.href; // Get the current URL of the page
-
-                if (currentURL.includes("/storage/tv")) {
-                    location.replace("/tv"); // Redirect to the /tv page
-                } else if (currentURL.includes("/storage/games")) {
-                    location.replace("/games"); // Redirect to the /games page
-                } else if (currentURL.includes("/storage/music")) {
-                    location.replace("/music"); // Redirect to the /music page
-                } else {
-                    location.replace("/games"); // Fallback redirect if no match
-                }
-            });
-
-                document.addEventListener('DOMContentLoaded', () => {
-        const toggleButton = document.getElementById('toggleRandomGames');
-        const randomGameContainer = document.getElementById('randomGameContainer');
-
-        toggleButton.addEventListener('click', () => {
-            if (randomGameContainer.classList.contains('collapsed')) {
-                randomGameContainer.classList.remove('collapsed');
-                toggleButton.innerHTML = '<i class="fa-solid fa-circle-minus"></i> Hide Suggested Games';
-            } else {
-                randomGameContainer.classList.add('collapsed');
-                toggleButton.innerHTML = '<i class="fa fa-shapes"></i>  Show Suggested Games';
-            }
+        // Add an event listener to reset the timer on successful load
+        iframe.addEventListener("load", () => {
+          clearTimeout(iframeUnresponsive);
         });
-    });
-        </script>
-        <!-- Particles.JS start -->
-        <div id="particles-js"></div>
-        <script src="/javascript/particles.js"></script>
-        <script src="/javascript/particles-config.js"></script>
-        <script src="/javascript/panic.js"></script>
-        <script src="/javascript/cloaking.js"></script>
-        <script src="/javascript/antitabclose.js"></script>
-        <!-- Particles.JS end --> 
-    </body>
+      });
+
+      // Iframe controls for viewers
+      const reloadButton = document.getElementById("reloadButton");
+      const fullscreenButton = document.getElementById("fullscreenButton");
+      const homeButton = document.getElementById("homeButton");
+
+      reloadButton.addEventListener("click", () => {
+        const iframe = document.getElementById("myIframe");
+        iframe.src = iframe.src;
+      });
+
+      fullscreenButton.addEventListener("click", () => {
+        const iframe = document.getElementById("myIframe");
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          // Firefox
+          iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          // Chrome, Safari, Opera
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+          // IE/Edge
+          iframe.msRequestFullscreen();
+        }
+      });
+
+      homeButton.addEventListener("click", () => {
+        const currentURL = window.location.href; // Get the current URL of the page
+
+        if (currentURL.includes("/storage/tv")) {
+          location.replace("/tv"); // Redirect to the /tv page
+        } else if (currentURL.includes("/storage/games")) {
+          location.replace("/games"); // Redirect to the /games page
+        } else if (currentURL.includes("/storage/music")) {
+          location.replace("/music"); // Redirect to the /music page
+        } else {
+          location.replace("/games"); // Fallback redirect if no match
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggleRandomGames");
+        const randomGameContainer = document.getElementById(
+          "randomGameContainer"
+        );
+
+        toggleButton.addEventListener("click", () => {
+          if (randomGameContainer.classList.contains("collapsed")) {
+            randomGameContainer.classList.remove("collapsed");
+            toggleButton.innerHTML =
+              '<i class="fa-solid fa-circle-minus"></i> Hide Suggested Games';
+          } else {
+            randomGameContainer.classList.add("collapsed");
+            toggleButton.innerHTML =
+              '<i class="fa fa-shapes"></i>  Show Suggested Games';
+          }
+        });
+      });
+    </script>
+    <!-- Particles.JS start -->
+    <div id="particles-js"></div>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+    <script src="/javascript/panic.js"></script>
+    <script src="/javascript/cloaking.js"></script>
+    <script src="/javascript/antitabclose.js"></script>
+    <!-- Particles.JS end -->
+  </body>
 </html>

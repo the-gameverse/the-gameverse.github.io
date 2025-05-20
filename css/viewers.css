@@ -59,8 +59,8 @@ iframe {
     width: 100%; /* Match the width of the container */
 
     display: flex;
-    height:100px;
-    flex-direction: column;
+    height:50px;
+    /* flex-direction: column; */
     align-items: center;
     margin: 0; /* Remove any margin */
     z-index: 0; /* Ensure it sits below the iframe */
@@ -99,10 +99,14 @@ iframe {
     align-items: center;
     width: 100%; /* Full width of the container */
     padding: 16px;
-
     border-radius: 8px; /* Rounded corners */
     margin: 0; /* Remove any margin */
 
+}
+
+.game-img {
+    max-height: 50px;
+    max-width: 50px;
 }
 
 /* Style the game image */
