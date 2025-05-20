@@ -367,34 +367,6 @@ a.disabled-link:hover {
   background-color: transparent;
 }
 
-/* Skeleton loader styles */
-.skeleton {
-    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.5s infinite;
-    border-radius: 10px;
-}
-
-@keyframes skeleton-loading {
-    0% {
-        background-position: 200% 0;
-    }
-    100% {
-        background-position: -200% 0;
-    }
-}
-
-.skeleton-game {
-    width: 150px;
-    height: 150px;
-    margin: 10px;
-}
-
-.skeleton-text {
-    width: 100px;
-    height: 20px;
-    margin: 10px auto;
-}
 /* Hide extra-links by default */
 .extra-links {
   display: none;
@@ -421,9 +393,12 @@ a.disabled-link:hover {
 }
 
 .skeleton-game {
-    width: 150px;
-    height: 150px;
-    margin: 10px;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 15%;
+  transition: transform 0.3s ease;
 }
 
 .skeleton-text {

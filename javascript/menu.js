@@ -366,7 +366,7 @@ function showSkeletonLoader() {
     const gameMenu = document.getElementById("gameMenu");
     gameMenu.innerHTML = ""; // Clear existing content
 
-    for (let i = 0; i < 40; i++) { // Add 40 skeleton loaders
+    for (let i = 0; i < 70; i++) { // Add 40 skeleton loaders
         const skeletonGame = document.createElement("div");
         skeletonGame.classList.add("skeleton", "skeleton-game");
 
