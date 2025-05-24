@@ -116,25 +116,54 @@ document.addEventListener('DOMContentLoaded', () => {
     return `🔥 ${streakData.streak} days`;
   }
 
-  // Function to show "view counter"
-  function showViewCounter(views) {
-    dynamicIsland.innerHTML = `
-      <div class="view-counter">
-        140k views a month!
-      </div>
-    `;
-    currentState = 'view-counter';
+// Function to show total time spent on starship
+function showScreenTime() {
+  // Get today's tracking data from localStorage (set by screentimetracking.js)
+  const dataJSON = localStorage.getItem('screenTimeData');
+  let seconds = 0;
+  if (dataJSON) {
+    try {
+      const data = JSON.parse(dataJSON);
+      seconds = data.secondsSpent || 0;
+    } catch (e) {
+      seconds = 0;
+    }
   }
 
-  // Function to show "5-star rating"
-  function showFiveStarRating() {
-    dynamicIsland.innerHTML = `
-      <div class="five-star-rating">
-        5 star rating!
-      </div>
-    `;
-    currentState = 'five-star-rating';
+  // Format as H:MM:SS or MM:SS
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  let formatted;
+  if (h > 0) {
+    formatted = `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  } else {
+    formatted = `${m}:${s.toString().padStart(2, '0')}`;
   }
+
+  dynamicIsland.innerHTML = `
+    <div class="screen-time">
+      ⏳ <b>${formatted}</b>
+    </div>
+  `;
+  currentState = 'screen-time';
+}
+
+// Function to show current time in 12-hour format
+function showCurrentTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
+  const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+  dynamicIsland.innerHTML = `
+    <div class="current-time">
+     🕒 ${formattedTime}
+    </div>
+  `;
+  currentState = 'current-time';
+}
 
   // Function to show "launching game"
   function showLaunchingGame() {
@@ -179,21 +208,19 @@ document.addEventListener('DOMContentLoaded', () => {
     currentState = 'streak';
   }
 
-  // Periodically change the center section's content
-  function periodicUpdates() {
-    if (currentState === 'streak') {
-      const randomValue = Math.random();
-      if (randomValue < 0.2) {
-        showViewCounter(Math.floor(Math.random() * 1000)); // 20% chance for view counter
-      } else if (randomValue < 0.4) {
-        showFiveStarRating(); // 20% chance for 5-star rating
-      } else {
-        resetToDefault(); // 60% chance to reset to streak
-      }
-    } else {
-      resetToDefault();
-    }
-  }
+// Periodically change the center section's content in a rolling order
+let periodicIndex = 0;
+const periodicFunctions = [
+  showScreenTime,
+  showCurrentTime,
+  resetToDefault
+];
+
+function periodicUpdates() {
+  // Always cycle, regardless of currentState
+  periodicFunctions[periodicIndex % periodicFunctions.length]();
+  periodicIndex++;
+}
 
   // Add event listener for all clickable elements (buttons, links, etc.)
   document.addEventListener('click', (event) => {
