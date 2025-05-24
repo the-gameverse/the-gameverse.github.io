@@ -3,6 +3,9 @@
 const apps = [
     { name: "Discord", image: "/uploads/covers/discord.png", path: "/4ppz/discord.html", clickCount: 0, isFavorited: false },
     { name: "YouTube", image: "/uploads/covers/youtube.png", path: "/4ppz/youtube.html", clickCount: 0, isFavorited: false },
+    { name: "Instagram", image: "/uploads/covers/instagram.png", path: "/4ppz/instagram.html", clickCount: 0, isFavorited: false },
+    { name: "Snapchat", image: "/uploads/covers/snapchat.png", path: "/4ppz/snapchat.html", clickCount: 0, isFavorited: false },
+    { name: "Spotify", image: "/uploads/covers/spotify.png", path: "/4ppz/spotify.html", clickCount: 0, isFavorited: false },
   ];
   
   // Variable to toggle click count visibility
@@ -87,9 +90,13 @@ const apps = [
   
   // Function to display the apps
   function displayApps(filter = "") {
-    const appMenu = document.getElementById("appMenu");
-    const appCount = document.getElementById("appCount");
-    appMenu.innerHTML = ""; // Clear the menu
+  const appMenu = document.getElementById("appMenu");
+  const appCount = document.getElementById("appCount");
+  // Show controls and count
+  const controls = document.querySelector(".controls");
+  if (controls) controls.style.display = "";
+  if (appCount) appCount.style.display = "";
+  appMenu.innerHTML = "";
   
     // Sort apps based on current sort option
     const filteredApps = apps
@@ -162,6 +169,7 @@ const apps = [
         app.clickCount++;
         localStorage.setItem('launchPath', app.path); // Save app path to localStorage
         localStorage.setItem('appName', app.name); // Save app name to localStorage
+        localStorage.setItem('appImage', app.image); // Save game name to localStorage
         saveClickCountsToLocalStorage(); // Save updated click count
         window.location.href = "/launch.html"; // Redirect to the launch page
       });
@@ -174,7 +182,26 @@ const apps = [
     appCount.textContent = `Apps Loaded: ${filteredApps.length}`;
   }
   
-  // Call the function to display apps on load
-  window.addEventListener('load', () => {
+function showSkeletonLoader(count = 70) {
+  const appMenu = document.getElementById("appMenu");
+  appMenu.innerHTML = "";
+  // Hide controls and count
+  const controls = document.querySelector(".controls");
+  const appCount = document.getElementById("appCount");
+  if (controls) controls.style.display = "none";
+  if (appCount) appCount.style.display = "none";
+  for (let i = 0; i < count; i++) {
+    const skeleton = document.createElement("div");
+    skeleton.className = "skeleton skeleton-app";
+
+    appMenu.appendChild(skeleton);
+  }
+}
+
+
+window.addEventListener('load', () => {
+  showSkeletonLoader();
+  setTimeout(() => {
     displayApps();
-  });
+  }, 5000); // 800ms delay for effect; adjust as needed
+});

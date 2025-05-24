@@ -1,0 +1,127 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Body styling */
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', Arial, sans-serif;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  z-index: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App container */
+.app-container {
+  width: 1000px;
+  max-width: 98vw;
+  background-color: rgba(34, 34, 34, 0.2);
+  border: 4px solid #AE54FF;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(174, 84, 255, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 0 auto;
+  padding: 0;
+  backdrop-filter: blur(6px);
+  margin-bottom: 300px;
+}
+
+/* App info section */
+.app-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+/* App details (icon and title) */
+.app-details {
+  display: flex;
+  align-items: center;
+}
+
+.app-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  margin-right: 16px;
+  margin-left: 15px;
+  box-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
+  object-fit: cover;
+  background: #181818;
+}
+
+.app-details h2,
+.app-info h2 {
+  margin: 0;
+  font-size: 30px;
+  font-family: 'Bebas Neue', sans-serif;
+  background: linear-gradient(to right, #fff, #ae54ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
+  user-select: none;
+}
+
+/* Buttons group */
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-right: 15px;
+}
+
+.buttons button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: 2px solid #AE54FF;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.buttons button:hover {
+  box-shadow: 0 0 15px rgba(174, 84, 255, 0.8);
+  transform: scale(1.05);
+}
+
+.buttons button i {
+  margin: 0;
+}
+
+/* App iframe */
+#myIframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  border-radius: 0;
+  background: #111;
+}
+

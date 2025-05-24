@@ -3,7 +3,7 @@
 <head>
     <title>starship - launching an app</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
-    <link rel="stylesheet" href="/css/viewers.css">
+    <link rel="stylesheet" href="/css/launch.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/menu.css">
     <script src="/javascript/menu-apps.js"></script>
@@ -91,21 +91,25 @@
     <div id="navbar"></div>
     <script src="/javascript/navbar.js"></script>
 
-    <!-- App Launch Iframe -->
-    <iframe id="myIframe" src="" allowfullscreen></iframe>
 
-    <!-- Controls -->
-    <div class="controls">
-        <div class="app-info">
-            <h2 class="gradient-red"></h2>
-        </div>
-        <div class="buttons">
-            <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
-            <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
-            <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
-            <button id="switchDomainButton"><i class="fa-solid fa-group-arrows-rotate fa-lg"></i></button>
-        </div>
+
+    <div class="app-container">
+        <iframe id="myIframe" src="" allowfullscreen></iframe>
+  <div class="app-info">
+    <div class="app-details">
+      <img src="" alt="App Icon" class="app-img" />
+      <h2 class="gradient-red">App Title</h2>
     </div>
+    <div class="buttons">
+      <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+      <button id="reloadButton"><i class="fa fa-refresh fa-lg"></i></button>
+      <button id="fullscreenButton"><i class="fa fa-arrows-alt fa-lg"></i></button>
+      <button id="switchDomainButton"><i class="fa-solid fa-group-arrows-rotate fa-lg"></i></button>
+    </div>
+  </div>
+  </div>
+</div>
+
 
     <script>
         // List of domains
@@ -147,7 +151,13 @@
 
             // Update the app info
             const appInfo = document.querySelector('.app-info h2');
+            const appImage = document.querySelector('.app-img');
+            const savedImage = localStorage.getItem("appImage"); // Retrieve the saved game image
             appInfo.textContent = name;
+            if (savedImage) {
+          appImage.src = savedImage; // Set the game image
+          appImage.alt = name; // Set the alt text for accessibility
+        }
 
             // Save the path to localStorage
             localStorage.setItem('launchPath', path);
