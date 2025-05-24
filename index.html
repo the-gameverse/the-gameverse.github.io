@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  
+  <!DOCTYPE html>
 <html>
 <head>
   <title>starship - play, and explore.</title>
@@ -18,80 +21,7 @@
 
       gtag('config', 'G-ZZH4JE7RJF');
     </script>
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      background: #000;
-      font-family: Arial, sans-serif;
-      color: #fff;
-    }
-
-    /* Banner Section */
-    .banner {
-      position: relative;
-      width: 100%;
-      height: 400px;
-      background: url('/uploads/images/banner.png') no-repeat center center/cover;
-    }
-
-    .banner-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: #fff;
-    }
-
-    .banner-text h1 {
-      font-size: 3em;
-      margin: 0;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .banner-text p {
-      font-size: 1.2em;
-      margin: 10px 0 0;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Content Rows */
-    .content-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      margin: 20px;
-      background-color: rgba(34, 34, 34, 0.4);
-      backdrop-filter: blur(6px);
-      border-radius: 5px;
-      box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .content-row.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .content-image {
-      width: 120px;
-      height: auto;
-    }
-
-    .content-text {
-      max-width: 70%;
-    }
-    br {
-  display: none;
-}
-  </style>
-  <!--Start of Tawk.to Script-->
+<!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
@@ -104,67 +34,405 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->
-</head>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #0e0e11;
+
+  color: #fff;
+  overflow-x: hidden;
+}
+br {
+  display: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.hero {
+  min-height: 420px;
+  background: url('/uploads/images/banner.png') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  padding: 0 16px;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(138,43,226,0.55) 0%, rgba(26,26,26,0.72) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  background: rgba(20,20,30,0.82);
+  border-radius: 20px;
+  padding: 48px 36px 40px 36px;
+  box-shadow: 0 8px 48px #8a2be244;
+  max-width: 520px;
+  margin: 48px 0;
+  animation: fadeIn 1.2s;
+}
+.hero-title {
+  font-size: 2.8em;
+  font-weight: 800;
+  margin: 0 0 18px 0;
+  background: linear-gradient(90deg, #ff4b2b, #8a2be2 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.hero-desc {
+  font-size: 1.25em;
+  color: #eaeaea;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 16px 44px;
+  background: linear-gradient(90deg, #8a2be2 60%, #ff4b2b 100%);
+  color: #fff;
+  font-size: 1.18em;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 4px 24px #8a2be244;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.cta-btn:hover {
+  background: linear-gradient(90deg, #ff4b2b 60%, #8a2be2 100%);
+  transform: scale(1.06);
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 16px 0 16px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 36px;
+  margin-top: 32px;
+}
+.feature-card {
+  background: rgba(34,34,44,0.85);
+  border-radius: 14px;
+  box-shadow: 0 2px 24px #8a2be222;
+  padding: 36px 24px 28px 24px;
+  text-align: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card:hover {
+  box-shadow: 0 8px 48px #8a2be2aa;
+  transform: translateY(-6px) scale(1.03);
+}
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 2px 12px #8a2be2aa);
+}
+.feature-title {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #ff4b2b, #8a2be2 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.feature-desc {
+  color: #eaeaea;
+  font-size: 1.05em;
+  line-height: 1.5;
+}
+
+.section-divider {
+  margin: 64px auto 0 auto;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8a2be2, #ff4b2b 80%);
+  opacity: 0.7;
+}
+
+.carousel-container {
+  margin: 64px auto 0 auto;
+  max-width: 600px;
+  background: linear-gradient(135deg, rgba(34,34,44,0.95) 60%, rgba(138,43,226,0.18) 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(138,43,226,0.18);
+  padding: 40px 30px 35px 30px;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-title {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 24px;
+  background: linear-gradient(90deg, #ff4b2b, #8a2be2 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn {
+  background: #8a2be2;
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 50%;
+  margin: 0 10px;
+  box-shadow: 0 2px 8px rgba(138,43,226,0.15);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.carousel-btn:hover {
+  background: #fff;
+  color: #8a2be2;
+  transform: scale(1.1);
+}
+.carousel-btn:active {
+  transform: scale(0.95) rotate(-8deg);
+  box-shadow: 0 0 16px #8a2be2;
+}
+.carousel-review {
+  flex: 1;
+  min-width: 0;
+  padding: 0 20px;
+  text-align: center;
+  animation: fadeIn 0.5s;
+  transition: box-shadow 0.3s;
+}
+.carousel-review:hover {
+  box-shadow: 0 0 24px #8a2be2aa;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.review-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  border: 2px solid #8a2be2;
+  box-shadow: 0 2px 8px #8a2be2;
+  object-fit: cover;
+  background: #222;
+}
+.stars {
+  font-size: 1.5em;
+  color: gold;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px #8a2be2;
+}
+.carousel-review p {
+  font-size: 1.13em;
+  margin-bottom: 10px;
+  color: #fff;
+  font-style: italic;
+}
+.carousel-review .reviewer {
+  font-weight: bold;
+  color: #8a2be2;
+  font-size: 1em;
+  margin-top: 8px;
+}
+
+.site-footer {
+  background: linear-gradient(90deg, #1a1a1a 60%, #8a2be2 100%);
+  color: #fff;
+  padding: 32px 0 18px 0;
+  text-align: center;
+  margin-top: 80px;
+  box-shadow: 0 -2px 16px #8a2be244;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.footer-social a {
+  display: inline-block;
+  margin: 0 8px;
+  transition: transform 0.2s;
+}
+.footer-social a:hover {
+  transform: scale(1.2) rotate(-8deg);
+}
+.footer-social img {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 6px #8a2be2aa);
+}
+
+@media (max-width: 900px) {
+  .hero-content { padding: 32px 8px 28px 8px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .section { padding: 32px 8px 0 8px; }
+  .carousel-container { padding: 24px 8px 20px 8px; }
+}
+</style>
+
 <body>
   <!-- Navigation Bar -->
   <div id="navbar"></div>
   <script src="/javascript/navbar.js"></script>
 
-  <!-- Image Banner -->
-  <div class="banner">
-    <div class="banner-text">
-      <h1 class="gradient-red">starship</h1>
-      <p>play, listen, watch, and explore. uninterrupted. all with 300,000+ views, and 500+ loving users. </p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-title">starship</div>
+      <div class="hero-desc">
+        Play, listen, watch, and explore. Uninterrupted.<br>
+        Trusted by 300,000+ visitors and 500+ loving users.
+      </div>
+      <a href="/games.html" class="cta-btn">Explore Now</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <div class="section" id="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <img class="feature-icon" src="/uploads/images/unblockedgames.png" alt="Unblocked Games Icon">
+        <div class="feature-title">100+ Games and Counting</div>
+        <div class="feature-desc">Discover an ever-growing library of unblocked games. New additions regularly—there's always something exciting to explore!</div>
+      </div>
+      <div class="feature-card">
+        <img class="feature-icon" src="/uploads/images/design.png" alt="Sleek Design Icon">
+        <div class="feature-title">Sleek & Modern Design</div>
+        <div class="feature-desc">Experience a seamless, user-friendly interface crafted for effortless navigation and visual delight.</div>
+      </div>
+      <div class="feature-card">
+        <img class="feature-icon" src="/uploads/images/tabcloaking.png" alt="Tab Cloaking Icon">
+        <div class="feature-title">Advanced Tab Cloaking</div>
+        <div class="feature-desc">Stay discreet and secure with tab cloaking. Instantly mask starship as an innocent website with a click.</div>
+      </div>
+      <div class="feature-card">
+        <img class="feature-icon" src="/uploads/images/customization.png" alt="Customization Icon">
+        <div class="feature-title">Customization & Updates</div>
+        <div class="feature-desc">Express yourself with themes, profiles, and particle effects. starship evolves constantly with exciting new updates!</div>
+      </div>
+<div class="feature-card">
+  <img class="feature-icon" src="/uploads/images/apps.png" alt="Unblocked Apps Icon">
+  <div class="feature-title">Unblocked Apps</div>
+  <div class="feature-desc">
+    Access popular entertainment apps—unblocked and ready to use. Enjoy apps like Netflix, Spotify, and more, all within starship.
+  </div>
+</div>
+<div class="feature-card">
+  <img class="feature-icon" src="/uploads/images/privacy.png" alt="Privacy Icon">
+  <div class="feature-title">Privacy First</div>
+  <div class="feature-desc">
+    Your data is yours. All preferences and settings are stored locally in your browser’s <b>localStorage</b>—never in the cloud or on our servers.
+  </div>
+</div>
     </div>
   </div>
-  
-<!-- Content rows -->
-<div class="content-row">
-  <div class="content-text">
-    <h3 class="gradient-red">100+ GAMES AND COUNTING</h3>
-    <p>Discover an ever-growing library of over 100 unblocked games. With new additions regularly, there's always something exciting to explore!</p>
-  </div>
-  <img class="content-image" src="/uploads/images/unblockedgames.png" alt="Unblocked Games Icon">
-</div>
-<hr>
 
-<div class="content-row">
-  <div class="content-text">
-    <h3 class="gradient-red">SLEEK AND MODERN DESIGN</h3>
-    <p>Experience a seamless and user-friendly design, crafted to provide you with effortless navigation and an aesthetically pleasing interface.</p>
-  </div>
-  <img class="content-image" src="/uploads/images/design.png" alt="Sleek Design Icon">
-</div>
-<hr>
+  <div class="section-divider"></div>
 
-<div class="content-row">
-  <div class="content-text">
-    <h3 class="gradient-red">ADVANCED TAB CLOAKING</h3>
-    <p>Stay discreet and secure with our tab cloaking features. Quickly mask starship as an innocent website with a simple click.</p>
+  <!-- User Review Carousel -->
+  <div class="carousel-container">
+    <div class="carousel-title">What Our Users Say</div>
+    <div class="carousel">
+      <div class="carousel-review" id="carouselReview">
+        <!-- Review content will be injected here -->
+      </div>
+    </div>
   </div>
-  <img class="content-image" src="/uploads/images/tabcloaking.png" alt="Tab Cloaking Icon">
-</div>
-<hr>
+  <script>
+    const reviews = [
+      {
+        text: "These people know how to code for a very good gaming experience. I don't know why anyone would want to sabotage it other than to stoke their ego and make themselves look good.",
+        reviewer: "Keegan B.",
+        stars: 5,
+        avatar: "/uploads/avatars/user1.png"
+      },
+      {
+        text: "I like the block blast.",
+        reviewer: "Austin Z.",
+        stars: 5,
+        avatar: "/uploads/avatars/user2.png"
+      },
+      {
+        text: "You guys are cool.",
+        reviewer: "jj g.",
+        stars: 4,
+        avatar: "/uploads/avatars/user3.png"
+      },
+      {
+        text: "It is fun. It is fun. It is fun. It is fun. It is fun. It is fun. It is fun. It is fun. It is fun. It is fun.",
+        reviewer: "Mason W.",
+        stars: 5,
+        avatar: "/uploads/avatars/user4.png"
+      }
+    ];
 
-<div class="content-row">
-  <div class="content-text">
-    <h3 class="gradient-red">CUSTOMIZATION & UPDATES</h3>
-    <p>Express yourself with customizable particle effects, themes, and profiles. starship evolves constantly with exciting new updates!</p>
-  </div>
-  <img class="content-image" src="/uploads/images/customization.png" alt="Customization Icon">
-</div>
-<hr>
+    let currentReview = 0;
+    const reviewDiv = document.getElementById('carouselReview');
+    let carouselInterval;
+    let isPaused = false;
+
+    function showReview(index) {
+      const review = reviews[index];
+      const stars = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+      reviewDiv.innerHTML = `
+        <div class="stars">${stars}</div>
+        <p>"${review.text}"</p>
+        <div class="reviewer">- ${review.reviewer}</div>
+      `;
+    }
+
+    function nextReview() {
+      currentReview = (currentReview + 1) % reviews.length;
+      showReview(currentReview);
+    }
+
+    // Autoplay with pause on hover
+    function startCarousel() {
+      carouselInterval = setInterval(() => {
+        if (!isPaused) nextReview();
+      }, 4000);
+    }
+    reviewDiv.addEventListener('mouseenter', () => { isPaused = true; });
+    reviewDiv.addEventListener('mouseleave', () => { isPaused = false; });
+
+    showReview(currentReview);
+    startCarousel();
+  </script>
+
+
 
   <!-- Intersection Observer Animation -->
   <script>
-    const rows = document.querySelectorAll('.content-row');
+    const rows = document.querySelectorAll('.feature-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
     rows.forEach(row => observer.observe(row));
   </script>
 
@@ -172,8 +440,6 @@ s0.parentNode.insertBefore(s1,s0);
   <script src="/javascript/panic.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
-  <script src="/javascript/particles.js"></script>
-  <script src="/javascript/particles-config.js"></script>
+
   <script src="/javascript/scrollbar.js"></script>
 </body>
-</html>
