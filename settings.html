@@ -5,6 +5,7 @@
   <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/home.css">
 
     <!-- Google AdSense and Google Analytics -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
@@ -142,15 +143,19 @@ input[type="checkbox"]:hover {
       display: none;
     }
     /* Additional styling for our settings page */
-    .section {
-      background-color: black;;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 10px;
-      max-width: 600px;
-      text-align: left;
-      color: white;
-    }
+/* Make settings sections look like homepage cards */
+.section {
+  background: rgba(34,34,44,0.85);
+  border-radius: 14px;
+  box-shadow: 0 2px 24px #8a2be222;
+  padding: 36px 24px 28px 24px;
+  margin: 36px auto;
+  max-width: 700px;
+  text-align: left;
+  color: #fff;
+}
+
+
 
     .time-display {
       font-size: 1.5em;
@@ -198,410 +203,150 @@ input[type="checkbox"]:hover {
   <script src="/javascript/navbar.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
-<br><br><br>
-  <center>
-    <h1 class="gradient-red">Settings</h1>
-    <hr>
 
-
-<h2 class="gradient-red">Cloaking Settings</h2>
-    <p>Disguises the tab with a click of a button!</p>
-<select name="cloak" data-cloak-select>
-  <option value="gdoc">Fake Google Doc</option>
-  <option value="gslides">Fake Google Slides</option>
-  <option value="gsheets">Fake Google Sheets</option>
-  <option value="calculator">Fake Calculator Search</option>
-  <option value="desmoscalc">Desmos Calculator</option>
-  <option value="gdrive">Google Drive</option>
-  <option value="google">Google</option>
-  <option value="gassign">Google Assignments</option>
-  <option value="blank">Transparent Cloak</option>
-  <option disabled style=opacity:50% value="sparkles">More cloaks coming soon!</option>
-</select>
-  <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
-  <hr>
-  <h2 class="gradient-red">Panic Key</h2>
-    <p>Set a custom key that redirects to a page, based on your cloak. [For those who used The Arcade, it's like the Emergency Canvas button.]</p>
-  <button onClick="listenForKey()">Start Listening</button>
-  <hr>
-  <h2 class="gradient-red">Anti-Tab Close</h2>
-    <p>Stops teachers, or anyone from closing your tab. Say goodbye to lost progress.</p>
-  <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
-  <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
-  <hr>
-  <h2 class="gradient-red">about:blank</h2>
-    <p>Open GameVerse in about:blank. Virtually undetectable (even from Blocksi), and makes the site less prone to get blocked.</p>
-    <button onClick="cloak.aboutBlank();">Open in about:blank</button>
-    <hr>
-  <h2 class="gradient-red">Particle Customization</h2>
-    <p>Customize the particles animation to your liking! </p>
-  <div
-          class="profile-container"
-          style="
-            text-align: center;
-            padding: 20px;
-            background: black;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 350px;
-            margin: auto;
-          "
-        >
-          <label>Preset:</label>
-          <select id="preset">
-            <option value="custom">Custom</option>
-            <option value="minimal">Minimal (Fewer, Slower Particles)</option>
-            <option value="dynamic">
-              Dynamic (Fast, Bright, Many Particles)
-            </option>
-            <option value="galaxy">
-              Galaxy (Blue, Rotating Particles)
-            </option></select
-          ><br /><br />
-
-          <label>Number of Particles:</label>
-          <input
-            type="number"
-            id="numParticles"
-            min="10"
-            max="500"
-          /><br /><br />
-
-          <label>Particle Color:</label>
-          <input type="color" id="particleColor" /><br /><br />
-
-          <label>Shape:</label>
-          <select id="particleShape">
-            <option value="circle">Circle</option>
-            <option value="triangle">Triangle</option>
-            <option value="star">Star</option>
-            <option value="polygon">Polygon</option></select
-          ><br /><br />
-
-          <label>Size:</label>
-          <input type="number" id="particleSize" min="1" max="10" /><br /><br />
-
-          <label>Speed:</label>
-          <input type="number" id="particleSpeed" step="0.1" /><br /><br />
-
-          <label>Opacity:</label>
-          <input
-            type="number"
-            id="particleOpacity"
-            step="0.1"
-            min="0.1"
-            max="1"
-          /><br /><br />
-
-          <button
-            onclick="applySettings()"
-            style="
-              padding: 10px 20px;
-              font-size: 16px;
-              background: #007bff;
-              color: white;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-            "
-          >
-            Apply & Save
-          </button>
-
-          <button
-            onclick="resetSettings()"
-            style="
-              padding: 10px 20px;
-              font-size: 16px;
-              background: #ff0000;
-              color: white;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-              margin-left: 10px;
-            "
-          >
-            Reset to Default
-          </button>
-        </div>
-        <h2 class="gradient-red">Screen Time Settings</h2>
-    <p>Look at your usage data, and set a time limit if necessary.</p>
-      <!-- Display Section -->
-      <div class="section" id="trackerDisplay">
-        <p>
-          Time Spent Today: <span id="timeSpent" class="time-display">00:00:00</span>
-        </p>
-        <p>
-          Time Remaining: <span id="timeRemaining" class="time-display">-</span>
-        </p>
+  <!-- Hero Banner -->
+  <section class="hero" style="min-height: 280px; background: url('/uploads/images/banner.png') no-repeat center center/cover; position: relative;">
+    <div class="hero-content" style="position:relative; z-index:2; background:rgba(20,20,30,0.82); border-radius:20px; padding:36px 32px 30px 32px; box-shadow:0 8px 48px #8a2be244; max-width:520px; margin:48px auto;">
+      <div class="hero-title" style="font-size:2.2em; font-weight:800; margin-bottom:12px; background:linear-gradient(90deg,#ff4b2b,#8a2be2 80%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px;">
+        Settings
       </div>
-
-      <!-- Settings Form Section -->
-      <div class="section" id="settings">
-        <h2>Settings</h2>
-        <form id="settingsForm">
-          <!-- Enable/Disable Limit -->
-          <label>
-            <input type="checkbox" id="limitActiveCheckbox">
-            Enable Usage Limit
-          </label>
-
-          <!-- Usage Limit: Preset times and Custom option -->
-          <label>
-            Usage Limit:
-            <select id="presetTimeDropdown">
-              <option value="900">00:15:00</option>
-              <option value="1800">00:30:00</option>
-              <option value="3600" selected>01:00:00</option>
-              <option value="7200">02:00:00</option>
-              <option value="10800">03:00:00</option>
-              <option value="custom">Custom</option>
-            </select>
-            <span id="customTimeContainer" style="display: none;">
-              Custom Time (HH:MM:SS): 
-              <input type="text" id="customTimeInput" placeholder="HH:MM:SS">
-            </span>
-          </label>
-
-          <!-- Action When Limit is Reached -->
-          <label>
-            Action on Limit Reached:
-            <select id="limitActionDropdown">
-              <option value="reminder">Redirect every 5 minutes (Reminder)</option>
-              <option value="lockout">Immediate Lockout</option>
-            </select>
-          </label>
-
-          <!-- Disable Tracking -->
-          <label>
-            Disable Tracking for:
-            <select id="disableDaysDropdown">
-              <option value="0">Today</option>
-              <option value="1">1 Day</option>
-              <option value="2">2 Days</option>
-              <option value="3">3 Days</option>
-            </select>
-            <button type="button" id="disableButton">Disable Tracking</button>
-          </label>
-
-          <!-- Save Settings -->
-          <button type="button" id="saveSettingsButton">Save Settings</button>
-        </form>
+      <div class="hero-desc" style="font-size:1.15em; color:#eaeaea;">
+        Personalize your starship experience.<br>
+        All settings are stored locally for your privacy.
       </div>
-      </center>
     </div>
-  <script>
-  const cloaks = [
-    { name: "gdoc", icon: "https://upload.wikimedia.org/wikipedia/commons/e/ec/GDocs_Favicon_Recreation.png", title: "Untitled document - Google Docs", link: "https://docs.google.com" },
-    { name: "google", icon: "https://google.com/favicon.ico", title: "Google", link:"https://google.com" },
-    { name: "calculator", icon: "https://google.com/favicon.ico", title: "Calculator - Google Search", link: "https://www.google.com/search?surl=1&q=calculator&safe=active&ssui=on" },
-    { name: "desmoscalc", icon: "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.desmos.com/scientific&size=16", title: "Desmos | Scientific Calculator", link:"https://www.desmos.com/scientific" },
-    { name: "gsheets", icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNXTR1xAC3DHMeBcw4bB2hcNEu_UQTZOaqNVdAiyGgllO_ALM:https://art.pixilart.com/be52957fc0b0ec8.png&s", title: "Untitled spreadsheet - Google Sheets", link: "https://sheets.google.com" },
-    { name: "gslides", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Google_Slides_logo_%282014-2020%29.svg/1489px-Google_Slides_logo_%282014-2020%29.svg.png", title: "Untitled presentation - Google Slides", link: "https://slides.google.com" },
-    { name: "gdrive", icon: "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png", title: "Google Drive", link:"https://drive.google.com" },
-    { name: "blank", icon: "./uploads/images/transparent.png", title: "‌ ‌ ‌ ‌ ", link:"https://google.com" },
-  ];
-</script>
-  
-   <!--   <form class="settings-form" id="cloakSettingsForm">
-    <label for="cloakSelect">Select Cloak:</label>
-    <label for="newTitle">New Cloak Title:</label>
-    <input type="text" id="newTitle" name="newTitle" required>
-    <label for="newFavicon">New Cloak Favicon URL:</label>
-    <input  id="newFavicon" name="newFavicon" required>
+  </section>
+
+  <div class="section" style="margin-top:32px;">
+    <h2 class="gradient-red">Cloaking Settings</h2>
+    <p>Disguises the tab with a click of a button!</p>
+    <select name="cloak" data-cloak-select>
+      <option value="gdoc">Fake Google Doc</option>
+      <option value="gslides">Fake Google Slides</option>
+      <option value="gsheets">Fake Google Sheets</option>
+      <option value="calculator">Fake Calculator Search</option>
+      <option value="desmoscalc">Desmos Calculator</option>
+      <option value="gdrive">Google Drive</option>
+      <option value="google">Google</option>
+      <option value="gassign">Google Assignments</option>
+      <option value="blank">Transparent Cloak</option>
+      <option disabled style="opacity:50%" value="sparkles">More cloaks coming soon!</option>
+    </select>
+    <button onClick="cloak.reset();">Reset Cloak (uncloaks the site)</button>
+  </div>
+
+  <div class="section">
+    <h2 class="gradient-red">Panic Key</h2>
+    <p>Set a custom key that redirects to a page, based on your cloak. [For those who used The Arcade, it's like the Emergency Canvas button.]</p>
+    <button onClick="listenForKey()">Start Listening</button>
+  </div>
+
+  <div class="section">
+    <h2 class="gradient-red">Anti-Tab Close</h2>
+    <p>Stops teachers, or anyone from closing your tab. Say goodbye to lost progress.</p>
     <label for="toggleAntiTabClose">Enable Anti-Tab Close:</label>
     <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
-    <button type="submit">Update</button>
-  </form>-->
+  </div>
 
-  </center>
+  <div class="section">
+    <h2 class="gradient-red">about:blank</h2>
+    <p>Open GameVerse in about:blank. Virtually undetectable (even from Blocksi), and makes the site less prone to get blocked.</p>
+    <button onClick="cloak.aboutBlank();">Open in about:blank</button>
+  </div>
 
-  <script>
-    let isListening = false;
-  
-    function listenForKey() {
-      if (isListening) return; // Prevent multiple listeners
-  
-      isListening = true;
-      alert("Press a key to set as your Panic Key...");
-  
-      function keyHandler(event) {
-        localStorage.setItem("panicKey", event.key);
-        alert("Panic key set to: " + event.key);
-        document.removeEventListener("keydown", keyHandler);
-        isListening = false;
-      }
-  
-      document.addEventListener("keydown", keyHandler);
-    }
-  </script>
+  <div class="section">
+    <h2 class="gradient-red">Particle Customization</h2>
+    <p>Customize the particles animation to your liking!</p>
+    <div class="profile-container" style="text-align:center; padding:20px; background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244; border-radius:10px; width:350px; margin:auto;">
+      <label>Preset:</label>
+      <select id="preset">
+        <option value="custom">Custom</option>
+        <option value="minimal">Minimal (Fewer, Slower Particles)</option>
+        <option value="dynamic">Dynamic (Fast, Bright, Many Particles)</option>
+        <option value="galaxy">Galaxy (Blue, Rotating Particles)</option>
+      </select><br /><br />
+      <label>Number of Particles:</label>
+      <input type="number" id="numParticles" min="10" max="500" /><br /><br />
+      <label>Particle Color:</label>
+      <input type="color" id="particleColor" /><br /><br />
+      <label>Shape:</label>
+      <select id="particleShape">
+        <option value="circle">Circle</option>
+        <option value="triangle">Triangle</option>
+        <option value="star">Star</option>
+        <option value="polygon">Polygon</option>
+      </select><br /><br />
+      <label>Size:</label>
+      <input type="number" id="particleSize" min="1" max="10" /><br /><br />
+      <label>Speed:</label>
+      <input type="number" id="particleSpeed" step="0.1" /><br /><br />
+      <label>Opacity:</label>
+      <input type="number" id="particleOpacity" step="0.1" min="0.1" max="1" /><br /><br />
+      <button onclick="applySettings()" style="padding:10px 20px; font-size:16px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;">Apply & Save</button>
+      <button onclick="resetSettings()" style="padding:10px 20px; font-size:16px; background:#ff0000; color:white; border:none; border-radius:5px; cursor:pointer; margin-left:10px;">Reset to Default</button>
+    </div>
+  </div>
 
-  <!-- Cloak Script -->
-  <script>
-    document.getElementById('cloakSettingsForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const newTitle = document.getElementById('newTitle').value;
-      const newFavicon = document.getElementById('newFavicon').value;
-      cloak.setCloak(newTitle, newFavicon);
-      alert('Cloak settings updated!');
-    });
+  <div class="section">
+    <h2 class="gradient-red">Screen Time Settings</h2>
+    <p>Look at your usage data, and set a time limit if necessary.</p>
+    <!-- Display Section -->
+    <div class="section" id="trackerDisplay" style="background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244;">
+      <p>
+        Time Spent Today: <span id="timeSpent" class="time-display">00:00:00</span>
+      </p>
+      <p>
+        Time Remaining: <span id="timeRemaining" class="time-display">-</span>
+      </p>
+    </div>
+    <!-- Settings Form Section -->
+    <div class="section" id="settings" style="background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244;">
+      <h2>Settings</h2>
+      <form id="settingsForm">
+        <label>
+          <input type="checkbox" id="limitActiveCheckbox">
+          Enable Usage Limit
+        </label>
+        <label>
+          Usage Limit:
+          <select id="presetTimeDropdown">
+            <option value="900">00:15:00</option>
+            <option value="1800">00:30:00</option>
+            <option value="3600" selected>01:00:00</option>
+            <option value="7200">02:00:00</option>
+            <option value="10800">03:00:00</option>
+            <option value="custom">Custom</option>
+          </select>
+          <span id="customTimeContainer" style="display: none;">
+            Custom Time (HH:MM:SS): 
+            <input type="text" id="customTimeInput" placeholder="HH:MM:SS">
+          </span>
+        </label>
+        <label>
+          Action on Limit Reached:
+          <select id="limitActionDropdown">
+            <option value="reminder">Redirect every 5 minutes (Reminder)</option>
+            <option value="lockout">Immediate Lockout</option>
+          </select>
+        </label>
+        <label>
+          Disable Tracking for:
+          <select id="disableDaysDropdown">
+            <option value="0">Today</option>
+            <option value="1">1 Day</option>
+            <option value="2">2 Days</option>
+            <option value="3">3 Days</option>
+          </select>
+          <button type="button" id="disableButton">Disable Tracking</button>
+        </label>
+        <button type="button" id="saveSettingsButton">Save Settings</button>
+      </form>
+    </div>
+  </div>
 
-    // Initialize the toggle state based on localStorage
-    const toggleCheckbox = document.getElementById('toggleAntiTabClose');
-    toggleCheckbox.checked = localStorage.getItem("antiTabCloseEnabled") === "true";
-  </script>
 
-  <!-- Particle Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const defaultSettings = {
-        particles: {
-          number: { value: 80 },
-          color: { value: "8A2BE2" },
-          shape: { value: "circle" },
-          size: { value: 3 },
-          speed: { value: 1.5 },
-          opacity: { value: 1 },
-        },
-      };
-
-      let particleSettings =
-        JSON.parse(localStorage.getItem("particleSettings")) ||
-        defaultSettings;
-
-      function loadParticles() {
-        if (document.getElementById("particles-js")) {
-          particlesJS("particles-js", {
-            particles: {
-              number: { value: particleSettings.particles.number.value },
-              color: { value: particleSettings.particles.color.value },
-              shape: { type: particleSettings.particles.shape.value },
-              opacity: { value: particleSettings.particles.opacity.value },
-              size: { value: particleSettings.particles.size.value },
-              move: { speed: particleSettings.particles.speed.value },
-            },
-            retina_detect: true,
-          });
-        }
-      }
-
-      function updateFormFields() {
-        document.getElementById("numParticles").value =
-          particleSettings.particles.number.value;
-        document.getElementById("particleColor").value =
-          particleSettings.particles.color.value;
-        document.getElementById("particleShape").value =
-          particleSettings.particles.shape.value;
-        document.getElementById("particleSize").value =
-          particleSettings.particles.size.value;
-        document.getElementById("particleSpeed").value =
-          particleSettings.particles.speed.value;
-        document.getElementById("particleOpacity").value =
-          particleSettings.particles.opacity.value;
-      }
-
-      function applyPreset(preset) {
-        if (preset === "minimal") {
-          particleSettings = {
-            particles: {
-              number: { value: 30 },
-              color: { value: "#ffffff" },
-              shape: { value: "circle" },
-              size: { value: 2 },
-              speed: { value: 0.5 },
-              opacity: { value: 0.5 },
-            },
-          };
-        } else if (preset === "dynamic") {
-          particleSettings = {
-            particles: {
-              number: { value: 150 },
-              color: { value: "#d90012" },
-              shape: { value: "circle" },
-              size: { value: 4 },
-              speed: { value: 3 },
-              opacity: { value: 1 },
-            },
-          };
-        } else if (preset === "galaxy") {
-          particleSettings = {
-            particles: {
-              number: { value: 100 },
-              color: { value: "#0033cc" },
-              shape: { value: "star" },
-              size: { value: 3 },
-              speed: { value: 2 },
-              opacity: { value: 0.8 },
-            },
-          };
-        } else {
-          return;
-        }
-        updateFormFields();
-        applySettings();
-      }
-
-      document
-        .getElementById("preset")
-        .addEventListener("change", function () {
-          if (this.value !== "custom") {
-            applyPreset(this.value);
-          }
-        });
-
-      window.applySettings = function () {
-        particleSettings.particles.number.value = parseInt(
-          document.getElementById("numParticles").value
-        );
-        particleSettings.particles.color.value =
-          document.getElementById("particleColor").value;
-        particleSettings.particles.shape.value =
-          document.getElementById("particleShape").value;
-        particleSettings.particles.size.value = parseInt(
-          document.getElementById("particleSize").value
-        );
-        particleSettings.particles.speed.value = parseFloat(
-          document.getElementById("particleSpeed").value
-        );
-        particleSettings.particles.opacity.value = parseFloat(
-          document.getElementById("particleOpacity").value
-        );
-
-        localStorage.setItem(
-          "particleSettings",
-          JSON.stringify(particleSettings)
-        );
-
-        document.getElementById("particles-js").innerHTML = "";
-        loadParticles();
-
-        let styleTag = document.createElement("style");
-        styleTag.innerHTML = `::-webkit-scrollbar-thumb { background-color: ${particleSettings.particles.color.value} !important; }`;
-        document.head.appendChild(styleTag);
-
-        alert(
-          "Settings saved! Your changes will now apply across the entire site."
-        );
-      };
-
-      window.resetSettings = function () {
-        localStorage.removeItem("particleSettings");
-        particleSettings = defaultSettings;
-        updateFormFields();
-        document.getElementById("particles-js").innerHTML = "";
-        loadParticles();
-        alert("Settings reset to default.");
-      };
-
-      loadParticles();
-      updateFormFields();
-    });
-  </script>
-
-  <!-- Inject the screen time tracker script -->
+  <!-- Scripts (keep all your existing scripts here) -->
   <script src="/javascript/screentimetracking.js"></script>
-    
-  <!-- Additional inline script for handling the custom time input toggle -->
   <script>
     // When the preset dropdown changes, show/hide the custom time input
     document.getElementById('presetTimeDropdown').addEventListener('change', function() {
@@ -612,15 +357,11 @@ input[type="checkbox"]:hover {
       }
     });
   </script>
-
   <script src="/javascript/scrollbar.js"></script>
-  <!-- Particles.JS start -->
   <div id="particles-js"></div>
   <script src="/javascript/particles.js"></script>
   <script src="/javascript/particles-config.js"></script>
   <script src="/javascript/panic.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
-  <!-- Particles.JS end -->
 </body>
-</html>
