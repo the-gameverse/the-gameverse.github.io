@@ -6,9 +6,7 @@ body {
   color: #fff;
   overflow-x: hidden;
 }
-br {
-  display: none;
-}
+
 a {
   color: inherit;
   text-decoration: none;

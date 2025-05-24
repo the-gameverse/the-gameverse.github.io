@@ -1,3 +1,17 @@
+const cloaks = [
+  { name: "gdoc", title: "Google Docs", icon: "/uploads/branding/gdoc.png", link: "https://docs.google.com/document/u/0/" },
+  { name: "gslides", title: "Google Slides", icon: "/uploads/branding/gslides.png", link: "https://docs.google.com/presentation/u/0/" },
+  { name: "gsheets", title: "Google Sheets", icon: "/uploads/branding/gsheets.png", link: "https://docs.google.com/spreadsheets/u/0/" },
+  { name: "calculator", title: "Calculator", icon: "/uploads/branding/calculator.png", link: "https://www.google.com/search?q=calculator" },
+  { name: "desmoscalc", title: "Desmos Calculator", icon: "/uploads/branding/desmos.png", link: "https://www.desmos.com/calculator" },
+  { name: "gdrive", title: "Google Drive", icon: "/uploads/branding/gdrive.png", link: "https://drive.google.com/" },
+  { name: "google", title: "Google", icon: "/uploads/branding/google.png", link: "https://www.google.com/" },
+  { name: "gassign", title: "Google Assignments", icon: "/uploads/branding/gassign.png", link: "https://assignments.google.com/" },
+  { name: "blank", title: "Transparent Cloak", icon: "/uploads/branding/blank.png", link: "" }
+  // Add more as needed
+];
+window.cloaks = cloaks;
+
 const logo = "\x1b[91m[Parcoil Cloak]\x1b[0m";
 
 const cloak = {

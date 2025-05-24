@@ -113,38 +113,84 @@ particlesJS('particles-js',
   );
 
    document.addEventListener("DOMContentLoaded", function() {
-        let particleSettings = JSON.parse(localStorage.getItem("particleSettings")) || {
-            particles: {
-                number: { value: 80 },
-                color: { value: "#8A2BE2" },
-                size: { value: 3 },
-                speed: { value: 1.5 }
-            }
+    function getParticleSettings() {
+        // Get settings from localStorage or use defaults
+        const defaults = {
+            preset: "custom",
+            numParticles: 80,
+            particleColor: "#8A2BE2",
+            particleShape: "circle",
+            particleSize: 3,
+            particleSpeed: 1.5,
+            particleOpacity: 1
         };
-
-        function loadParticles() {
-            if (document.getElementById("particles-js")) {
-                particlesJS('particles-js', {
-                    "particles": {
-                        "number": { "value": particleSettings.particles.number.value },
-                        "color": { "value": particleSettings.particles.color.value },
-                        "shape": { "type": "circle" },
-                        "size": { "value": particleSettings.particles.size.value },
-                        "move": { "speed": particleSettings.particles.speed.value }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onclick": { "enable": true, "mode": "push" }
-                        }
-                    },
-                    "retina_detect": true
-                });
-            }
+        try {
+            const saved = JSON.parse(localStorage.getItem("particleSettings"));
+            return Object.assign({}, defaults, saved);
+        } catch {
+            return defaults;
         }
+    }
 
-        loadParticles(); // Initialize particles on page load
+    function loadParticles() {
+        const settings = getParticleSettings();
+        if (document.getElementById("particles-js")) {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": { "value": Number(settings.numParticles) },
+                    "color": { "value": settings.particleColor },
+                    "shape": { "type": settings.particleShape },
+                    "opacity": { "value": Number(settings.particleOpacity) },
+                    "size": { "value": Number(settings.particleSize) },
+                    "move": { "speed": Number(settings.particleSpeed) }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onclick": { "enable": true, "mode": "push" }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+        // Optionally, update the form fields to reflect current settings
+        document.getElementById('preset').value = settings.preset;
+        document.getElementById('numParticles').value = settings.numParticles;
+        document.getElementById('particleColor').value = settings.particleColor;
+        document.getElementById('particleShape').value = settings.particleShape;
+        document.getElementById('particleSize').value = settings.particleSize;
+        document.getElementById('particleSpeed').value = settings.particleSpeed;
+        document.getElementById('particleOpacity').value = settings.particleOpacity;
+    }
 
-        // CHANGED BY TANNER ORDONEZ:
-        
-    });
+    window.applySettings = function() {
+        const preset = document.getElementById('preset').value;
+        const numParticles = document.getElementById('numParticles').value;
+        const particleColor = document.getElementById('particleColor').value;
+        const particleShape = document.getElementById('particleShape').value;
+        const particleSize = document.getElementById('particleSize').value;
+        const particleSpeed = document.getElementById('particleSpeed').value;
+        const particleOpacity = document.getElementById('particleOpacity').value;
+
+        const settings = {
+            preset,
+            numParticles,
+            particleColor,
+            particleShape,
+            particleSize,
+            particleSpeed,
+            particleOpacity
+        };
+        localStorage.setItem('particleSettings', JSON.stringify(settings));
+        alert('Particle settings saved!');
+        loadParticles();
+    };
+
+    window.resetSettings = function() {
+        localStorage.removeItem('particleSettings');
+        alert('Particle settings reset to default!');
+        loadParticles();
+    };
+
+    loadParticles();
+});

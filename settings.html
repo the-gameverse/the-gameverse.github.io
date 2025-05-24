@@ -6,213 +6,147 @@
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/home.css">
-
-    <!-- Google AdSense and Google Analytics -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-     crossorigin="anonymous"></script>
-
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-      gtag('config', 'G-ZZH4JE7RJF');
-    </script>
-
   <style>
-    /* Base Styles */
-    body {
-      overflow-x: hidden;
-      background: #000; /* Pure black background */
+    .section {
+      background: rgba(34,34,44,0.85);
+      border-radius: 14px;
+      box-shadow: 0 2px 24px #8a2be222;
+      padding: 36px 24px 28px 24px;
+      margin: 36px auto;
+      max-width: 700px;
+      text-align: left;
       color: #fff;
     }
-
-
-
-    h1, h3 {
-      margin: 0;
+    .settings-card {
+      background: rgba(20,20,30,0.82);
+      box-shadow: 0 4px 16px #8a2be244;
+      border-radius: 10px;
+      padding: 24px 18px;
+      margin: 18px 0;
     }
 
-    .settings-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .profile-container {
+      text-align: center;
+      padding: 20px;
+      background: rgba(20,20,30,0.82);
+      box-shadow: 0 4px 16px #8a2be244;
+      border-radius: 10px;
+      width: 350px;
+      margin: auto;
     }
-
-        input {
-          padding: 5px;
-          font-size: 12px;
-          font-family: Space Grotesk;
-          border: 1px solid #ddd;
-          margin: 0;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-color: black;
-          color: white;
-        }
-        select {
-          padding: 5px;
-          font-size: 12px;
-          font-family: Space Grotesk;
-          border: 1px solid #ddd;
-          margin: 0;
-          box-sizing: border-box;
-          border-radius: 5px;
-          background-color: black;
-          color: white;
-        }
-    input[type="checkbox"] {
-    width: 20px; /* Adjust width for better visibility */
-    height: 20px; /* Adjust height for better visibility */
-    padding: 0; /* No padding for checkboxes */
-    appearance: none; /* Remove default checkbox styling */
-    border: 1px solid #ddd;
-    border-radius: 3px; /* Slightly round edges for aesthetics */
-    background-color: black; /* Background color */
-    cursor: pointer; /* Change cursor on hover */
-    position: relative; /* Positioning for the checkmark */
-    outline: none; /* Remove outline on focus */
-}
-
-input[type="checkbox"]:checked {
-    background-color: black; /* Maintain same background when checked */
-    border: 1px solid #ddd; /* Maintain same border */
-}
-
-input[type="checkbox"]:checked::after {
-    content: ''; /* Create checkmark */
-    position: absolute; /* Position it */
-    top: 2px; /* Adjust according to checkbox size */
-    left: 6px; /* Adjust according to checkbox size */
-    width: 6px; /* Size of checkmark */
-    height: 12px; /* Size of checkmark */
-    border: solid white; /* Color of checkmark */
-    border-width: 0 2px 2px 0; /* Create a checkmark shape */
-    transform: rotate(45deg); /* Rotate to create checkmark */
-}
-
-/* Optional: Styling for hover */
-input[type="checkbox"]:hover {
-    border-color: #aaa; /* Change border color on hover */
-}
-
-  </style>
-  <style>
-    /* Tab styling from your provided template (if needed for other pages) */
-    .tab {
-      overflow: hidden;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-      color: white;
-    }
-    .tab button {
-      background-color: inherit;
-      float: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      transition: 0.3s;
-      font-size: 17px;
-      color: white;
-    }
-    .tab button:hover {
-      background-color: #ddd;
-    }
-    .tab button.active {
-      background-color: #ccc;
-    }
-    .tabcontent {
-      display: none;
-      padding: 6px 12px;
-      -webkit-animation: fadeEffect 1s;
-      animation: fadeEffect 1s;
-      color: white;
-    }
-    @-webkit-keyframes fadeEffect {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    @keyframes fadeEffect {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    html::-webkit-scrollbar {
-      display: none;
-    }
-    /* Additional styling for our settings page */
-/* Make settings sections look like homepage cards */
-.section {
-  background: rgba(34,34,44,0.85);
-  border-radius: 14px;
-  box-shadow: 0 2px 24px #8a2be222;
-  padding: 36px 24px 28px 24px;
-  margin: 36px auto;
-  max-width: 700px;
-  text-align: left;
-  color: #fff;
-}
-
-
-
     .time-display {
       font-size: 1.5em;
       color: white;
     }
     label {
       display: block;
-      /* margin: 10px 0; */
       color: white;
+      margin-bottom: 8px;
     }
-    /* input[type="number"],
-    select,
-    button,
-    input[type="text"] {
+    input, select {
       padding: 5px;
       font-size: 12px;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Space Grotesk', Arial, sans-serif;
       border: 1px solid #ddd;
       margin: 0;
       box-sizing: border-box;
       border-radius: 5px;
       background-color: black;
       color: white;
-    } */
+    }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      appearance: none;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      background-color: black;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    input[type="checkbox"]:checked {
+      background-color: black;
+      border: 1px solid #ddd;
+    }
+    input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      width: 6px;
+      height: 12px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    input[type="checkbox"]:hover {
+      border-color: #aaa;
+    }
     button {
       margin-top: 10px;
+      padding: 8px 18px;
+      background: #8a2be2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
     }
     button:hover {
-      background: #333;
+      background: #ff4b2b;
+      color: #fff;
+      transform: scale(1.05);
     }
-    body {
-      color:white;
+    .site-footer {
+      background: linear-gradient(90deg, #1a1a1a 60%, #8a2be2 100%);
+      color: #fff;
+      padding: 32px 0 18px 0;
+      text-align: center;
+      margin-top: 80px;
+      box-shadow: 0 -2px 16px #8a2be244;
     }
-    p {
-      color:white;
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
-    h2 {
-      color:white;
+    .footer-social a {
+      display: inline-block;
+      margin: 0 8px;
+      transition: transform 0.2s;
+    }
+    .footer-social a:hover {
+      transform: scale(1.2) rotate(-8deg);
+    }
+    .footer-social img {
+      width: 28px;
+      height: 28px;
+      filter: drop-shadow(0 2px 6px #8a2be2aa);
+    }
+    @media (max-width: 900px) {
+      .section { padding: 24px 8px 20px 8px; }
+      .profile-container { width: 98%; }
     }
   </style>
 </head>
 <body>
   <!-- Navigation bar -->
   <div id="navbar"></div>
-  <script src="/javascript/navbar.js"></script>
-  <script src="/javascript/cloaking.js"></script>
-  <script src="/javascript/antitabclose.js"></script>
 
   <!-- Hero Banner -->
-  <section class="hero" style="min-height: 280px; background: url('/uploads/images/banner.png') no-repeat center center/cover; position: relative;">
+  <section class="hero124" style="min-height: 280px; background: none; position: relative;">
     <div class="hero-content" style="position:relative; z-index:2; background:rgba(20,20,30,0.82); border-radius:20px; padding:36px 32px 30px 32px; box-shadow:0 8px 48px #8a2be244; max-width:520px; margin:48px auto;">
       <div class="hero-title" style="font-size:2.2em; font-weight:800; margin-bottom:12px; background:linear-gradient(90deg,#ff4b2b,#8a2be2 80%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px;">
         Settings
       </div>
       <div class="hero-desc" style="font-size:1.15em; color:#eaeaea;">
-        Personalize your starship experience.<br>
-        All settings are stored locally for your privacy.
+        Personalize your starship experience.
       </div>
     </div>
   </section>
@@ -257,14 +191,7 @@ input[type="checkbox"]:hover {
   <div class="section">
     <h2 class="gradient-red">Particle Customization</h2>
     <p>Customize the particles animation to your liking!</p>
-    <div class="profile-container" style="text-align:center; padding:20px; background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244; border-radius:10px; width:350px; margin:auto;">
-      <label>Preset:</label>
-      <select id="preset">
-        <option value="custom">Custom</option>
-        <option value="minimal">Minimal (Fewer, Slower Particles)</option>
-        <option value="dynamic">Dynamic (Fast, Bright, Many Particles)</option>
-        <option value="galaxy">Galaxy (Blue, Rotating Particles)</option>
-      </select><br /><br />
+    <div class="profile-container">
       <label>Number of Particles:</label>
       <input type="number" id="numParticles" min="10" max="500" /><br /><br />
       <label>Particle Color:</label>
@@ -291,7 +218,7 @@ input[type="checkbox"]:hover {
     <h2 class="gradient-red">Screen Time Settings</h2>
     <p>Look at your usage data, and set a time limit if necessary.</p>
     <!-- Display Section -->
-    <div class="section" id="trackerDisplay" style="background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244;">
+    <div class="settings-card" id="trackerDisplay">
       <p>
         Time Spent Today: <span id="timeSpent" class="time-display">00:00:00</span>
       </p>
@@ -300,7 +227,7 @@ input[type="checkbox"]:hover {
       </p>
     </div>
     <!-- Settings Form Section -->
-    <div class="section" id="settings" style="background:rgba(20,20,30,0.82); box-shadow:0 4px 16px #8a2be244;">
+    <div class="settings-card" id="settings">
       <h2>Settings</h2>
       <form id="settingsForm">
         <label>
@@ -345,23 +272,32 @@ input[type="checkbox"]:hover {
   </div>
 
 
-  <!-- Scripts (keep all your existing scripts here) -->
-  <script src="/javascript/screentimetracking.js"></script>
-  <script>
-    // When the preset dropdown changes, show/hide the custom time input
-    document.getElementById('presetTimeDropdown').addEventListener('change', function() {
-      if (this.value === 'custom') {
-        document.getElementById('customTimeContainer').style.display = 'inline';
-      } else {
-        document.getElementById('customTimeContainer').style.display = 'none';
-      }
-    });
-  </script>
-  <script src="/javascript/scrollbar.js"></script>
+
   <div id="particles-js"></div>
+
+  <!-- Scripts: Place ALL scripts here, at the end of body -->
+  <script src="/javascript/navbar.js"></script>
+  <script src="/javascript/cloaking.js"></script>
+  <script src="/javascript/antitabclose.js"></script>
+  <script src="/javascript/screentimetracking.js"></script>
+  <script src="/javascript/scrollbar.js"></script>
   <script src="/javascript/particles.js"></script>
   <script src="/javascript/particles-config.js"></script>
   <script src="/javascript/panic.js"></script>
-  <script src="/javascript/cloaking.js"></script>
-  <script src="/javascript/antitabclose.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var presetDropdown = document.getElementById('presetTimeDropdown');
+      var customTimeContainer = document.getElementById('customTimeContainer');
+      if (presetDropdown && customTimeContainer) {
+        presetDropdown.addEventListener('change', function() {
+          if (this.value === 'custom') {
+            customTimeContainer.style.display = 'inline';
+          } else {
+            customTimeContainer.style.display = 'none';
+          }
+        });
+      }
+    });
+  </script>
 </body>
+</html>
