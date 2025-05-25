@@ -103,6 +103,9 @@
         color: white;
         margin: 5px; /* Add margin to create the gap */
       }
+      body {
+        font-family: Space Grotesk, sans-serif;
+      }
     </style>
   </head>
 
@@ -134,12 +137,38 @@
             <button id="fullscreenButton">
               <i class="fa fa-arrows-alt fa-lg"></i>
             </button>
+            <button id="shareButton">
+              <i class="fa fa-share-nodes fa-lg"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
     <!-- Container for random games -->
-
+<!-- Share Popup -->
+<div id="sharePopup" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#181818; color:white; border-radius:16px; padding:32px 24px; min-width:320px; max-width:90vw; box-shadow:0 4px 32px #000a;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span id="shareGameTitle" style="font-size:1.2em; font-weight:bold;"></span>
+      <button id="closeSharePopup" style="background:none; border:none; color:white; font-size:1.5em; cursor:pointer;">&times;</button>
+    </div>
+    <div style="margin:18px 0 10px 0; text-align:center;">
+      <span>You're about to share "<span id="shareGameName"></span>"</span>. </i>
+    </div>
+    <div style="display:flex; gap:24px; justify-content:center; margin:18px 0;">
+      <button id="copyShareLink" title="Copy to clipboard" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <button id="mailShareLink" title="Share via Email" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
+        <i class="fa fa-envelope"></i>
+      </button>
+    </div>
+    <div style="font-size:0.95em; color:#aaa; text-align:center; margin-top:10px;">
+      sharing via stardrop  <i class="fa-solid fa-tower-broadcast"></i>
+    </div>
+    <div id="sharePopupMsg" style="font-size:0.95em; color:#7fff7f; text-align:center; margin-top:10px; display:none;"></div>
+  </div>
+</div>
     <script>
       function redirectIframe(link, name) {
         const iframe = document.getElementById("myIframe");
@@ -242,6 +271,64 @@
           }
         });
       });
+
+// ...existing code...
+
+const shareButton = document.getElementById("shareButton");
+const sharePopup = document.getElementById("sharePopup");
+const closeSharePopup = document.getElementById("closeSharePopup");
+const copyShareLink = document.getElementById("copyShareLink");
+const mailShareLink = document.getElementById("mailShareLink");
+const shareGameName = document.getElementById("shareGameName");
+const shareGameTitle = document.getElementById("shareGameTitle");
+const sharePopupMsg = document.getElementById("sharePopupMsg");
+
+let shareUrl = "";
+
+shareButton.addEventListener("click", () => {
+  const gameImg = localStorage.getItem("gameImage") || "";
+  const gameLink = localStorage.getItem("gameLink") || "";
+  const gameName = localStorage.getItem("gameName") || "";
+
+  shareUrl = new URL(window.location.origin + "/play");
+  shareUrl.searchParams.set("gameimg", gameImg);
+  shareUrl.searchParams.set("gamelink", gameLink);
+  shareUrl.searchParams.set("gamename", gameName);
+
+  shareGameName.textContent = gameName;
+  shareGameTitle.textContent = "Share Game";
+  sharePopupMsg.style.display = "none";
+  sharePopup.style.display = "flex";
+});
+
+closeSharePopup.addEventListener("click", () => {
+  sharePopup.style.display = "none";
+});
+
+copyShareLink.addEventListener("click", () => {
+  navigator.clipboard.writeText(shareUrl.toString()).then(() => {
+    sharePopupMsg.textContent = "Link copied to clipboard!";
+    sharePopupMsg.style.display = "block";
+  });
+});
+
+mailShareLink.addEventListener("click", () => {
+  const pfName = localStorage.getItem("username") || "Someone";
+  const subject = encodeURIComponent(`${pfName} sent you a game on starship`);
+   const body = encodeURIComponent(`Check out "${shareGameName.textContent}" on starship:\n${shareUrl.toString()}\n\nShared via stardrop`);
+window.open(`mailto:?subject=${subject}&body=${body}`);
+});
+
+// Optional: close popup when clicking outside the box
+sharePopup.addEventListener("click", (e) => {
+  if (e.target === sharePopup) sharePopup.style.display = "none";
+});
+
+// ...existing code...
+
+
+
+// ...existing code...
     </script>
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
