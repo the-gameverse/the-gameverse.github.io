@@ -153,7 +153,7 @@
       <button id="closeSharePopup" style="background:none; border:none; color:white; font-size:1.5em; cursor:pointer;">&times;</button>
     </div>
     <div style="margin:18px 0 10px 0; text-align:center;">
-      <span>You're about to share "<span id="shareGameName"></span>"</span>. </i>
+      <span>You're about to share "<span id="shareGameName"></span>"</span> </i>
     </div>
     <div style="display:flex; gap:24px; justify-content:center; margin:18px 0;">
       <button id="copyShareLink" title="Copy to clipboard" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
@@ -313,10 +313,9 @@ copyShareLink.addEventListener("click", () => {
 });
 
 mailShareLink.addEventListener("click", () => {
-  const pfName = localStorage.getItem("username") || "Someone";
-  const subject = encodeURIComponent(`${pfName} sent you a game on starship`);
-   const body = encodeURIComponent(`Check out "${shareGameName.textContent}" on starship:\n${shareUrl.toString()}\n\nShared via stardrop`);
-window.open(`mailto:?subject=${subject}&body=${body}`);
+  const subject = encodeURIComponent("Play this game on Stardrop!");
+  const body = encodeURIComponent(`Check out "${shareGameName.textContent}" on Stardrop:\n${shareUrl.toString()}`);
+  window.open(`mailto:?subject=${subject}&body=${body}`);
 });
 
 // Optional: close popup when clicking outside the box
@@ -324,11 +323,36 @@ sharePopup.addEventListener("click", (e) => {
   if (e.target === sharePopup) sharePopup.style.display = "none";
 });
 
-// ...existing code...
+// Check for game info in URL and use it if present
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const gameImg = params.get("gameimg");
+  const gameLink = params.get("gamelink");
+  const gameName = params.get("gamename");
 
+  if (gameImg && gameLink && gameName) {
+    // Clear previous game info to avoid conflicts
+    localStorage.removeItem("gameImage");
+    localStorage.removeItem("gameLink");
+    localStorage.removeItem("gameName");
 
+    // Set new game info
+    localStorage.setItem("gameImage", gameImg);
+    localStorage.setItem("gameLink", gameLink);
+    localStorage.setItem("gameName", gameName);
 
-// ...existing code...
+    // Immediately load the game
+    redirectIframe(gameLink, gameName);
+
+    // Update the game info UI
+    const gameInfo = document.querySelector(".game-info h2");
+    const gameImage = document.querySelector(".game-info img");
+    gameInfo.textContent = gameName;
+    gameImage.src = gameImg;
+    gameImage.alt = gameName;
+  }
+})();
+
     </script>
     <!-- Particles.JS start -->
     <div id="particles-js"></div>

@@ -64,6 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inject the navbar at the very top of the body
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
   
+// After injecting the navbar at the top of the body
+document.body.insertAdjacentHTML('afterbegin', navbarHTML);
+
+// Add extra spacing if on mobile
+if (window.innerWidth <= 700) {
+  document.body.insertAdjacentHTML('afterbegin', '<br>');
+}
+
   let typingTimeout; // Variable to track the typing timeout
 
   // Detect typing in the search box to trigger game-launching animation
@@ -241,3 +249,4 @@ if (window.location.pathname.includes('play') || window.location.pathname.includ
     setInterval(periodicUpdates, 10000); // Update every 10 seconds
   }
 });
+

@@ -394,3 +394,41 @@ html, body {
   transform: scale(1);
   opacity: 1;
 }
+
+/* Responsive Navbar for Mobile */
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 4vw;
+    height: auto;
+  }
+  .nav-left-bg, .nav-right-bg, .nav-center-bg {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    min-width: 0;
+  }
+  .nav-center-bg {
+display:none; /* Hide center section on mobile */
+  }
+  .nav-links {
+    gap: 4px;
+    
+  }
+/* Show extra-links on hover */
+.nav-left-bg:hover .extra-links {
+  display: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+  .footer {
+    font-size: 0.9em;
+    padding: 10px 0;
+  }
+}
+
