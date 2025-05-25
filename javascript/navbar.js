@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
 
+      <!-- Center section: Streak display -->
+      <div class="nav-center-bg">
+        <div id="streak" class="streak-container">
+          <span class="streak-text">🔥 0 Days</span>
+        </div>
+      </div>
 
       <!-- Right section: Profile information -->
       <div class="nav-right-bg">
