@@ -136,7 +136,18 @@
     transform: rotate(25deg)
   }
 }
-  
+  #toggle-signup-password, #toggle-signup-confirm-password {
+          width: 40px;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 18px;
+      border-radius: 10px;
+      background: rgba(34,34,34,0.2);
+      border: 1px solid #444;
+      color: white;
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+  }
   </style>
 </head>
 
@@ -162,14 +173,20 @@
       <button id="login-btn">Log In</button>
     </div>
 
-    <!-- Signup Section -->
-    <div id="signup-section" style="display:none;">
-      <input id="signup-email" type="email" placeholder="Email" /><br>
-      <input id="signup-password" type="password" placeholder="Password" /><br>
-      <input id="signup-username" type="text" placeholder="Username (for sign up)" /><br>
-      <p>By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
-      <button id="signup-btn">Sign Up</button>
-    </div>
+<div id="signup-section" style="display:none;">
+  <input id="signup-email" type="email" placeholder="Email" /><br>
+  <div style="position:relative;display:inline-block;width:500px;">
+    <input id="signup-password" type="password" placeholder="Password" style="width:100%;" />
+    <button type="button" id="toggle-signup-password" style="position:absolute;right:10px;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
+  </div><br>
+  <div style="position:relative;display:inline-block;width:500px;">
+    <input id="signup-confirm-password" type="password" placeholder="Confirm Password" style="width:100%;" />
+    <button type="button" id="toggle-signup-confirm-password" style="position:absolute;right:10px;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
+  </div><br>
+  <input id="signup-username" type="text" placeholder="Username (for sign up)" /><br>
+  <p>By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
+  <button id="signup-btn">Sign Up</button>
+</div>
 
     <!-- Profile Info -->
     <div id="profile-info" style="display:none;">
@@ -243,17 +260,26 @@
   }
 
   async function signUp() {
-    const email = signupEmailInput.value;
-    const password = signupPasswordInput.value;
-    const username = signupUsernameInput.value.trim();
-    if (!email || !password || !username) return setStatus('Please fill in all fields.');
+  const email = signupEmailInput.value;
+  const password = signupPasswordInput.value;
+  const confirmPassword = document.getElementById('signup-confirm-password').value;
+  const username = signupUsernameInput.value.trim();
 
-    const { data, error } = await supabaseClient.auth.signUp({ email, password });
-    if (error) return setStatus('Sign up error: ' + error.message);
+  if (!email || !password || !confirmPassword || !username)
+    return setStatus('Please fill in all fields.');
 
-    setStatus('Signed up! Please check your email to confirm, then log in.');
-    // Optionally, you can auto-login after signup if email confirmation is not required.
-  }
+  if (password !== confirmPassword)
+    return setStatus('Passwords do not match.');
+
+  // Swear word filter (already present if you added it)
+  if (containsSwearWord(username))
+    return setStatus('Username contains inappropriate language.');
+
+  const { data, error } = await supabaseClient.auth.signUp({ email, password });
+  if (error) return setStatus('Sign up error: ' + error.message);
+
+  setStatus('Signed up! Please check your email to confirm, then log in.');
+}
 
   async function signIn() {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
@@ -458,6 +484,27 @@ function hideAvatarPopup() {
     document.getElementById('avatar-upload-popup').style.display = 'none';
   }, 3000); // 2 seconds delay
 }
+// Show/hide password toggles
+document.getElementById('toggle-signup-password').onclick = function() {
+  const pw = document.getElementById('signup-password');
+  if (pw.type === "password") {
+    pw.type = "text";
+    this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+  } else {
+    pw.type = "password";
+    this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+  }
+};
+document.getElementById('toggle-signup-confirm-password').onclick = function() {
+  const pw = document.getElementById('signup-confirm-password');
+  if (pw.type === "password") {
+    pw.type = "text";
+    this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+  } else {
+    pw.type = "password";
+    this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+  }
+};
 </script>
 </body>
 
