@@ -379,10 +379,12 @@ function displayGamesWithSkeleton() {
     const searchBar = document.getElementById("search");
     const sortDropdown = document.getElementById("sortOptions");
     const gameCount = document.getElementById("gameCount");
+    const welcomeText = document.getElementById("welcome");
 
     if (searchBar) searchBar.style.display = "none";
     if (sortDropdown) sortDropdown.style.display = "none";
     if (gameCount) gameCount.style.display = "none";
+    if (welcomeText) welcomeText.style.display = "none";
 
     // Show skeleton loaders
     showSkeletonLoader();

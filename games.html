@@ -78,6 +78,7 @@
         <center>
 
 <br>
+<h3 class="welcome" style="font-family:Inter;"></h1>
                 <!-- Game Menu Controls -->
                 <div class="controls">
                     <!-- Search Input -->
@@ -146,5 +147,45 @@
 
     <!-- Scrollbar Customization -->
     <script src="/javascript/scrollbar.js"></script>
+    <script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabase = createClient(
+  'https://jbekjmsruiadbhaydlbt.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY'
+);
+
+const greetings = [
+  "Hey, {username}!",
+  "Howdy there, {username}!",
+  "Welcome back, {username}!",
+  "Good to see you, {username}!",
+  "Ready to play, {username}?",
+  "Yo, {username}!",
+  "What's up, {username}?",
+  "Fancy seeing you here, {username}",
+];
+
+async function setWelcome() {
+  const { data: { user } } = await supabase.auth.getUser();
+  let username = "Guest";
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('username')
+      .eq('id', user.id)
+      .maybeSingle();
+    if (profile && profile.username) {
+      username = profile.username;
+    }
+  }
+  const greeting = greetings[Math.floor(Math.random() * greetings.length)].replace('{username}', username);
+  setTimeout(() => {
+    document.querySelector('.welcome').textContent = greeting;
+  }, 5000); // 5 second delay
+}
+
+setWelcome();
+</script>
 </body>
 </html>

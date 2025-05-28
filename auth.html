@@ -193,7 +193,9 @@
   <div style="background:#222; color:#fff; padding:30px 40px; border-radius:16px; font-size:1.3em; box-shadow:0 0 30px #AE54FF;">
     <div class="loader"></div>
     <br>
-    Uploading avatar... DO NOT CLOSE THIS WINDOW!
+    Uploading new information...
+    <br>
+    Do not close this page or refresh it until the upload is complete.
   </div>
 </div>
   </center>
@@ -324,14 +326,22 @@
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) return setStatus('You must be logged in.');
 
+    showAvatarPopup();
     const { error } = await supabaseClient
       .from('profiles')
       .update({ username: newUsername })
       .eq('id', user.id);
 
+    hideAvatarPopup();
     if (error) return setStatus('Username update failed: ' + error.message);
     setStatus('Username updated!');
     await loadProfile();
+
+    // Update navbar username display
+    const navbarUsername = document.querySelector('.username');
+    if (navbarUsername) {
+      navbarUsername.textContent = newUsername;
+    }
   }
 
   async function loadProfile() {
@@ -446,7 +456,7 @@
 function hideAvatarPopup() {
   setTimeout(() => {
     document.getElementById('avatar-upload-popup').style.display = 'none';
-  }, 2000); // 2 seconds delay
+  }, 3000); // 2 seconds delay
 }
 </script>
 </body>
