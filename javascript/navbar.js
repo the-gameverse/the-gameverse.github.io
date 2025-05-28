@@ -1,26 +1,42 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Inject the CSS for horizontal layout of extra links
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase = createClient(
+  'https://jbekjmsruiadbhaydlbt.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY'
+);
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // --- Navbar Insert ---
   const style = document.createElement('style');
   style.innerHTML = `
     .extra-links {
-      display: none; /* Initially hidden */
-      gap: 10px; /* Adjust space between the icons */
-    }
-    
-    .extra-links a {
-      /* Display inline block if needed */
+      display: none;
+      gap: 10px;
     }
   `;
   document.head.appendChild(style);
 
-  // Check for a logged-in user in localStorage
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  const user = loggedInUser || { username: 'Guest', photo: '/uploads/branding/favicon.png' };
+  let username = 'Sign Up';
+  let avatarUrl = '/uploads/branding/signup.png';
 
-  // Construct the navbar HTML
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data: profile, error } = await supabase
+      .from('profiles')
+      .select('username, avatar_url')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    if (!error && profile) {
+      username = profile.username || 'User';
+      // Add cache-busting query string
+      avatarUrl = profile.avatar_url ? profile.avatar_url + '?t=' + Date.now() : avatarUrl;
+    }
+  }
+
   const navbarHTML = `
     <nav class="navbar">
-      <!-- Left section: Logo and navigation links -->
       <div class="nav-left-bg">
         <a href="/index.html" class="logo">
           <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
@@ -34,146 +50,104 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
           <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
           <div class="extra-links">
-          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
-          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
-            </div>
+            <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+            <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+            <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
           </div>
         </div>
+      </div>
 
-      <!-- Center section: Streak display -->
       <div class="nav-center-bg">
         <div id="streak" class="streak-container">
           <span class="streak-text">🔥 0 Days</span>
         </div>
       </div>
 
-      <!-- Right section: Profile information -->
       <div class="nav-right-bg">
-        <a href="/editprofile.html" class="profile-link">
-          <img src="${user.photo}" alt="${user.username}" class="profile-img">
-          <span class="username">${user.username}</span>
+        <a href="/auth.html" class="profile-link">
+          <img src="${avatarUrl}" alt="${username}" class="profile-img">
+          <span class="username">${username}</span>
         </a>
       </div>
     </nav>
-    <br>
-    <br>
-    <br>
+    <br><br><br>
   `;
 
-  // Inject the navbar at the very top of the body
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
-  
-// After injecting the navbar at the top of the body
-document.body.insertAdjacentHTML('afterbegin', navbarHTML);
 
-// Add extra spacing if on mobile
-if (window.innerWidth <= 700) {
-  document.body.insertAdjacentHTML('afterbegin', '<br>');
-}
-
-  let typingTimeout; // Variable to track the typing timeout
-
-  // Detect typing in the search box to trigger game-launching animation
-  const searchBox = document.querySelector('#search');
-  if (searchBox) {
-    searchBox.addEventListener('input', () => {
-      clearTimeout(typingTimeout); // Clear the previous timeout
-
-      showLaunchingGame(); // Trigger the game-launching animation
-
-      // Set a timeout to reset the dynamic island back to the streak display
-      typingTimeout = setTimeout(() => {
-        resetToDefault(); // Reset to the normal streak display
-      }, 2000); // Adjust the delay period as needed (e.g., 2000ms = 2 seconds)
-    });
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+  // --- Dynamic Island Logic ---
+  let typingTimeout;
   const dynamicIsland = document.querySelector('.nav-center-bg');
-  const streakElement = `
-    <div id="streak" class="streak-container">
-      <span class="streak-text">🔥 0 Days</span>
-    </div>
-  `;
-
   let currentState = 'streak';
 
-  // Function to update the streak display
   function updateStreak() {
-    const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
     let streakData = JSON.parse(localStorage.getItem('streak')) || { streak: 0, lastDate: null };
 
     if (streakData.lastDate) {
       const lastDate = new Date(streakData.lastDate);
       const differenceInDays = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
 
-      if (differenceInDays === 1) {
+      if (Math.floor(differenceInDays) === 1) {
         streakData.streak++;
       } else if (differenceInDays > 1) {
-        streakData.streak = 1; // Reset streak
+        streakData.streak = 1;
       }
     } else {
-      streakData.streak = 1; // Initialize streak
+      streakData.streak = 1;
     }
 
-    streakData.lastDate = today; // Update lastDate
+    streakData.lastDate = today;
     localStorage.setItem('streak', JSON.stringify(streakData));
 
     return `🔥 ${streakData.streak} days`;
   }
 
-// Function to show total time spent on starship
-function showScreenTime() {
-  // Get today's tracking data from localStorage (set by screentimetracking.js)
-  const dataJSON = localStorage.getItem('screenTimeData');
-  let seconds = 0;
-  if (dataJSON) {
-    try {
-      const data = JSON.parse(dataJSON);
-      seconds = data.secondsSpent || 0;
-    } catch (e) {
-      seconds = 0;
+  function showScreenTime() {
+    const dataJSON = localStorage.getItem('screenTimeData');
+    let seconds = 0;
+    if (dataJSON) {
+      try {
+        const data = JSON.parse(dataJSON);
+        seconds = data.secondsSpent || 0;
+      } catch (e) {
+        seconds = 0;
+      }
     }
+
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    let formatted;
+    if (h > 0) {
+      formatted = `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    } else {
+      formatted = `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    dynamicIsland.innerHTML = `
+      <div class="screen-time">
+        ⏳ <b>${formatted}</b>
+      </div>
+    `;
+    currentState = 'screen-time';
   }
 
-  // Format as H:MM:SS or MM:SS
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  let formatted;
-  if (h > 0) {
-    formatted = `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-  } else {
-    formatted = `${m}:${s.toString().padStart(2, '0')}`;
+  function showCurrentTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    dynamicIsland.innerHTML = `
+      <div class="current-time">
+       🕒 ${formattedTime}
+      </div>
+    `;
+    currentState = 'current-time';
   }
 
-  dynamicIsland.innerHTML = `
-    <div class="screen-time">
-      ⏳ <b>${formatted}</b>
-    </div>
-  `;
-  currentState = 'screen-time';
-}
-
-// Function to show current time in 12-hour format
-function showCurrentTime() {
-  const now = new Date();
-  let hours = now.getHours();
-  const minutes = now.getMinutes();
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
-  const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-  dynamicIsland.innerHTML = `
-    <div class="current-time">
-     🕒 ${formattedTime}
-    </div>
-  `;
-  currentState = 'current-time';
-}
-
-  // Function to show "launching game"
   function showLaunchingGame() {
     dynamicIsland.classList.add('expanded');
     dynamicIsland.innerHTML = `
@@ -188,24 +162,21 @@ function showCurrentTime() {
     setTimeout(() => {
       dynamicIsland.classList.remove('expanded');
       resetToDefault();
-    }, 5000); // 5 seconds
+    }, 5000);
   }
 
-  // Function to show checkmark animation
   function showCheckmarkAnimation() {
     dynamicIsland.classList.add('expanded-checkmark');
     dynamicIsland.innerHTML = `
       <div class="checkmark">✓</div>
     `;
 
-    // Remove the expanded-checkmark class and reset after 2 seconds
     setTimeout(() => {
       dynamicIsland.classList.remove('expanded-checkmark');
       resetToDefault();
-    }, 2000); // Adjust duration as needed
+    }, 2000);
   }
 
-  // Reset to default streak
   function resetToDefault() {
     const streak = updateStreak();
     dynamicIsland.innerHTML = `
@@ -216,37 +187,41 @@ function showCurrentTime() {
     currentState = 'streak';
   }
 
-// Periodically change the center section's content in a rolling order
-let periodicIndex = 0;
-const periodicFunctions = [
-  showScreenTime,
-  showCurrentTime,
-  resetToDefault
-];
+  let periodicIndex = 0;
+  const periodicFunctions = [
+    showScreenTime,
+    showCurrentTime,
+    resetToDefault
+  ];
 
-function periodicUpdates() {
-  // Always cycle, regardless of currentState
-  periodicFunctions[periodicIndex % periodicFunctions.length]();
-  periodicIndex++;
-}
+  function periodicUpdates() {
+    periodicFunctions[periodicIndex % periodicFunctions.length]();
+    periodicIndex++;
+  }
 
-  // Add event listener for all clickable elements (buttons, links, etc.)
+  const searchBox = document.querySelector('#search');
+  if (searchBox) {
+    searchBox.addEventListener('input', () => {
+      clearTimeout(typingTimeout);
+      showLaunchingGame();
+      typingTimeout = setTimeout(() => {
+        resetToDefault();
+      }, 2000);
+    });
+  }
+
   document.addEventListener('click', (event) => {
     const isLinkOrButton =
       event.target.closest('a') || event.target.closest('button');
-
-    // Avoid triggering the checkmark animation for the "plus icon" toggle
     if (isLinkOrButton && !event.target.closest('.plus-icon')) {
       showCheckmarkAnimation();
     }
   });
 
-// Detect if on play.html or games.html and show "Launching Game"
-if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
+  if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
     showLaunchingGame();
-} else {
+  } else {
     resetToDefault();
-    setInterval(periodicUpdates, 10000); // Update every 10 seconds
+    setInterval(periodicUpdates, 10000);
   }
 });
-
