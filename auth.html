@@ -60,6 +60,7 @@
       display: inline-block;
       width:550px;
       box-shadow: 0 0 20px rgba(174, 84, 255, 0.2);
+            backdrop-filter: blur(6px);
     }
 
     #profile-avatar {
@@ -148,10 +149,27 @@
       backdrop-filter: blur(6px);
       transition: all 0.3s ease;
   }
+  #yt-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+#yt-bg iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 120vw; height: 68vw; /* 16:9 ratio, oversize for cover */
+  min-width: 100vw; min-height: 100vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
   </style>
 </head>
 
 <body>
+    <div id="yt-bg"></div>
   <center>
     <div id="navbar"></div>
     <script type="module" src="/javascript/navbar.js"></script>
@@ -505,6 +523,39 @@ document.getElementById('toggle-signup-confirm-password').onclick = function() {
     this.innerHTML = '<i class="fa-solid fa-eye"></i>';
   }
 };
+
+  // Load YouTube IFrame API
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+  // Create the player when API is ready
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-bg', {
+      videoId: 'zTK9DhM6OQc',
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        showinfo: 0,
+        modestbranding: 1,
+        loop: 1,
+        fs: 0,
+        cc_load_policy: 0,
+        iv_load_policy: 3,
+        autohide: 0,
+        mute: 1,
+        playlist: 'zTK9DhM6OQc' // Needed for looping
+      },
+      events: {
+        onReady: function(e) {
+          e.target.mute();
+          e.target.playVideo();
+        }
+      }
+    });
+  }
+
 </script>
 </body>
 
