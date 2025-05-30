@@ -27,18 +27,18 @@
   <style>
 
 
-    input, button {
-      width: 500px;
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 18px;
-      border-radius: 10px;
-      background: rgba(34,34,34,0.2);
-      border: 1px solid #444;
-      color: white;
-      backdrop-filter: blur(6px);
-      transition: all 0.3s ease;
-    }
+input[type="text"], input[type="email"], input[type="password"], button {
+  width: 500px;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 18px;
+  border-radius: 10px;
+  background: rgba(34,34,34,0.2);
+  border: 1px solid #444;
+  color: white;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
 
     input:hover, button:hover {
       box-shadow: 0 0 20px rgba(174, 84, 255, 0.6);
@@ -194,12 +194,12 @@
 <div id="signup-section" style="display:none;">
   <input id="signup-email" type="email" placeholder="Email" /><br>
   <div style="position:relative;display:inline-block;width:500px;">
-    <input id="signup-password" type="password" placeholder="Password" style="width:100%;" />
-    <button type="button" id="toggle-signup-password" style="position:absolute;right:10px;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
+    <input id="signup-password" type="password" placeholder="Password" style="width:calc(100% - 50px);" />
+    <button type="button" id="toggle-signup-password" style="position:absolute;right:0;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
   </div><br>
   <div style="position:relative;display:inline-block;width:500px;">
-    <input id="signup-confirm-password" type="password" placeholder="Confirm Password" style="width:100%;" />
-    <button type="button" id="toggle-signup-confirm-password" style="position:absolute;right:10px;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
+    <input id="signup-confirm-password" type="password" placeholder="Confirm Password" style="width:calc(100% - 50px);" />
+    <button type="button" id="toggle-signup-confirm-password" style="position:absolute;right:0;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
   </div><br>
   <input id="signup-username" type="text" placeholder="Username (for sign up)" /><br>
   <p>By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
@@ -231,6 +231,24 @@
     Uploading new information...
     <br>
     Do not close this page or refresh it until the upload is complete.
+  </div>
+</div>
+<!-- Terms Popup -->
+<div id="terms-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:10000; align-items:center; justify-content:center;">
+  <div style="background: rgba(34,34,34,0.2); backdrop-filter: blur(6px); color:#fff; padding:30px 40px; border-radius:16px; font-size:1.1em; box-shadow:0 0 30px #AE54FF; max-width:500px;">
+    <h2>Terms & Privacy</h2>
+    <p>
+      By signing up, you agree to our <a href="/legal" target="_blank" style="color:#AE54FF;">Privacy Policy</a> and <a href="/legal" target="_blank" style="color:#AE54FF;">Terms of Service</a>.<br>
+      You also state that you are 13 or older, and that you know you can delete your data at any time by emailing "starship.site@gmail.com" or using the contact page.
+    </p>
+<label style="display:flex; align-items:center; "">
+  <input type="checkbox" id="agree-terms-checkbox" style="margin-right:8px;">
+  I agree to the Terms and Privacy Policy, and have acknowledged that I am 13 or older.
+</label>
+    <div style="display:flex; gap:10px; justify-content:flex-end;">
+      <button id="agree-terms-btn" disabled>Continue</button>
+      <button onclick="document.getElementById('terms-popup').style.display='none'">Cancel</button>
+    </div>
   </div>
 </div>
   </center>
@@ -464,13 +482,26 @@
   const avatarInput = document.getElementById('profile-avatar-input');
   const updateAvatarBtn = document.getElementById('update-avatar-btn');
 
-  updateAvatarBtn?.addEventListener('click', async () => {
+updateAvatarBtn?.addEventListener('click', async () => {
   const file = avatarInput.files[0];
   const { data: { user } } = await supabaseClient.auth.getUser();
   if (!file) return setStatus('Please select an image file.');
   if (!user) return setStatus('You must be logged in to upload an avatar.');
   showAvatarPopup();
   setStatus('Uploading avatar...');
+
+  // Get current avatar URL
+  const { data: profile } = await supabaseClient
+    .from('profiles')
+    .select('avatar_url')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  // Delete old avatar if it exists
+  if (profile && profile.avatar_url) {
+    await deleteOldAvatar(user.id, profile.avatar_url);
+  }
+
   const publicUrl = await uploadAvatar(user.id, file);
   hideAvatarPopup();
   if (publicUrl) {
@@ -555,7 +586,33 @@ document.getElementById('toggle-signup-confirm-password').onclick = function() {
       }
     });
   }
+async function deleteOldAvatar(userId, oldUrl) {
+  if (!oldUrl) return;
+  // Extract the file name from the URL
+  const parts = oldUrl.split('/');
+  const fileName = parts[parts.length - 1].split('?')[0];
+  if (!fileName.startsWith(userId)) return; // Only delete if it matches the user
+  await supabaseClient.storage.from('avatars').remove([fileName]);
+}
 
+// Show terms popup on signup button click
+document.getElementById('signup-btn')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('terms-popup').style.display = 'flex';
+  document.getElementById('agree-terms-checkbox').checked = false;
+  document.getElementById('agree-terms-btn').disabled = true;
+});
+
+// Enable "Continue" only if checkbox is checked
+document.getElementById('agree-terms-checkbox').addEventListener('change', function() {
+  document.getElementById('agree-terms-btn').disabled = !this.checked;
+});
+
+// When "Continue" is clicked, actually run signUp()
+document.getElementById('agree-terms-btn').addEventListener('click', async function() {
+  document.getElementById('terms-popup').style.display = 'none';
+  await signUp();
+});
 </script>
 </body>
 
