@@ -1,5 +1,5 @@
 // Dynamically add the footer
-const footerHTML = `
+/*const footerHTML = `
   <footer class="footer">
     <div class="footer-container">
       <!-- Logo and Name -->
@@ -33,6 +33,6 @@ const footer = document.querySelector('.footer');
 
 hideButton.addEventListener('click', () => {
   footer.classList.add('hidden');  // Hide the footer
-});
+});*/
 
 

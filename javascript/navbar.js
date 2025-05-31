@@ -35,45 +35,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  const navbarHTML = `
+const navbarHTML = `
+  <div class="navbar-container">
+    <div class="nav-center-bg">
+      <div id="streak" class="streak-container">
+        <span class="streak-text">🔥 0 Days</span>
+      </div>
+    </div>
     <nav class="navbar">
-      <div class="nav-left-bg">
-        <a href="/index.html" class="logo">
-          <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
-        </a>
-        <div class="nav-links">
-          <a href="/"><i class="fa fa-home fa-lg"></i></a>
-          <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
-          <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
-          <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
-          <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
-          <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-          <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
-          <div class="extra-links">
-            <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
-            <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-            <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
-          </div>
+      <a href="/index.html" class="logo">
+        <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
+      </a>
+      <div class="nav-links">
+        <a href="/"><i class="fa fa-home fa-lg"></i></a>
+        <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
+        <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
+        <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
+        <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
+        <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
+        <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
+        <div class="extra-links">
+          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
         </div>
-      </div>
-
-      <div class="nav-center-bg">
-        <div id="streak" class="streak-container">
-          <span class="streak-text">🔥 0 Days</span>
-        </div>
-      </div>
-
-      <div class="nav-right-bg">
-        <a href="/auth.html" class="profile-link">
-          <img src="${avatarUrl}" alt="${username}" class="profile-img">
-          <span class="username">${username}</span>
-        </a>
       </div>
     </nav>
-    <br><br><br>
-  `;
+    <div class="nav-right-bg">
+      <a href="/auth.html" class="profile-link">
+        <img src="${avatarUrl}" alt="${username}" class="profile-img">
+        <span class="username">${username}</span>
+      </a>
+    </div>
+  </div>
+
+`;
 
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
+
+// Set scrollbar width variable after navbar is in DOM
+function getScrollbarWidth() {
+  return window.innerWidth - document.documentElement.clientWidth;
+}
+function updateScrollbarWidth() {
+  document.documentElement.style.setProperty('--scrollbar-width', getScrollbarWidth() + 'px');
+}
+updateScrollbarWidth();
+window.addEventListener('resize', updateScrollbarWidth);
 
   // --- Dynamic Island Logic ---
   let typingTimeout;

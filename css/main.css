@@ -12,6 +12,17 @@ html, body {
   padding-bottom: 250px;
   cursor: url('/uploads/branding/customcursor.cur'), auto;
 }
+/* Hide scrollbar completely but keep scroll functionality */
+
+/* Firefox */
+* {
+  scrollbar-width: none !important;
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  display: none !important;
+}
 
 /* Text styling */
 p {
