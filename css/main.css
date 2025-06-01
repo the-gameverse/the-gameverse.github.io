@@ -139,5 +139,129 @@ button:nth-child(2):hover {
   box-shadow: 0 0 20px rgba(174, 84, 255, 0.7);
 }
 
-/* Home page boxes */
-/* (continue with more styles here if needed) */
+/* Notification styling */
+/* Notifications */
+#notifications-container {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.notification {
+  min-width: 260px;
+  max-width: 340px;
+  background: linear-gradient(90deg, #8a2be2 60%, #ff4b2b 100%);
+  color: #fff;
+  font-family: Inter, sans-serif;
+  font-size: 1.08em;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px #8a2be288;
+  padding: 18px 28px 16px 22px;
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  animation: notif-in 0.4s cubic-bezier(.4,2,.6,1) forwards;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+@keyframes notif-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.notification.hide {
+  pointer-events: none;
+  animation: notif-out 0.35s cubic-bezier(.4,2,.6,1) forwards;
+}
+
+@keyframes notif-out {
+  to {
+    opacity: 0;
+    transform: translateX(60px) scale(0.96);
+  }
+}
+
+.notification-title {
+  font-weight: 700;
+  font-size: 1.08em;
+  margin-bottom: 2px;
+  color: #fff;
+}
+
+.notification-body {
+  font-size: 0.98em;
+  color: #f3eaff;
+  margin-top: 4px;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+.notification {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.notification-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.3em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  z-index: 2;
+  padding: 0;
+  line-height: 1;
+}
+.notification-close:hover,
+.notification-close:focus {
+  opacity: 1;
+  outline: none;
+}
+
+.notification-timer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.5);
+  height: 3px;
+  border-radius: 2px;
+  width: 100%;
+  transition: width linear;
+  pointer-events: none;
+}
+
+.notification.sticky .notification-timer {
+  display: none;
+}
+@keyframes notif-bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(-40px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(10px);
+  }
+  80% {
+    transform: scale(0.98) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

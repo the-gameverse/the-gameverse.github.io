@@ -50,6 +50,7 @@ const navbarHTML = `
         <a href="/"><i class="fa fa-home fa-lg"></i></a>
         <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
         <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
+        <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
         <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
         <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
         <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
@@ -173,18 +174,6 @@ window.addEventListener('resize', updateScrollbarWidth);
     }, 5000);
   }
 
-  function showCheckmarkAnimation() {
-    dynamicIsland.classList.add('expanded-checkmark');
-    dynamicIsland.innerHTML = `
-      <div class="checkmark">✓</div>
-    `;
-
-    setTimeout(() => {
-      dynamicIsland.classList.remove('expanded-checkmark');
-      resetToDefault();
-    }, 2000);
-  }
-
   function resetToDefault() {
     const streak = updateStreak();
     dynamicIsland.innerHTML = `
@@ -207,29 +196,7 @@ window.addEventListener('resize', updateScrollbarWidth);
     periodicIndex++;
   }
 
-  const searchBox = document.querySelector('#search');
-  if (searchBox) {
-    searchBox.addEventListener('input', () => {
-      clearTimeout(typingTimeout);
-      showLaunchingGame();
-      typingTimeout = setTimeout(() => {
-        resetToDefault();
-      }, 2000);
-    });
-  }
-
-  document.addEventListener('click', (event) => {
-    const isLinkOrButton =
-      event.target.closest('a') || event.target.closest('button');
-    if (isLinkOrButton && !event.target.closest('.plus-icon')) {
-      showCheckmarkAnimation();
-    }
-  });
-
-  if (window.location.pathname.includes('play') || window.location.pathname.includes('games')) {
-    showLaunchingGame();
-  } else {
-    resetToDefault();
-    setInterval(periodicUpdates, 10000);
-  }
+  // On page load, show streak and start rotation
+  resetToDefault();
+  setInterval(periodicUpdates, 10000);
 });
