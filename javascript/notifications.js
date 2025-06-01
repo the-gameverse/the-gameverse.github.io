@@ -121,6 +121,7 @@ if (options.vibrate && navigator.vibrate) {
     showNotification("Welcome to the new update!", {
       body: "Check out the new features we've added.",
       duration: 5000,
+      persistClose: true,
     });
 
   });

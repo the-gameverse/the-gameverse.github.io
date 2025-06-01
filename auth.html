@@ -233,24 +233,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
     Do not close this page or refresh it until the upload is complete.
   </div>
 </div>
-<!-- Terms Popup -->
-<div id="terms-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:10000; align-items:center; justify-content:center;">
-  <div style="background: rgba(34,34,34,0.2); backdrop-filter: blur(6px); color:#fff; padding:30px 40px; border-radius:16px; font-size:1.1em; box-shadow:0 0 30px #AE54FF; max-width:500px;">
-    <h2>Terms & Privacy</h2>
-    <p>
-      By signing up, you agree to our <a href="/legal" target="_blank" style="color:#AE54FF;">Privacy Policy</a> and <a href="/legal" target="_blank" style="color:#AE54FF;">Terms of Service</a>.<br>
-      You also state that you are 13 or older, and that you know you can delete your data at any time by emailing "starship.site@gmail.com" or using the contact page.
-    </p>
-<label style="display:flex; align-items:center; "">
-  <input type="checkbox" id="agree-terms-checkbox" style="margin-right:8px;">
-  I agree to the Terms and Privacy Policy, and have acknowledged that I am 13 or older.
-</label>
-    <div style="display:flex; gap:10px; justify-content:flex-end;">
-      <button id="agree-terms-btn" disabled>Continue</button>
-      <button onclick="document.getElementById('terms-popup').style.display='none'">Cancel</button>
-    </div>
-  </div>
-</div>
+
   </center>
 
 <script>
@@ -531,7 +514,12 @@ updateAvatarBtn?.addEventListener('click', async () => {
 function hideAvatarPopup() {
   setTimeout(() => {
     document.getElementById('avatar-upload-popup').style.display = 'none';
-  }, 3000); // 2 seconds delay
+    // Show notification after popup is hidden
+    showNotification("Changes uploaded.", {
+      body: "Your changes were made successfully.",
+      duration: 5000,
+    });
+  }, 3000); // 3 seconds delay
 }
 // Show/hide password toggles
 document.getElementById('toggle-signup-password').onclick = function() {
@@ -594,26 +582,11 @@ async function deleteOldAvatar(userId, oldUrl) {
   if (!fileName.startsWith(userId)) return; // Only delete if it matches the user
   await supabaseClient.storage.from('avatars').remove([fileName]);
 }
+document.getElementById('signup-btn')?.addEventListener('click', signUp);
 
-// Show terms popup on signup button click
-document.getElementById('signup-btn')?.addEventListener('click', function(e) {
-  e.preventDefault();
-  document.getElementById('terms-popup').style.display = 'flex';
-  document.getElementById('agree-terms-checkbox').checked = false;
-  document.getElementById('agree-terms-btn').disabled = true;
-});
 
-// Enable "Continue" only if checkbox is checked
-document.getElementById('agree-terms-checkbox').addEventListener('change', function() {
-  document.getElementById('agree-terms-btn').disabled = !this.checked;
-});
 
-// When "Continue" is clicked, actually run signUp()
-document.getElementById('agree-terms-btn').addEventListener('click', async function() {
-  document.getElementById('terms-popup').style.display = 'none';
-  await signUp();
-});
 </script>
 </body>
-
+  <script src="/javascript/notifications.js"></script>
 </html>
