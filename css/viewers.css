@@ -46,7 +46,7 @@
 /* Adjust iframe to fit within the unified container */
 iframe {
     width: 100%; /* Take the full width of the container */
-    height: 600px; /* Increase height for better proportions */
+    height: 800px; /* Increase height for better proportions */
     border: none; /* Remove individual iframe border */
     box-shadow: none; /* Remove individual iframe shadow */
     margin: 0; /* Remove any margin */
