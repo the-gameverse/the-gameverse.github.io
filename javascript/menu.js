@@ -128,6 +128,8 @@ const games = [
 { name: "Basketball Legends 2020", image: "/uploads/covers/basketballlegends2020.png", link: "https://script.google.com/macros/s/AKfycbwE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Subway Surfers", image: "/uploads/covers/subwaysurfers.png", link: "/storage/games/subway-surfers/index.html", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Monkey Mart", image: "/uploads/covers/monkeymart.png", link: "/storage/games/monkey-mart/frame.html", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Madden NFL 06", image: "/uploads/covers/maddennfl06.png", link: "https://script.google.com/macros/s/AKfycbwOd9N381nj6rcPfOez6tMGjnldHCgZSidEUO5BZ7yN3R1dRNVas4qcUi499Mt0mUO5/exec", path: "/play", clickCount: 0, isFavorited: false },
+{ name: "Farm Life", image: "/uploads/covers/farmlife.png", link: "https://script.google.com/macros/s/AKfycbzDadVVABgCY3sQB6kJHc4h1-mt0KccESqsAVsbndoyNOp1IQdoVz1hA2reL8TuD5B_ug/exec", path: "/play", clickCount: 0, isFavorited: false },
 
 ];
 
