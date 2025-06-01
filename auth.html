@@ -290,9 +290,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
   if (password !== confirmPassword)
     return setStatus('Passwords do not match.');
 
-  // Swear word filter (already present if you added it)
-  if (containsSwearWord(username))
-    return setStatus('Username contains inappropriate language.');
+ 
 
   const { data, error } = await supabaseClient.auth.signUp({ email, password });
   if (error) return setStatus('Sign up error: ' + error.message);
@@ -501,7 +499,10 @@ updateAvatarBtn?.addEventListener('click', async () => {
   }
 });
 
-  document.getElementById('signup-btn')?.addEventListener('click', signUp);
+  document.getElementById('signup-btn')?.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent form submission if inside a form
+    signUp();
+  }); 
   document.getElementById('login-btn')?.addEventListener('click', signIn);
   document.getElementById('logout-btn')?.addEventListener('click', signOut);
   updateUsernameBtn?.addEventListener('click', updateUsername);
@@ -582,7 +583,7 @@ async function deleteOldAvatar(userId, oldUrl) {
   if (!fileName.startsWith(userId)) return; // Only delete if it matches the user
   await supabaseClient.storage.from('avatars').remove([fileName]);
 }
-document.getElementById('signup-btn')?.addEventListener('click', signUp);
+
 
 
 
