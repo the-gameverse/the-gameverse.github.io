@@ -184,10 +184,58 @@ window.addEventListener('resize', updateScrollbarWidth);
     currentState = 'streak';
   }
 
+  async function showWeather() {
+  dynamicIsland.innerHTML = `<div class="weather">🌦️ Loading weather...</div>`;
+  currentState = 'weather';
+
+  // Get user's location
+  if (!navigator.geolocation) {
+    dynamicIsland.innerHTML = `<div class="weather">🌦️ Location not supported.</div>`;
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+    // Fetch weather from Open-Meteo
+    try {
+      const resp = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit`);
+      const data = await resp.json();
+      if (data.current_weather) {
+        const temp = Math.round(data.current_weather.temperature);
+        const icon = getWeatherIcon(data.current_weather.weathercode);
+        dynamicIsland.innerHTML = `
+          <div class="weather">
+            ${icon} <b>${temp}°F</b>
+          </div>
+        `;
+      } else {
+        dynamicIsland.innerHTML = `<div class="weather">🌦️ Weather unavailable.</div>`;
+      }
+    } catch {
+      dynamicIsland.innerHTML = `<div class="weather">🌦️ Weather error.</div>`;
+    }
+  }, () => {
+    dynamicIsland.innerHTML = `<div class="weather">🌦️ Location denied.</div>`;
+  });
+}
+
+// Simple weather icon mapping
+function getWeatherIcon(code) {
+  if ([0].includes(code)) return "☀️";
+  if ([1, 2, 3].includes(code)) return "⛅";
+  if ([45, 48].includes(code)) return "🌫️";
+  if ([51, 53, 55, 56, 57, 61, 63, 65, 80, 81, 82].includes(code)) return "🌦️";
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄️";
+  if ([95, 96, 99].includes(code)) return "⛈️";
+  return "🌡️";
+}
+
   let periodicIndex = 0;
   const periodicFunctions = [
     showScreenTime,
     showCurrentTime,
+    showWeather,
     resetToDefault
   ];
 
