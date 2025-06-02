@@ -205,3 +205,23 @@
   }
 }
 
+@media (max-width: 500px) {
+  body > *:not(.unsupported-message) {
+    display: none !important;
+  }
+  .unsupported-message {
+    display: flex !important;
+    flex-direction: column; /* Align vertically */
+    position: fixed;
+    inset: 0;
+    background: #181828;
+    color: #fff;
+    font-size: 1.5em;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    text-align: center;
+    padding: 32px;
+    font-family: inherit;
+  }
+}
