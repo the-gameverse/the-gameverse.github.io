@@ -57,8 +57,7 @@
 .nav-center-bg {
   background: rgba(34, 34, 34, 0.3);
   border-radius: 0 24px 24px 0;
-  min-width: 120px;
-  max-width: 160px;
+  width: auto;
   height: 48px;
   display: flex;
   align-items: center;
