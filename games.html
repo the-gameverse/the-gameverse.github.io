@@ -1,194 +1,184 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <!-- Page Title and Favicon -->
     <title>starship - game menu</title>
-    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/menu.css" />
 
     <!-- JavaScript for Page Load -->
     <script src="/javascript/pageload.js"></script>
 
-        <!-- Google AdSense and Google Analytics -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense and Google Analytics -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+      crossorigin="anonymous"
+    ></script>
+    <!-- End Google AdSense -->
 
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
+    ></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-ZZH4JE7RJF');
+      gtag("config", "G-ZZH4JE7RJF");
     </script>
+    <!-- End Google Tag -->
 
     <!-- Inline Styles for Popup -->
     <style>
-        /* Popup styling */
-        .messagePopup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-            text-align: center;
-            max-width: 400px;
-            z-index: 1000;
-            display: none;
-        }
-        .messagePopup button {
-            background: red;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .messagePopup button:hover {
-            background: darkred;
-        }
-        /* Add to your <style> section or a CSS file */
-#yt-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-#yt-bg iframe {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 120vw; height: 68vw; /* 16:9 ratio, oversize for cover */
-  min-width: 100vw; min-height: 100vh;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
+      /* Popup styling */
+      .messagePopup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        text-align: center;
+        max-width: 400px;
+        z-index: 1000;
+        display: none;
+      }
+      .messagePopup button {
+        background: red;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .messagePopup button:hover {
+        background: darkred;
+      }
+      /* Add to your <style> section or a CSS file */
+      #yt-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #yt-bg iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120vw;
+        height: 68vw; /* 16:9 ratio, oversize for cover */
+        min-width: 100vw;
+        min-height: 100vh;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
     </style>
-</head>
-<body style="margin:0;" onload="myFunction()">
+  </head>
+  <body style="margin: 0" onload="myFunction()">
     <!-- Add this at the top of <body> -->
-<div id="yt-bg"></div>
+    <div id="yt-bg"></div>
+
     <!-- Navigation Bar -->
     <div id="navbar"></div>
-    <script type="module" src="/javascript/navbar.js"></script>
-
-    <!-- Footer -->
-    <script src="/javascript/footer.js"></script>
 
     <!-- NoScript Fallback -->
     <noscript>
-        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+      <meta http-equiv="refresh" content="0; url=/errors/noscript" />
     </noscript>
 
-            
-           
+    <center>
+      <br />
+      <h3 class="welcome" style="font-family: Inter"></h3>
 
-        <center>
+      <!-- Game Menu Controls -->
+      <div class="controls">
+        <!-- Search Input -->
+        <input
+          type="text"
+          id="search"
+          placeholder="Search all games"
+          oninput="filterGames()"
+        />
+        <!-- Toggle Click Count Button -->
+        <!--<button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>-->
+        <!-- Sorting Dropdown -->
+        <select id="sortOptions" onchange="sortGames()">
+          <option value="favorites">❤️ Your Favorites</option>
+          <option value="globalLikes">👍 Most Liked Globally</option>
+          <option value="trending">🔥 Trending Now</option>
+          <option value="clickCount">⏱️ Your Most Played</option>
+          <option value="alphabetical">🔤 A–Z</option>
+        </select>
+      </div>
 
-<br>
-                <h3 class="welcome" style="font-family:Inter;"></h1>
-
-                <!-- Game Menu Controls -->
-                <div class="controls">
-                    <!-- Search Input -->
-                    <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
-                    <!-- Toggle Click Count Button -->
-                    <!--<button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>-->
-                    <!-- Sorting Dropdown -->
-   <select id="sortOptions" onchange="sortGames()">
-  <option value="favorites">❤️ Your Favorites</option>
-  <option value="globalLikes">👍 Most Liked Globally</option>
-  <option value="trending">🔥 Trending Now</option>
-  <option value="clickCount">⏱️ Your Most Played</option>
-  <option value="alphabetical">🔤 A–Z</option>
-</select>
-                </div>
-
-                <!-- Game Count -->
-                <p id="gameCount">Games Loaded: 0</p>
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
-        <!-- Game Menu -->
-        <div id="gameMenu" class="game-menu"></div>
-        
-        <script src="/javascript/menu.js"></script>
-
-</div>        
-            </div>
-
-    <!-- Easter Egg Script -->
-    <script>
-        let clicks = 0;
-        let eastereggfoundyet = false;
-        const gameTitle = document.querySelector("#gameTitle");
-        gameTitle.addEventListener("click", () => {
-            clicks += 1;
-            gameTitle.focus();
-            document.querySelector("#cc").innerHTML = clicks;
-            if (!eastereggfoundyet && clicks === 69) {
-                eastereggfoundyet = true;
-                clicks = null;
-                document.querySelector("#cc").innerHTML = null;
-                alert("Easter Egg Game Found!!! Now how to play it?😜");
-            }
-        });
-
-        // Message Popup Functions
-        function showMessagePopup() {
-            document.getElementById("messagePopup").style.display = "block";
-        }
-
-        function closeMessagePopup() {
-            document.getElementById("messagePopup").style.display = "none";
-        }
-
-        // Page Loader and Popup Initialization
-        window.onload = function() {
-            if (typeof myFunction === "function") {
-                myFunction(); // Runs the page loader function from pageload.js
-            }
-            showMessagePopup(); // Show the message popup
-        };
-    </script>
+      <!-- Game Count -->
+      <p id="gameCount">Games Loaded: 0</p>
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+      <!-- Game Menu -->
+      <div id="gameMenu" class="game-menu"></div>
+    </center>
 
     <!-- Particles.JS Background -->
     <!--<div id="particles-js"></div>-->
+    
+    <!-- All Script Links -->
+     <!-- Navbar -->
+    <script type="module" src="/javascript/navbar.js"></script>
+    <!-- Footer -->
+    <script src="/javascript/footer.js"></script>
+    <!-- Panic Button -->
     <script src="/javascript/panic.js"></script>
+    <!-- Cloaking -->
     <script src="/javascript/cloaking.js"></script>
+    <!-- Anti Tab-Close -->
     <script src="/javascript/antitabclose.js"></script>
+    <!-- Particles (not used anymore) -->
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
-  <script src="/javascript/notifications.js"></script>
-    <!-- Scrollbar Customization -->
+    <!-- Notifications -->
+    <script src="/javascript/notifications.js"></script>
+    <!-- Games Menu -->
+    <script src="/javascript/menu.js"></script>
+    <!-- Scrollbar -->
     <script src="/javascript/scrollbar.js"></script>
+
+    <!-- All non-linked scripts -->
+    <!-- Set Welcome Script -->
     <script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const supabase = createClient(
-  'https://jbekjmsruiadbhaydlbt.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY'
-);
+      const supabase = createClient(
+        "https://jbekjmsruiadbhaydlbt.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY"
+      );
 
-const greetings = [
-  "Hey, {username}!",
-  "Howdy there, {username}!",
-  "Welcome back, {username}!",
-  "Good to see you, {username}!",
-  "Ready to play, {username}?",
-  "Yo, {username}!",
-  "What's up, {username}?",
-  "Fancy seeing you here, {username}",
-];
+      const greetings = [
+        "Hey, {username}!",
+        "Howdy there, {username}!",
+        "Welcome back, {username}!",
+        "Good to see you, {username}!",
+        "Ready to play, {username}?",
+        "Yo, {username}!",
+        "What's up, {username}?",
+        "Fancy seeing you here, {username}",
+      ];
 
       async function setWelcome() {
         const {
@@ -213,40 +203,74 @@ const greetings = [
         }, 5000); // 5 second delay
       }
     </script>
-    <!--  -->
+    <!-- Youtube Background Script -->
     <script>
       // Load YouTube IFrame API
       var tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
       document.body.appendChild(tag);
 
-  // Create the player when API is ready
-  var player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('yt-bg', {
-      videoId: 'ibNrPjETR_k',
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        showinfo: 0,
-        modestbranding: 1,
-        loop: 1,
-        fs: 0,
-        cc_load_policy: 0,
-        iv_load_policy: 3,
-        autohide: 0,
-        mute: 1,
-        playlist: 'ibNrPjETR_k', // Needed for looping
-        start: 11 // <-- Start at 7 seconds 
-      },
-      events: {
-        onReady: function(e) {
-          e.target.mute();
-          e.target.playVideo();
-        }
+      // Create the player when API is ready
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player("yt-bg", {
+          videoId: "ibNrPjETR_k",
+          playerVars: {
+            autoplay: 1,
+            controls: 0,
+            showinfo: 0,
+            modestbranding: 1,
+            loop: 1,
+            fs: 0,
+            cc_load_policy: 0,
+            iv_load_policy: 3,
+            autohide: 0,
+            mute: 1,
+            playlist: "ibNrPjETR_k", // Needed for looping
+            start: 11, // <-- Start at 7 seconds
+          },
+          events: {
+            onReady: function (e) {
+              e.target.mute();
+              e.target.playVideo();
+            },
+          },
+        });
       }
-    });
-  }
-</script>
-</body>
+    </script>
+    <!-- Easter Egg Script -->
+    <script>
+      let clicks = 0;
+      let eastereggfoundyet = false;
+      const gameTitle = document.querySelector("#gameTitle");
+      gameTitle.addEventListener("click", () => {
+        clicks += 1;
+        gameTitle.focus();
+        document.querySelector("#cc").innerHTML = clicks;
+        if (!eastereggfoundyet && clicks === 69) {
+          eastereggfoundyet = true;
+          clicks = null;
+          document.querySelector("#cc").innerHTML = null;
+          alert("Easter Egg Game Found!!! Now how to play it?😜");
+        }
+      });
+
+      // Message Popup Functions
+      function showMessagePopup() {
+        document.getElementById("messagePopup").style.display = "block";
+      }
+
+      function closeMessagePopup() {
+        document.getElementById("messagePopup").style.display = "none";
+      }
+
+      // Page Loader and Popup Initialization
+      window.onload = function () {
+        if (typeof myFunction === "function") {
+          myFunction(); // Runs the page loader function from pageload.js
+        }
+        showMessagePopup(); // Show the message popup
+      };
+    </script>
+  </body>
 </html>

@@ -48,14 +48,16 @@ const navbarHTML = `
       </div>
     </div>
     <nav class="navbar">
-      <a href="/index.html" class="logo">
-        <img src="/uploads/branding/favicon.gif" alt="GameVerse Logo">
-      </a>
       <div class="nav-links">
         <a href="/"><i class="fa fa-home fa-lg"></i></a>
         <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
         <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
         <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+        </div>
+        <a href="/index.html" class="logo">
+        <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
+      </a>
+      <div class="nav-links">
         <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
         <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
         <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
