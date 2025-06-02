@@ -10,7 +10,7 @@ html, body {
   padding: 0;
   height: 100%;
   padding-bottom: 250px;
-  cursor: url('/uploads/branding/customcursor.cur'), auto;
+
 }
 /* Hide scrollbar completely but keep scroll functionality */
 
@@ -104,9 +104,7 @@ a:link, a:visited, a:hover, a:active {
   color: white;
 }
 
-a {
-    cursor: url('/uploads/branding/custompointer.cur'), auto;
-}
+
 
 /* Button styling */
 button {
@@ -115,7 +113,7 @@ button {
   color: white;
   border: 1.5px solid white;
   border-radius: 5px;
-  cursor: url('/uploads/branding/custompointer.cur'), auto;
+ 
   margin: 10px;
   transition: background-color 0.2s, box-shadow 0.3s;
   box-shadow: 0 0 10px rgba(174, 84, 255, 0.3);

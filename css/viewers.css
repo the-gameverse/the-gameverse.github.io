@@ -193,3 +193,41 @@ iframe {
 .toggle-button:hover {
     background-color: #8e3bcc;
 }
+
+
+#likeRatioBarContainer {
+  position: absolute;
+  left: 50%;
+  bottom: 75px;
+  transform: translateX(-50%);
+
+  width: 1000px;
+
+
+  box-shadow: 0 2px 12px #000a;
+
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#likeRatioBar {
+  width: 100%;
+  height: 12px;
+
+  overflow: hidden;
+  display: flex;
+  background: none; /* Remove background color */
+}
+
+#likeRatioLike {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+#likeRatioDislike {
+  height: 100%;
+  background: #f44336;
+  transition: width 0.3s cubic-bezier(.4,2,.6,1);
+}

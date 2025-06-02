@@ -6,6 +6,7 @@
     <link rel=stylesheet href=/css/viewers.css>
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/menu.css" />
+        <link rel="stylesheet" href="/css/main.css" />
     <script src="/javascript/menu.js"></script>
     <script src="/javascript/scrollbar.js"></script>
 
@@ -129,10 +130,16 @@
 
         <div id="randomGameContainer" class="collapsed                                                                              "></div>-->
 
+
     <div class="game-container">
       <iframe id="myIframe" src="" allowfullscreen></iframe>
-      <div class="controls">
-        <div class="game-info">
+<!-- Like Ratio Bar -->
+<div id="likeRatioBar" title="No votes yet">
+  <div id="likeRatioLike"></div>
+  <div id="likeRatioDislike"></div>
+</div>
+<div class="controls">
+ <div class="game-info">
           <!-- Game details (image and name) floated to the left -->
           <div class="game-details">
             <img src="" alt="Game Icon" class="game-img" />
@@ -422,23 +429,27 @@ function updateButtonStates() {
     : `${dislikeIcon} <span id="dislikeCount">${dislikeCount.textContent}</span>`;
 }
 
-  async function loadVotes() {
-    const { data, error } = await supabase
-      .from('game_votes')
-      .select('likes, dislikes')
-      .eq('game_id', gameId)
-      .single();
+async function loadVotes() {
+  const { data, error } = await supabase
+    .from('game_votes')
+    .select('likes, dislikes')
+    .eq('game_id', gameId)
+    .single();
 
-    if (data) {
-      likeCount.textContent = data.likes;
-      dislikeCount.textContent = data.dislikes;
-    } else {
-      await supabase.from('game_votes').insert([{ game_id: gameId, likes: 0, dislikes: 0 }], { upsert: true });
-      likeCount.textContent = 0;
-      dislikeCount.textContent = 0;
-    }
-    updateButtonStates();
+  let likes = 0, dislikes = 0;
+  if (data) {
+    likes = data.likes;
+    dislikes = data.dislikes;
+    likeCount.textContent = likes;
+    dislikeCount.textContent = dislikes;
+  } else {
+    await supabase.from('game_votes').insert([{ game_id: gameId, likes: 0, dislikes: 0 }], { upsert: true });
+    likeCount.textContent = 0;
+    dislikeCount.textContent = 0;
   }
+  updateButtonStates();
+  updateLikeRatioBar(likes, dislikes); // <-- Call it here!
+}
 
   likeBtn.addEventListener('click', async () => {
     const liked = !!localStorage.getItem(likeKey);
@@ -478,6 +489,22 @@ function updateButtonStates() {
 
   // Load votes on page load
   loadVotes();
+}
+function updateLikeRatioBar(likes, dislikes) {
+  const likeDiv = document.getElementById('likeRatioLike');
+  const dislikeDiv = document.getElementById('likeRatioDislike');
+  const bar = document.getElementById('likeRatioBar');
+  const total = likes + dislikes;
+  let likePercent = 0, dislikePercent = 0;
+  let titleText = "No votes yet";
+  if (total > 0) {
+    likePercent = Math.round((likes / total) * 100);
+    dislikePercent = 100 - likePercent;
+    titleText = `${likePercent}% like (${likes}👍 / ${dislikes}👎)`;
+  }
+  likeDiv.style.width = likePercent + "%";
+  dislikeDiv.style.width = dislikePercent + "%";
+  bar.title = titleText;
 }
     </script>
     <!-- Particles.JS start -->
