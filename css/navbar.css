@@ -228,10 +228,12 @@
     font-family: inherit;
   }
 }
-body:not(:has(.unsupported-message)) > * {
-  display: none !important;
-}
-.unsupported-message {
-  display: flex !important;
-  /* ...rest of your styles... */
+@media (max-width: 500px) {
+  body > *:not(.unsupported-message) {
+    display: none !important;
+  }
+  .unsupported-message {
+    display: flex !important;
+    /* ...other styles... */
+  }
 }

@@ -5,30 +5,7 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY'
 );
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // --- Mobile device check ---
-  if (window.innerWidth <= 500) {
-    // Reload once to ensure CSS applies
-    if (!sessionStorage.getItem('mobileReloaded')) {
-      sessionStorage.setItem('mobileReloaded', '1');
-      location.reload();
-      return;
-    }
-    const msg = document.createElement('div');
-    msg.className = 'unsupported-message';
-    msg.innerHTML = `
-      <h1>
-        <strong>starship isn't supported on this device</strong>
-      </h1>
-      <p>
-        After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
-        Please use a desktop, laptop, or tablet to access starship.<br><br>
-        Thank you for your understanding!
-      </p>
-    `;
-    document.body.insertBefore(msg, document.body.firstChild); // <-- This is the key!
-    return; // Stop further execution
-  }
+
 
   // --- Navbar Insert ---
   const style = document.createElement('style');
@@ -59,9 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-if (window.innerWidth <= 500) {
-  document.getElementById('unsupported-message').style.display = 'flex';
-}
 
 
 const navbarHTML = `
@@ -101,15 +75,15 @@ const navbarHTML = `
     </div>
   </div>
 
-  <!-- Place this at the very top of your <body> 
-<div class="unsupported-message" id="unsupported-message" style="display:none">
+  <!-- Place this at the very top of your <body> -->
+<div class="unsupported-message" id="unsupported-message" >
  <strong>starship isn't supported on this device</strong>
   <p>
     After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
     Please use a desktop, laptop, or tablet to access starship.<br><br>
     Thank you for your understanding!
   </p>
-</div>-->
+</div>
 `;
 
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
@@ -118,8 +92,8 @@ const navbarHTML = `
 const unsupportedMsg = document.getElementById('unsupported-message');
 if (window.innerWidth <= 500) {
   unsupportedMsg.style.display = 'flex';
-} else {
-  unsupportedMsg.style.display = 'none';
+} else if (unsupportedMsg) {
+  unsupportedMsg.remove();
 }
 
 // Set scrollbar width variable after navbar is in DOM
@@ -295,4 +269,3 @@ function getWeatherIcon(code) {
   // On page load, show streak and start rotation
   resetToDefault();
   setInterval(periodicUpdates, 10000);
-});
