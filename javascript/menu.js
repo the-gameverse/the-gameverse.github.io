@@ -219,18 +219,22 @@ loadClickCountsFromLocalStorage();
 // Handle sorting
 function sortGames() {
   const sortDropdown = document.getElementById("sortOptions");
-  if (!sortDropdown) return; // Check if sortDropdown exists
-  
+    if (!sortDropdown) return;
   currentSortOption = sortDropdown.value;
-  console.log(`Sorting by: ${currentSortOption}`);
   displayGames(); // Re-render games with new sort option
+}
+
+// Function to check if user liked a game (localStorage)
+function isGameLiked(game) {
+  const likeKey = `liked_${game.link}`; // or use game.name if that's your key
+  return !!localStorage.getItem(likeKey);
 }
 
 // Function to display the games
 function displayGames(filter = "") {
   const gameMenu = document.getElementById("gameMenu");
   const gameCount = document.getElementById("gameCount");
-  gameMenu.innerHTML = ""; // Clear the menu
+  gameMenu.innerHTML = "";
 
   // Sort games based on current sort option
   const filteredGames = games
@@ -238,12 +242,18 @@ function displayGames(filter = "") {
     .sort((a, b) => {
       if (currentSortOption === "favorites") {
         if (a.isFavorited !== b.isFavorited) {
-          return b.isFavorited - a.isFavorited; // Favorited games first
+          return b.isFavorited - a.isFavorited;
         }
       } else if (currentSortOption === "clickCount") {
-        return b.clickCount - a.clickCount; // Sort by click count
+        return b.clickCount - a.clickCount;
       } else if (currentSortOption === "alphabetical") {
-        return a.name.localeCompare(b.name); // Alphabetical sorting
+        return a.name.localeCompare(b.name);
+      } else if (currentSortOption === "liked") {
+        // Sort by user liked (localStorage)
+        return isGameLiked(b) - isGameLiked(a);
+      } else if (currentSortOption === "globalLikes") {
+        // Sort by global likes from Supabase
+        return (b.globalLikes || 0) - (a.globalLikes || 0);
       }
       return 0;
     });
@@ -403,4 +413,29 @@ function displayGamesWithSkeleton() {
 }
 
 // Call the function on page load
-window.addEventListener("load", displayGamesWithSkeleton);
+window.addEventListener("load", async () => {
+  await fetchGlobalLikes();
+  displayGamesWithSkeleton();
+});
+async function fetchGlobalLikes() {
+  const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  const { data, error } = await supabase.from('game_votes').select('game_id, likes');
+  if (error) {
+    console.error('Error fetching global likes:', error);
+    return;
+  }
+  games.forEach(game => {
+    const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
+    game.globalLikes = found ? found.likes : 0;
+  });
+}
+  // Map likes to games array
+  games.forEach(game => {
+    // Use game.link as the unique ID (adjust if you use game.name)
+    const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
+    game.globalLikes = found ? found.likes : 0;
+  });
+

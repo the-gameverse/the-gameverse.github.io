@@ -107,7 +107,7 @@
         font-family: Space Grotesk, sans-serif;
       }
       
-/* Firefox */
+
 * {
   scrollbar-width: none !important;
 }
@@ -141,6 +141,11 @@
           <!-- Buttons floated to the right -->
           <div class="buttons">
             <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
+            <!-- Add this where you want the like/dislike counter to appear -->
+
+  <button id="likeBtn" title="Like" style="font-size:1.2em;">👍 <span id="likeCount">0</span></button>
+  <button id="dislikeBtn" title="Dislike" style="font-size:1.2em;">👎 <span id="dislikeCount">0</span></button>
+
             <button id="reloadButton">
               <i class="fa fa-refresh fa-lg"></i>
             </button>
@@ -179,6 +184,7 @@
     <div id="sharePopupMsg" style="font-size:0.95em; color:#7fff7f; text-align:center; margin-top:10px; display:none;"></div>
   </div>
 </div>
+
     <script>
       function redirectIframe(link, name) {
         const iframe = document.getElementById("myIframe");
@@ -362,7 +368,112 @@ sharePopup.addEventListener("click", (e) => {
     gameImage.alt = gameName;
   }
 })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
+    <script type="module">
+// --- Like/Dislike logic ---
+const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const likeBtn = document.getElementById('likeBtn');
+const dislikeBtn = document.getElementById('dislikeBtn');
+const likeCount = document.getElementById('likeCount');
+const dislikeCount = document.getElementById('dislikeCount');
+
+if (likeBtn && dislikeBtn && likeCount && dislikeCount) {
+  const gameId = localStorage.getItem("gameLink") || localStorage.getItem("gameName") || "unknown";
+  const likeKey = `liked_${gameId}`;
+  const dislikeKey = `disliked_${gameId}`;
+
+function updateButtonStates() {
+  const liked = !!localStorage.getItem(likeKey);
+  const disliked = !!localStorage.getItem(dislikeKey);
+
+  // Only disable the opposite button, never the active one
+  likeBtn.disabled = false;
+  dislikeBtn.disabled = false;
+  if (liked) dislikeBtn.disabled = true;
+  if (disliked) likeBtn.disabled = true;
+
+  likeBtn.classList.toggle('active', liked);
+  dislikeBtn.classList.toggle('active', disliked);
+
+  // Set icon classes based on state
+  const likeIcon = liked
+    ? '<i class="fa-solid fa-thumbs-up"></i>'
+    : '<i class="fa-regular fa-thumbs-up"></i>';
+  const dislikeIcon = disliked
+    ? '<i class="fa-solid fa-thumbs-down"></i>'
+    : '<i class="fa-regular fa-thumbs-down"></i>';
+
+  // Change button text for undo
+  likeBtn.innerHTML = liked
+    ? `${likeIcon} <span id="likeCount">${likeCount.textContent}</span>`
+    : `${likeIcon} <span id="likeCount">${likeCount.textContent}</span>`;
+  dislikeBtn.innerHTML = disliked
+    ? `${dislikeIcon} <span id="dislikeCount">${dislikeCount.textContent}</span>`
+    : `${dislikeIcon} <span id="dislikeCount">${dislikeCount.textContent}</span>`;
+}
+
+  async function loadVotes() {
+    const { data, error } = await supabase
+      .from('game_votes')
+      .select('likes, dislikes')
+      .eq('game_id', gameId)
+      .single();
+
+    if (data) {
+      likeCount.textContent = data.likes;
+      dislikeCount.textContent = data.dislikes;
+    } else {
+      await supabase.from('game_votes').insert([{ game_id: gameId, likes: 0, dislikes: 0 }], { upsert: true });
+      likeCount.textContent = 0;
+      dislikeCount.textContent = 0;
+    }
+    updateButtonStates();
+  }
+
+  likeBtn.addEventListener('click', async () => {
+    const liked = !!localStorage.getItem(likeKey);
+    const disliked = !!localStorage.getItem(dislikeKey);
+
+    if (liked) {
+      // Undo like
+      await supabase.rpc('decrement_like', { gid: gameId });
+      localStorage.removeItem(likeKey);
+    } else if (!disliked) {
+      // Like (only if not disliked)
+      await supabase.rpc('increment_like', { gid: gameId });
+      localStorage.setItem(likeKey, "1");
+      localStorage.removeItem(dislikeKey);
+    }
+    updateButtonStates();
+    loadVotes();
+  });
+
+  dislikeBtn.addEventListener('click', async () => {
+    const liked = !!localStorage.getItem(likeKey);
+    const disliked = !!localStorage.getItem(dislikeKey);
+
+    if (disliked) {
+      // Undo dislike
+      await supabase.rpc('decrement_dislike', { gid: gameId });
+      localStorage.removeItem(dislikeKey);
+    } else if (!liked) {
+      // Dislike (only if not liked)
+      await supabase.rpc('increment_dislike', { gid: gameId });
+      localStorage.setItem(dislikeKey, "1");
+      localStorage.removeItem(likeKey);
+    }
+    updateButtonStates();
+    loadVotes();
+  });
+
+  // Load votes on page load
+  loadVotes();
+}
     </script>
     <!-- Particles.JS start -->
     <div id="particles-js"></div>
@@ -373,5 +484,9 @@ sharePopup.addEventListener("click", (e) => {
       <script src="/javascript/notifications.js"></script>
     <script src="/javascript/antitabclose.js"></script>
     <!-- Particles.JS end -->
+
+<script>
+
+</script>
   </body>
 </html>
