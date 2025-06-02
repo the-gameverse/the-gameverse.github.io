@@ -101,7 +101,7 @@ const navbarHTML = `
     </div>
   </div>
 
-  <!-- Place this at the very top of your <body> -->
+  <!-- Place this at the very top of your <body> 
 <div class="unsupported-message" id="unsupported-message" style="display:none">
  <strong>starship isn't supported on this device</strong>
   <p>
@@ -109,7 +109,7 @@ const navbarHTML = `
     Please use a desktop, laptop, or tablet to access starship.<br><br>
     Thank you for your understanding!
   </p>
-</div>
+</div>-->
 `;
 
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
