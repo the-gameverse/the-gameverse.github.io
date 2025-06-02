@@ -117,12 +117,29 @@ if (options.vibrate && navigator.vibrate) {
   window.showNotification = showNotification;
 
   // Example usage:
-  document.addEventListener('DOMContentLoaded', () => {
-    showNotification("Welcome to the new update!", {
-      body: "Check out the new features we've added.",
-      duration: 5000,
-      persistClose: true,
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  showNotification("Welcome to the new update!", {
+    body: "We've made some exciting changes to improve your experience. <br><br> Some of the new features include: <br> - Improved performance <br> - New user interface <br> - Like/dislike buttons <br> - Sort By Trending <br> - Sort By Global Likes <br> - Larger game frames <br> - UI updates <br> - A new notification system <br> - Accounts <br> - Weather for Dynamic Island <br><br> We've also added 2 new games, from the request forms. <br><br>We hope you enjoy this update! Thank you for being a part of our community.",
+    sticky: true,         // No timer, stays until closed
+    persistClose: true,   // Don't show again if closed
+    sound: true,          // Play sound
 
   });
+
+  showNotification("Privacy Policy Updated", {
+    body: "We've updated our privacy policy. Please review the changes at <a href='/legal' style='text-decoration:underline;'>this link</a>.",
+    sticky: true,         // No timer, stays until closed
+    persistClose: true,   // Don't show again if closed
+    sound: true,          // Play sound
+  });
+
+    showNotification("Leave us a review!", {
+    body: "If you enjoy using our site, please consider leaving a review. It helps us improve and reach more users! <br><br> Leave a review <a href='/reviews' style='text-decoration:underline;'>here.</a>",
+    duration: 10000,      // Auto-dismiss after 10 seconds
+    persistClose: true,   // Don't show again if closed
+    sound: true,          // Play sound
+  });
+});
+
 })();
+// End of notifications.js

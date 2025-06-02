@@ -63,7 +63,6 @@ const games = [
 { name: "Head Soccer 2022", image: "/uploads/covers/headsoccer2022.png", link: "https://www.hoodamath.com/mobile/games/head-soccer/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Fall Beans", image: "/uploads/covers/fallbeans.png", link: "https://www.hoodamath.com/mobile/games/fall-beans/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Ball Blast", image: "/uploads/covers/ballblast.png", link: "https://scratch.mit.edu/projects/472077983/embed", path: "/play", clickCount: 0, isFavorited: false },
-{ name: "Cookie Clicker", image: "/uploads/covers/cookieclicker.png", link: "https://www.hoodamath.com/mobile/games/cookie-clicker/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Falling Cubes", image: "/uploads/covers/fallingcubes.png", link: "https://www.hoodamath.com/mobile/games/falling-cubes/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Fancy Diver", image: "/uploads/covers/fancydiver.png", link: "https://www.hoodamath.com/mobile/games/fancy-diver/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
 { name: "Jelly Slice", image: "/uploads/covers/jellyslice.png", link: "https://www.hoodamath.com/mobile/games/jelly-slice/game.html?nocheckorient=1", path: "/play", clickCount: 0, isFavorited: false },
