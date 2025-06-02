@@ -103,7 +103,7 @@ const navbarHTML = `
 
   <!-- Place this at the very top of your <body> -->
 <div class="unsupported-message" id="unsupported-message" style="display:none">
-  <h1><strong>starship isn't supported on this device</strong></h1>
+ <strong>starship isn't supported on this device</strong>
   <p>
     After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
     Please use a desktop, laptop, or tablet to access starship.<br><br>
