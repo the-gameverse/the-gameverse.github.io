@@ -81,6 +81,8 @@ if (window.innerWidth <= 500) {
 // ...existing code...
 
 const navbarHTML = `
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
   <div class="navbar-container">
     <div class="nav-center-bg">
       <div id="streak" class="streak-container">
