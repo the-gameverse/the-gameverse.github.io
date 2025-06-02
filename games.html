@@ -190,32 +190,35 @@ const greetings = [
   "Fancy seeing you here, {username}",
 ];
 
-async function setWelcome() {
-  const { data: { user } } = await supabase.auth.getUser();
-  let username = "Guest";
-  if (user) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('id', user.id)
-      .maybeSingle();
-    if (profile && profile.username) {
-      username = profile.username;
-    }
-  }
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)].replace('{username}', username);
-  setTimeout(() => {
-    document.querySelector('.welcome').textContent = greeting;
-  }, 5000); // 5 second delay
-}
-
-setWelcome();
-</script>
-<script>
-  // Load YouTube IFrame API
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
+      async function setWelcome() {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        let username = "Guest";
+        if (user) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("username")
+            .eq("id", user.id)
+            .maybeSingle();
+          if (profile && profile.username) {
+            username = profile.username;
+          }
+        }
+        const greeting = greetings[
+          Math.floor(Math.random() * greetings.length)
+        ].replace("{username}", username);
+        setTimeout(() => {
+          document.querySelector(".welcome").textContent = greeting;
+        }, 5000); // 5 second delay
+      }
+    </script>
+    <!--  -->
+    <script>
+      // Load YouTube IFrame API
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
 
   // Create the player when API is ready
   var player;
