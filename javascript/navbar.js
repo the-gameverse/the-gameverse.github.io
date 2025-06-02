@@ -8,19 +8,25 @@ const supabase = createClient(
 document.addEventListener('DOMContentLoaded', async () => {
   // --- Mobile device check ---
   if (window.innerWidth <= 500) {
+    // Reload once to ensure CSS applies
+    if (!sessionStorage.getItem('mobileReloaded')) {
+      sessionStorage.setItem('mobileReloaded', '1');
+      location.reload();
+      return;
+    }
     const msg = document.createElement('div');
     msg.className = 'unsupported-message';
-      msg.innerHTML = `
- 
-      <strong>starship isn't supported on this device</strong>
-    
-    <p>
-      After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
-      Please use a desktop, laptop, or tablet to access starship.<br><br>
-      Thank you for your understanding!
-    </p>
-  `;
-  document.body.appendChild(msg);
+    msg.innerHTML = `
+      <h1>
+        <strong>starship isn't supported on this device</strong>
+      </h1>
+      <p>
+        After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
+        Please use a desktop, laptop, or tablet to access starship.<br><br>
+        Thank you for your understanding!
+      </p>
+    `;
+    document.body.insertBefore(msg, document.body.firstChild); // <-- This is the key!
     return; // Stop further execution
   }
 
