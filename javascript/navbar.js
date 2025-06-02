@@ -59,32 +59,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-// ...existing code...
 if (window.innerWidth <= 500) {
-  // If not already reloaded, reload once to ensure CSS applies
-  if (!sessionStorage.getItem('mobileReloaded')) {
-    sessionStorage.setItem('mobileReloaded', '1');
-    location.reload();
-    return;
-  }
-  const msg = document.createElement('div');
-  msg.className = 'unsupported-message';
-  msg.innerHTML = `
-  
-    <h1>
-      <strong>starship isn't supported on this device</strong>
-    </h1>
-    <p>
-      After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
-      Please use a desktop, laptop, or tablet to access starship.<br><br>
-      Thank you for your understanding!
-    </p>
-  `;
-  document.body.appendChild(msg);
-  return; // Stop further execution
+  document.getElementById('unsupported-message').style.display = 'flex';
 }
-// ...existing code...
-// ...existing code...
+
 
 const navbarHTML = `
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,6 +101,15 @@ const navbarHTML = `
     </div>
   </div>
 
+  <!-- Place this at the very top of your <body> -->
+<div class="unsupported-message" id="unsupported-message" style="display:none">
+  <h1><strong>starship isn't supported on this device</strong></h1>
+  <p>
+    After careful consideration, we decided to cancel support for mobile devices due to display and usability issues.<br>
+    Please use a desktop, laptop, or tablet to access starship.<br><br>
+    Thank you for your understanding!
+  </p>
+</div>
 `;
 
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
