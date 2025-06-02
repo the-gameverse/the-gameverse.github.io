@@ -255,6 +255,10 @@ function displayGames(filter = "") {
         // Sort by global likes from Supabase
         return (b.globalLikes || 0) - (a.globalLikes || 0);
       }
+      else if (currentSortOption === "trending") {
+      // Sort by global clicks from Supabase
+      return (b.globalClicks || 0) - (a.globalClicks || 0);
+      }
       return 0;
     });
 
@@ -361,6 +365,7 @@ function displayRandomGames() {
       redirectIframe(game.link, game.name); // Call the redirect function with the game link and name
       localStorage.setItem('gameLink', game.link); // Save game link to localStorage
       localStorage.setItem('gameName', game.name); // Save game name to localStorage
+      
     });
 
     // Add all elements to the gameDiv
@@ -415,6 +420,7 @@ function displayGamesWithSkeleton() {
 // Call the function on page load
 window.addEventListener("load", async () => {
   await fetchGlobalLikes();
+  await fetchGlobalClicks();
   displayGamesWithSkeleton();
 });
 async function fetchGlobalLikes() {
@@ -438,4 +444,18 @@ async function fetchGlobalLikes() {
     const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
     game.globalLikes = found ? found.likes : 0;
   });
+async function fetchGlobalClicks() {
+  const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+  const { data, error } = await supabase.from('game_votes').select('game_id, clicks');
+  if (error) {
+    console.error('Error fetching global clicks:', error);
+    return;
+  }
+  games.forEach(game => {
+    const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
+    game.globalClicks = found ? found.clicks : 0;
+  });
+}

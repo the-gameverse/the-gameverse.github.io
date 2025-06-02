@@ -377,13 +377,18 @@ const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+// Define gameId at the top so it's available everywhere
+const gameId = localStorage.getItem("gameLink") || localStorage.getItem("gameName") || "unknown";
+
+// Now you can safely use gameId
+await supabase.rpc('increment_clicks', { gid: gameId });
+
 const likeBtn = document.getElementById('likeBtn');
 const dislikeBtn = document.getElementById('dislikeBtn');
 const likeCount = document.getElementById('likeCount');
 const dislikeCount = document.getElementById('dislikeCount');
 
 if (likeBtn && dislikeBtn && likeCount && dislikeCount) {
-  const gameId = localStorage.getItem("gameLink") || localStorage.getItem("gameName") || "unknown";
   const likeKey = `liked_${gameId}`;
   const dislikeKey = `disliked_${gameId}`;
 
