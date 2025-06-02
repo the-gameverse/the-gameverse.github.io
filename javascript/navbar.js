@@ -114,6 +114,14 @@ const navbarHTML = `
 
   document.body.insertAdjacentHTML('afterbegin', navbarHTML);
 
+// Show or hide the unsupported message based on device width
+const unsupportedMsg = document.getElementById('unsupported-message');
+if (window.innerWidth <= 500) {
+  unsupportedMsg.style.display = 'flex';
+} else {
+  unsupportedMsg.style.display = 'none';
+}
+
 // Set scrollbar width variable after navbar is in DOM
 function getScrollbarWidth() {
   return window.innerWidth - document.documentElement.clientWidth;
