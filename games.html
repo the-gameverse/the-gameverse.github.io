@@ -136,8 +136,7 @@
     </center>
 
     <!-- Particles.JS Background -->
-    <!--<div id="particles-js"></div>-->
-    
+    <div id="particles-js"></div>    
     <!-- All Script Links -->
      <!-- Navbar -->
     <script type="module" src="/javascript/navbar.js"></script>
@@ -155,7 +154,7 @@
     <!-- Notifications -->
     <script src="/javascript/notifications.js"></script>
     <!-- Games Menu -->
-    <script src="/javascript/menu.js"></script>
+    <script type="module" src="/javascript/menu.js"></script>
     <!-- Scrollbar -->
     <script src="/javascript/scrollbar.js"></script>
 
@@ -205,41 +204,7 @@
 
       setWelcome();
     </script>
-    <!-- Youtube Background Script -->
-    <script>
-      // Load YouTube IFrame API
-      var tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
-
-      // Create the player when API is ready
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player("yt-bg", {
-          videoId: "ibNrPjETR_k",
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            loop: 1,
-            fs: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 3,
-            autohide: 0,
-            mute: 1,
-            playlist: "ibNrPjETR_k", // Needed for looping
-            start: 11, // <-- Start at 7 seconds
-          },
-          events: {
-            onReady: function (e) {
-              e.target.mute();
-              e.target.playVideo();
-            },
-          },
-        });
-      }
-    </script>
+   
     <!-- Easter Egg Script -->
     <script>
       let clicks = 0;
