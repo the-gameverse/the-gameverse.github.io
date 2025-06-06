@@ -1,0 +1,627 @@
+.blog, .games, .admins {
+  width: 40%;
+  max-height: 30rem;
+  float: left;
+  border: 2px solid white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.controls a {
+  text-decoration: none;
+  font-size: 50px;
+}
+
+.controls h3 {
+  margin: 0;
+  font-size: 30px;
+  color: white;
+}
+
+#creategame a,
+#createBlogPost {
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#creategame a:hover,
+#createBlogPost:hover {
+  color: lightblue;
+}
+
+/* Add this to admin.css or main.css */
+.admin-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+.blog,
+.games {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.centercontainer {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog,
+.games {
+  padding: 20px;
+  /* margin-bottom: 30px; */
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.game {
+  position: relative;
+  background-color: #111827;
+  border: 1px solid #a78bfa;
+  height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px #7c3aed;
+  width: 100%; /* Takes full width of grid column */
+}
+
+.gamedisplay {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.game a.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.game a {
+  z-index: 0;
+}
+
+.game img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px 0 0 15px;
+  transition: transform 0.3s ease;
+}
+
+.game:hover img {
+  transform: scale(1.3);
+}
+
+.game:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.game h4 {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.game:hover h4 {
+  opacity: 1;
+}
+
+center {
+  max-width: 75rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.post {
+  position: relative;
+  background-color: #111827;
+  border: 1px solid #a78bfa;
+  height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px #7c3aed;
+  width: 100%; /* Takes full width of grid column */
+}
+
+.blogposts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.post a.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.post a {
+  z-index: 0;
+}
+
+.post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px 0 0 15px;
+  transition: transform 0.3s ease;
+}
+
+.post:hover img {
+  transform: scale(1.3);
+}
+
+.post:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.post h4 {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.post:hover h4 {
+  opacity: 1;
+}
+
+.game h4,
+.post h4 {
+  font-size: 16px; /* Slightly larger for better readability */
+  font-weight: 600; /* Make it a bit bolder */
+  padding: 0 12px; /* Add some horizontal padding */
+  text-align: center; /* Keep centered text */
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: #ddd; /* Softer white for less harshness */
+  backdrop-filter: blur(8px); /* Slightly stronger blur */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65); /* Slightly lighter black overlay */
+}
+
+/* Keep the hover effect but slightly smoother */
+.game:hover h4,
+.post:hover h4 {
+  opacity: 1;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90vh;
+  overflow: auto; /* allow scrolling */
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  background: #111827;
+  border: 1px solid #a78bfa;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh; /* this is the key */
+  overflow: auto; /* allow internal scroll */
+  color: white;
+  position: relative;
+}
+
+.overlay-body {
+  overflow: auto;
+  max-height: calc(90vh - 40px); /* accounts for padding, close button, etc */
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #ff4d4d;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  background: #1f2937;
+  border: 1px solid #6b7280;
+  color: white;
+  border-radius: 8px;
+}
+
+.viewingimg {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  background-color: #1f2937;
+  border-radius: 15px;
+  overflow: hidden;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  gap: 10px;
+}
+
+.post img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.post-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.edit-icon {
+  color: #a78bfa;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.edit-icon:hover {
+  color: #c4b5fd;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1f2937; /* Dark background */
+  border-radius: 16px;
+  overflow: hidden;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  padding: 0;
+  height: max-content;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.post-thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 2px solid #a78bfa;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.post-title {
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: #a78bfa;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.edit-btn:hover {
+  color: #c4b5fd;
+}
+
+/* Overlay form input styles */
+#overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#overlay form label {
+  color: #d1d5db; /* Tailwind gray-300 */
+  font-weight: 500;
+}
+
+#overlay form input[type="text"],
+#overlay form input[type="url"],
+#overlay form input[type="file"],
+#overlay form input[type="email"],
+#overlay form select,
+#overlay form textarea {
+  background-color: #1f2937; /* Tailwind gray-800 */
+  color: white;
+  border: 1px solid #4b5563; /* Tailwind gray-600 */
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#overlay form input:focus,
+#overlay form select:focus,
+#overlay form textarea:focus {
+  outline: none;
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px #a78bfa88;
+}
+
+/* Style the submit button */
+#overlay form button[type="submit"] {
+  background-color: #a78bfa;
+  color: #111827;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#overlay form button[type="submit"]:hover {
+  background-color: #c4b5fd;
+}
+
+.overlay-content textarea {
+  resize: vertical; /* only vertical resize */
+  width: 100%; /* fill container width */
+  min-height: 100px; /* minimum height */
+  box-sizing: border-box; /* include padding/border in width */
+  overflow: hidden; /* hide scrollbar, we control height */
+  font-family: inherit; /* inherit font */
+  font-size: 1rem;
+}
+
+.overlay-content input[type="text"],
+.overlay-content input[type="url"],
+.overlay-content input[type="file"],
+.overlay-content input[type="email"]
+.overlay-content select {
+  width: auto; /* allow width to adjust */
+  min-width: 100px; /* don't shrink too much */
+  max-width: 100%; /* max width 100% of container */
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 6px 8px;
+}
+
+.markdown-preview {
+  display: none;
+}
+
+#postContent {
+  background-color: #1f2937;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1f2937;
+  border-radius: 15px;
+  /* padding: 16px; */
+  gap: 12px;
+  width: max; /* or whatever fits your layout */
+  color: white;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.game-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid #A78BFA;
+  object-fit: cover;
+}
+
+/* Middle row: info on left, edit on right */
+.game-meta-row {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 65px;
+  padding: 0 15px 0 15px;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: #10b981;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.edit-btn:hover {
+  color: #6ee7b7;
+}
+
+/* Notification Center Styles */
+/* .notificationcontrol {
+  width: 50%;
+  max-height: 30rem;
+  float: left;
+  border: 2px solid white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+} */
+
+/* Admin Control Styles */
+.admins {
+  width: 90%;
+  height: fit-content;
+  border: 2px solid white;
+  border-radius: 30px;
+  font-family: Inter;
+  padding: 15px 25px;
+  /* margin-top: 40px; */
+}
+
+.admins .controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admins h3 {
+  margin: 0;
+}
+
+.admin-table {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+  font-family: Inter;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #374151;
+  text-align: left;
+}
+
+.admin-table th {
+  /* background-color: #111827; */
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.admin-table td img {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.admin-table .remove-btn {
+  background: none;
+  border: none;
+  color: #f87171;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.admin-table .remove-btn:hover {
+  border: none;
+  color: #ef4444;
+}

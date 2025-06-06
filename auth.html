@@ -336,6 +336,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
       if (!username) {
         username = user.email ? user.email.split('@')[0] : 'No Username Found';
       }
+      localStorage.setItem('loggedInUser', JSON.stringify({ id: user.id, username }));
       await supabaseClient
         .from('profiles')
         .insert([{ id: user.id, username, avatar_url: null }]);

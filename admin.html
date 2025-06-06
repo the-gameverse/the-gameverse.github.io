@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Page Title and Favicon -->
+    <title>starship - game menu</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+
+    <!-- Google AdSense and Google Analytics -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+      crossorigin="anonymous"
+    ></script>
+    <!-- End Google AdSense -->
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-ZZH4JE7RJF");
+    </script>
+    <!-- End Google Tag -->
+
+    <!-- Inline Styles for Popup -->
+    <style>
+      /* Popup styling */
+      .messagePopup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        text-align: center;
+        max-width: 400px;
+        z-index: 1000;
+        display: none;
+      }
+      .messagePopup button {
+        background: red;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .messagePopup button:hover {
+        background: darkred;
+      }
+      /* Add to your <style> section or a CSS file */
+      #yt-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #yt-bg iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120vw;
+        height: 68vw; /* 16:9 ratio, oversize for cover */
+        min-width: 100vw;
+        min-height: 100vh;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+    </style>
+
+    <!-- Markdown Support -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/easymde/dist/easymde.min.css"
+    />
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+  </head>
+  <body style="margin: 0">
+    <!-- Navigation Bar -->
+    <div id="navbar"></div>
+
+    <!-- NoScript Fallback -->
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
+
+    <div class="centercontainer">
+      <br />
+      <h2 class="welcome" style="font-family: Inter">
+        Welcome, <span id="user"></span>
+      </h2>
+      <div class="admin-container">
+        <div class="blog" style="font-family: Inter">
+          <div class="controls">
+            <h3>Blog Posts</h3>
+            <h3 id="createBlogPost"><a href="">+</a></h3>
+          </div>
+          <div class="blogposts">
+            <div class="post-card">
+              <img
+                class="post-thumbnail"
+                src="./uploads/covers/blog/screentime.png"
+                alt="Blog cover"
+              />
+              <div class="post-info">
+                <h4 class="post-title">This is a post.</h4>
+                <button class="edit-btn" title="Edit">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+              </div>
+              <p
+                class="markdown-preview"
+                data-markdown="
+# Fleet Upgrade 2025: Lightspeed Just Got an Update
+![Fleet Upgrade 2025](/uploads/covers/blog/fleet-upgrade-2025.png)
+
+**Posted on:** June 4, 2025  
+**Author:** **Nova Lin**, Fleet Systems Architect
+
+---
+
+Buckle up, commanders — Starship just dropped a massive fleet upgrade that’s pushing our capabilities straight into warp territory. We’ve reworked core systems, overhauled ship AI, and introduced dynamic starpath routing to reduce average mission times by 34%.
+
+## 🚀 What’s New?
+
+- **Reactive Shielding 2.0:** Shields now adapt in real-time to threats. Photon blasts? Barely a scratch.  
+- **Quantum Drive Syncing:** Multi-ship jumps now operate on entangled frequencies, allowing perfect coordination.  
+- **Onboard AI Avatars:** All ships now feature customizable AI copilots with deep learning. Name yours anything. Yes, even “Jeff”.
+
+## 📡 StarNet Linkage
+
+Fleet Command is now fully integrated with StarNet V, enabling real-time data streams across systems. Want live heatmaps of pirate activity near Drelon’s Belt? Done. It’s like Waze, but for interstellar chaos.
+
+## 🌌 Ready to Upgrade?
+
+Your dashboard will prompt you for the upgrade at your next login. Or hit the override command `/upgrade_fleet_now` in your Command Console.
+
+---
+
+This is only the beginning. The 2025 roadmap still has two major updates coming — one of which rhymes with “wormhole crafting.” Stay tuned. Stay dangerous.
+
+**Tags:** `#FleetUpgrade` `#StarshipTech` `#2025Roadmap`
+
+                "
+              >
+                Preview text
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="games">
+          <div class="controls">
+            <h3>Games</h3>
+            <h3 id="createGame"><a href="">+</a></h3>
+          </div>
+          <div class="gamedisplay">
+            <div class="game-card" data-url="https://example.com/game">
+              <img
+                class="game-thumbnail"
+                src="https://placehold.co/150x150/png?text=REALLY+COOL+GAME"
+                alt="Game Thumbnail"
+              />
+              <div class="game-meta-row">
+                <div class="game-info">
+                  <h4 class="game-title">Cool Game Title</h4>
+                </div>
+                <button class="edit-btn" title="Edit">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="admins">
+          <div class="controls">
+            <h3>Admins</h3>
+            <h3 id="addAdminTrigger"><a href="#">+</a></h3>
+          </div>
+          <div class="admin-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Avatar</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th></th>
+                  <!-- For delete icon -->
+                </tr>
+              </thead>
+              <tbody id="adminList">
+                <tr>
+                  <td>
+                    <img
+                      src="https://api.dicebear.com/7.x/thumbs/svg?seed=Nova"
+                      alt="Nova Lin's avatar"
+                      style="
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 999px;
+                        object-fit: cover;
+                      "
+                    />
+                  </td>
+                  <td>Nova Lin</td>
+                  <td>nova@starship.global</td>
+                  <td>Fleet Architect</td>
+                  <td>
+                    <button class="remove-btn" title="Remove admin">✖</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="https://api.dicebear.com/7.x/thumbs/svg?seed=Nova"
+                      alt="Nova Lin's avatar"
+                      style="
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 999px;
+                        object-fit: cover;
+                      "
+                    />
+                  </td>
+                  <td>Nova Lin</td>
+                  <td>nova@starship.global</td>
+                  <td>Fleet Architect</td>
+                  <td>
+                    <button class="remove-btn" title="Remove admin">✖</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="https://api.dicebear.com/7.x/thumbs/svg?seed=Nova"
+                      alt="Nova Lin's avatar"
+                      style="
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 999px;
+                        object-fit: cover;
+                      "
+                    />
+                  </td>
+                  <td>Nova Lin</td>
+                  <td>nova@starship.global</td>
+                  <td>Fleet Architect</td>
+                  <td>
+                    <button class="remove-btn" title="Remove admin">✖</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+    </div>
+
+    <!-- Particles.JS Background -->
+    <div id="particles-js"></div>
+
+    <!-- Overlay HTML -->
+    <div id="overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <span class="close-btn" onclick="closeOverlay()">×</span>
+        <div id="overlay-body"></div>
+      </div>
+    </div>
+
+    <!-- All Script Links -->
+    <!-- Navbar -->
+    <script type="module" src="/javascript/navbar.js"></script>
+    <!-- Footer -->
+    <script src="/javascript/footer.js"></script>
+    <!-- Panic Button -->
+    <script src="/javascript/panic.js"></script>
+    <!-- Cloaking -->
+    <script src="/javascript/cloaking.js"></script>
+    <!-- Anti Tab-Close -->
+    <script src="/javascript/antitabclose.js"></script>
+    <!-- Particles (not used anymore) -->
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+    <!-- Notifications -->
+    <script src="/javascript/notifications.js"></script>
+    <!-- All Admin Scripts -->
+    <script src="/javascript/alladmin.js"></script>
+    <!-- Scrollbar -->
+    <script src="/javascript/scrollbar.js"></script>
+
+    <!-- All non-linked scripts -->
+    <!-- UI Helper Script -->
+    <script>
+      // Say Hi to the user
+      let user = "Admin";
+      const stored = localStorage.getItem("loggedInUser");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.username) user = parsed.username;
+        } catch (e) {}
+      }
+      console.log(`Welcome, ${user}!`);
+      const welcomeElement = document.querySelector("#user");
+      if (welcomeElement) welcomeElement.textContent = user;
+      // If you want to change the greeting after 5 seconds, define 'greeting' first:
+      // const greeting = `Hello again, ${user}!`;
+      // setTimeout(() => {
+      //   document.querySelector(".welcome").textContent = greeting;
+      // }, 5000);
+    </script>
+    <!-- Overlay -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Markdown Parser -->
+    <script>
+      function openOverlay(contentHTML) {
+        document.getElementById("overlay-body").innerHTML = contentHTML;
+        document.getElementById("overlay").classList.remove("hidden");
+
+        setupAutoResizeForTextareas();
+      }
+
+      function closeOverlay() {
+        document.getElementById("overlay").classList.add("hidden");
+        document.getElementById("overlay-body").innerHTML = "";
+      }
+
+      // Define Overlay Screens
+      const overlayScreens = {
+        viewblogpost: `
+          <img src="{blogpostimg}" alt="Blog Cover" class="viewingimg"/>
+          <h2>{blogpostitle}</h2>
+          <p>{blogpostcontent}</p>
+        `,
+        editblogpost: `
+          <h2>{createoredit} Blog Post</h2>
+          <form id="blogForm">
+            <label for="blogCover">Blog Cover Image:</label><br>
+            <input type="file" id="blogCover" name="blogCover" accept="image/*" /><br><br>
+
+            <label for="postTitle">Post Title:</label><br>
+            <input type="text" id="postTitle" name="postTitle" required /><br><br>
+
+            <label for="postContent">Content:</label><br>
+           <textarea id="postContent" name="postContent" required></textarea><br><br>
+
+           <button type="submit">Submit</button><br>
+         </form>
+        `,
+        editgame: `
+          <h2>{createoredit} Game</h2>
+          <form id="gameForm">
+            <label for="gameName">Game Name:</label>
+            <input type="text" id="gameName" name="gameName" required />
+            <label for="gameCover">Game Cover:</label>
+            <input type="file" id="gameCover" name="gameCover" required />
+            <label for="gameURL">Game URL:</label>
+            <input type="url" id="gameURL" name="gameURL" required />
+            <button type="submit">Submit</button>
+          </form>
+        `,
+        addAdmin: `
+          <h2>Add Admin</h2>
+          <form id="addAdminForm">
+            <label for="adminUsername">Username:</label>
+            <input type="text" id="adminUsername" name="adminUsername" required />
+            <label for="adminEmail">Email:</label>
+            <input type="email" id="adminEmail" name="adminEmail" required />
+            <label for="adminRole">Role:</label>
+            <select id="adminRole" name="adminRole">
+              <option value="admin">Super Admin</option>
+              <option value="moderator">Admin</option>
+              <option value="adder">Game Adder</option>
+            </select>
+            <button type="submit">Add Admin</button>
+          </form>
+        `,
+      };
+
+      // Hook blog post clicks to open view overlay
+      document.querySelectorAll(".post-card").forEach((post) => {
+        post.addEventListener("click", (e) => {
+          if (e.target.closest(".edit-btn")) return;
+
+          const title = post.querySelector(".post-title").textContent;
+          const imgSrc = post.querySelector(".post-thumbnail").src;
+          const content = post.querySelector("p").dataset.markdown || "";
+
+          const markedContent = marked.parse(content);
+          const html = overlayScreens.viewblogpost
+            .replace("{blogpostimg}", imgSrc)
+            .replace("{blogpostitle}", title)
+            .replace("{blogpostcontent}", markedContent);
+
+          openOverlay(html);
+        });
+      });
+
+      // Hook game clicks to open edit game overlay
+      document.querySelectorAll(".game-card").forEach((game) => {
+        game.addEventListener("click", () => {
+          const name = game.querySelector(".game-title").textContent;
+          const imgSrc = game.querySelector(".game-thumbnail").src;
+          const gameUrl = game.dataset.url;
+
+          const html = overlayScreens.editgame.replace(
+            "{createoredit}",
+            "Edit"
+          );
+          openOverlay(html);
+
+          setTimeout(() => {
+            document.getElementById("gameName").value = name;
+            document.getElementById("gameURL").value = gameUrl;
+            // Note: file input can't be pre-filled for security
+          }, 50);
+        });
+      });
+
+      document
+        .getElementById("createBlogPost")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          const html1 = overlayScreens.editblogpost.replace(
+            "{createoredit}",
+            "Create"
+          );
+          openOverlay(html1);
+        });
+
+      document.getElementById("createGame").addEventListener("click", (e) => {
+        e.preventDefault();
+        openOverlay(
+          overlayScreens.editgame.replace("{createoredit}", "Create")
+        );
+      });
+
+      document.querySelectorAll(".post-card .edit-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevents triggering the post overlay if needed
+
+          const post = btn.closest(".post-card");
+          const title = post.querySelector(".post-title").textContent;
+          const content = post.querySelector("p").dataset.markdown || "";
+
+          const html = overlayScreens.editblogpost.replace(
+            "{createoredit}",
+            "Edit"
+          );
+
+          openOverlay(html);
+
+          setTimeout(() => {
+            document.getElementById("postTitle").value = title;
+            document.getElementById("postContent").value = content;
+          }, 50);
+        });
+      });
+
+      document.querySelectorAll(".game-card").forEach((game) => {
+        game.addEventListener("click", () => {
+          const name = game.querySelector(".game-title").textContent;
+          const imgSrc = game.querySelector(".game-thumbnail").src;
+          const gameUrl = game.dataset.url;
+
+          const html = overlayScreens.editgame.replace(
+            "{createoredit}",
+            "Edit"
+          );
+          openOverlay(html);
+
+          setTimeout(() => {
+            document.getElementById("gameName").value = name;
+            document.getElementById("gameURL").value = gameUrl;
+            // Note: file input can't be pre-filled for security
+          }, 50);
+        });
+      });
+
+      // Trigger overlay when + is clicked
+      document
+        .getElementById("addAdminTrigger")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+
+          const html = overlayScreens.addAdmin.replace("{createoredit}", "Add");
+          openOverlay(html);
+
+          // Attach form handler after overlay is injected
+          setTimeout(() => {
+            const form = document.getElementById("addAdminForm");
+            const usernameInput = document.getElementById("adminUsername");
+            const emailInput = document.getElementById("adminEmail");
+
+            form.addEventListener("submit", (e) => {
+              e.preventDefault();
+
+              const username = usernameInput.value.trim();
+              const email = emailInput.value.trim();
+
+              if (!username || !email) {
+                alert("Please fill in both fields.");
+                return;
+              }
+
+              // Replace this with your actual backend/Supabase call
+              console.log(`Adding admin: ${username} (${email})`);
+
+              // Simulate success
+              alert(`✅ Admin "${username}" added successfully!`);
+              form.reset();
+              closeOverlay(); // Optionally close the overlay
+            });
+          }, 50);
+        });
+    </script>
+    <!-- CSS Helper -->
+    <script>
+      function autoResizeTextarea(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+      }
+
+      function setupAutoResizeForTextareas() {
+        document
+          .querySelectorAll(".overlay-content textarea")
+          .forEach((textarea) => {
+            autoResizeTextarea(textarea);
+            textarea.addEventListener("input", () =>
+              autoResizeTextarea(textarea)
+            );
+          });
+      }
+    </script>
+    <!-- EasyMDE Support -->
+    <script>
+      let easyMDE;
+
+      function openOverlay(html) {
+        document.getElementById("overlay-body").innerHTML = html;
+        document.getElementById("overlay").classList.remove("hidden");
+
+        setTimeout(() => {
+          if (document.getElementById("postContent")) {
+            easyMDE = new EasyMDE({
+              element: document.getElementById("postContent"),
+            });
+          }
+        }, 50);
+      }
+    </script>
+  </body>
+</html>

@@ -193,6 +193,7 @@
             .maybeSingle();
           if (profile && profile.username) {
             username = profile.username;
+            localStorage.setItem("loggedInUser", JSON.stringify(profile));
           }
         }
         const greeting = greetings[

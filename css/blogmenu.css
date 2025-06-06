@@ -298,5 +298,5 @@ input:hover, select:hover, button:hover {
 }
 
 body.overlay-open {
-  overflow: hidden;
+  overflow:auto;
 }
