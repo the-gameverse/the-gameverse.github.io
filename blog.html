@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Page Title and Favicon -->
     <title>starship - our blog</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
 
@@ -10,65 +9,53 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/blogmenu.css">
 
-    <!-- JavaScript for Page Load -->
+    <!-- JS (Non-module) -->
     <script src="/javascript/pageload.js"></script>
 
-    <!-- Google AdSense and Google Analytics -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779" crossorigin="anonymous"></script>
 
-     <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
       gtag('config', 'G-ZZH4JE7RJF');
     </script>
 </head>
 <body onload="myFunction()" style="margin:0;">
-    <!-- Navigation Bar -->
+    <!-- Navigation -->
     <div id="navbar"></div>
     <script type="module" src="/javascript/navbar.js"></script>
 
     <!-- Footer -->
     <script src="/javascript/footer.js"></script>
 
-    <!-- NoScript Fallback -->
-    <noscript>
-        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
-    </noscript>
+    <!-- NoScript Redirect -->
+    <noscript><meta http-equiv="refresh" content="0; url=/errors/noscript" /></noscript>
 
-    <!-- Loader Section -->
+    <!-- Loader -->
     <div id="loader-container">
         <div id="loader"></div>
     </div>
-    <div id="loadertext">
-        <h3>Loading...</h3>
-    </div>
+    <div id="loadertext"><h3>Loading...</h3></div>
 
     <!-- Main Content -->
     <div style="display:none;" id="myDiv" class="animate-bottom">
         <div id="zoom">
-            <!-- Blog Header -->
             <h1 style="font-size:50px;" class="gradient-red">Blog</h1>
             <p class="gradient-red" style="font-size:15px;">LATEST NEWS: starship February Updates</p>
             <hr style="border:3px solid white">
 
-            <!-- Blog Controls -->
             <div class="controls">
-                <!-- Search Input -->
                 <input type="text" id="search" placeholder="Search all blog posts" oninput="filterBlogPosts()" />
-
-                <!-- Sorting Dropdown -->
                 <select id="sortOptions" onchange="sortBlogPosts()">
                     <option value="age">Sort by Age</option>
                     <option value="alphabetical">Sort Alphabetically</option>
                 </select>
             </div>
 
-            <!-- Blog Overlay -->
             <div id="overlay">
                 <button class="close-btn" onclick="closeOverlay()"><i class="fas fa-times"></i></button>
                 <div class="overlay-content">
@@ -77,24 +64,25 @@
                 </div>
             </div>
 
-            <!-- Blog Post Count -->
             <p id="blogPostCount">Blog Posts Loaded: 0</p>
-
-            <!-- Blog Post Menu -->
             <div id="blogPostMenu" class="blog-post-menu"></div>
-            <script src="/javascript/blogmenu.js"></script>
         </div>
     </div>
 
-    <!-- Particles.JS Background -->
+
+
+    <script src="/javascript/blogmenu.js" type="module"></script>
+    <!-- Particles & Misc Scripts -->
     <div id="particles-js"></div>
     <script src="/javascript/panic.js"></script>
     <script src="/javascript/cloaking.js"></script>
     <script src="/javascript/antitabclose.js"></script>
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
-  <script src="/javascript/notifications.js"></script>
-    <!-- Scrollbar Customization -->
+    <script src="/javascript/notifications.js"></script>
     <script src="/javascript/scrollbar.js"></script>
+
+
+
 </body>
 </html>

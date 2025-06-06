@@ -545,37 +545,7 @@ document.getElementById('toggle-signup-confirm-password').onclick = function() {
   }
 };
 
-  // Load YouTube IFrame API
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
 
-  // Create the player when API is ready
-  var player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('yt-bg', {
-      videoId: 'zTK9DhM6OQc',
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        showinfo: 0,
-        modestbranding: 1,
-        loop: 1,
-        fs: 0,
-        cc_load_policy: 0,
-        iv_load_policy: 3,
-        autohide: 0,
-        mute: 1,
-        playlist: 'zTK9DhM6OQc' // Needed for looping
-      },
-      events: {
-        onReady: function(e) {
-          e.target.mute();
-          e.target.playVideo();
-        }
-      }
-    });
-  }
 async function deleteOldAvatar(userId, oldUrl) {
   if (!oldUrl) return;
   // Extract the file name from the URL
