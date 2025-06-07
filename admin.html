@@ -335,11 +335,56 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Markdown Parser -->
     <script>
-      function openOverlay(contentHTML) {
+      let easyMDE;
+
+      function openOverlay1(contentHTML) {
+        console.log("#2");
         document.getElementById("overlay-body").innerHTML = contentHTML;
         document.getElementById("overlay").classList.remove("hidden");
 
+        setTimeout(() => {
+          if (document.getElementById("postContent")) {
+            easyMDE = new EasyMDE({
+              element: document.getElementById("postContent"),
+            });
+          }
+        }, 50);
+
+        console.log("Overlay opened");
+        console.log("gameForm exists?", document.getElementById("gameForm"));
+        console.log(
+          "gameSubmitBtn exists?",
+          document.getElementById("gameSubmitBtn")
+        );
+
         setupAutoResizeForTextareas();
+
+        // Delay attaching event listener to ensure form is in the DOM
+
+        console.log("#1");
+        const gameForm = document.getElementById("gameForm");
+        console.log("#2");
+        if (gameForm) {
+          console.log("#3");
+          gameForm.addEventListener("submit", (e) => {
+            console.log("#4");
+            e.preventDefault();
+            console.log("#5");
+
+            const gameName = document.getElementById("gameName").value;
+            const gameCover = document.getElementById("gameCover").files[0];
+            const gameURL = document.getElementById("gameURL").value;
+
+            console.log("#6");
+
+            addGame(gameName, gameURL, new Blob([gameCover], "image/png"));
+            closeOverlay();
+          });
+        } else {
+          console.warn(
+            "⚠️ #gameForm not found when setting up submit listener."
+          );
+        }
       }
 
       function closeOverlay() {
@@ -370,15 +415,15 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
          </form>
         `,
         editgame: `
-          <h2>{createoredit} Game</h2>
+          <h2 data-coe="{createoredit}">{createoredit} Game</h2>
           <form id="gameForm">
             <label for="gameName">Game Name:</label>
-            <input type="text" id="gameName" name="gameName" required />
+            <input type="text" id="gameName" required />
             <label for="gameCover">Game Cover:</label>
-            <input type="file" id="gameCover" name="gameCover" required />
+            <input type="file" accept="image/*" id="gameCover" required />
             <label for="gameURL">Game URL:</label>
-            <input type="url" id="gameURL" name="gameURL" required />
-            <button type="submit">Submit</button>
+            <input type="url" id="gameURL" required />
+            <button type="submit" id="gameSubmitBtn">Submit</button>
           </form>
         `,
         addAdmin: `
@@ -414,7 +459,7 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
             .replace("{blogpostitle}", title)
             .replace("{blogpostcontent}", markedContent);
 
-          openOverlay(html);
+          openOverlay1(html);
         });
       });
 
@@ -429,7 +474,7 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
             "{createoredit}",
             "Edit"
           );
-          openOverlay(html);
+          openOverlay1(html);
 
           setTimeout(() => {
             document.getElementById("gameName").value = name;
@@ -447,12 +492,13 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
             "{createoredit}",
             "Create"
           );
-          openOverlay(html1);
+          openOverlay1(html1);
         });
 
       document.getElementById("createGame").addEventListener("click", (e) => {
         e.preventDefault();
-        openOverlay(
+        console.log("#1");
+        openOverlay1(
           overlayScreens.editgame.replace("{createoredit}", "Create")
         );
       });
@@ -470,7 +516,7 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
             "Edit"
           );
 
-          openOverlay(html);
+          openOverlay1(html);
 
           setTimeout(() => {
             document.getElementById("postTitle").value = title;
@@ -489,7 +535,7 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
             "{createoredit}",
             "Edit"
           );
-          openOverlay(html);
+          openOverlay1(html);
 
           setTimeout(() => {
             document.getElementById("gameName").value = name;
@@ -506,7 +552,7 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
           e.preventDefault();
 
           const html = overlayScreens.addAdmin.replace("{createoredit}", "Add");
-          openOverlay(html);
+          openOverlay1(html);
 
           // Attach form handler after overlay is injected
           setTimeout(() => {
@@ -552,23 +598,6 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
               autoResizeTextarea(textarea)
             );
           });
-      }
-    </script>
-    <!-- EasyMDE Support -->
-    <script>
-      let easyMDE;
-
-      function openOverlay(html) {
-        document.getElementById("overlay-body").innerHTML = html;
-        document.getElementById("overlay").classList.remove("hidden");
-
-        setTimeout(() => {
-          if (document.getElementById("postContent")) {
-            easyMDE = new EasyMDE({
-              element: document.getElementById("postContent"),
-            });
-          }
-        }, 50);
       }
     </script>
   </body>

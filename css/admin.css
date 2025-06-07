@@ -28,7 +28,7 @@
   color: white;
 }
 
-#creategame a,
+#createGame,
 #createBlogPost {
   font-size: 2rem;
   color: white;
@@ -36,7 +36,7 @@
   transition: color 0.2s ease;
 }
 
-#creategame a:hover,
+#createGame:hover,
 #createBlogPost:hover {
   color: lightblue;
 }
@@ -73,7 +73,7 @@
   position: relative;
   background-color: #111827;
   border: 1px solid #a78bfa;
-  height: 150px;
+  height: 100px;
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease;
@@ -83,7 +83,7 @@
 
 .gamedisplay {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   overflow-y: scroll;
   padding: 20px;
