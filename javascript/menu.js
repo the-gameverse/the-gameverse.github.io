@@ -105,6 +105,7 @@ function isGameLiked(game) {
 function displayGames(filter = "") {
   const gameMenu = document.getElementById("gameMenu");
   const gameCount = document.getElementById("gameCount");
+  const searchBar = document.getElementById("search");
   gameMenu.innerHTML = "";
 
   const filteredGames = games
@@ -175,6 +176,9 @@ function displayGames(filter = "") {
 
   if (gameCount) {
     gameCount.textContent = `${filteredGames.length} out of ${games.length} games were loaded.`;
+  }
+    if (gameCount) {
+    searchBar.placeholder = `Search through ${games.length} games...`;
   }
 }
 

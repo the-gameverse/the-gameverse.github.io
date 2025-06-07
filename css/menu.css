@@ -169,7 +169,7 @@ body {
 }
 #sortOptions:hover,
 #toggleUsageData:hover {
-  background-color: #AE54FF; /* Change background color on hover */
+     background-color: #000000;
   color: white; /* Ensure text remains visible */
   box-shadow: 0 0 20px rgba(174, 84, 255, 0.6); /* Glow effect on hover */
 }
@@ -197,7 +197,11 @@ body {
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
 }
-
+#search::placeholder,
+#searchBar::placeholder {
+  color: white;
+  opacity: 0.85; /* Ensures full opacity in all browsers */
+}
 #search:hover,
 #searchBar:hover {
   box-shadow: 0 0 20px rgba(174, 84, 255, 0.6); /* Glow effect on hover */
@@ -209,6 +213,7 @@ body {
   border-color: #AE54FF; /* Change border color on focus */
   box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced glow on focus */
   transform: scale(1.05); /* Slightly grow the input field */
+  z-index: 99999999;
 }
 .controls {
   margin: 16px 0;
