@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
 /* Image styling */
 .image {
   height: 150px;
@@ -299,4 +301,133 @@ input:hover, select:hover, button:hover {
 
 body.overlay-open {
   overflow:auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90vh;
+  overflow: auto; /* allow scrolling */
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  background: #111827;
+  border: 1px solid #a78bfa;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh; /* this is the key */
+  overflow: auto; /* allow internal scroll */
+  color: white;
+  position: relative;
+}
+
+.overlay-body {
+  overflow: auto;
+  max-height: calc(90vh - 40px); /* accounts for padding, close button, etc */
+}
+
+/* Overlay form input styles */
+#overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#overlay form label {
+  color: #d1d5db; /* Tailwind gray-300 */
+  font-weight: 500;
+}
+
+#overlay form input[type="text"],
+#overlay form input[type="url"],
+#overlay form input[type="file"],
+#overlay form input[type="email"],
+#overlay form select,
+#overlay form textarea {
+  background-color: #1f2937; /* Tailwind gray-800 */
+  color: white;
+  border: 1px solid #4b5563; /* Tailwind gray-600 */
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#overlay form input:focus,
+#overlay form select:focus,
+#overlay form textarea:focus {
+  outline: none;
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px #a78bfa88;
+}
+
+/* Style the submit button */
+#overlay form button[type="submit"] {
+  background-color: #a78bfa;
+  color: #111827;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#overlay form button[type="submit"]:hover {
+  background-color: #c4b5fd;
+}
+
+.overlay-content textarea {
+  resize: vertical; /* only vertical resize */
+  width: 100%; /* fill container width */
+  min-height: 80px; /* minimum height */
+  box-sizing: border-box; /* include padding/border in width */
+  overflow: hidden; /* hide scrollbar, we control height */
+  font-family: inherit; /* inherit font */
+  font-size: 1rem;
+}
+
+.overlay-content input[type="text"],
+.overlay-content input[type="url"],
+.overlay-content input[type="file"],
+.overlay-content input[type="email"]
+.overlay-content select {
+  width: auto; /* allow width to adjust */
+  min-width: 100px; /* don't shrink too much */
+  max-width: 100%; /* max width 100% of container */
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 6px 8px;
+}
+
+#blogCover {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.blogContent, .blogTitle {
+  font-family: "Orbitron", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }

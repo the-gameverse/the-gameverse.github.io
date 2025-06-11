@@ -400,6 +400,7 @@ center {
   color: #c4b5fd;
 }
 
+/* #region Overlay */
 /* Overlay form input styles */
 #overlay form {
   display: flex;
@@ -475,6 +476,7 @@ center {
   font-size: 1rem;
   padding: 6px 8px;
 }
+/* #endregion */
 
 .markdown-preview {
   display: none;
