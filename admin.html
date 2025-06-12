@@ -100,6 +100,10 @@
       href="https://unpkg.com/easymde/dist/easymde.min.css"
     />
     <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+
+    <style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
+    </style>
     <!-- #endregion -->
   </head>
 
@@ -574,6 +578,66 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
               refreshBlogPosts();
             });
           }
+        }, 50);
+        setTimeout(() => {
+          const form = document.getElementById("addAdminForm");
+          if (!form) return;
+
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const username = document
+              .getElementById("adminUsername")
+              .value.trim();
+            const email = document.getElementById("adminEmail").value.trim();
+            const role = document.getElementById("adminRole").value;
+
+            if (!username || !email || !role) {
+              alert("Please fill in all fields.");
+              return;
+            }
+
+            
+
+            // Some Tests:
+            console.log("Username: ", username);
+
+            // Step 1: Get user_uid from `profiles` table
+            const { data: userMatch, error: profileError } = await supabase
+              .from("profiles")
+              .select("id, avatar_url")
+              .eq("username", username)
+              .single();
+
+            if (profileError || !userMatch) {
+              alert(`❌ Could not find a profile with username "${username}".`);
+              console.error(profileError);
+              return;
+            }
+
+            const user_uid = userMatch.id;
+
+            // Step 2: Insert into `adminpanel_access`
+            const { error } = await supabase.from("adminpanel_access").insert([
+              {
+                user_uid,
+                username,
+                email,
+                role,
+                avatar: userMatch.avatar_url || null, // Use avatar from profiles if available
+              },
+            ]);
+
+            if (error) {
+              console.error("❌ Error adding admin:", error.message);
+              alert("Failed to add admin.");
+              return;
+            }
+
+            alert("✅ Admin added!");
+            closeOverlay();
+            refreshAdminList();
+          });
         }, 50);
       }
 

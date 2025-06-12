@@ -19,10 +19,10 @@ const overlayScreens = {
               <h2>{createoredit} Blog Post</h2>
               <form id="blogForm" data-coe='{createoredit}'>
                 <label for="blogCover">Blog Cover Image:</label><br>
-                <input type="file" id="blogCover" name="blogCover" accept="image/*" /><br><br>
+                <input type="file" id="blogCover" name="blogCover" accept="image/*" autocomplete="off"/><br><br>
 
                 <label for="postTitle">Post Title:</label><br>
-                <input type="text" id="postTitle" name="postTitle" required /><br><br>
+                <input type="text" id="postTitle" name="postTitle" autocomplete="off" required /><br><br>
 
                 <label for="postContent">Content:</label><br>
                <textarea id="postContent" name="postContent"></textarea><br><br>
@@ -53,8 +53,8 @@ const overlayScreens = {
                 <input type="email" id="adminEmail" name="adminEmail" required />
                 <label for="adminRole">Role:</label>
                 <select id="adminRole" name="adminRole">
-                  <option value="admin">Super Admin</option>
-                  <option value="moderator">Admin</option>
+                  <option value="super">Super Admin</option>
+                  <option value="admin">Admin</option>
                   <option value="gameadd">Game Adder</option>
                   <option value="editor">Editor</option>
                 </select>
@@ -175,9 +175,6 @@ function safeRefreshGamesList() {
   refreshGamesList();
 }
 
-// Call this once everything else is visually ready
-safeRefreshGamesList();
-
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -278,13 +275,12 @@ async function refreshBlogPosts() {
         return;
       }
 
-      const html = overlayScreens.editblogpost.replaceAll(
-        "{createoredit}",
-        "Edit"
-      ).replace(
-        "{deleteButton}",
-        `<button id="deleteBlogPostBtn" style="margin-top: 20px; background: #dc2626; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Delete Post</button>`
-      );
+      const html = overlayScreens.editblogpost
+        .replaceAll("{createoredit}", "Edit")
+        .replace(
+          "{deleteButton}",
+          `<button id="deleteBlogPostBtn" style="margin-top: 20px; background: #dc2626; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Delete Post</button>`
+        );
 
       openOverlay1(html);
       window._editingBlogId = postId;
@@ -298,7 +294,91 @@ async function refreshBlogPosts() {
   });
 }
 window.addEventListener("DOMContentLoaded", () => {
+  safeRefreshGamesList();
   refreshBlogPosts();
+  refreshAdminList();
 });
 
 // #endregion
+// #region Admin Functions
+// Admin Functions
+async function refreshAdminList() {
+  console.log("Starting Refresh...");
+  const tableBody = document.getElementById("adminList");
+  if (!tableBody) return;
+  console.log("Found table body:", tableBody);
+
+  tableBody.innerHTML = ""; // Clear out old/fake entries
+
+  const { data: admins, error } = await supabase
+    .from("adminpanel_access")
+    .select("user_uid, avatar, username, email, role");
+
+  if (error) {
+    console.error("❌ Failed to fetch admins:", error.message);
+    tableBody.innerHTML = `<tr><td colspan="5">Error loading admins</td></tr>`;
+    return;
+  }
+  console.log("Fetched admins:", admins);
+
+  admins.forEach((admin) => {
+    const row = document.createElement("tr");
+
+    // Change Role display
+    if (admin.role === "super") {
+      admin.role = "Super Admin";
+    } else if (admin.role === "admin") {
+      admin.role = "Admin";
+    } else if (admin.role === "gameadd") {
+      admin.role = "Game +";
+    } else if (admin.role === "editor") {
+      admin.role = "editor";
+    } else {
+      alert("Invalid role selected.");
+      return;
+    }
+
+    row.innerHTML = `
+      <td>
+        <img
+          src="${admin.avatar}"
+          alt="${admin.username}'s avatar"
+          style="width: 36px; height: 36px; border-radius: 999px; object-fit: cover;"
+        />
+      </td>
+      <td>${admin.username}</td>
+      <td>${admin.email}</td>
+      <td>${admin.role}</td>
+      <td>
+        <button class="remove-btn" data-id="${admin.user_uid}" title="Remove admin">✖</button>
+      </td>
+    `;
+
+    tableBody.appendChild(row);
+  });
+
+  // Hook up remove buttons
+  document.querySelectorAll(".remove-btn").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      const adminId = btn.dataset.id;
+      const confirmDelete = confirm(
+        "Are you sure you want to remove this admin?"
+      );
+      if (!confirmDelete) return;
+
+      const { error } = await supabase
+        .from("adminpanel_access")
+        .delete()
+        .eq("user_uid", adminId);
+
+      if (error) {
+        alert("❌ Failed to remove admin.");
+        console.error(error);
+        return;
+      }
+
+      alert("✅ Admin removed.");
+      refreshAdminList();
+    });
+  });
+}
