@@ -1,149 +1,14 @@
-/* Image styling */
-.image {
-  height: 150px;
-  width: 150px;
-  border-radius: 20%;
-  box-shadow: 
-    0 0 15px rgba(255, 255, 255, 0.5),    /* White core glow */
-    0 0 25px rgba(174, 84, 255, 0.6);      /* Purple outer glow */
-}
+/* 
 
-/* Page loader container (no background) */
-#loader-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140px; /* Adjusted to fit the 2x size loader */
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  z-index: 1000;
-}
+starplay menu 3.0 
 
-/* Circular spinning loader (2x size) */
-#loader {
-  width: 100px; /* 2x size */
-  height: 100px;
-  border: 10px solid rgba(174, 84, 255, 0.3);  /* Purple semi‑transparent */
-  border-top-color: #AE54FF;                   /* Solid purple for animation */
-  border-radius: 50%;
-  animation: spinLoad 0.7s linear infinite;
-  box-shadow: 0 0 25px rgba(174, 84, 255, 0.8); /* Enhanced purple glow */
-}
+complete with a skeleton loader for games, updated card styles, and a glowing sheen effect on hover.
 
-@keyframes spinLoad {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Blue and green bars now match starship purple theme */
-#loaderblue,
-#loadergreen {
-  height: 100%;
-  width: 0;
-  background-color: #AE54FF; /* Purple */
-  animation: loadingBarblue 0.7s forwards, fadeInOut 0.3s 0.7s infinite;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(174, 84, 255, 0.5);
-}
-
-/* LOADING... text (larger for better visibility) */
-#loadertext {
-  visibility: hidden;
-  display: none;
-  position: absolute;
-  top: calc(50% + 75px); /* Adjusted for 2x size loader */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  font-size: 2em; /* Increased size to match the loader */
-  font-weight: bold;
-  color: white;
-  text-shadow: 
-    0 0 20px rgba(255, 255, 255, 1),
-    0 0 40px rgba(174, 84, 255, 0.8),
-    0 0 60px rgba(174, 84, 255, 0.6);
-  animation: pulseGlowLoad 1.5s infinite alternate ease-in-out;
-}
-
-@keyframes pulseGlowLoad {
-  0% {
-    text-shadow: 
-      0 0 15px rgba(255, 255, 255, 0.8),
-      0 0 30px rgba(174, 84, 255, 0.6);
-  }
-  100% {
-    text-shadow: 
-      0 0 25px rgba(255, 255, 255, 1),
-      0 0 50px rgba(174, 84, 255, 0.9),
-      0 0 70px rgba(174, 84, 255, 0.7);
-  }
-}
-
-@keyframes loadingBar {
-  0%   { width: 0;   background-color: #AE54FF; }
-  50%  { width: 50%;  background-color: white; }
-  100% { width: 100%; background-color: #AE54FF; }
-}
-
-/* keep existing loadingBargreen & loadingBarblue animations as-is */
-
-@-webkit-keyframes spin {
-  0%   { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-@keyframes spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Add animation to "page content" */
-.animate-bottom {
-  position: relative;
-  -webkit-animation-name: animatebottom;
-  -webkit-animation-duration: 1s;
-  animation-name: animatebottom;
-  animation-duration: 1s;
-}
-@-webkit-keyframes animatebottom {
-  from { 
-    bottom: -100px; 
-    opacity: 0; 
-    transform: scale(0.8); /* Add scale effect */
-  }
-  to { 
-    bottom: 0; 
-    opacity: 1; 
-    transform: scale(1); /* Return to original size */
-  }
-}
-@keyframes animatebottom {
-  from { 
-    bottom: -100px; 
-    opacity: 0; 
-    transform: scale(0.8); /* Add scale effect */
-  }
-  to { 
-    bottom: 0; 
-    opacity: 1; 
-    transform: scale(1); /* Return to original size */
-  }
-}
-
-#myDiv {
-  display: none;
-  text-align: center;
-}
-
-/* New UI (2.0) */
+*/
 body {
   margin: 0;
   padding-bottom: 250px;
 }
-
 /* Input & Control Styling */
 #sortOptions,
 #toggleUsageData {
@@ -223,14 +88,6 @@ body {
   background-color: #AE54FF;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.6);
 }
-
-/* Game and related UI elements */
-.game {
-  position: relative; /* Allows positioning of the favorite icon */
-  background-color: black;
-  box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
-}
-
 #gameCount {
   margin: 15px;
   font-size: 16px;
@@ -238,148 +95,12 @@ body {
   text-align: center;
   color: white;
 }
-
-.last-updated-text {
-  color: white;
-  font-weight: bold;
-}
-
 #gameMenu {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   padding: 20px;
-}
-
-.game a.disabled {
-  pointer-events: none;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.game a {
-  z-index: 0; /* Ensure the link stays behind other elements */
-}
-
-/* Game Container */
-.game {
-  width: 150px;
-  height: 150px;
-  text-align: center;
-  overflow: hidden;
-  border-radius: 15%;
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
-  z-index:-1; /* Ensure the game container is below the click count and favorite icon */
-}
-
-.click-count {
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: white;
-  background-color: black;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 10;
-  text-shadow: 0 0 5px rgba(174, 84, 255, 0.5);
-}
-
-.game img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  transition: transform 0.3s ease;
-}
-
-.game:hover img {
-  transform: scale(1.3);
-}
-
-.game:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(174, 84, 255, 0.6);
-}
-
-.game-name {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease, color 1s;
-  backdrop-filter: blur(6px);
-  text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
-}
-
-.game:hover .game-name {
-  opacity: 1;
-  color: #AE54FF;
-  text-shadow: 0 0 10px #AE54FF;
-}
-
-.favorite-icon {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 30px;
-  cursor: pointer;
-  color: #AE54FF;
-  z-index: 10;
-  text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
-}
-
-.fire-emoji {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  text-shadow: 0 0 10px rgba(174, 84, 255, 0.8);
-}
-
-/* Rotate color animation for dynamic effect */
-@keyframes colorRotate {
-  from   { color: #6666ff; }
-  10%    { color: #0099ff; }
-  50%    { color: #00ff00; }
-  75%    { color: #ff3399; }
-  100%   { color: #6666ff; }
-}
-
-/* Blur/load states */
-.game img.blurred {
-  filter: blur(10px);
-  transition: filter 0.3s ease-in-out;
-}
-.game img.loaded {
-  filter: blur(0);
-}
-
-/* Disable link and hover effect */
-a.disabled-link {
-  pointer-events: none;
-  cursor: default;
-}
-a.disabled-link:hover {
-  background-color: transparent;
-}
-
-/* Hide extra-links by default */
-.extra-links {
-  display: none;
-  gap: 10px;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .skeleton {
