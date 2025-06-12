@@ -271,6 +271,7 @@ body {
   border-radius: 15%;
   transition: transform 0.3s ease;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
+  z-index:-1; /* Ensure the game container is below the click count and favorite icon */
 }
 
 .click-count {
@@ -385,7 +386,7 @@ a.disabled-link:hover {
     background: linear-gradient(45deg, #7A1FA2 25%, #9C27B0 50%, #7A1FA2 75%);
     background-size: 200% 100%;
     animation: skeleton-loading 1.5s infinite;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 @keyframes skeleton-loading {
@@ -398,11 +399,11 @@ a.disabled-link:hover {
 }
 
 .skeleton-game {
-  width: 150px;
-  height: 150px;
+    width: 404px;
+    height: 150px;
   text-align: center;
   overflow: hidden;
-  border-radius: 15%;
+  border-radius: 30px;
   transition: transform 0.3s ease;
 }
 
@@ -410,4 +411,192 @@ a.disabled-link:hover {
     width: 100px;
     height: 20px;
     margin: 10px auto;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  min-height: 150px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #1a0033 0%, #8a2be2 100%);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.6),
+              0 0 40px rgba(138, 43, 226, 0.4),
+              0 0 60px rgba(138, 43, 226, 0.2);
+  overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.15);
+}
+.card {
+  position: relative; /* Needed for the pseudo-element */
+  overflow: hidden;
+}
+
+/* Add reflection sheen effect */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: rotate(0deg) translateX(-100%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.card:hover::before {
+  animation: sheenSwipe 1s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes sheenSwipe {
+  0% {
+    transform: rotate(25deg) translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(25deg) translateX(100%);
+    opacity: 0;
+  }
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.card-content {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex: 1;
+}
+
+.card-image {
+  flex-shrink: 0;
+}
+
+.card-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.card-text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 0 8px #fff, 0 0 16px #8a2be2;
+  line-height: 1.2;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #e0dfff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card-stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #e0dfff;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 10px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 6px rgba(138, 43, 226, 0.3);
+}
+
+.stat i {
+  color: #ffccff;
+  text-shadow: 0 0 6px #8a2be2;
+}
+
+.favorite-icon i {
+  color: #ff66cc;
+  text-shadow: 0 0 6px #ff66cc;
+  font-size: 1.2rem;
+}
+
+/* Responsive tweak */
+@media (max-width: 500px) {
+  .card-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-text-content {
+    align-items: center;
+  }
+
+  .card-stats {
+    justify-content: center;
+  }
+}
+.card {
+  position: relative; /* allow absolute children */
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  z-index: 10;
+  font-size: 1.4rem;
+  color: #ff66cc;
+  text-shadow: 0 0 6px #ff66cc;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.15);
 }
