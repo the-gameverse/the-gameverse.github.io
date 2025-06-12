@@ -435,6 +435,7 @@ a.disabled-link:hover {
 
 .card:hover {
   transform: scale(1.15);
+  z-index:9999999;
 }
 .card {
   position: relative; /* Needed for the pseudo-element */
