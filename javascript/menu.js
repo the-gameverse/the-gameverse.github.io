@@ -146,12 +146,19 @@ function displayGames(filter = "") {
       displayGames(filter);
     });
 
-    wrapper.addEventListener('click', () => {
-      game.clickCount++;
-      saveClickCountsToLocalStorage();
-      displayGames(filter);
-      window.location.href = game.path;
-    });
+wrapper.addEventListener('click', () => {
+  game.clickCount++;
+  saveClickCountsToLocalStorage();
+
+  // Save game info in localStorage separately
+  localStorage.setItem('gameImage', game.image);
+  localStorage.setItem('gameName', game.name);
+  localStorage.setItem('gameLink', game.link);
+
+  displayGames(filter);
+  window.location.href = game.path;
+});
+
 
     menu.appendChild(wrapper);
   });
