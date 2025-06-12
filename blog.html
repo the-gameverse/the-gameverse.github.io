@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>starship - our blog</title>
-    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/blogmenu.css">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/blogmenu.css" />
 
     <!-- JS (Non-module) -->
     <script src="/javascript/pageload.js"></script>
 
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+        crossorigin="anonymous"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ZZH4JE7RJF');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-ZZH4JE7RJF");
     </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 </head>
-<body onload="myFunction()" style="margin:0;">
+
+<body onload="myFunction()" style="margin: 0">
     <!-- Navigation -->
     <div id="navbar"></div>
     <script type="module" src="/javascript/navbar.js"></script>
@@ -33,20 +42,26 @@
     <script src="/javascript/footer.js"></script>
 
     <!-- NoScript Redirect -->
-    <noscript><meta http-equiv="refresh" content="0; url=/errors/noscript" /></noscript>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+    </noscript>
 
     <!-- Loader -->
     <div id="loader-container">
         <div id="loader"></div>
     </div>
-    <div id="loadertext"><h3>Loading...</h3></div>
+    <div id="loadertext">
+        <h3>Loading...</h3>
+    </div>
 
     <!-- Main Content -->
-    <div style="display:none;" id="myDiv" class="animate-bottom">
+    <div style="display: none" id="myDiv" class="animate-bottom">
         <div id="zoom">
-            <h1 style="font-size:50px;" class="gradient-red">Blog</h1>
-            <p class="gradient-red" style="font-size:15px;">LATEST NEWS: starship February Updates</p>
-            <hr style="border:3px solid white">
+            <h1 style="font-size: 50px" class="gradient-red">Blog</h1>
+            <p class="gradient-red" style="font-size: 15px">
+                LATEST NEWS: starship February Updates
+            </p>
+            <hr style="border: 3px solid white" />
 
             <div class="controls">
                 <input type="text" id="search" placeholder="Search all blog posts" oninput="filterBlogPosts()" />
@@ -57,10 +72,16 @@
             </div>
 
             <div id="overlay">
-                <button class="close-btn" onclick="closeOverlay()"><i class="fas fa-times"></i></button>
+                <button class="close-btn" onclick="closeOverlay()">
+                    <i class="fas fa-times"></i>
+                </button>
                 <div class="overlay-content">
-                    <h2 id="blogTitle"></h2>
-                    <p id="blogContent"></p>
+                    <div class="overlay-body">
+                        <img id="blogCover" src="" alt="Cover image">
+                        <h1 id="blogTitle">
+                            </h2>
+                            <p id="blogContent"></p>
+                    </div>
                 </div>
             </div>
 
@@ -69,8 +90,7 @@
         </div>
     </div>
 
-
-
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/javascript/blogmenu.js" type="module"></script>
     <!-- Particles & Misc Scripts -->
     <div id="particles-js"></div>
@@ -81,8 +101,6 @@
     <script src="/javascript/particles-config.js"></script>
     <script src="/javascript/notifications.js"></script>
     <script src="/javascript/scrollbar.js"></script>
-
-
-
 </body>
+
 </html>

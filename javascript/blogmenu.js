@@ -91,7 +91,7 @@ function displayBlogPosts(filter = "") {
     postContainer.href = "javascript:void(0)";
     postContainer.classList.add("post");
     postContainer.addEventListener("click", () =>
-      showOverlay({ title: post.title, content: post.content })
+      showOverlay({ title: post.title, content: post.content, image: post.image })
     );
 
     // -- Left side: image
@@ -135,9 +135,11 @@ window.showOverlay = function (post) {
   const overlay = document.getElementById("overlay");
   const blogTitle    = document.getElementById("blogTitle");
   const blogContent  = document.getElementById("blogContent");
+  const blogCover = document.getElementById("blogCover");
 
   blogTitle.textContent = post.title;
-  blogContent.innerHTML = post.content;
+  blogContent.innerHTML = marked.parse(post.content);
+  blogCover.src = post.image;
   overlay.style.display = "flex";
   document.body.classList.add("overlay-open");
 };
