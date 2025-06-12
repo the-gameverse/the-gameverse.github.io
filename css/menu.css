@@ -12,8 +12,8 @@ body {
 /* Input & Control Styling */
 #sortOptions,
 #toggleUsageData {
-      background-color: rgba(34, 34, 34, 0.2); 
-  backdrop-filter: blur(6px); 
+  background: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(10px);
   padding: 10px;
   font-size: 20px;
   font-family: Inter, sans-serif;
@@ -25,6 +25,9 @@ body {
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
   cursor: pointer; /* Pointer cursor for interactivity */
+      max-width: 420px;
+  min-height: 15px;
+  border-radius: 30px;
 }
 #toggleUsageData {
   width: 200px;
@@ -55,12 +58,15 @@ body {
   border: 1px solid #ddd;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 25px; /* Rounded corners */
+
       background-color: rgba(34, 34, 34, 0.2); 
   backdrop-filter: blur(6px); 
   color: white;
   box-shadow: 0 0 15px rgba(174, 84, 255, 0.3);
   transition: all 0.3s ease; /* Smooth transition for hover and focus effects */
+    max-width: 420px;
+  min-height: 15px;
+  border-radius: 30px;
 }
 #search::placeholder,
 #searchBar::placeholder {
@@ -102,7 +108,7 @@ body {
   justify-content: center;
   padding: 20px;
 }
-
+/* Skeleton Loader Styles */
 .skeleton {
     background: linear-gradient(45deg, #7A1FA2 25%, #9C27B0 50%, #7A1FA2 75%);
     background-size: 200% 100%;
@@ -133,18 +139,16 @@ body {
     height: 20px;
     margin: 10px auto;
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
-
+/* Card Styles */
 .card {
   width: 100%;
   max-width: 420px;
   min-height: 150px;
   border-radius: 30px;
-  background: linear-gradient(135deg, #1a0033 0%, #8a2be2 100%);
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.6),
-              0 0 40px rgba(138, 43, 226, 0.4),
-              0 0 60px rgba(138, 43, 226, 0.2);
+  background: rgba(34, 34, 34, 0.2); 
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.1),
+              0 0 40px rgba(138, 43, 226, 0.1),
+              0 0 60px rgba(138, 43, 226, 0.1);
   overflow: hidden;
   font-family: 'Inter', 'Segoe UI', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -157,7 +161,11 @@ body {
 .card:hover {
   transform: scale(1.15);
   z-index:9999999;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4),
+              0 0 40px rgba(138, 43, 226, 0.4),
+              0 0 60px rgba(138, 43, 226, 0.4);
 }
+
 .card {
   position: relative; /* Needed for the pseudo-element */
   overflow: hidden;

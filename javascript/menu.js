@@ -22,7 +22,7 @@ function getCardHTML(game) {
       </div>
       <div class="card-text-content">
         <h5 class="card-title">${game.name}</h5>
-        <p class="card-text">${game.description || ''}</p>
+        <p style="display:none;" class="card-text">${game.description || ''}</p>
         <div class="card-stats">
           <div class="stat"><i class="fa fa-clock"></i> ${game.globalClicks || 0} plays</div>
           <div class="stat"><i class="fa fa-thumbs-up"></i> ${game.globalLikes || 0} likes</div>
