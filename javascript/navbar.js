@@ -31,8 +31,9 @@ const supabase = createClient(
 
     if (!error && profile) {
       username = profile.username || 'User';
-      // Add cache-busting query string
-      avatarUrl = profile.avatar_url ? profile.avatar_url + '?t=' + Date.now() : avatarUrl;
+avatarUrl = profile.avatar_url;
+
+
     }
   }
 

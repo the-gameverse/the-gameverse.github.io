@@ -149,27 +149,11 @@ input[type="text"], input[type="email"], input[type="password"], button {
       backdrop-filter: blur(6px);
       transition: all 0.3s ease;
   }
-  #yt-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-#yt-bg iframe {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 120vw; height: 68vw; /* 16:9 ratio, oversize for cover */
-  min-width: 100vw; min-height: 100vh;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
   </style>
 </head>
 
 <body>
-    <div id="yt-bg"></div>
+
   <center>
     <div id="navbar"></div>
     <script type="module" src="/javascript/navbar.js"></script>
@@ -235,50 +219,44 @@ input[type="text"], input[type="email"], input[type="password"], button {
 </div>
 
   </center>
+<script>const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-<script>
-  const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
-  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+// Elements
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const signupEmailInput = document.getElementById('signup-email');
+const signupPasswordInput = document.getElementById('signup-password');
+const signupUsernameInput = document.getElementById('signup-username');
+const signupAvatarInput = document.getElementById('signup-avatar');
+const statusEl = document.getElementById('status');
+const profileInfo = document.getElementById('profile-info');
+const profileUsername = document.getElementById('profile-username');
+const profileAvatar = document.getElementById('profile-avatar');
+const newUsernameInput = document.getElementById('new-username');
+const updateUsernameBtn = document.getElementById('update-username-btn');
+const authOptions = document.getElementById('auth-options');
+const loginSection = document.getElementById('login-section');
+const signupSection = document.getElementById('signup-section');
 
-  // Login fields
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
+function setStatus(msg) {
+  statusEl.textContent = msg;
+}
 
-  // Signup fields
-  const signupEmailInput = document.getElementById('signup-email');
-  const signupPasswordInput = document.getElementById('signup-password');
-  const signupUsernameInput = document.getElementById('signup-username');
-  const signupAvatarInput = document.getElementById('signup-avatar');
+function showLogin() {
+  authOptions.style.display = 'none';
+  loginSection.style.display = 'block';
+  signupSection.style.display = 'none';
+}
 
-  const statusEl = document.getElementById('status');
-  const profileInfo = document.getElementById('profile-info');
-  const profileUsername = document.getElementById('profile-username');
-  const profileAvatar = document.getElementById('profile-avatar');
-  const newUsernameInput = document.getElementById('new-username');
-  const updateUsernameBtn = document.getElementById('update-username-btn');
+function showSignup() {
+  authOptions.style.display = 'none';
+  signupSection.style.display = 'block';
+  loginSection.style.display = 'none';
+}
 
-  const authOptions = document.getElementById('auth-options');
-  const loginSection = document.getElementById('login-section');
-  const signupSection = document.getElementById('signup-section');
-
-  function setStatus(msg) {
-    statusEl.textContent = msg;
-  }
-
-  function showLogin() {
-    authOptions.style.display = 'none';
-    loginSection.style.display = 'block';
-    signupSection.style.display = 'none';
-  }
-
-  function showSignup() {
-    authOptions.style.display = 'none';
-    signupSection.style.display = 'block';
-    loginSection.style.display = 'none';
-  }
-
-  async function signUp() {
+async function signUp() {
   const email = signupEmailInput.value;
   const password = signupPasswordInput.value;
   const confirmPassword = document.getElementById('signup-confirm-password').value;
@@ -286,11 +264,8 @@ input[type="text"], input[type="email"], input[type="password"], button {
 
   if (!email || !password || !confirmPassword || !username)
     return setStatus('Please fill in all fields.');
-
   if (password !== confirmPassword)
     return setStatus('Passwords do not match.');
-
- 
 
   const { data, error } = await supabaseClient.auth.signUp({ email, password });
   if (error) return setStatus('Sign up error: ' + error.message);
@@ -298,171 +273,136 @@ input[type="text"], input[type="email"], input[type="password"], button {
   setStatus('Signed up! Please check your email to confirm, then log in.');
 }
 
-  async function signIn() {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: emailInput.value,
-      password: passwordInput.value
-    });
-    if (error) return setStatus('Login error: ' + error.message);
-
-    setStatus('Logged in!');
-    await ensureProfile();
-    await loadProfile();
-  }
-
-  async function signOut() {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) return setStatus('Logout error: ' + error.message);
-    profileInfo.style.display = 'none';
-    authOptions.style.display = 'block';
-    loginSection.style.display = 'none';
-    signupSection.style.display = 'none';
-    setStatus('Logged out!');
-  }
-
-  async function ensureProfile() {
-    // Ensure the user has a profile row in the database
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) return;
-    const { data: profile, error } = await supabaseClient
-      .from('profiles')
-      .select('username, avatar_url')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!profile) {
-      // Use signup username if available, else fallback to email prefix or "Anonymous"
-      let username = signupUsernameInput.value?.trim();
-      if (!username) {
-        username = user.email ? user.email.split('@')[0] : 'No Username Found';
-      }
-      localStorage.setItem('loggedInUser', JSON.stringify({ id: user.id, username }));
-      await supabaseClient
-        .from('profiles')
-        .insert([{ id: user.id, username, avatar_url: null }]);
-    }
-  }
-
-  async function uploadAvatar(userId, file) {
-    if (!file) return null;
-    const fileExt = file.name.split('.').pop();
-    const filePath = `${userId}.${fileExt}`;
-    const { error } = await supabaseClient.storage
-      .from('avatars')
-      .upload(filePath, file, { upsert: true });
-    if (error) return setStatus('Avatar upload error: ' + error.message);
-
-    const { data } = supabaseClient.storage.from('avatars').getPublicUrl(filePath);
-    return data.publicUrl;
-  }
-
-  async function updateAvatarUrl(userId, url) {
-    const { error } = await supabaseClient
-      .from('profiles')
-      .update({ avatar_url: url })
-      .eq('id', userId);
-    if (error) setStatus('Avatar update error: ' + error.message);
-  }
-
-  async function updateUsername() {
-    const newUsername = newUsernameInput.value.trim();
-    if (!newUsername) return setStatus('Please enter a new username.');
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) return setStatus('You must be logged in.');
-
-    showAvatarPopup();
-    const { error } = await supabaseClient
-      .from('profiles')
-      .update({ username: newUsername })
-      .eq('id', user.id);
-
-    hideAvatarPopup();
-    if (error) return setStatus('Username update failed: ' + error.message);
-    setStatus('Username updated!');
-    await loadProfile();
-
-    // Update navbar username display
-    const navbarUsername = document.querySelector('.username');
-    if (navbarUsername) {
-      navbarUsername.textContent = newUsername;
-    }
-  }
-
-  async function loadProfile() {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) {
-      setStatus('Not logged in');
-      authOptions.style.display = 'block';
-      loginSection.style.display = 'none';
-      signupSection.style.display = 'none';
-      profileInfo.style.display = 'none';
-      return;
-    }
-
-    const { data: profile, error } = await supabaseClient
-      .from('profiles')
-      .select('username, avatar_url')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (error) return setStatus('Error loading profile: ' + error.message);
-
-    if (!profile) {
-      setStatus('No profile found. Please log out and sign in again.');
-      return;
-    }
-
-    profileUsername.textContent = 'Username: ' + profile.username;
-    // Add a cache-busting query string using Date.now()
-    profileAvatar.src = profile.avatar_url ? profile.avatar_url + '?t=' + Date.now() : '';
-    profileAvatar.style.display = profile.avatar_url ? 'block' : 'none';
-
-    authOptions.style.display = 'none';
-    loginSection.style.display = 'none';
-    signupSection.style.display = 'none';
-    profileInfo.style.display = 'block';
-
-    // Update navbar username display
-    const navbarUsername = document.querySelector('.username');
-    if (navbarUsername) {
-      navbarUsername.textContent = profile.username;
-    }
-  }
-
-  // Avatar upload: only allow after login/profile loaded
-  profileAvatar.addEventListener('click', async () => {
-    // Create a hidden file input if not already present
-    let fileInput = document.getElementById('profile-avatar-input');
-    if (!fileInput) {
-      fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-      fileInput.id = 'profile-avatar-input';
-      fileInput.style.display = 'none';
-      document.body.appendChild(fileInput);
-
-      fileInput.addEventListener('change', async () => {
-        const file = fileInput.files[0];
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (!file || !user) return setStatus('You must be logged in to upload an avatar.');
-        showAvatarPopup();
-        setStatus('Uploading avatar...');
-        const publicUrl = await uploadAvatar(user.id, file);
-        hideAvatarPopup();
-        if (publicUrl) {
-          await updateAvatarUrl(user.id, publicUrl);
-          await loadProfile();
-          setStatus('Avatar updated!');
-        }
-        fileInput.value = '';
-      });
-    }
-    fileInput.click();
+async function signIn() {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: emailInput.value,
+    password: passwordInput.value
   });
+  if (error) return setStatus('Login error: ' + error.message);
+  setStatus('Logged in!');
+  await ensureProfile();
+  await loadProfile();
+}
 
-  // Avatar update logic
-  const avatarInput = document.getElementById('profile-avatar-input');
-  const updateAvatarBtn = document.getElementById('update-avatar-btn');
+async function signOut() {
+  const { error } = await supabaseClient.auth.signOut();
+  if (error) return setStatus('Logout error: ' + error.message);
+  profileInfo.style.display = 'none';
+  authOptions.style.display = 'block';
+  loginSection.style.display = 'none';
+  signupSection.style.display = 'none';
+  setStatus('Logged out!');
+}
+
+async function ensureProfile() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return;
+
+  const { data: profile } = await supabaseClient
+    .from('profiles')
+    .select('username, avatar_url')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!profile) {
+    const usernameInputExists = document.body.contains(signupUsernameInput);
+    let username = usernameInputExists ? signupUsernameInput.value.trim() : user.email?.split('@')[0] || 'New User';
+    await supabaseClient.from('profiles').insert([{ id: user.id, username, avatar_url: null }]);
+  }
+}
+
+async function uploadAvatar(userId, file) {
+  if (!file) return null;
+  const base64Url = await fileToDataUrl(file);
+  await updateAvatarUrl(userId, base64Url);
+  return base64Url;
+}
+
+async function updateAvatarUrl(userId, url) {
+  const { error } = await supabaseClient.from('profiles').update({ avatar_url: url }).eq('id', userId);
+  if (error) setStatus('Avatar update error: ' + error.message);
+}
+
+async function updateUsername() {
+  const newUsername = newUsernameInput.value.trim();
+  if (!newUsername) return setStatus('Please enter a new username.');
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return setStatus('You must be logged in.');
+
+  showAvatarPopup();
+  const { error } = await supabaseClient.from('profiles').update({ username: newUsername }).eq('id', user.id);
+  hideAvatarPopup();
+
+  if (error) return setStatus('Username update failed: ' + error.message);
+  setStatus('Username updated!');
+  await loadProfile();
+
+  const navbarUsername = document.querySelector('.username');
+  if (navbarUsername) navbarUsername.textContent = newUsername;
+}
+
+async function loadProfile() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return setStatus('Not logged in');
+
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('username, avatar_url')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) return setStatus('Error loading profile: ' + error.message);
+  if (!profile) return setStatus('No profile found. Please log out and sign in again.');
+
+  profileUsername.textContent = 'Username: ' + profile.username;
+
+  if (profile?.avatar_url && profile.avatar_url.startsWith('data:image/')) {
+    profileAvatar.src = profile.avatar_url;
+    profileAvatar.style.display = 'block';
+  } else {
+    profileAvatar.src = 'default-avatar.png'; // fallback avatar
+    profileAvatar.style.display = 'block';
+  }
+
+  authOptions.style.display = 'none';
+  loginSection.style.display = 'none';
+  signupSection.style.display = 'none';
+  profileInfo.style.display = 'block';
+
+  const navbarUsername = document.querySelector('.username');
+  if (navbarUsername) navbarUsername.textContent = profile.username;
+}
+
+profileAvatar.addEventListener('click', async () => {
+  let fileInput = document.getElementById('profile-avatar-input');
+  if (!fileInput) {
+    fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.id = 'profile-avatar-input';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0];
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      if (!file || !user) return setStatus('You must be logged in to upload an avatar.');
+      showAvatarPopup();
+      setStatus('Uploading avatar...');
+      const publicUrl = await uploadAvatar(user.id, file);
+      hideAvatarPopup();
+      if (publicUrl) {
+        await updateAvatarUrl(user.id, publicUrl);
+        await loadProfile();
+        setStatus('Avatar updated!');
+      }
+      fileInput.value = '';
+    });
+  }
+  fileInput.click();
+});
+
+const updateAvatarBtn = document.getElementById('update-avatar-btn');
+const avatarInput = document.getElementById('profile-avatar-input');
 
 updateAvatarBtn?.addEventListener('click', async () => {
   const file = avatarInput.files[0];
@@ -471,19 +411,6 @@ updateAvatarBtn?.addEventListener('click', async () => {
   if (!user) return setStatus('You must be logged in to upload an avatar.');
   showAvatarPopup();
   setStatus('Uploading avatar...');
-
-  // Get current avatar URL
-  const { data: profile } = await supabaseClient
-    .from('profiles')
-    .select('avatar_url')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  // Delete old avatar if it exists
-  if (profile && profile.avatar_url) {
-    await deleteOldAvatar(user.id, profile.avatar_url);
-  }
-
   const publicUrl = await uploadAvatar(user.id, file);
   hideAvatarPopup();
   if (publicUrl) {
@@ -491,72 +418,57 @@ updateAvatarBtn?.addEventListener('click', async () => {
     await loadProfile();
     setStatus('Avatar updated!');
     avatarInput.value = '';
-
-    // Update navbar avatar image if present
     const navbarAvatar = document.querySelector('.profile-img');
-    if (navbarAvatar) {
-      navbarAvatar.src = publicUrl + '?t=' + Date.now();
-    }
+    if (navbarAvatar) navbarAvatar.src = publicUrl + '?t=' + Date.now();
   }
 });
 
-  document.getElementById('signup-btn')?.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent form submission if inside a form
-    signUp();
-  }); 
-  document.getElementById('login-btn')?.addEventListener('click', signIn);
-  document.getElementById('logout-btn')?.addEventListener('click', signOut);
-  updateUsernameBtn?.addEventListener('click', updateUsername);
+document.getElementById('signup-btn')?.addEventListener('click', function (e) {
+  e.preventDefault();
+  signUp();
+});
+document.getElementById('login-btn')?.addEventListener('click', signIn);
+document.getElementById('logout-btn')?.addEventListener('click', signOut);
+updateUsernameBtn?.addEventListener('click', updateUsername);
+window.onload = loadProfile;
 
-  window.onload = loadProfile;
-
-  function showAvatarPopup() {
+function showAvatarPopup() {
   document.getElementById('avatar-upload-popup').style.display = 'flex';
 }
 function hideAvatarPopup() {
   setTimeout(() => {
     document.getElementById('avatar-upload-popup').style.display = 'none';
-    // Show notification after popup is hidden
-    showNotification("Changes uploaded.", {
-      body: "Your changes were made successfully.",
+    showNotification('Changes uploaded.', {
+      body: 'Your changes were made successfully.',
       duration: 5000,
     });
-  }, 3000); // 3 seconds delay
+  }, 3000);
 }
-// Show/hide password toggles
-document.getElementById('toggle-signup-password').onclick = function() {
+
+document.getElementById('toggle-signup-password').onclick = function () {
   const pw = document.getElementById('signup-password');
-  if (pw.type === "password") {
-    pw.type = "text";
-    this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-  } else {
-    pw.type = "password";
-    this.innerHTML = '<i class="fa-solid fa-eye"></i>';
-  }
+  pw.type = pw.type === 'password' ? 'text' : 'password';
+  this.innerHTML = pw.type === 'text'
+    ? '<i class="fa-solid fa-eye-slash"></i>'
+    : '<i class="fa-solid fa-eye"></i>';
 };
-document.getElementById('toggle-signup-confirm-password').onclick = function() {
+
+document.getElementById('toggle-signup-confirm-password').onclick = function () {
   const pw = document.getElementById('signup-confirm-password');
-  if (pw.type === "password") {
-    pw.type = "text";
-    this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-  } else {
-    pw.type = "password";
-    this.innerHTML = '<i class="fa-solid fa-eye"></i>';
-  }
+  pw.type = pw.type === 'password' ? 'text' : 'password';
+  this.innerHTML = pw.type === 'text'
+    ? '<i class="fa-solid fa-eye-slash"></i>'
+    : '<i class="fa-solid fa-eye"></i>';
 };
 
-
-async function deleteOldAvatar(userId, oldUrl) {
-  if (!oldUrl) return;
-  // Extract the file name from the URL
-  const parts = oldUrl.split('/');
-  const fileName = parts[parts.length - 1].split('?')[0];
-  if (!fileName.startsWith(userId)) return; // Only delete if it matches the user
-  await supabaseClient.storage.from('avatars').remove([fileName]);
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
-
-
-
 
 </script>
 </body>
