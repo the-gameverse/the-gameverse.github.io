@@ -1,36 +1,60 @@
 // Supabase config
 const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';  // Don't change this line
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 let games = [];
 let showClickCounts = false;
 let currentSortOption = 'favorites';
+let typingTimeout;
+
+// CARD TEMPLATE FOR EACH GAME
+function getCardHTML(game) {
+  return `
+<div class="card game-card">
+  <div class="card-body">
+    <div class="favorite-icon">
+      ${game.isFavorited ? '<i class="fa-solid fa-heart-circle-check"></i>' : '<i class="fa-solid fa-heart-circle-plus"></i>'}
+    </div>
+    <div class="card-content">
+      <div class="card-image">
+        <img src="${game.image}" alt="${game.name}" />
+      </div>
+      <div class="card-text-content">
+        <h5 class="card-title">${game.name}</h5>
+        <p style="display:none;" class="card-text">${game.description || ''}</p>
+        <div class="card-stats">
+          <div class="stat"><i class="fa fa-clock"></i> ${game.globalClicks || 0} plays</div>
+          <div class="stat"><i class="fa fa-thumbs-up"></i> ${game.globalLikes || 0} likes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  `;
+}
 
 async function loadGamesFromSupabase() {
   showSkeletonLoader();
-  const { data, error } = await supabase.from('games_menu').select('id, name, url, img_url');
-
+  const { data, error } = await supabase.from('games_menu').select('id, name, url, img_url, description');
   if (error) {
     console.error("Supabase error:", error.message);
     alert('Error loading games from Supabase');
     return;
   }
-
-  console.log("Games data:", data);
-
   games = data.map(row => ({
     id: row.id,
     name: row.name,
     image: row.img_url,
     link: row.url,
+    description: row.description,
     clickCount: 0,
     isFavorited: false,
     path: "/play",
     globalLikes: 0,
     globalClicks: 0,
   }));
-
   loadFavoritesFromLocalStorage();
   loadClickCountsFromLocalStorage();
   await fetchGlobalLikes();
@@ -40,220 +64,154 @@ async function loadGamesFromSupabase() {
 
 function toggleClickCounts() {
   showClickCounts = !showClickCounts;
-  const button = document.getElementById("toggleUsageData");
-  button.textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
+  document.getElementById("toggleUsageData").textContent = showClickCounts ? "Hide Usage Data" : "Show Usage Data";
   displayGames();
 }
 
 function filterGames() {
-  const search = document.getElementById("search").value;
-  displayGames(search);
-
   clearTimeout(typingTimeout);
-  showLaunchingGame();
   typingTimeout = setTimeout(() => {
-    resetToDefault();
-  }, 1000);
+    const search = document.getElementById("search").value;
+    showSkeletonLoader(); // show skeleton right away
+
+    setTimeout(() => {
+      displayGames(search); // show results after 3 seconds
+    }, 1000);
+  }, 300);
 }
 
+
 function saveFavoritesToLocalStorage() {
-  const favorites = games.reduce((acc, game) => {
-    acc[game.name] = game.isFavorited;
-    return acc;
-  }, {});
-  localStorage.setItem("favorites", JSON.stringify(favorites));
+  const favs = {};
+  games.forEach(g => favs[g.name] = g.isFavorited);
+  localStorage.setItem("favorites", JSON.stringify(favs));
 }
 
 function loadFavoritesFromLocalStorage() {
-  const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
-  if (storedFavorites) {
-    games.forEach(game => {
-      game.isFavorited = storedFavorites[game.name] || false;
-    });
-  }
+  const stored = JSON.parse(localStorage.getItem("favorites") || "{}");
+  games.forEach(g => g.isFavorited = stored[g.name] || false);
 }
 
 function saveClickCountsToLocalStorage() {
-  const clickCounts = games.reduce((acc, game) => {
-    acc[game.name] = game.clickCount;
-    return acc;
-  }, {});
-  localStorage.setItem("clickCounts", JSON.stringify(clickCounts));
+  const counts = {};
+  games.forEach(g => counts[g.name] = g.clickCount);
+  localStorage.setItem("clickCounts", JSON.stringify(counts));
 }
 
 function loadClickCountsFromLocalStorage() {
-  const storedClickCounts = JSON.parse(localStorage.getItem("clickCounts"));
-  if (storedClickCounts) {
-    games.forEach(game => {
-      game.clickCount = storedClickCounts[game.name] || 0;
-    });
-  }
+  const stored = JSON.parse(localStorage.getItem("clickCounts") || "{}");
+  games.forEach(g => g.clickCount = stored[g.name] || 0);
 }
 
 function sortGames() {
-  const sortDropdown = document.getElementById("sortOptions");
-  if (!sortDropdown) return;
-  currentSortOption = sortDropdown.value;
+  const sel = document.getElementById("sortOptions");
+  currentSortOption = sel ? sel.value : 'favorites';
   displayGames();
 }
 
 function isGameLiked(game) {
-  const likeKey = `liked_${game.link}`;
-  return !!localStorage.getItem(likeKey);
+  return !!localStorage.getItem(`liked_${game.link}`);
 }
 
 function displayGames(filter = "") {
-  const gameMenu = document.getElementById("gameMenu");
-  const gameCount = document.getElementById("gameCount");
+  const menu = document.getElementById("gameMenu");
+  const countEl = document.getElementById("gameCount");
   const searchBar = document.getElementById("search");
-  gameMenu.innerHTML = "";
+  menu.innerHTML = "";
 
-  const filteredGames = games
-    .filter(game => game.name.toLowerCase().includes(filter.toLowerCase()))
+  const filtered = games
+    .filter(g => g.name.toLowerCase().includes(filter.toLowerCase()))
     .sort((a, b) => {
       switch (currentSortOption) {
-        case "favorites": return b.isFavorited - a.isFavorited;
-        case "clickCount": return b.clickCount - a.clickCount;
-        case "alphabetical": return a.name.localeCompare(b.name);
-        case "liked": return isGameLiked(b) - isGameLiked(a);
-        case "globalLikes": return (b.globalLikes || 0) - (a.globalLikes || 0);
-        case "trending": return (b.globalClicks || 0) - (a.globalClicks || 0);
-        default: return 0;
+        case "favorites":   return b.isFavorited - a.isFavorited;
+        case "clickCount":  return b.clickCount - a.clickCount;
+        case "alphabetical":return a.name.localeCompare(b.name);
+        case "liked":       return isGameLiked(b) - isGameLiked(a);
+        case "globalLikes": return (b.globalLikes||0) - (a.globalLikes||0);
+        case "trending":    return (b.globalClicks||0) - (a.globalClicks||0);
+        default:             return 0;
       }
     });
 
-  filteredGames.forEach(game => {
-    const gameDiv = document.createElement("div");
-    gameDiv.classList.add("game");
+  filtered.forEach(game => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "game-container";
+    wrapper.innerHTML = getCardHTML(game);
 
-    const favoriteIcon = document.createElement("div");
-    favoriteIcon.classList.add("favorite-icon");
-    favoriteIcon.innerHTML = game.isFavorited ? '<i class="fa-solid fa-heart-circle-check"></i>' : '<i class="fa-solid fa-heart-circle-plus"></i>';
-    favoriteIcon.title = game.isFavorited ? "Unfavorite" : "Favorite";
-    favoriteIcon.style.cursor = "pointer";
-    favoriteIcon.addEventListener("click", e => {
+    const favEl = wrapper.querySelector('.favorite-icon');
+    favEl.addEventListener('click', e => {
       e.stopPropagation();
       game.isFavorited = !game.isFavorited;
       saveFavoritesToLocalStorage();
       displayGames(filter);
     });
 
-    const clickCountElement = document.createElement("div");
-    clickCountElement.classList.add("click-count");
-    clickCountElement.textContent = `Your Clicks: ${game.clickCount}`;
-    clickCountElement.style.display = showClickCounts ? "block" : "none";
+wrapper.addEventListener('click', () => {
+  game.clickCount++;
+  saveClickCountsToLocalStorage();
 
-    const gameLink = document.createElement("a");
-    gameLink.href = game.path;
-    const gameImage = document.createElement("img");
-    gameImage.src = game.image;
-    gameLink.appendChild(gameImage);
+  // Save game info in localStorage separately
+  localStorage.setItem('gameImage', game.image);
+  localStorage.setItem('gameName', game.name);
+  localStorage.setItem('gameLink', game.link);
 
-    setTimeout(() => {
-      gameImage.classList.add("loaded");
-    }, 2000);
+  displayGames(filter);
+  window.location.href = game.path;
+});
 
-    const gameName = document.createElement("div");
-    gameName.classList.add("game-name");
-    gameName.textContent = game.name;
-    gameLink.appendChild(gameName);
 
-    gameDiv.appendChild(favoriteIcon);
-    gameDiv.appendChild(gameLink);
-    gameDiv.appendChild(clickCountElement);
-
-    gameDiv.addEventListener("click", () => {
-      game.clickCount++;
-      localStorage.setItem('gameLink', game.link);
-      localStorage.setItem('gameName', game.name);
-      localStorage.setItem('gameImage', game.image);
-      saveClickCountsToLocalStorage();
-      displayGames(filter);
-    });
-
-    gameMenu.appendChild(gameDiv);
+    menu.appendChild(wrapper);
   });
 
-  if (gameCount) {
-    gameCount.textContent = `${filteredGames.length} out of ${games.length} games were loaded.`;
-  }
-    if (gameCount) {
-    searchBar.placeholder = `Search through ${games.length} games...`;
-  }
+  if (countEl) countEl.textContent = `${filtered.length} of ${games.length} games loaded.`;
+  if (searchBar) searchBar.placeholder = `Search ${games.length} games...`;
 }
 
 function showSkeletonLoader() {
-  const gameMenu = document.getElementById("gameMenu");
-  gameMenu.innerHTML = "";
-  for (let i = 0; i < 70; i++) {
-    const skeletonGame = document.createElement("div");
-    skeletonGame.classList.add("skeleton", "skeleton-game");
-    gameMenu.appendChild(skeletonGame);
+  const menu = document.getElementById("gameMenu");
+  menu.innerHTML = "";
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement("div");
+    s.className = "skeleton skeleton-game";
+    menu.appendChild(s);
   }
 }
 
 function displayGamesWithSkeleton() {
-  const searchBar = document.getElementById("search");
-  const sortDropdown = document.getElementById("sortOptions");
-  const gameCount = document.getElementById("gameCount");
-  const welcomeText = document.getElementById("welcome");
+  const ids = ["search", "sortOptions", "gameCount", "card"];
 
-  if (searchBar) searchBar.style.display = "none";
-  if (sortDropdown) sortDropdown.style.display = "none";
-  if (gameCount) gameCount.style.display = "none";
-  if (welcomeText) welcomeText.style.display = "none";
+  // Hide elements initially
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
 
+  // Show skeleton loader
   showSkeletonLoader();
 
+  // After a delay, show elements again with correct styles
   setTimeout(() => {
     displayGames();
-    if (searchBar) searchBar.style.display = "inline-block";
-    if (sortDropdown) sortDropdown.style.display = "inline-block";
-    if (gameCount) gameCount.style.display = "block";
-  }, 5000);
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = id === 'card' ? 'block' : 'inline-block';
+    });
+  }, 500);
 }
 
+
 async function fetchGlobalLikes() {
-  const { data, error } = await supabase.from('game_votes').select('game_id, likes');
-  if (error) {
-    console.error('Error fetching global likes:', error);
-    return;
-  }
-  games.forEach(game => {
-    const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
-    game.globalLikes = found ? found.likes : 0;
-  });
+  const { data } = await supabase.from('game_votes').select('game_id, likes');
+  data.forEach(r => { const g = games.find(x => x.link===r.game_id || x.name===r.game_id); if (g) g.globalLikes = r.likes; });
 }
 
 async function fetchGlobalClicks() {
-  const { data, error } = await supabase.from('game_votes').select('game_id, clicks');
-  if (error) {
-    console.error('Error fetching global clicks:', error);
-    return;
-  }
-  games.forEach(game => {
-    const found = data.find(row => row.game_id === game.link || row.game_id === game.name);
-    game.globalClicks = found ? found.clicks : 0;
-  });
+  const { data } = await supabase.from('game_votes').select('game_id, clicks');
+  data.forEach(r => { const g = games.find(x => x.link===r.game_id || x.name===r.game_id); if (g) g.globalClicks = r.clicks; });
 }
 
-// Initialize games on page load
 window.addEventListener("load", loadGamesFromSupabase);
-
-// Fix: Add event listeners for search and sort
 window.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("search");
-  const sortDropdown = document.getElementById("sortOptions");
-
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      filterGames();
-    });
-  }
-
-  if (sortDropdown) {
-    sortDropdown.addEventListener("change", () => {
-      sortGames();
-    });
-  }
+  document.getElementById("search")?.addEventListener("input", filterGames);
+  document.getElementById("sortOptions")?.addEventListener("change", sortGames);
 });

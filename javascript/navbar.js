@@ -29,12 +29,21 @@ if (user) {
     .eq("id", user.id)
     .maybeSingle();
 
+<<<<<<< HEAD
   if (!error && profile) {
     username = profile.username || "User";
     // Add cache-busting query string
     avatarUrl = profile.avatar_url
       ? profile.avatar_url + "?t=" + Date.now()
       : avatarUrl;
+=======
+    if (!error && profile) {
+      username = profile.username || 'User';
+avatarUrl = profile.avatar_url;
+
+
+    }
+>>>>>>> c000645ac9f716700ca1e79948c2bcae2428576e
   }
 }
 

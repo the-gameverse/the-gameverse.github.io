@@ -1,5 +1,5 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 #particles-js {
   position: fixed;
@@ -13,7 +13,7 @@
 /* New UI */
         body {
             margin: 0;
-            font-family: Space Grotesk;
+            font-family: 'Inter', sans-serif;
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -76,7 +76,7 @@ iframe {
 }
 
 .buttons button {
-    padding: 12px 24px;
+
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -142,15 +142,17 @@ iframe {
 /* Align the buttons */
 .game-info .buttons {
     display: flex;
-    gap: 12px; /* Add spacing between buttons */
+    gap: 0px; /* Add spacing between buttons */
     
 }
 
-/* Style the buttons */
+/* Style the buttons new */
 .game-info .buttons button {
-    padding: 10px 20px;
+      background: rgba(34, 34, 34, 0.2); 
+  backdrop-filter: blur(10px);
+    padding: 7px 10px;
     font-size: 14px;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
     background-color: black;
     color: white;
@@ -163,19 +165,7 @@ iframe {
     transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
-/* Collapsed state for the random games container */
-#randomGameContainer.collapsed {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
 
-/* Expanded state for the random games container */
-#randomGameContainer {
-    max-height: 1000px; /* Adjust this value based on the content height */
-    overflow: auto;
-    transition: max-height 0.3s ease-in;
-}
 
 /* Style for the toggle button */
 .toggle-button {
