@@ -61,6 +61,13 @@ const overlayScreens = {
                 <button type="submit">Add Admin</button>
               </form>
             `,
+  restricted: `
+              <h2>Restricted Area</h2>
+              <p><strong>This area is restricted to admins only.</strong></p>
+              <p>Please contact the site owner if you believe this is an error: <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>
+</p>
+              <a href="/">Close</a>
+  `
 };
 
 // Supabase config
@@ -219,9 +226,9 @@ async function refreshBlogPosts() {
         </button>
       </div>
       <p class="markdown-preview" data-markdown="${post.content.replace(
-        /"/g,
-        "&quot;"
-      )}" hidden></p>
+      /"/g,
+      "&quot;"
+    )}" hidden></p>
     `;
 
     container.appendChild(card);
@@ -294,9 +301,13 @@ async function refreshBlogPosts() {
   });
 }
 window.addEventListener("DOMContentLoaded", () => {
-  safeRefreshGamesList();
-  refreshBlogPosts();
-  refreshAdminList();
+  if (JSON.parse(localStorage.getItem("isAdmin")).isAdmin === true) {
+    safeRefreshGamesList();
+    refreshBlogPosts();
+    refreshAdminList();
+  } else {
+    openOverlay1(overlayScreens.restricted);
+  }
 });
 
 // #endregion

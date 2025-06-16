@@ -108,6 +108,12 @@
   </head>
 
   <body style="margin: 0">
+    <script>
+      if (JSON.parse(localStorage.getItem("isAdmin")).isAdmin !== true) {
+        window.location.href = "/errors/403.html"; // or wherever your access denied page is
+      }
+    </script>
+
     <!-- Navigation Bar -->
     <div id="navbar"></div>
 
@@ -597,8 +603,6 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
               return;
             }
 
-            
-
             // Some Tests:
             console.log("Username: ", username);
 
@@ -641,9 +645,15 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
         }, 50);
       }
 
-      function closeOverlay() {
-        document.getElementById("overlay").classList.add("hidden");
-        document.getElementById("overlay-body").innerHTML = "";
+      function closeOverlay(bool) {
+        if (bool === true) {
+          // If bool is true, close the overlay and return
+          document.getElementById("overlay").classList.add("hidden");
+          document.getElementById("overlay-body").innerHTML = "";
+          return;
+        } else {
+          window.location.href = "/";
+        }
       }
 
       // Hook blog post clicks to open view overlay
