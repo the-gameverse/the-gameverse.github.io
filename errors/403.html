@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>403 Forbidden - Starship</title>
+    <link rel="icon" type="image/png" href="/uploads/branding/favicon.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        background-color: #0a0a0a;
+        color: white;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+        background: radial-gradient(circle at center, #111827, #0a0a0a);
+        overflow: hidden;
+      }
+
+      .error-container {
+        max-width: 600px;
+        padding: 20px;
+        border: 2px solid #a78bfa;
+        border-radius: 15px;
+        background-color: #1f2937;
+        box-shadow: 0 0 20px #a78bfa55;
+      }
+
+      h1 {
+        font-size: 5rem;
+        margin-bottom: 10px;
+        color: #a78bfa;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #cbd5e1;
+        margin-bottom: 30px;
+      }
+
+      .back-home {
+        color: #a78bfa;
+        background: transparent;
+        border: 1px solid #a78bfa;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.2s ease;
+      }
+
+      .back-home:hover {
+        background: #a78bfa22;
+      }
+
+      .glow-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #a78bfa;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          text-shadow: 0 0 10px #a78bfa55;
+        }
+
+        50% {
+          text-shadow: 0 0 20px #a78bfa;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="error-container">
+      <div class="glow-icon">
+        <i class="fa-solid fa-lock"></i>
+
+        <h1>403</h1>
+      </div>
+      <h2>Access Denied</h2>
+      <p>
+        You do not have permission to access this page.<br />
+        If you believe this is a mistake, <a href="/contact">contact the site owner.</a>
+      </p>
+      <a href="/" class="back-home"
+        ><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a
+      >
+    </div>
+  </body>
+</html>

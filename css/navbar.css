@@ -129,11 +129,11 @@
 }
 
 /* NAVIGATION LINKS */
-.nav-links {
+.nav-links, .admin-icon {
   display: flex;
   gap: 10px;
 }
-.nav-links a {
+.nav-links a, .admin-icon a {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -147,13 +147,13 @@
   text-decoration: none;
 }
 
-.nav-links a:hover {
+.nav-links a:hover, .admin-icon a:hover {
   background: #222;
   transform: scale(1.25);
   box-shadow: 0 4px 16px #8A2BE2, 0 2px 8px #fff2;
 }
 
-.nav-links a i {
+.nav-links a i, .admin-icon a i {
   font-size: 1.3em;
   color: #fff;
   text-shadow: 0 0 8px #8A2BE2, 0 0 4px #fff;
@@ -237,4 +237,46 @@
     display: flex !important;
     /* ...other styles... */
   }
+}
+
+.logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hover buffer zone */
+.logo-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  pointer-events: auto;
+}
+
+/* Admin icon styling */
+.admin-icon {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  background: linear-gradient(135deg, #8A2BE2, #4B0082);
+  border-radius: 30px;
+  padding: 20px;
+  /* pointer-events: none; */
+  z-index: 999;
+}
+
+/* Trigger animation on logo hover */
+.logo-container:hover .admin-icon {
+  transform: translate(-50%, -80px);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-icon:hover {
+  opacity: 1;
 }

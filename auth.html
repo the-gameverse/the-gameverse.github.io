@@ -1,476 +1,712 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>starship - authentication</title>
-  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
+  <head>
+    <meta charset="UTF-8" />
+    <title>starship - authentication</title>
+    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/main.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
 
-  <!-- JS & Analytics -->
-   <div id="particles-js"></div>
-  <script src="/javascript/particles.js"></script>
-  <script src="/javascript/particles-config.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779" crossorigin="anonymous"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-ZZH4JE7RJF');
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-  <style>
-
-
-input[type="text"], input[type="email"], input[type="password"], button {
-  width: 500px;
-  padding: 10px;
-  margin: 8px 0;
-  font-size: 18px;
-  border-radius: 10px;
-  background: rgba(34,34,34,0.2);
-  border: 1px solid #444;
-  color: white;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-}
-
-    input:hover, button:hover {
-      box-shadow: 0 0 20px rgba(174, 84, 255, 0.6);
-    }
-
-    input:focus {
-      border-color: #AE54FF;
-      outline: none;
-      box-shadow: 0 0 25px rgba(174, 84, 255, 0.8);
-      transform: scale(1.03);
-    }
-
-    #profile-info {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #AE54FF;
-      border-radius: 12px;
-      margin-top: 30px;
-      padding: 20px;
-      display: inline-block;
-      width:550px;
-      box-shadow: 0 0 20px rgba(174, 84, 255, 0.2);
-            backdrop-filter: blur(6px);
-    }
-
-    #profile-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-top: 10px;
-      object-fit: cover;
-    }
-
-    .username-update {
-      margin-top: 10px;
-    }
-    .loader {
-  width: 64px;
-  height: 64px;
-  position: relative;
-  background: #FFF;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.loader:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 40px;
-  height: 40px;
-  transform: rotate(45deg) translate(30%, 40%);
-  background: #ff9371;
-  box-shadow: 32px -34px 0 5px #ff3d00;
-  animation: slide 2s infinite ease-in-out alternate;
-}
-
-.loader:after {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ff3d00;
-  transform: rotate(0deg);
-  transform-origin: 35px 145px;
-  animation: rotate 2s infinite ease-in-out;
-}
-
-@keyframes slide {
-  0% , 100% {
-    bottom: -35px
-  }
-
-  25% , 75% {
-    bottom: -2px
-  }
-
-  20% , 80% {
-    bottom: 2px
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(-15deg)
-  }
-
-  25% , 75% {
-    transform: rotate(0deg)
-  }
-
-  100% {
-    transform: rotate(25deg)
-  }
-}
-  #toggle-signup-password, #toggle-signup-confirm-password {
-          width: 40px;
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 18px;
-      border-radius: 10px;
-      background: rgba(34,34,34,0.2);
-      border: 1px solid #444;
-      color: white;
-      backdrop-filter: blur(6px);
-      transition: all 0.3s ease;
-  }
-  </style>
-</head>
-
-<body>
-
-  <center>
-    <div id="navbar"></div>
-    <script type="module" src="/javascript/navbar.js"></script>
-
-    <h1>Authentication</h1>
-
-    <!-- Auth Options -->
-    <div id="auth-options">
-      <p>Already a user?</p>
-      <button onclick="showLogin()">Log In</button>
-      <p>New to Starship?</p>
-      <button onclick="showSignup()">Create an Account</button>
-    </div>
-
-    <!-- Login Section -->
-    <div id="login-section" style="display:none;">
-      <input id="email" type="email" placeholder="Email" /><br>
-      <input id="password" type="password" placeholder="Password" /><br>
-      <button id="login-btn">Log In</button>
-    </div>
-
-<div id="signup-section" style="display:none;">
-  <input id="signup-email" type="email" placeholder="Email" /><br>
-  <div style="position:relative;display:inline-block;width:500px;">
-    <input id="signup-password" type="password" placeholder="Password" style="width:calc(100% - 50px);" />
-    <button type="button" id="toggle-signup-password" style="position:absolute;right:0;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
-  </div><br>
-  <div style="position:relative;display:inline-block;width:500px;">
-    <input id="signup-confirm-password" type="password" placeholder="Confirm Password" style="width:calc(100% - 50px);" />
-    <button type="button" id="toggle-signup-confirm-password" style="position:absolute;right:0;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
-  </div><br>
-  <input id="signup-username" type="text" placeholder="Username (for sign up)" /><br>
-  <p>By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
-  <button id="signup-btn">Sign Up</button>
-</div>
-
-    <!-- Profile Info -->
-    <div id="profile-info" style="display:none;">
-      <h2>Profile</h2>
-      <p id="profile-username">Username: </p>
-      <img id="profile-avatar" src="" alt="Profile Picture" style="cursor:pointer;" />
-      <div class="username-update">
-        <input id="new-username" type="text" placeholder="New username" />
-        <button id="update-username-btn">Update Username</button>
-      </div>
-      <div class="avatar-update" style="margin-top:10px;">
-        <input id="profile-avatar-input" type="file" accept="image/*" style="display:inline-block;" />
-        <button id="update-avatar-btn">Update Avatar</button>
-      </div>
-      <button id="logout-btn">Log Out</button>
-    </div>
-
-    <pre id="status"></pre>
-
-<div id="avatar-upload-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
-  <div style="background:#222; color:#fff; padding:30px 40px; border-radius:16px; font-size:1.3em; box-shadow:0 0 30px #AE54FF;">
-    <div class="loader"></div>
-    <br>
-    Uploading new information...
-    <br>
-    Do not close this page or refresh it until the upload is complete.
-  </div>
-</div>
-
-  </center>
-<script>const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-// Elements
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const signupEmailInput = document.getElementById('signup-email');
-const signupPasswordInput = document.getElementById('signup-password');
-const signupUsernameInput = document.getElementById('signup-username');
-const signupAvatarInput = document.getElementById('signup-avatar');
-const statusEl = document.getElementById('status');
-const profileInfo = document.getElementById('profile-info');
-const profileUsername = document.getElementById('profile-username');
-const profileAvatar = document.getElementById('profile-avatar');
-const newUsernameInput = document.getElementById('new-username');
-const updateUsernameBtn = document.getElementById('update-username-btn');
-const authOptions = document.getElementById('auth-options');
-const loginSection = document.getElementById('login-section');
-const signupSection = document.getElementById('signup-section');
-
-function setStatus(msg) {
-  statusEl.textContent = msg;
-}
-
-function showLogin() {
-  authOptions.style.display = 'none';
-  loginSection.style.display = 'block';
-  signupSection.style.display = 'none';
-}
-
-function showSignup() {
-  authOptions.style.display = 'none';
-  signupSection.style.display = 'block';
-  loginSection.style.display = 'none';
-}
-
-async function signUp() {
-  const email = signupEmailInput.value;
-  const password = signupPasswordInput.value;
-  const confirmPassword = document.getElementById('signup-confirm-password').value;
-  const username = signupUsernameInput.value.trim();
-
-  if (!email || !password || !confirmPassword || !username)
-    return setStatus('Please fill in all fields.');
-  if (password !== confirmPassword)
-    return setStatus('Passwords do not match.');
-
-  const { data, error } = await supabaseClient.auth.signUp({ email, password });
-  if (error) return setStatus('Sign up error: ' + error.message);
-
-  setStatus('Signed up! Please check your email to confirm, then log in.');
-}
-
-async function signIn() {
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email: emailInput.value,
-    password: passwordInput.value
-  });
-  if (error) return setStatus('Login error: ' + error.message);
-  setStatus('Logged in!');
-  await ensureProfile();
-  await loadProfile();
-}
-
-async function signOut() {
-  const { error } = await supabaseClient.auth.signOut();
-  if (error) return setStatus('Logout error: ' + error.message);
-  profileInfo.style.display = 'none';
-  authOptions.style.display = 'block';
-  loginSection.style.display = 'none';
-  signupSection.style.display = 'none';
-  setStatus('Logged out!');
-}
-
-async function ensureProfile() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return;
-
-  const { data: profile } = await supabaseClient
-    .from('profiles')
-    .select('username, avatar_url')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!profile) {
-    const usernameInputExists = document.body.contains(signupUsernameInput);
-    let username = usernameInputExists ? signupUsernameInput.value.trim() : user.email?.split('@')[0] || 'New User';
-    await supabaseClient.from('profiles').insert([{ id: user.id, username, avatar_url: null }]);
-  }
-}
-
-async function uploadAvatar(userId, file) {
-  if (!file) return null;
-  const base64Url = await fileToDataUrl(file);
-  await updateAvatarUrl(userId, base64Url);
-  return base64Url;
-}
-
-async function updateAvatarUrl(userId, url) {
-  const { error } = await supabaseClient.from('profiles').update({ avatar_url: url }).eq('id', userId);
-  if (error) setStatus('Avatar update error: ' + error.message);
-}
-
-async function updateUsername() {
-  const newUsername = newUsernameInput.value.trim();
-  if (!newUsername) return setStatus('Please enter a new username.');
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('You must be logged in.');
-
-  showAvatarPopup();
-  const { error } = await supabaseClient.from('profiles').update({ username: newUsername }).eq('id', user.id);
-  hideAvatarPopup();
-
-  if (error) return setStatus('Username update failed: ' + error.message);
-  setStatus('Username updated!');
-  await loadProfile();
-
-  const navbarUsername = document.querySelector('.username');
-  if (navbarUsername) navbarUsername.textContent = newUsername;
-}
-
-async function loadProfile() {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('Not logged in');
-
-  const { data: profile, error } = await supabaseClient
-    .from('profiles')
-    .select('username, avatar_url')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (error) return setStatus('Error loading profile: ' + error.message);
-  if (!profile) return setStatus('No profile found. Please log out and sign in again.');
-
-  profileUsername.textContent = 'Username: ' + profile.username;
-
-  if (profile?.avatar_url && profile.avatar_url.startsWith('data:image/')) {
-    profileAvatar.src = profile.avatar_url;
-    profileAvatar.style.display = 'block';
-  } else {
-    profileAvatar.src = 'default-avatar.png'; // fallback avatar
-    profileAvatar.style.display = 'block';
-  }
-
-  authOptions.style.display = 'none';
-  loginSection.style.display = 'none';
-  signupSection.style.display = 'none';
-  profileInfo.style.display = 'block';
-
-  const navbarUsername = document.querySelector('.username');
-  if (navbarUsername) navbarUsername.textContent = profile.username;
-}
-
-profileAvatar.addEventListener('click', async () => {
-  let fileInput = document.getElementById('profile-avatar-input');
-  if (!fileInput) {
-    fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
-    fileInput.id = 'profile-avatar-input';
-    fileInput.style.display = 'none';
-    document.body.appendChild(fileInput);
-    fileInput.addEventListener('change', async () => {
-      const file = fileInput.files[0];
-      const { data: { user } } = await supabaseClient.auth.getUser();
-      if (!file || !user) return setStatus('You must be logged in to upload an avatar.');
-      showAvatarPopup();
-      setStatus('Uploading avatar...');
-      const publicUrl = await uploadAvatar(user.id, file);
-      hideAvatarPopup();
-      if (publicUrl) {
-        await updateAvatarUrl(user.id, publicUrl);
-        await loadProfile();
-        setStatus('Avatar updated!');
+    <!-- JS & Analytics -->
+    <div id="particles-js"></div>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-      fileInput.value = '';
-    });
-  }
-  fileInput.click();
-});
+      gtag("js", new Date());
+      gtag("config", "G-ZZH4JE7RJF");
+    </script>
 
-const updateAvatarBtn = document.getElementById('update-avatar-btn');
-const avatarInput = document.getElementById('profile-avatar-input');
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-updateAvatarBtn?.addEventListener('click', async () => {
-  const file = avatarInput.files[0];
-  const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!file) return setStatus('Please select an image file.');
-  if (!user) return setStatus('You must be logged in to upload an avatar.');
-  showAvatarPopup();
-  setStatus('Uploading avatar...');
-  const publicUrl = await uploadAvatar(user.id, file);
-  hideAvatarPopup();
-  if (publicUrl) {
-    await updateAvatarUrl(user.id, publicUrl);
-    await loadProfile();
-    setStatus('Avatar updated!');
-    avatarInput.value = '';
-    const navbarAvatar = document.querySelector('.profile-img');
-    if (navbarAvatar) navbarAvatar.src = publicUrl + '?t=' + Date.now();
-  }
-});
+    <style>
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      button {
+        width: 500px;
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 18px;
+        border-radius: 10px;
+        background: rgba(34, 34, 34, 0.2);
+        border: 1px solid #444;
+        color: white;
+        backdrop-filter: blur(6px);
+        transition: all 0.3s ease;
+      }
 
-document.getElementById('signup-btn')?.addEventListener('click', function (e) {
-  e.preventDefault();
-  signUp();
-});
-document.getElementById('login-btn')?.addEventListener('click', signIn);
-document.getElementById('logout-btn')?.addEventListener('click', signOut);
-updateUsernameBtn?.addEventListener('click', updateUsername);
-window.onload = loadProfile;
+      input:hover,
+      button:hover {
+        box-shadow: 0 0 20px rgba(174, 84, 255, 0.6);
+      }
 
-function showAvatarPopup() {
-  document.getElementById('avatar-upload-popup').style.display = 'flex';
-}
-function hideAvatarPopup() {
-  setTimeout(() => {
-    document.getElementById('avatar-upload-popup').style.display = 'none';
-    showNotification('Changes uploaded.', {
-      body: 'Your changes were made successfully.',
-      duration: 5000,
-    });
-  }, 3000);
-}
+      input:focus {
+        border-color: #ae54ff;
+        outline: none;
+        box-shadow: 0 0 25px rgba(174, 84, 255, 0.8);
+        transform: scale(1.03);
+      }
 
-document.getElementById('toggle-signup-password').onclick = function () {
-  const pw = document.getElementById('signup-password');
-  pw.type = pw.type === 'password' ? 'text' : 'password';
-  this.innerHTML = pw.type === 'text'
-    ? '<i class="fa-solid fa-eye-slash"></i>'
-    : '<i class="fa-solid fa-eye"></i>';
-};
+      #profile-info {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #ae54ff;
+        border-radius: 12px;
+        margin-top: 30px;
+        padding: 20px;
+        display: inline-block;
+        width: 550px;
+        box-shadow: 0 0 20px rgba(174, 84, 255, 0.2);
+        backdrop-filter: blur(6px);
+      }
 
-document.getElementById('toggle-signup-confirm-password').onclick = function () {
-  const pw = document.getElementById('signup-confirm-password');
-  pw.type = pw.type === 'password' ? 'text' : 'password';
-  this.innerHTML = pw.type === 'text'
-    ? '<i class="fa-solid fa-eye-slash"></i>'
-    : '<i class="fa-solid fa-eye"></i>';
-};
+      #profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-top: 10px;
+        object-fit: cover;
+      }
 
-function fileToDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
+      .username-update {
+        margin-top: 10px;
+      }
 
-</script>
-</body>
+      .loader {
+        width: 64px;
+        height: 64px;
+        position: relative;
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .loader:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 40px;
+        transform: rotate(45deg) translate(30%, 40%);
+        background: #ff9371;
+        box-shadow: 32px -34px 0 5px #ff3d00;
+        animation: slide 2s infinite ease-in-out alternate;
+      }
+
+      .loader:after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff3d00;
+        transform: rotate(0deg);
+        transform-origin: 35px 145px;
+        animation: rotate 2s infinite ease-in-out;
+      }
+
+      @keyframes slide {
+        0%,
+        100% {
+          bottom: -35px;
+        }
+
+        25%,
+        75% {
+          bottom: -2px;
+        }
+
+        20%,
+        80% {
+          bottom: 2px;
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(-15deg);
+        }
+
+        25%,
+        75% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(25deg);
+        }
+      }
+
+      #toggle-signup-password,
+      #toggle-signup-confirm-password {
+        width: 40px;
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 18px;
+        border-radius: 10px;
+        background: rgba(34, 34, 34, 0.2);
+        border: 1px solid #444;
+        color: white;
+        backdrop-filter: blur(6px);
+        transition: all 0.3s ease;
+      }
+
+      #yt-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      #yt-bg iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120vw;
+        height: 68vw;
+        /* 16:9 ratio, oversize for cover */
+        min-width: 100vw;
+        min-height: 100vh;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="yt-bg"></div>
+    <center>
+      <div id="navbar"></div>
+      <script type="module" src="/javascript/navbar.js"></script>
+
+      <h1>Authentication</h1>
+
+      <!-- Auth Options -->
+      <div id="auth-options">
+        <p>Already a user?</p>
+        <button onclick="showLogin()">Log In</button>
+        <p>New to Starship?</p>
+        <button onclick="showSignup()">Create an Account</button>
+      </div>
+
+      <!-- Login Section -->
+      <div id="login-section" style="display: none">
+        <input id="email" type="email" placeholder="Email" /><br />
+        <input id="password" type="password" placeholder="Password" /><br />
+        <button id="login-btn">Log In</button>
+      </div>
+
+      <div id="signup-section" style="display: none">
+        <input id="signup-email" type="email" placeholder="Email" /><br />
+        <div style="position: relative; display: inline-block; width: 500px">
+          <input
+            id="signup-password"
+            type="password"
+            placeholder="Password"
+            style="width: calc(100% - 50px)"
+          />
+          <button
+            type="button"
+            id="toggle-signup-password"
+            style="position: absolute; right: 0; top: 8px; padding: 2px 8px"
+          >
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <br />
+        <div style="position: relative; display: inline-block; width: 500px">
+          <input
+            id="signup-confirm-password"
+            type="password"
+            placeholder="Confirm Password"
+            style="width: calc(100% - 50px)"
+          />
+          <button
+            type="button"
+            id="toggle-signup-confirm-password"
+            style="position: absolute; right: 0; top: 8px; padding: 2px 8px"
+          >
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <br />
+        <input
+          id="signup-username"
+          type="text"
+          placeholder="Username (for sign up)"
+        /><br />
+        <p>
+          By signing up, you automatically agree to the Privacy Policy and Terms
+          of Service. You also state that you are 13 or older, and that you know
+          that you can delete your data at anytime by emailing
+          "starship.site@gmail.com" or using the contact page.
+        </p>
+        <button id="signup-btn">Sign Up</button>
+      </div>
+
+      <!-- Profile Info -->
+      <div id="profile-info" style="display: none">
+        <h2>Profile</h2>
+        <p id="profile-username">Username:</p>
+        <img
+          id="profile-avatar"
+          src=""
+          alt="Profile Picture"
+          style="cursor: pointer"
+        />
+        <div class="username-update">
+          <input id="new-username" type="text" placeholder="New username" />
+          <button id="update-username-btn">Update Username</button>
+        </div>
+        <div class="avatar-update" style="margin-top: 10px">
+          <input
+            id="profile-avatar-input"
+            type="file"
+            accept="image/*"
+            style="display: inline-block"
+          />
+          <button id="update-avatar-btn">Update Avatar</button>
+        </div>
+        <button id="logout-btn">Log Out</button>
+      </div>
+
+      <pre id="status"></pre>
+
+      <div
+        id="avatar-upload-popup"
+        style="
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 9999;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            background: #222;
+            color: #fff;
+            padding: 30px 40px;
+            border-radius: 16px;
+            font-size: 1.3em;
+            box-shadow: 0 0 30px #ae54ff;
+          "
+        >
+          <div class="loader"></div>
+          <br />
+          Uploading new information...
+          <br />
+          Do not close this page or refresh it until the upload is complete.
+        </div>
+      </div>
+    </center>
+
+    <script>
+      const supabaseUrl = "https://jbekjmsruiadbhaydlbt.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY";
+      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+      // Login fields
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      // Signup fields
+      const signupEmailInput = document.getElementById("signup-email");
+      const signupPasswordInput = document.getElementById("signup-password");
+      const signupUsernameInput = document.getElementById("signup-username");
+      const signupAvatarInput = document.getElementById("signup-avatar");
+
+      const statusEl = document.getElementById("status");
+      const profileInfo = document.getElementById("profile-info");
+      const profileUsername = document.getElementById("profile-username");
+      const profileAvatar = document.getElementById("profile-avatar");
+      const newUsernameInput = document.getElementById("new-username");
+      const updateUsernameBtn = document.getElementById("update-username-btn");
+
+      const authOptions = document.getElementById("auth-options");
+      const loginSection = document.getElementById("login-section");
+      const signupSection = document.getElementById("signup-section");
+
+      function setStatus(msg) {
+        statusEl.textContent = msg;
+      }
+
+      function showLogin() {
+        authOptions.style.display = "none";
+        loginSection.style.display = "block";
+        signupSection.style.display = "none";
+      }
+
+      function showSignup() {
+        authOptions.style.display = "none";
+        signupSection.style.display = "block";
+        loginSection.style.display = "none";
+      }
+
+      async function signUp() {
+        console.log("signUp called");
+        const email = signupEmailInput.value;
+        const password = signupPasswordInput.value;
+        const confirmPassword = document.getElementById(
+          "signup-confirm-password"
+        ).value;
+        const username = signupUsernameInput.value.trim();
+        console.log(
+          "Sign up attempt with:",
+          email,
+          password,
+          confirmPassword,
+          username
+        );
+
+        if (!email || !password || !confirmPassword || !username)
+          return setStatus("Please fill in all fields.");
+
+        if (password !== confirmPassword)
+          return setStatus("Passwords do not match.");
+
+        const call = await supabaseClient.auth.signUp({
+          email,
+          password,
+        }).then(console.log);
+
+        setStatus(
+          "Signed up! Please check your email to confirm, then log in."
+        );
+      }
+
+      async function signIn() {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email: emailInput.value,
+          password: passwordInput.value,
+        });
+        if (error) return setStatus("Login error: " + error.message);
+
+        setStatus("Logged in!");
+        await ensureProfile();
+        await loadProfile();
+        window.location.reload();
+      }
+
+      async function signOut() {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) return setStatus("Logout error: " + error.message);
+        profileInfo.style.display = "none";
+        authOptions.style.display = "block";
+        loginSection.style.display = "none";
+        signupSection.style.display = "none";
+        setStatus("Logged out!");
+        localStorage.setItem("isAdmin", JSON.stringify({ isAdmin: false, role: null }));
+        localStorage.removeItem("loggedInUser");
+        window.location.reload();
+      }
+
+      async function ensureProfile() {
+        // Ensure the user has a profile row in the database
+        const {
+          data: { user },
+        } = await supabaseClient.auth.getUser();
+        if (!user) return;
+        const { data: profile, error } = await supabaseClient
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({ id: user.id, username: profile.username })
+        );
+        const { data: adminsList } = await supabaseClient
+          .from("adminpanel_access")
+          .select("username, role");
+
+        console.log(typeof adminsList, adminsList);
+
+        adminsList.forEach((user1) => {
+          if (profile.username === user1.username) {
+            localStorage.setItem(
+              "isAdmin",
+              JSON.stringify({ isAdmin: true, role: user1.role })
+            );
+          } else {
+            localStorage.setItem(
+              "isAdmin",
+              JSON.stringify({ isAdmin: false, role: null })
+            );
+          }
+        });
+
+        if (!profile) {
+          // Use signup username if available, else fallback to email prefix or "Anonymous"
+          let username = signupUsernameInput.value?.trim();
+          if (!username) {
+            username = user.email
+              ? user.email.split("@")[0]
+              : "No Username Found";
+          }
+
+          await supabaseClient
+            .from("profiles")
+            .insert([{ id: user.id, username, avatar_url: null }]);
+        }
+      }
+
+      async function uploadAvatar(userId, file) {
+        if (!file) return null;
+        const fileExt = file.name.split(".").pop();
+        const filePath = `${userId}.${fileExt}`;
+        const { error } = await supabaseClient.storage
+          .from("avatars")
+          .upload(filePath, file, { upsert: true });
+        if (error) return setStatus("Avatar upload error: " + error.message);
+
+        const { data } = supabaseClient.storage
+          .from("avatars")
+          .getPublicUrl(filePath);
+        return data.publicUrl;
+      }
+
+      async function updateAvatarUrl(userId, url) {
+        const { error } = await supabaseClient
+          .from("profiles")
+          .update({ avatar_url: url })
+          .eq("id", userId);
+        if (error) setStatus("Avatar update error: " + error.message);
+      }
+
+      async function updateUsername() {
+        const newUsername = newUsernameInput.value.trim();
+        if (!newUsername) return setStatus("Please enter a new username.");
+        const {
+          data: { user },
+        } = await supabaseClient.auth.getUser();
+        if (!user) return setStatus("You must be logged in.");
+
+        showAvatarPopup();
+        const { error } = await supabaseClient
+          .from("profiles")
+          .update({ username: newUsername })
+          .eq("id", user.id);
+
+        hideAvatarPopup();
+        if (error) return setStatus("Username update failed: " + error.message);
+        setStatus("Username updated!");
+        await loadProfile();
+
+        // Update navbar username display
+        const navbarUsername = document.querySelector(".username");
+        if (navbarUsername) {
+          navbarUsername.textContent = newUsername;
+        }
+      }
+
+      async function loadProfile() {
+        const {
+          data: { user },
+        } = await supabaseClient.auth.getUser();
+        if (!user) {
+          setStatus("Not logged in");
+          authOptions.style.display = "block";
+          loginSection.style.display = "none";
+          signupSection.style.display = "none";
+          profileInfo.style.display = "none";
+          return;
+        }
+
+        const { data: profile, error } = await supabaseClient
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (error) return setStatus("Error loading profile: " + error.message);
+
+        if (!profile) {
+          setStatus("No profile found. Please log out and sign in again.");
+          return;
+        }
+
+        profileUsername.textContent = "Username: " + profile.username;
+        // Add a cache-busting query string using Date.now()
+        profileAvatar.src = profile.avatar_url
+          ? profile.avatar_url + "?t=" + Date.now()
+          : "";
+        profileAvatar.style.display = profile.avatar_url ? "block" : "none";
+
+        authOptions.style.display = "none";
+        loginSection.style.display = "none";
+        signupSection.style.display = "none";
+        profileInfo.style.display = "block";
+
+        // Update navbar username display
+        const navbarUsername = document.querySelector(".username");
+        if (navbarUsername) {
+          navbarUsername.textContent = profile.username;
+        }
+      }
+
+      // Avatar upload: only allow after login/profile loaded
+      profileAvatar.addEventListener("click", async () => {
+        // Create a hidden file input if not already present
+        let fileInput = document.getElementById("profile-avatar-input");
+        if (!fileInput) {
+          fileInput = document.createElement("input");
+          fileInput.type = "file";
+          fileInput.accept = "image/*";
+          fileInput.id = "profile-avatar-input";
+          fileInput.style.display = "none";
+          document.body.appendChild(fileInput);
+
+          fileInput.addEventListener("change", async () => {
+            const file = fileInput.files[0];
+            const {
+              data: { user },
+            } = await supabaseClient.auth.getUser();
+            if (!file || !user)
+              return setStatus("You must be logged in to upload an avatar.");
+            showAvatarPopup();
+            setStatus("Uploading avatar...");
+            const publicUrl = await uploadAvatar(user.id, file);
+            hideAvatarPopup();
+            if (publicUrl) {
+              await updateAvatarUrl(user.id, publicUrl);
+              await loadProfile();
+              setStatus("Avatar updated!");
+            }
+            fileInput.value = "";
+          });
+        }
+        fileInput.click();
+      });
+
+      // Avatar update logic
+      const avatarInput = document.getElementById("profile-avatar-input");
+      const updateAvatarBtn = document.getElementById("update-avatar-btn");
+
+      updateAvatarBtn?.addEventListener("click", async () => {
+        const file = avatarInput.files[0];
+        const {
+          data: { user },
+        } = await supabaseClient.auth.getUser();
+        if (!file) return setStatus("Please select an image file.");
+        if (!user)
+          return setStatus("You must be logged in to upload an avatar.");
+        showAvatarPopup();
+        setStatus("Uploading avatar...");
+
+        // Get current avatar URL
+        const { data: profile } = await supabaseClient
+          .from("profiles")
+          .select("avatar_url")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        // Delete old avatar if it exists
+        if (profile && profile.avatar_url) {
+          await deleteOldAvatar(user.id, profile.avatar_url);
+        }
+
+        const publicUrl = await uploadAvatar(user.id, file);
+        hideAvatarPopup();
+        if (publicUrl) {
+          await updateAvatarUrl(user.id, publicUrl);
+          await loadProfile();
+          setStatus("Avatar updated!");
+          avatarInput.value = "";
+
+          // Update navbar avatar image if present
+          const navbarAvatar = document.querySelector(".profile-img");
+          if (navbarAvatar) {
+            navbarAvatar.src = publicUrl + "?t=" + Date.now();
+          }
+        }
+      });
+
+      document
+        .getElementById("signup-btn")
+        ?.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent form submission if inside a form
+          signUp();
+        });
+      document.getElementById("login-btn")?.addEventListener("click", signIn);
+      document.getElementById("logout-btn")?.addEventListener("click", signOut);
+      updateUsernameBtn?.addEventListener("click", updateUsername);
+
+      window.onload = loadProfile;
+
+      function showAvatarPopup() {
+        document.getElementById("avatar-upload-popup").style.display = "flex";
+      }
+      function hideAvatarPopup() {
+        setTimeout(() => {
+          document.getElementById("avatar-upload-popup").style.display = "none";
+          // Show notification after popup is hidden
+          showNotification("Changes uploaded.", {
+            body: "Your changes were made successfully.",
+            duration: 5000,
+          });
+        }, 3000); // 3 seconds delay
+      }
+      // Show/hide password toggles
+      document.getElementById("toggle-signup-password").onclick = function () {
+        const pw = document.getElementById("signup-password");
+        if (pw.type === "password") {
+          pw.type = "text";
+          this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+        } else {
+          pw.type = "password";
+          this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        }
+      };
+      document.getElementById("toggle-signup-confirm-password").onclick =
+        function () {
+          const pw = document.getElementById("signup-confirm-password");
+          if (pw.type === "password") {
+            pw.type = "text";
+            this.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+          } else {
+            pw.type = "password";
+            this.innerHTML = '<i class="fa-solid fa-eye"></i>';
+          }
+        };
+
+      async function deleteOldAvatar(userId, oldUrl) {
+        if (!oldUrl) return;
+        // Extract the file name from the URL
+        const parts = oldUrl.split("/");
+        const fileName = parts[parts.length - 1].split("?")[0];
+        if (!fileName.startsWith(userId)) return; // Only delete if it matches the user
+        await supabaseClient.storage.from("avatars").remove([fileName]);
+      }
+    </script>
+  </body>
   <script src="/javascript/notifications.js"></script>
 </html>
