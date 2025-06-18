@@ -108,6 +108,43 @@
   </head>
 
   <body style="margin: 0">
+    <!-- Make sure they are an admin -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+    <script>
+      const supabaseUrl = "https://jbekjmsruiadbhaydlbt.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY";
+      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+      async function checkIfAdmin() {
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!loggedInUser) {
+          window.location.href = "/errors/403";
+          return;
+        }
+
+        const { data, error } = await supabaseClient
+          .from("adminpanel_access")
+          .select("username");
+
+        if (error || !data) {
+          console.error("Error fetching admin list:", error);
+          window.location.href = "/errors/403";
+          return;
+        }
+
+        const isAdmin = data.some(
+          (admin) => admin.username === loggedInUser.username
+        );
+
+        if (!isAdmin) {
+          window.location.href = "/errors/403";
+        }
+      }
+
+      checkIfAdmin();
+    </script>
+
     <!-- Navigation Bar -->
     <div id="navbar"></div>
 
@@ -286,8 +323,6 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
           </div>
         </div>
       </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
     </div>
 
     <!-- Particles.JS Background -->
@@ -596,8 +631,6 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
               alert("Please fill in all fields.");
               return;
             }
-
-            
 
             // Some Tests:
             console.log("Username: ", username);

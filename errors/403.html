@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>403 Forbidden - Starship Command</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at bottom, #1a002d 0%, #000010 100%);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    .error-code {
+      font-size: 5em;
+      color: #bb00ff;
+      text-shadow: 0 0 20px #bb00ff, 0 0 40px #6600cc;
+      margin-bottom: 10px;
+      animation: flicker 2.5s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 1; text-shadow: 0 0 10px #bb00ff, 0 0 30px #6600cc; }
+      50% { opacity: 0.7; text-shadow: 0 0 20px #8800cc, 0 0 50px #440066; }
+      100% { opacity: 1; text-shadow: 0 0 15px #bb00ff, 0 0 40px #9900ff; }
+    }
+
+    .planet {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 25px;
+      /* box-shadow: 0 0 40px rgba(200,100,255,0.8); */
+      /* animation: rotate 12s linear infinite; */
+      color: b;
+    }
+
+    .planet img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      /* background-color: ;  */
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(90deg); }
+    }
+
+    .glow-text {
+      font-size: 2.4em;
+      color: #e0b3ff;
+      text-shadow: 0 0 8px #e0b3ff, 0 0 16px #8a2be2;
+      margin-bottom: 15px;
+    }
+
+    .subtext {
+      color: #aaa2cc;
+      font-size: 1.2em;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 26px;
+      background: linear-gradient(45deg, #b34bff, #6600ff);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 12px #b34bff;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #c96eff;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://raw.githubusercontent.com/josephsurin/starfield-animation/main/starfield.gif') center center / cover no-repeat;
+      opacity: 0.1;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">403</div>
+    <div class="planet">
+      <img src="/uploads/branding/favicon.png" alt="Starship Logo">
+    </div>
+    <div class="glow-text">Access Denied</div>
+    <div class="subtext">You lack admin clearance to access the command panel.<br> This area is restricted to authorized admins only.</div>
+    <a href="/index.html" class="btn">Return to starship</a>
+  </div>
+</body>
+</html>
