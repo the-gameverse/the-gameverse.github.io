@@ -31,7 +31,6 @@ function getCardHTML(game) {
     </div>
   </div>
 </div>
-
   `;
 }
 
@@ -55,7 +54,8 @@ async function loadGamesFromSupabase() {
     globalLikes: 0,
     globalClicks: 0,
   }));
-  loadFavoritesFromLocalStorage();
+  await loadFavoritesFromSupabase();
+
   loadClickCountsFromLocalStorage();
   await fetchGlobalLikes();
   await fetchGlobalClicks();
@@ -72,24 +72,47 @@ function filterGames() {
   clearTimeout(typingTimeout);
   typingTimeout = setTimeout(() => {
     const search = document.getElementById("search").value;
-    showSkeletonLoader(); // show skeleton right away
+    showSkeletonLoader();
 
     setTimeout(() => {
-      displayGames(search); // show results after 3 seconds
+      displayGames(search);
     }, 1000);
   }, 300);
 }
 
+async function saveFavoritesToSupabase() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
 
-function saveFavoritesToLocalStorage() {
-  const favs = {};
-  games.forEach(g => favs[g.name] = g.isFavorited);
-  localStorage.setItem("favorites", JSON.stringify(favs));
+  const favs = games.filter(g => g.isFavorited).map(g => g.id);
+  const { error } = await supabase
+    .from('profiles')
+    .update({ favorites: favs })
+    .eq('id', user.id);
+
+  if (error) console.error("Error saving favorites:", error.message);
 }
 
-function loadFavoritesFromLocalStorage() {
-  const stored = JSON.parse(localStorage.getItem("favorites") || "{}");
-  games.forEach(g => g.isFavorited = stored[g.name] || false);
+async function loadFavoritesFromSupabase() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('favorites')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Error loading favorites:", error.message);
+    return;
+  }
+
+  // Normalize IDs to strings for consistent comparison
+  const favIds = (profile?.favorites || []).map(id => String(id));
+  games.forEach(g => {
+    g.isFavorited = favIds.includes(String(g.id));
+  });
 }
 
 function saveClickCountsToLocalStorage() {
@@ -123,13 +146,13 @@ function displayGames(filter = "") {
     .filter(g => g.name.toLowerCase().includes(filter.toLowerCase()))
     .sort((a, b) => {
       switch (currentSortOption) {
-        case "favorites":   return b.isFavorited - a.isFavorited;
+        case "favorites":   return (b.isFavorited === a.isFavorited) ? 0 : b.isFavorited ? 1 : -1;
         case "clickCount":  return b.clickCount - a.clickCount;
         case "alphabetical":return a.name.localeCompare(b.name);
         case "liked":       return isGameLiked(b) - isGameLiked(a);
         case "globalLikes": return (b.globalLikes||0) - (a.globalLikes||0);
         case "trending":    return (b.globalClicks||0) - (a.globalClicks||0);
-        default:             return 0;
+        default:            return 0;
       }
     });
 
@@ -139,26 +162,41 @@ function displayGames(filter = "") {
     wrapper.innerHTML = getCardHTML(game);
 
     const favEl = wrapper.querySelector('.favorite-icon');
-    favEl.addEventListener('click', e => {
+    favEl.addEventListener('click', async e => {
       e.stopPropagation();
+
+      // Check if user is logged in
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        showNotification("Favorites Error", {
+          body: "You need to be signed in to use favorites. Create an account or log in <a href='/auth'>here</a>.",
+          sound: true,
+          duration: 10000,
+        });
+        return;
+      }
+
+      // Toggle favorite
       game.isFavorited = !game.isFavorited;
-      saveFavoritesToLocalStorage();
+
+      // Save to Supabase
+      await saveFavoritesToSupabase();
+
+      // Refresh UI
       displayGames(filter);
     });
 
-wrapper.addEventListener('click', () => {
-  game.clickCount++;
-  saveClickCountsToLocalStorage();
+    wrapper.addEventListener('click', () => {
+      game.clickCount++;
+      saveClickCountsToLocalStorage();
 
-  // Save game info in localStorage separately
-  localStorage.setItem('gameImage', game.image);
-  localStorage.setItem('gameName', game.name);
-  localStorage.setItem('gameLink', game.link);
+      localStorage.setItem('gameImage', game.image);
+      localStorage.setItem('gameName', game.name);
+      localStorage.setItem('gameLink', game.link);
 
-  displayGames(filter);
-  window.location.href = game.path;
-});
-
+      displayGames(filter);
+      window.location.href = game.path;
+    });
 
     menu.appendChild(wrapper);
   });
@@ -177,20 +215,18 @@ function showSkeletonLoader() {
   }
 }
 
-function displayGamesWithSkeleton() {
+async function displayGamesWithSkeleton() {
   const ids = ["search", "sortOptions", "gameCount", "card"];
 
-  // Hide elements initially
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });
 
-  // Show skeleton loader
   showSkeletonLoader();
 
-  // After a delay, show elements again with correct styles
-  setTimeout(() => {
+  setTimeout(async () => {
+    await loadFavoritesFromSupabase();
     displayGames();
     ids.forEach(id => {
       const el = document.getElementById(id);
@@ -199,15 +235,20 @@ function displayGamesWithSkeleton() {
   }, 500);
 }
 
-
 async function fetchGlobalLikes() {
   const { data } = await supabase.from('game_votes').select('game_id, likes');
-  data.forEach(r => { const g = games.find(x => x.link===r.game_id || x.name===r.game_id); if (g) g.globalLikes = r.likes; });
+  data.forEach(r => {
+    const g = games.find(x => x.link === r.game_id || x.name === r.game_id);
+    if (g) g.globalLikes = r.likes;
+  });
 }
 
 async function fetchGlobalClicks() {
   const { data } = await supabase.from('game_votes').select('game_id, clicks');
-  data.forEach(r => { const g = games.find(x => x.link===r.game_id || x.name===r.game_id); if (g) g.globalClicks = r.clicks; });
+  data.forEach(r => {
+    const g = games.find(x => x.link === r.game_id || x.name === r.game_id);
+    if (g) g.globalClicks = r.clicks;
+  });
 }
 
 window.addEventListener("load", loadGamesFromSupabase);

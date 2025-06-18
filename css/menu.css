@@ -330,3 +330,62 @@ body {
 .favorite-icon:hover {
   transform: scale(1.15);
 }
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    display: flex;
+    padding: 10px;
+  }
+
+  #sortOptions,
+  #toggleUsageData,
+  #search,
+  #searchBar {
+    width: 90vw;
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  #gameMenu {
+    padding: 10px;
+    gap: 16px;
+  }
+
+  .card {
+    max-width: 95vw;
+    min-height: auto;
+    border-radius: 20px;
+    transform: none !important; /* prevent scale issues */
+  }
+
+  .card:hover {
+    transform: none;
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.3);
+  }
+
+  .card-image img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+  }
+
+  .stat {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+
+  .favorite-icon {
+    font-size: 1.2rem;
+    top: 4px;
+    right: 8px;
+  }
+}

@@ -221,3 +221,77 @@ iframe {
   background: #f44336;
   transition: width 0.3s cubic-bezier(.4,2,.6,1);
 }
+@media (max-width: 700px) {
+  body {
+    padding: 0;
+    height: auto;
+    overflow: auto;
+  }
+
+  .game-container {
+    width: 95%;
+    margin: 12px auto;
+    border-width: 2px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(174, 84, 255, 0.6);
+  }
+
+  iframe {
+    height: 400px; /* Shorter iframe for small screens */
+  }
+
+  .game-info {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .game-info .game-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-info img {
+    width: 50px;
+    height: 50px;
+    margin: 0 0 8px 0;
+  }
+
+  .game-info h2 {
+    font-size: 22px;
+  }
+
+  .game-info .buttons {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .controls {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .buttons {
+    float: none;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 auto;
+  }
+
+  .buttons button {
+    width: 100%;
+    max-width: 180px;
+    padding: 10px;
+  }
+
+  #likeRatioBarContainer {
+    width: 95%;
+    bottom: 120px;
+  }
+}

@@ -186,22 +186,15 @@
 
     </style>
 </head>
-<body>
-    <video id="background-video" autoplay muted>
+<body>        <audio id="bg-music" src="/storage/loading.mp3" autoplay preload="auto"></audio>
+    <video id="background-video" autoplay>
         <source src="/storage/loadvid.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-        <audio id="bg-music" src="/storage/loading.mp3" autoplay preload="auto"></audio>
+
 
     <div id="loader-container">
-        <!-- Bar loader
-<div class="loading-wave">
-  <div class="loading-bar"></div>
-  <div class="loading-bar"></div>
-  <div class="loading-bar"></div>
-  <div class="loading-bar"></div>
-  <div class="loading-bar"></div>
-</div> -->
+
     <!-- Warning message -->
     <div id="warning" style="color:red;border:2px solid white">
         <img src=/uploads/branding/favicon.png height=100px width=100px>
@@ -212,7 +205,9 @@
     </div>
 
     <script>
-      
+        const audio = document.getElementById('bg-music');
+  audio.addEventListener('play', () => console.log('Audio is playing'));
+  audio.addEventListener('error', (e) => console.log('Audio error:', e));
         // Function to hide loader, popup, video and show warning after 10 seconds
         function showWarningAfterDelay() {
             setTimeout(() => {
@@ -228,6 +223,11 @@
         // Start the rolling text and show warning after 10 seconds
 
         showWarningAfterDelay();
+
+
+
+
+
     </script>
 
 </body>
