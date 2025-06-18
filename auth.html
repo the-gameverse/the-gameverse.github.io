@@ -149,6 +149,52 @@ input[type="text"], input[type="email"], input[type="password"], button {
       backdrop-filter: blur(6px);
       transition: all 0.3s ease;
   }
+  @media (max-width: 600px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  button {
+    width: 90%;
+    font-size: 16px;
+  }
+
+  #toggle-signup-password,
+  #toggle-signup-confirm-password {
+    width: 44px;
+    font-size: 16px;
+    margin-left: 5px;
+  }
+
+  #profile-info {
+    width: 90%;
+    padding: 16px;
+  }
+
+  #profile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loader {
+    width: 48px;
+    height: 48px;
+  }
+
+  .loader:before {
+    width: 30px;
+    height: 30px;
+    box-shadow: 24px -26px 0 4px #ff3d00;
+  }
+
+  .loader:after {
+    width: 14px;
+    height: 14px;
+    top: 8px;
+    left: 8px;
+    transform-origin: 30px 130px;
+  }
+}
+
   </style>
 </head>
 
