@@ -281,6 +281,7 @@ async function signIn() {
   if (error) return setStatus('Login error: ' + error.message);
   setStatus('Logged in!');
   await ensureProfile();
+  await checkForAdmin();
   await loadProfile();
 }
 
@@ -292,6 +293,18 @@ async function signOut() {
   loginSection.style.display = 'none';
   signupSection.style.display = 'none';
   setStatus('Logged out!');
+  localStorage.setItem("isAdmin", JSON.stringify({isAdmin: false, role: null}));
+  location.reload();
+}
+
+async function checkForAdmin() {
+  const { data, error } = await supabaseClient.from('adminpanel_access').select('username, role')
+  data.forEach(admin => {
+    if (admin.username === JSON.parse(localStorage.getItem("loggedInUser")).username) {
+      localStorage.setItem("isAdmin", JSON.stringify({isAdmin: true, role: admin.role}));
+    }
+  });
+  window.location.reload();
 }
 
 async function ensureProfile() {
@@ -308,6 +321,8 @@ async function ensureProfile() {
     const usernameInputExists = document.body.contains(signupUsernameInput);
     let username = usernameInputExists ? signupUsernameInput.value.trim() : user.email?.split('@')[0] || 'New User';
     await supabaseClient.from('profiles').insert([{ id: user.id, username, avatar_url: null }]);
+  } else {
+    localStorage.setItem("loggedInUser", JSON.stringify(profile));
   }
 }
 
