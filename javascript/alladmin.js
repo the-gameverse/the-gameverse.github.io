@@ -332,7 +332,7 @@ async function refreshAdminList() {
     } else if (admin.role === "gameadd") {
       admin.role = "Game +";
     } else if (admin.role === "editor") {
-      admin.role = "editor";
+      admin.role = "Editor";
     } else {
       alert("Invalid role selected.");
       return;
