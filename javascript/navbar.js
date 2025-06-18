@@ -38,7 +38,9 @@ if (user) {
 let a = ``;
 
 let isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
-
+if (!isAdmin) {
+  isAdmin = { isAdmin: false, role: null }; // Default to not admin if not set
+}
 console.log("isAdmin:", isAdmin);
 console.log("isadmin isadmin", isAdmin.isAdmin);
 if (isAdmin.isAdmin === true) {
