@@ -1,247 +1,247 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Page Title and Favicon -->
-    <title>starship - game menu</title>
-    <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/menu.css" />
+<head>
+  <!-- Page Title and Favicon -->
+  <title>starship - game menu</title>
+  <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
 
-    <!-- JavaScript for Page Load -->
-    <script src="/javascript/pageload.js"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/menu.css" />
+
+  <!-- JavaScript for Page Load -->
+  <script src="/javascript/pageload.js"></script>
   <div class="statuspage-embed" data-page-id="starshipstatus" data-component-id="" data-hide-uptime="false"></div>
   <script src="https://starshipstatus.statuspage.io/embed/script.js"></script>
-    <!-- Google AdSense and Google Analytics -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-      crossorigin="anonymous"
-    ></script>
-    <!-- End Google AdSense -->
+  <!-- Google AdSense and Google Analytics -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+    crossorigin="anonymous"></script>
+  <!-- End Google AdSense -->
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-      gtag("config", "G-ZZH4JE7RJF");
-    </script>
-    <!-- End Google Tag -->
+    gtag("config", "G-ZZH4JE7RJF");
+  </script>
+  <!-- End Google Tag -->
 
-    <!-- Inline Styles for Popup -->
-    <style>
-      /* Popup styling */
-      .messagePopup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-        text-align: center;
-        max-width: 400px;
-        z-index: 1000;
-        display: none;
-      }
-      .messagePopup button {
-        background: red;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-      .messagePopup button:hover {
-        background: darkred;
-      }
-      /* Add to your <style> section or a CSS file */
-      #yt-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      #yt-bg iframe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 120vw;
-        height: 68vw; /* 16:9 ratio, oversize for cover */
-        min-width: 100vw;
-        min-height: 100vh;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-      }
-    </style>
-  </head>
-  <body style="margin: 0" onload="myFunction()">
-    <!-- Space-vibe background music -->
-    <audio id="bg-music" src="/uploads/background.mp3" autoplay loop preload="auto"></audio>
+  <!-- Inline Styles for Popup -->
+  <style>
+    /* Popup styling */
+    .messagePopup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      max-width: 400px;
+      z-index: 1000;
+      display: none;
+    }
 
-    <!-- Navigation Bar -->
-    <div id="navbar"></div>
+    .messagePopup button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-    <!-- NoScript Fallback -->
-    <noscript>
-      <meta http-equiv="refresh" content="0; url=/errors/noscript" />
-    </noscript>
+    .messagePopup button:hover {
+      background: darkred;
+    }
 
-    <center>
-      <br />
-      <h3 class="welcome" style="font-family: Inter"> </h3>
+    /* Add to your <style> section or a CSS file */
+    #yt-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-      <!-- Game Menu Controls -->
-      <div class="controls">
+    #yt-bg iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120vw;
+      height: 68vw;
+      /* 16:9 ratio, oversize for cover */
+      min-width: 100vw;
+      min-height: 100vh;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+  </style>
+</head>
 
-        <!-- Search Input -->
-        <input
-          type="text"
-          id="search"
-          placeholder="Search all games"
-          oninput="filterGames()"
-        />
-        <!-- Toggle Click Count Button -->
-        <!--<button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>-->
-        <!-- Sorting Dropdown -->
-        <select id="sortOptions" onchange="sortGames()">
-          <option value="favorites">❤️ Your Favorites</option>
-          <option value="globalLikes">👍 Most Liked Globally</option>
-          <option value="trending">🔥 Trending Now</option>
-          <option value="clickCount">⏱️ Your Most Played</option>
-          <option value="alphabetical">🔤 A–Z</option>
-        </select>
-      </div>
+<body style="margin: 0" onload="myFunction()">
+  <!-- Space-vibe background music -->
+  <audio id="bg-music" src="/uploads/background.mp3" autoplay loop preload="auto"></audio>
+  <script>
+    document.getElementById("bg-music").volume = 0.2; // Set volume to 20%
+  </script>
 
-      <!-- Game Count -->
-      <p id="gameCount">Games Loaded: 0</p>
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
-      <!-- Game Menu -->
-       
-      <div id="gameMenu" class="game-menu"></div>
-    </center>
+  <!-- Navigation Bar -->
+  <div id="navbar"></div>
 
-    <!-- Particles.JS Background -->
-    <div id="particles-js"></div>    
-    <!-- All Script Links -->
-     <!-- Navbar -->
-    <script type="module" src="/javascript/navbar.js"></script>
-    <!-- Footer -->
-    <script src="/javascript/footer.js"></script>
-    <!-- Panic Button -->
-    <script src="/javascript/panic.js"></script>
-    <!-- Cloaking -->
-    <script src="/javascript/cloaking.js"></script>
-    <!-- Anti Tab-Close -->
-    <script src="/javascript/antitabclose.js"></script>
-    <!-- Particles (not used anymore) -->
-    <script src="/javascript/particles.js"></script>
-    <script src="/javascript/particles-config.js"></script>
-    <!-- Notifications -->
-    <script src="/javascript/notifications.js"></script>
-    <!-- Games Menu -->
-    <script type="module" src="/javascript/menu.js"></script>
-    <!-- Scrollbar -->
-    <script src="/javascript/scrollbar.js"></script>
+  <!-- NoScript Fallback -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/errors/noscript" />
+  </noscript>
 
-    <!-- All non-linked scripts -->
-    <!-- Set Welcome Script -->
-    <script type="module">
-      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+  <center>
+    <br />
+    <h3 class="welcome" style="font-family: Inter"> </h3>
 
-      const supabase = createClient(
-        "https://jbekjmsruiadbhaydlbt.supabase.co",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY"
-      );
+    <!-- Game Menu Controls -->
+    <div class="controls">
 
-      const greetings = [
-        "Hey, {username}!",
-        "Howdy there, {username}!",
-        "Welcome back, {username}!",
-        "Good to see you, {username}!",
-        "Ready to play, {username}?",
-        "Yo, {username}!",
-        "What's up, {username}?",
-        "Fancy seeing you here, {username}",
-      ];
+      <!-- Search Input -->
+      <input type="text" id="search" placeholder="Search all games" oninput="filterGames()" />
+      <!-- Toggle Click Count Button -->
+      <!--<button id="toggleUsageData" onclick="toggleClickCounts()">Show Usage Data</button>-->
+      <!-- Sorting Dropdown -->
+      <select id="sortOptions" onchange="sortGames()">
+        <option value="favorites">❤️ Your Favorites</option>
+        <option value="globalLikes">👍 Most Liked Globally</option>
+        <option value="trending">🔥 Trending Now</option>
+        <option value="clickCount">⏱️ Your Most Played</option>
+        <option value="alphabetical">🔤 A–Z</option>
+      </select>
+    </div>
 
-      async function setWelcome() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        let username = "Guest";
-        if (user) {
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("id", user.id)
-            .maybeSingle();
-          if (profile && profile.username) {
-            username = profile.username;
-            localStorage.setItem("loggedInUser", JSON.stringify(profile));
-          }
+    <!-- Game Count -->
+    <p id="gameCount">Games Loaded: 0</p>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+    <!-- Game Menu -->
+
+    <div id="gameMenu" class="game-menu"></div>
+  </center>
+
+  <!-- Particles.JS Background -->
+  <div id="particles-js"></div>
+  <!-- All Script Links -->
+  <!-- Navbar -->
+  <script type="module" src="/javascript/navbar.js"></script>
+  <!-- Footer -->
+  <script src="/javascript/footer.js"></script>
+  <!-- Panic Button -->
+  <script src="/javascript/panic.js"></script>
+  <!-- Cloaking -->
+  <script src="/javascript/cloaking.js"></script>
+  <!-- Anti Tab-Close -->
+  <script src="/javascript/antitabclose.js"></script>
+  <!-- Particles (not used anymore) -->
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
+  <!-- Notifications -->
+  <script src="/javascript/notifications.js"></script>
+  <!-- Games Menu -->
+  <script type="module" src="/javascript/menu.js"></script>
+  <!-- Scrollbar -->
+  <script src="/javascript/scrollbar.js"></script>
+
+  <!-- All non-linked scripts -->
+  <!-- Set Welcome Script -->
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabase = createClient(
+      "https://jbekjmsruiadbhaydlbt.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY"
+    );
+
+    const greetings = [
+      "Hey, {username}!",
+      "Howdy there, {username}!",
+      "Welcome back, {username}!",
+      "Good to see you, {username}!",
+      "Ready to play, {username}?",
+      "Yo, {username}!",
+      "What's up, {username}?",
+      "Fancy seeing you here, {username}",
+    ];
+
+    async function setWelcome() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      let username = "Guest";
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (profile && profile.username) {
+          username = profile.username;
+          localStorage.setItem("loggedInUser", JSON.stringify(profile));
         }
-        const greeting = greetings[
-          Math.floor(Math.random() * greetings.length)
-        ].replace("{username}", username);
-        setTimeout(() => {
-          document.querySelector(".welcome").textContent = greeting;
-        }, 5000); // 5 second delay
       }
+      const greeting = greetings[
+        Math.floor(Math.random() * greetings.length)
+      ].replace("{username}", username);
+      setTimeout(() => {
+        document.querySelector(".welcome").textContent = greeting;
+      }, 5000); // 5 second delay
+    }
 
-      setWelcome();
-    </script>
-   
-    <!-- Easter Egg Script -->
-    <script>
-      let clicks = 0;
-      let eastereggfoundyet = false;
-      const gameTitle = document.querySelector("#gameTitle");
-      gameTitle.addEventListener("click", () => {
-        clicks += 1;
-        gameTitle.focus();
-        document.querySelector("#cc").innerHTML = clicks;
-        if (!eastereggfoundyet && clicks === 69) {
-          eastereggfoundyet = true;
-          clicks = null;
-          document.querySelector("#cc").innerHTML = null;
-          alert("Easter Egg Game Found!!! Now how to play it?😜");
-        }
-      });
+    setWelcome();
+  </script>
 
-      // Message Popup Functions
-      function showMessagePopup() {
-        document.getElementById("messagePopup").style.display = "block";
+  <!-- Easter Egg Script -->
+  <script>
+    let clicks = 0;
+    let eastereggfoundyet = false;
+    const gameTitle = document.querySelector("#gameTitle");
+    gameTitle.addEventListener("click", () => {
+      clicks += 1;
+      gameTitle.focus();
+      document.querySelector("#cc").innerHTML = clicks;
+      if (!eastereggfoundyet && clicks === 69) {
+        eastereggfoundyet = true;
+        clicks = null;
+        document.querySelector("#cc").innerHTML = null;
+        alert("Easter Egg Game Found!!! Now how to play it?😜");
       }
+    });
 
-      function closeMessagePopup() {
-        document.getElementById("messagePopup").style.display = "none";
+    // Message Popup Functions
+    function showMessagePopup() {
+      document.getElementById("messagePopup").style.display = "block";
+    }
+
+    function closeMessagePopup() {
+      document.getElementById("messagePopup").style.display = "none";
+    }
+
+    // Page Loader and Popup Initialization
+    window.onload = function () {
+      if (typeof myFunction === "function") {
+        myFunction(); // Runs the page loader function from pageload.js
       }
+      showMessagePopup(); // Show the message popup
+    };
+  </script>
+</body>
 
-      // Page Loader and Popup Initialization
-      window.onload = function () {
-        if (typeof myFunction === "function") {
-          myFunction(); // Runs the page loader function from pageload.js
-        }
-        showMessagePopup(); // Show the message popup
-      };
-    </script>
-  </body>
 </html>
