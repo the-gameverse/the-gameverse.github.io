@@ -339,6 +339,7 @@ async function signOut() {
   loginSection.style.display = 'none';
   signupSection.style.display = 'none';
   setStatus('Logged out!');
+  localStorage.removeItem("loggedInUser");
   localStorage.setItem("isAdmin", JSON.stringify({isAdmin: false, role: null}));
   location.reload();
 }
