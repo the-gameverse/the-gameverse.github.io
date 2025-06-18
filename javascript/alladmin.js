@@ -66,7 +66,7 @@ const overlayScreens = {
 // Supabase config
 // const supabaseUrl = "https://jbekjmsruiadbhaydlbt.supabase.co";
 // const supabaseKey =
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY";
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // #region Game Functions
@@ -382,3 +382,49 @@ async function refreshAdminList() {
     });
   });
 }
+
+//#region Restrictions
+document.addEventListener("DOMContentLoaded", () => {
+  const admincontainer = document.querySelector(".admincontainer");
+  const blog = document.querySelector(".blog");
+  const games = document.querySelector(".games");
+  const admin = document.querySelector(".admins");
+
+  async function checkRole() {
+    const { data, error } = await supabaseClient
+      .from("adminpanel_access")
+      .select("username, role");
+
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!loggedInUser || !data) return;
+
+    const matched = data.find(
+      (entry) => entry.username === loggedInUser.username
+    );
+    console.log("Matched user:", matched);
+    console.log(games, admin, blog);
+
+    if (matched) {
+      if (matched.role === "editor") {
+        console.log("User is an editor, hiding admin features");
+        // Remove elements from their parent
+        games.remove();
+        admin.remove();
+      } else if (matched.role === "gameadd") {
+        console.log("User is a game adder, hiding admin features");
+        blog.remove()
+        admin.remove();
+      } else if (matched.role === "admin") {
+        console.log("User is an admin, hiding admin features");
+        // Remove elements from their parent
+        admin.remove();
+      } else if (matched.role === "super") {
+        console.log("User is a super admin, showing all features");
+      } else {
+        console.warn("Unknown role:", matched.role);
+      }
+    }
+  }
+
+  checkRole();
+});
