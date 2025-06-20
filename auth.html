@@ -221,6 +221,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
       <input id="email" type="email" placeholder="Email" /><br>
       <input id="password" type="password" placeholder="Password" /><br>
       <button id="login-btn">Log In</button>
+      <p id="status-lo"></p>
     </div>
 
 <div id="signup-section" style="display:none;">
@@ -234,7 +235,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
     <button type="button" id="toggle-signup-confirm-password" style="position:absolute;right:0;top:8px;padding:2px 8px;"><i class="fa-solid fa-eye"></i></button>
   </div><br>
   <input id="signup-username" type="text" placeholder="Username (for sign up)" /><br>
-  <p>By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
+  <p id="status">By signing up, you automatically agree to the Privacy Policy and Terms of Service. You also state that you are 13 or older, and that you know that you can delete your data at anytime by emailing "starship.site@gmail.com" or using the contact page.</p>
   <button id="signup-btn">Sign Up</button>
 </div>
 
@@ -278,6 +279,7 @@ const signupEmailInput = document.getElementById('signup-email');
 const signupPasswordInput = document.getElementById('signup-password');
 const signupUsernameInput = document.getElementById('signup-username');
 const signupAvatarInput = document.getElementById('signup-avatar');
+const statusLo = document.getElementById('status-lo');
 const statusEl = document.getElementById('status');
 const profileInfo = document.getElementById('profile-info');
 const profileUsername = document.getElementById('profile-username');
@@ -288,8 +290,12 @@ const authOptions = document.getElementById('auth-options');
 const loginSection = document.getElementById('login-section');
 const signupSection = document.getElementById('signup-section');
 
-function setStatus(msg) {
-  statusEl.textContent = msg;
+function setStatus(msg, los) {
+  if (los === "login") {
+    statusLo.innerHTML = msg;
+  } else if (los === "signup") {
+    statusEl.innerHTML = msg;
+  }
 }
 
 function showLogin() {
@@ -311,14 +317,14 @@ async function signUp() {
   const username = signupUsernameInput.value.trim();
 
   if (!email || !password || !confirmPassword || !username)
-    return setStatus('Please fill in all fields.');
+    return setStatus('Please fill in all fields.', "signup");
   if (password !== confirmPassword)
-    return setStatus('Passwords do not match.');
+    return setStatus('Passwords do not match.', "signup");
 
   const { data, error } = await supabaseClient.auth.signUp({ email, password });
-  if (error) return setStatus('Sign up error: ' + error.message);
+  if (error) return setStatus('Sign up error: ' + error.message, "signup");
 
-  setStatus('Signed up! Please check your email to confirm, then log in.');
+  setStatus('Signed up! Please check your email to confirm, then <a onclick="showLogin()" style="text-decoration: underline; cursor: pointer">log in</a>.', "signup");
 }
 
 async function signIn() {
@@ -326,21 +332,22 @@ async function signIn() {
     email: emailInput.value,
     password: passwordInput.value
   });
-  if (error) return setStatus('Login error: ' + error.message);
-  setStatus('Logged in!');
+  if (error) return setStatus('Login error: ' + error.message, "login");
+  setStatus('Logged in!', "login");
   await ensureProfile();
   await checkForAdmin();
   await loadProfile();
+  location.reload();
 }
 
 async function signOut() {
   const { error } = await supabaseClient.auth.signOut();
-  if (error) return setStatus('Logout error: ' + error.message);
+  if (error) return setStatus('Logout error: ' + error.message, "login");
   profileInfo.style.display = 'none';
   authOptions.style.display = 'block';
   loginSection.style.display = 'none';
   signupSection.style.display = 'none';
-  setStatus('Logged out!');
+  setStatus('Logged out!', "login");
   localStorage.removeItem("loggedInUser");
   localStorage.setItem("isAdmin", JSON.stringify({isAdmin: false, role: null}));
   location.reload();
@@ -384,21 +391,21 @@ async function uploadAvatar(userId, file) {
 
 async function updateAvatarUrl(userId, url) {
   const { error } = await supabaseClient.from('profiles').update({ avatar_url: url }).eq('id', userId);
-  if (error) setStatus('Avatar update error: ' + error.message);
+  if (error) setStatus('Avatar update error: ' + error.message, "login");
 }
 
 async function updateUsername() {
   const newUsername = newUsernameInput.value.trim();
   if (!newUsername) return setStatus('Please enter a new username.');
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('You must be logged in.');
+  if (!user) return setStatus('You must be logged in.', "login");
 
   showAvatarPopup();
   const { error } = await supabaseClient.from('profiles').update({ username: newUsername }).eq('id', user.id);
   hideAvatarPopup();
 
-  if (error) return setStatus('Username update failed: ' + error.message);
-  setStatus('Username updated!');
+  if (error) return setStatus('Username update failed: ' + error.message, "login");
+  setStatus('Username updated!', "login");
   await loadProfile();
 
   const navbarUsername = document.querySelector('.username');
@@ -407,7 +414,7 @@ async function updateUsername() {
 
 async function loadProfile() {
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('Not logged in');
+  if (!user) return setStatus('Not logged in', "login");
 
   const { data: profile, error } = await supabaseClient
     .from('profiles')
@@ -415,8 +422,8 @@ async function loadProfile() {
     .eq('id', user.id)
     .maybeSingle();
 
-  if (error) return setStatus('Error loading profile: ' + error.message);
-  if (!profile) return setStatus('No profile found. Please log out and sign in again.');
+  if (error) return setStatus('Error loading profile: ' + error.message,  "login");
+  if (!profile) return setStatus('No profile found. Please log out and sign in again.', "login");
 
   profileUsername.textContent = 'Username: ' + profile.username;
 
@@ -449,15 +456,15 @@ profileAvatar.addEventListener('click', async () => {
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files[0];
       const { data: { user } } = await supabaseClient.auth.getUser();
-      if (!file || !user) return setStatus('You must be logged in to upload an avatar.');
+      if (!file || !user) return setStatus('You must be logged in to upload an avatar.', "login");
       showAvatarPopup();
-      setStatus('Uploading avatar...');
+      setStatus('Uploading avatar...', "login");
       const publicUrl = await uploadAvatar(user.id, file);
       hideAvatarPopup();
       if (publicUrl) {
         await updateAvatarUrl(user.id, publicUrl);
         await loadProfile();
-        setStatus('Avatar updated!');
+        setStatus('Avatar updated!', "login");
       }
       fileInput.value = '';
     });
@@ -471,16 +478,16 @@ const avatarInput = document.getElementById('profile-avatar-input');
 updateAvatarBtn?.addEventListener('click', async () => {
   const file = avatarInput.files[0];
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!file) return setStatus('Please select an image file.');
-  if (!user) return setStatus('You must be logged in to upload an avatar.');
+  if (!file) return setStatus('Please select an image file.', "login");
+  if (!user) return setStatus('You must be logged in to upload an avatar.', "login");
   showAvatarPopup();
-  setStatus('Uploading avatar...');
+  setStatus('Uploading avatar...', "login");
   const publicUrl = await uploadAvatar(user.id, file);
   hideAvatarPopup();
   if (publicUrl) {
     await updateAvatarUrl(user.id, publicUrl);
     await loadProfile();
-    setStatus('Avatar updated!');
+    setStatus('Avatar updated!', "login");
     avatarInput.value = '';
     const navbarAvatar = document.querySelector('.profile-img');
     if (navbarAvatar) navbarAvatar.src = publicUrl + '?t=' + Date.now();
