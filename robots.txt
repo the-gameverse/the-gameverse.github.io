@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /auth
+Disallow: /contact
+Disallow: /lockout
+Disallow: /play
+Disallow: /reminder
+Disallow: /settings
+Allow: /
