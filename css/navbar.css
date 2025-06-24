@@ -325,10 +325,9 @@
   display: block;
 } */
 
-/* Admin icon */
 .admin-icon {
   position: absolute;
-  bottom: 130%; /* place it directly above the logo */
+  bottom: 130%; /* base anchor above the logo */
   left: 50%;
   transform: translateX(-50%);
   width: 40px;
@@ -347,6 +346,21 @@
   z-index: 1000;
   padding: 0.25rem;
 }
+
+/* Offsets from the base position using translateY */
+.pop1 {
+  transform: translate(-50%, -0%);
+}
+
+.pop2 {
+  transform: translate(-50%, -60px);
+}
+
+.pop3 {
+  transform: translate(-50%, -120px);
+}
+
+
 
 /* Add invisible buffer zone using pseudo-element (no layout shift!) */
 .logo-container::after {

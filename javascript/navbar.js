@@ -50,7 +50,22 @@ if (isAdmin.isAdmin === true) {
     </a>`;
 } else {
   console.log("User is not an admin");
-  a = ``;
+  a = `
+  <a href="https://instagram.com/starship.site" class="admin-icon" id="pop1" title="Follow us on Instagram">
+    <i class="fa-brands fa-instagram fa-lg"></i>
+  </a>
+
+  <a href="https://youtube.com/@starship.site" class="admin-icon" id="pop2" title="Follow us on YouTube">
+    <i class="fa-brands fa-youtube fa-lg"></i>
+  </a>
+
+  <a href="https://discord.com" class="admin-icon" id="pop3" title="Join us on Discord">
+    <i class="fa-brands fa-discord fa-lg"></i>
+  </a>
+
+
+
+    `;
 }
 
 const navbarHTML = `
