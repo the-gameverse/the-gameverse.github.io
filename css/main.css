@@ -57,7 +57,7 @@ h4 {
 
 body {
   font-family: Inter, sans-serif;
-  background-color: black;
+  background: radial-gradient(ellipse at top, #120032, #0a001a);
 }
 
 /* Particles.JS */
