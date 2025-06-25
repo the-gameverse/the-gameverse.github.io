@@ -198,6 +198,16 @@
     <input type="checkbox" id="toggleAntiTabClose" name="toggleAntiTabClose" onchange="toggleAntiTabClose(this.checked)">
   </div>
 
+<div class="section">
+  <h2 class="gradient-red">Performance Mode</h2>
+  <label>
+    <p>Disables animations to give you max performance.</p>
+    <input type="checkbox" id="performanceModeToggle" />
+    Enable Performance Mode (disable animations)
+  </label>
+</div>
+
+
   <div class="section">
     <h2 class="gradient-red">about:blank</h2>
     <p>Open GameVerse in about:blank. Virtually undetectable (even from Blocksi), and makes the site less prone to get blocked.</p>
@@ -315,6 +325,26 @@
         });
       }
     });
+    
+function togglePerformanceMode(enable) {
+  console.log(`Performance mode ${enable ? 'enabled' : 'disabled'}`);
+  if (enable) {
+    // If not already added, create the style tag
+    if (!document.getElementById(perfStyleId)) {
+      const styleTag = document.createElement('style');
+      styleTag.id = perfStyleId;
+      styleTag.textContent = `* { animation: none !important; transform: none !important; }`;
+      document.head.appendChild(styleTag);
+    }
+  } else {
+    // Remove the style tag if it exists
+    const existingTag = document.getElementById(perfStyleId);
+    if (existingTag) existingTag.remove();
+  }
+  // Save user choice
+  localStorage.setItem('performanceMode', enable ? 'true' : 'false');
+}
+
   </script>
 </body>
 </html>

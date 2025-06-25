@@ -391,3 +391,56 @@
   background-size: 600% 600%;
   animation: gradientShift 6s ease infinite;
 }
+.social-popup {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(22, 20, 36, 0.95);
+  border: 1px solid #8a2be2;
+  border-radius: 16px;
+  padding: 24px 32px;
+  display: flex;
+  gap: 28px;
+  box-shadow: 0 0 24px #8a2be288;
+  z-index: 999;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(14px);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-popup a {
+  color: #ffffffcc;
+  font-size: 28px;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.social-popup a:hover {
+  color: #8a2be2;
+  transform: scale(1.2);
+}
+
+.close-btn {
+  background: none !important;
+  border: none !important;
+  color: #ffffff88 !important;
+  font-size: 22px !important;
+  position: absolute !important;
+  top: 12px !important;
+  right: 16px !important;
+  cursor: pointer !important;
+  transition: 0.2s ease !important;
+  z-index: 1000 !important;
+}
+
+.close-btn:hover {
+  color: #ff5f5f !important;
+  transform: scale(1.2) !important;
+}
+
+.hidden {
+  display: none !important;
+}

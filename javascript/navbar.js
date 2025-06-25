@@ -51,18 +51,9 @@ if (isAdmin.isAdmin === true) {
 } else {
   console.log("User is not an admin");
   a = `
-  <a href="https://instagram.com/starship.site" class="admin-icon" id="pop1" title="Follow us on Instagram">
-    <i class="fa-brands fa-instagram fa-lg"></i>
+  <a onClick="showPopUp()" class="admin-icon"  title="Show Socials">
+    <i class="fa-solid fa-hashtag"></i>
   </a>
-
-  <a href="https://youtube.com/@starship.site" class="admin-icon" id="pop2" title="Follow us on YouTube">
-    <i class="fa-brands fa-youtube fa-lg"></i>
-  </a>
-
-  <a href="https://discord.com" class="admin-icon" id="pop3" title="Join us on Discord">
-    <i class="fa-brands fa-discord fa-lg"></i>
-  </a>
-
 
 
     `;
@@ -113,6 +104,19 @@ const navbarHTML = `
     </div>
   </div>
 
+<div id="social-popup" class="social-popup hidden">
+  <a class="close-btn" onclick="hidePopUp()">&times;</a>
+<p> Follow us on social media!</p>
+  <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
+    <i class="fa-brands fa-discord"></i>
+  </a>
+  <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+  <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+</div>
  
 `;
 
@@ -315,3 +319,32 @@ function periodicUpdates() {
 // On page load, show streak and start rotation
 resetToDefault();
 setInterval(periodicUpdates, 10000);
+
+const perfStyleId = 'performance-mode-style';
+
+// On page load, set checkbox and apply saved state
+document.addEventListener('DOMContentLoaded', () => {
+  const checkbox = document.getElementById('performanceModeToggle');
+  if (!checkbox) return;
+
+  const saved = localStorage.getItem('performanceMode');
+  if (saved === 'true') {
+    checkbox.checked = true;
+    togglePerformanceMode(true);
+  }
+
+  checkbox.addEventListener('change', () => {
+    togglePerformanceMode(checkbox.checked);
+  });
+});
+
+
+  window.onload = function () {
+    window.showPopUp = function () {
+      document.getElementById('social-popup').classList.remove('hidden');
+    }
+
+    window.hidePopUp = function () {
+      document.getElementById('social-popup').classList.add('hidden');
+    }
+  }
