@@ -6,72 +6,75 @@
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/home.css">
-  <style>
-    .section {
-      background: rgba(34,34,44,0.85);
-      border-radius: 14px;
-      box-shadow: 0 2px 24px #8a2be222;
-      padding: 36px 24px 28px 24px;
-      margin: 36px auto;
+  <style>    .section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto;
       max-width: 700px;
       text-align: left;
       color: #fff;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(174, 84, 255, 0.2);
     }
+
     .settings-card {
-      background: rgba(20,20,30,0.82);
-      box-shadow: 0 4px 16px #8a2be244;
-      border-radius: 10px;
-      padding: 24px 18px;
-      margin: 18px 0;
+      background: rgba(30, 30, 40, 0.85);
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: 0 0 20px rgba(174, 84, 255, 0.2);
     }
 
     .profile-container {
-      text-align: center;
-      padding: 20px;
-      background: rgba(20,20,30,0.82);
-      box-shadow: 0 4px 16px #8a2be244;
-      border-radius: 10px;
+      background: rgba(30, 30, 40, 0.85);
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px auto;
       width: 350px;
-      margin: auto;
+      box-shadow: 0 0 20px rgba(174, 84, 255, 0.2);
+      text-align: center;
     }
+
     .time-display {
-      font-size: 1.5em;
+      font-size: 1.5rem;
       color: white;
     }
+
     label {
       display: block;
-      color: white;
       margin-bottom: 8px;
-    }
-    input, select {
-      padding: 5px;
-      font-size: 12px;
-      font-family: 'Space Grotesk', Arial, sans-serif;
-      border: 1px solid #ddd;
-      margin: 0;
-      box-sizing: border-box;
-      border-radius: 5px;
-      background-color: black;
       color: white;
+      font-weight: 500;
     }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      border-radius: 10px;
+      border: 1px solid #555;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+
+    }
+
     input[type="checkbox"] {
       width: 20px;
       height: 20px;
-      padding: 0;
       appearance: none;
-      border: 1px solid #ddd;
-      border-radius: 3px;
+      border-radius: 4px;
+      border: 1px solid #888;
       background-color: black;
-      cursor: pointer;
       position: relative;
-      outline: none;
-      vertical-align: middle;
-      margin-right: 6px;
+      cursor: pointer;
+      margin-right: 8px;
     }
-    input[type="checkbox"]:checked {
-      background-color: black;
-      border: 1px solid #ddd;
-    }
+
     input[type="checkbox"]:checked::after {
       content: '';
       position: absolute;
@@ -83,55 +86,68 @@
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
+
     input[type="checkbox"]:hover {
-      border-color: #aaa;
+      border-color: #AE54FF;
     }
+
     button {
-      margin-top: 10px;
-      padding: 8px 18px;
-      background: #8a2be2;
-      color: #fff;
+      background: #AE54FF;
+      color: white;
       border: none;
-      border-radius: 6px;
-      font-size: 1em;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.3s ease, transform 0.2s;
     }
+
     button:hover {
-      background: #ff4b2b;
-      color: #fff;
+      background: #9337e9;
       transform: scale(1.05);
     }
+
     .site-footer {
       background: linear-gradient(90deg, #1a1a1a 60%, #8a2be2 100%);
-      color: #fff;
+      color: white;
       padding: 32px 0 18px 0;
       text-align: center;
       margin-top: 80px;
-      box-shadow: 0 -2px 16px #8a2be244;
+      box-shadow: 0 -2px 16px rgba(174, 84, 255, 0.2);
     }
+
     .footer-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
     }
+
     .footer-social a {
       display: inline-block;
       margin: 0 8px;
       transition: transform 0.2s;
     }
+
     .footer-social a:hover {
       transform: scale(1.2) rotate(-8deg);
     }
+
     .footer-social img {
       width: 28px;
       height: 28px;
-      filter: drop-shadow(0 2px 6px #8a2be2aa);
+      filter: drop-shadow(0 2px 6px #AE54FF);
     }
+
     @media (max-width: 900px) {
-      .section { padding: 24px 8px 20px 8px; }
-      .profile-container { width: 98%; }
+      .section {
+        padding: 24px 12px;
+      }
+
+      .profile-container {
+        width: 95%;
+        padding: 20px;
+      }
     }
   </style>
 </head>
