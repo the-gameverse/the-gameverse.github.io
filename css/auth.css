@@ -1,0 +1,217 @@
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top, #120032, #0a001a);
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 40px;
+      color: #AE54FF;
+    }
+
+    #auth-options, #login-section, #signup-section, #profile-info {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #444;
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(174, 84, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    button {
+      background: #AE54FF !important;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: #9337e9;
+      transform: scale(1.05);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #555;
+      color: white;
+      outline: none;
+  
+    }
+
+    input:focus {
+      border-color: #AE54FF;
+      box-shadow: 0 0 15px rgba(174, 84, 255, 0.6);
+    }
+
+    #profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 20px auto;
+      object-fit: cover;
+    }
+
+    #avatar-upload-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #avatar-upload-popup > div {
+      background: #1f1f2e;
+      color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #AE54FF;
+      font-size: 1.2rem;
+    }
+
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+
+    .input-group button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 2px 8px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+.spinner {
+  --size: 30px;
+  --color: #8a2be2;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.spinner::after,.spinner::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  top: 50%;
+  animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+  left: 50%;
+  background: var(--color);
+  box-shadow: 0 0 calc(var(--size) / 3) rgba(0, 0, 0, 0.25);
+}
+
+.spinner::after {
+  background: var(--color);
+  top: calc(50% - var(--size));
+  left: calc(50% - var(--size));
+  animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+@keyframes down {
+  0%, 100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(100%);
+  }
+
+  50% {
+    transform: translateX(100%) translateY(100%);
+  }
+
+  75% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes up {
+  0%, 100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+
+  75% {
+    transform: translateY(-100%);
+  }
+}
+    input[type="file"] {
+      width: 300px;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px dashed #AE54FF;
+      color: #ccc;
+      cursor: pointer;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+      border-color: #9337e9;
+      box-shadow: 0 0 10px rgba(174, 84, 255, 0.4);
+    }
+     #profile-username {
+  background: linear-gradient(90deg, #00f0ff, #8a2be2, #ff00ff);
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s infinite linear;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+      font-size: 20px;
+        font-weight: bold;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
+}
