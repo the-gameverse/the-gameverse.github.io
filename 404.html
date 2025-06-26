@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Lost in Space | Starship</title>
+  <link rel="icon" href="/uploads/branding/favicon.png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at bottom, #0a0a23, #000);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://raw.githubusercontent.com/klevron/starscape/main/stars.png') repeat;
+      background-size: cover;
+      animation: moveStars 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: -10000px 5000px; }
+    }
+
+    .center {
+      text-align: center;
+      z-index: 1;
+      animation: popIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 10rem;
+      margin: 0;
+      color: #8a2be2;
+      text-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be288;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be288; }
+      50% { text-shadow: 0 0 30px #8a2be2, 0 0 60px #8a2be2aa; }
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      color: #ccc;
+      animation: fadeIn 2s ease 0.5s both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border-radius: 999px;
+      background: #8a2be2;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      box-shadow: 0 0 16px #8a2be288;
+      transition: all 0.3s ease;
+      animation: fadeIn 2s ease 1s both;
+    }
+
+    .btn:hover {
+      background: #9a3ce2;
+      box-shadow: 0 0 24px #9a3ce2aa;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="center">
+    <h1>404</h1>
+    <p>You’ve drifted off course, Captain.</p>
+    <a href="/" class="btn">Return to Starship</a>
+  </div>
+</body>
+</html>
