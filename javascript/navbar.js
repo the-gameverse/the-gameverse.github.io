@@ -58,7 +58,7 @@ if (isAdmin.isAdmin === true) {
 
     `;
 }
-const isPlayPage = window.location.pathname.includes("play.html");
+const isPlayPage = window.location.pathname.includes("play");
 
 const navbarHTML = isPlayPage
   ? `
@@ -82,7 +82,7 @@ const navbarHTML = isPlayPage
 
 
 <div id="logo-container" class="logo-container">
-        <a href="/index.html" style="background:none !important;" class="logo">
+        <a href="/index.html" class="logo">
           <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
         </a>
 </div>
