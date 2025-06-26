@@ -223,49 +223,48 @@
           clearTimeout(iframeUnresponsive);
         });
       });
-document.addEventListener("DOMContentLoaded", () => {
-  // Retry until navbar buttons exist
-  const waitForButtons = setInterval(() => {
-      // Iframe controls for viewers
-      const reloadButton = document.getElementById("reloadButton");
-      const fullscreenButton = document.getElementById("fullscreenButton");
-      const homeButton = document.getElementById("homeButton");
 
-      reloadButton.addEventListener("click", () => {
-        const iframe = document.getElementById("myIframe");
-        iframe.src = iframe.src;
-      });
+      const waitForNavbar = setInterval(() => {
+        const reloadButton = document.getElementById("reloadButton");
+        const fullscreenButton = document.getElementById("fullscreenButton");
+        const homeButton = document.getElementById("homeButton");
 
-      fullscreenButton.addEventListener("click", () => {
-        const iframe = document.getElementById("myIframe");
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          // Firefox
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          // Chrome, Safari, Opera
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-          // IE/Edge
-          iframe.msRequestFullscreen();
+        if (reloadButton && fullscreenButton && homeButton) {
+          clearInterval(waitForNavbar);
+
+          reloadButton.addEventListener("click", () => {
+            const iframe = document.getElementById("myIframe");
+            iframe.src = iframe.src;
+          });
+
+          fullscreenButton.addEventListener("click", () => {
+            const iframe = document.getElementById("myIframe");
+            if (iframe.requestFullscreen) {
+              iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+              iframe.webkitRequestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+              iframe.mozRequestFullScreen();
+            } else if (iframe.msRequestFullscreen) {
+              iframe.msRequestFullscreen();
+            }
+          });
+
+          homeButton.addEventListener("click", () => {
+            const currentURL = window.location.href;
+            if (currentURL.includes("/storage/tv")) {
+              location.replace("/tv");
+            } else if (currentURL.includes("/storage/games")) {
+              location.replace("/games");
+            } else if (currentURL.includes("/storage/music")) {
+              location.replace("/music");
+            } else {
+              location.replace("/games");
+            }
+          });
         }
-      });
-
-      homeButton.addEventListener("click", () => {
-        const currentURL = window.location.href; // Get the current URL of the page
-
-        if (currentURL.includes("/storage/tv")) {
-          location.replace("/tv"); // Redirect to the /tv page
-        } else if (currentURL.includes("/storage/games")) {
-          location.replace("/games"); // Redirect to the /games page
-        } else if (currentURL.includes("/storage/music")) {
-          location.replace("/music"); // Redirect to the /music page
-        } else {
-          location.replace("/games"); // Fallback redirect if no match
-        }
-      });
-
+      }, 100);
+ 
       document.addEventListener("DOMContentLoaded", () => {
         const toggleButton = document.getElementById("toggleRandomGames");
         const randomGameContainer = document.getElementById(
@@ -366,8 +365,7 @@ sharePopup.addEventListener("click", (e) => {
   }
 })();
 
-}, 100); // Check every 100ms
-});
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
