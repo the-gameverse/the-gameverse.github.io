@@ -149,21 +149,7 @@
           </div>
           <!-- Buttons floated to the right -->
           <div class="buttons">
-            <button id="homeButton"><i class="fa fa-home fa-lg"></i></button>
-            <!-- Add this where you want the like/dislike counter to appear -->
 
-  <button id="likeBtn" title="Like" style="font-size:1.2em;">👍 <span id="likeCount">0</span></button>
-  <button id="dislikeBtn" title="Dislike" style="font-size:1.2em;">👎 <span id="dislikeCount">0</span></button>
-
-            <button id="reloadButton">
-              <i class="fa fa-refresh fa-lg"></i>
-            </button>
-            <button id="fullscreenButton">
-              <i class="fa fa-arrows-alt fa-lg"></i>
-            </button>
-            <button id="shareButton">
-              <i class="fa fa-share-nodes fa-lg"></i>
-            </button>
           </div>
         </div>
       </div>
@@ -237,7 +223,9 @@
           clearTimeout(iframeUnresponsive);
         });
       });
-
+document.addEventListener("DOMContentLoaded", () => {
+  // Retry until navbar buttons exist
+  const waitForButtons = setInterval(() => {
       // Iframe controls for viewers
       const reloadButton = document.getElementById("reloadButton");
       const fullscreenButton = document.getElementById("fullscreenButton");
@@ -377,6 +365,9 @@ sharePopup.addEventListener("click", (e) => {
     gameImage.alt = gameName;
   }
 })();
+
+}, 100); // Check every 100ms
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
@@ -424,11 +415,11 @@ function updateButtonStates() {
 
   // Change button text for undo
   likeBtn.innerHTML = liked
-    ? `${likeIcon} <span id="likeCount">${likeCount.textContent}</span>`
-    : `${likeIcon} <span id="likeCount">${likeCount.textContent}</span>`;
+    ? `${likeIcon} `
+    : `${likeIcon} `;
   dislikeBtn.innerHTML = disliked
-    ? `${dislikeIcon} <span id="dislikeCount">${dislikeCount.textContent}</span>`
-    : `${dislikeIcon} <span id="dislikeCount">${dislikeCount.textContent}</span>`;
+    ? `${dislikeIcon} `
+    : `${dislikeIcon} `;
 }
 
 async function loadVotes() {

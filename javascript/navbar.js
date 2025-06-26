@@ -58,10 +58,81 @@ if (isAdmin.isAdmin === true) {
 
     `;
 }
+const isPlayPage = window.location.pathname.includes("play.html");
 
-const navbarHTML = `
-<meta name="viewport" content="width=device-width, initial-scale=1">
+const navbarHTML = isPlayPage
+  ? `
+  <div class="navbar-container">
+    <div class="nav-center-bg">
+      <div id="streak" class="streak-container">
+        <span class="streak-text">🔥 0 Days</span>
+      </div>
+    </div>
+    <nav class="navbar">
+      <div class="nav-links">
+<a id="homeButton" ><i class="fa fa-home fa-lg"></i></a>
 
+<a id="likeBtn" href="#" title="Like" style="font-size:1.2em;">
+  👍 <span id="likeCount">0</span>
+</a>
+
+<a id="dislikeBtn"  title="Dislike" style="font-size:1.2em;">
+  👎 <span id="dislikeCount">0</span>
+</a>
+
+
+<div id="logo-container" class="logo-container">
+        <a href="/index.html" style="background:none !important;" class="logo">
+          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
+        </a>
+</div>
+
+
+
+<a id="reloadButton">
+  <i class="fa fa-refresh fa-lg"></i>
+</a>
+
+<a id="fullscreenButton">
+  <i class="fa fa-arrows-alt fa-lg"></i>
+</a>
+
+<a id="shareButton">
+  <i class="fa fa-share-nodes fa-lg"></i>
+</a>
+
+        <div class="extra-links">
+          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
+          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
+          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="nav-right-bg">
+      <a href="/auth.html" class="profile-link">
+        <img src="${avatarUrl}" alt="${username}" class="profile-img">
+        <span class="username">${username}</span>
+      </a>
+    </div>
+  </div>
+
+  <div id="social-popup" class="social-popup hidden">
+    <a class="close-btn" onclick="hidePopUp()">&times;</a>
+    <p> Follow us on social media!</p>
+    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
+      <i class="fa-brands fa-discord"></i>
+    </a>
+    <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+  </div>
+  `
+  : `
+  <!-- 🌐 Normal Navbar -->
   <div class="navbar-container">
     <div class="nav-center-bg">
       <div id="streak" class="streak-container">
@@ -74,15 +145,14 @@ const navbarHTML = `
         <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
         <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
         <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-        </div>
+      </div>
 
-  <div class="logo-container">
-    <a href="/index.html" class="logo">
-      <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
-    </a>
-    ${a}
-  </div>
-
+      <div class="logo-container">
+        <a href="/index.html" class="logo">
+          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
+        </a>
+        ${a}
+      </div>
 
       <div class="nav-links">
         <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
@@ -96,6 +166,7 @@ const navbarHTML = `
         </div>
       </div>
     </nav>
+
     <div class="nav-right-bg">
       <a href="/auth.html" class="profile-link">
         <img src="${avatarUrl}" alt="${username}" class="profile-img">
@@ -104,21 +175,21 @@ const navbarHTML = `
     </div>
   </div>
 
-<div id="social-popup" class="social-popup hidden">
-  <a class="close-btn" onclick="hidePopUp()">&times;</a>
-<p> Follow us on social media!</p>
-  <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
-    <i class="fa-brands fa-discord"></i>
-  </a>
-  <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
-    <i class="fa-brands fa-instagram"></i>
-  </a>
-  <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
-    <i class="fa-brands fa-youtube"></i>
-  </a>
-</div>
- 
-`;
+  <div id="social-popup" class="social-popup hidden">
+    <a class="close-btn" onclick="hidePopUp()">&times;</a>
+    <p> Follow us on social media!</p>
+    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
+      <i class="fa-brands fa-discord"></i>
+    </a>
+    <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+  </div>
+  `;
+
 
 document.body.insertAdjacentHTML("afterbegin", navbarHTML);
 
