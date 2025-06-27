@@ -3,44 +3,33 @@
   <head>
     <title>starship - playing a game</title>
     <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png" />
-    <meta name="description" content="Play games, level up, and explore Starship - your new favorite gaming site.">
-<link rel="canonical" href="https://starship-app.com/play" />
-    <link rel=stylesheet href=/css/viewers.css>
+    <meta name="description" content="Play games, level up, and explore Starship - your new favorite gaming site." />
+    <link rel="canonical" href="https://starship-app.com/play" />
+    <link rel="stylesheet" href="/css/viewers.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/menu.css" />
-        <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/main.css" />
     <script src="/javascript/menu.js"></script>
     <script src="/javascript/scrollbar.js"></script>
 
     <!-- Google AdSense and Google Analytics -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"
-    ></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-ZZH4JE7RJF");
     </script>
 
     <style>
-      /* Animate the body background color */
       body {
         background-color: black;
         animation: fadeInBackground 2s ease-in-out forwards;
-
         overflow: auto;
+        font-family: Space Grotesk, sans-serif;
       }
 
       @keyframes fadeInBackground {
@@ -48,11 +37,10 @@
           background-color: black;
         }
         to {
-          background-color: black; /* Ensure the final color is black */
+          background-color: black;
         }
       }
 
-      /* New Scale and Slide-Up Animation */
       @keyframes scaleAndSlideUp {
         from {
           opacity: 0;
@@ -64,7 +52,6 @@
         }
       }
 
-      /* Animate the iframe */
       iframe {
         background-color: black;
         opacity: 0;
@@ -72,28 +59,24 @@
         animation: scaleAndSlideUp 1s ease-in-out forwards;
       }
 
-      /* Animate the navbar */
       #navbar {
         opacity: 0;
-        transform: scale(0.9) translateY(-30px); /* Slide from above */
+        transform: scale(0.9) translateY(-30px);
         animation: scaleAndSlideUp 1s ease-in-out forwards;
       }
 
-      /* Animate the controls */
       .controls {
         opacity: 0;
         transform: scale(0.9) translateY(20px);
         animation: scaleAndSlideUp 1s ease-in-out 1.5s forwards;
       }
 
-      /* Animate the buttons */
       .buttons button {
         opacity: 0;
         transform: scale(0.9) translateY(20px);
         animation: scaleAndSlideUp 0.5s ease-in-out forwards;
       }
 
-      /* Flexbox for horizontal layout */
       #randomGameContainer {
         display: flex;
         flex-wrap: wrap;
@@ -101,86 +84,83 @@
       }
 
       .game {
-        flex: 0 1 150px; /* Adjust this value to control the width of the game items */
+        flex: 0 1 150px;
         text-align: center;
         color: white;
-        margin: 5px; /* Add margin to create the gap */
+        margin: 5px;
       }
-      body {
-        font-family: Space Grotesk, sans-serif;
+
+      * {
+        scrollbar-width: none !important;
       }
-      
 
-* {
-  scrollbar-width: none !important;
-}
-
-/* Chrome, Edge, Safari */
-*::-webkit-scrollbar {
-  display: none !important;
-}
+      *::-webkit-scrollbar {
+        display: none !important;
+      }
     </style>
   </head>
 
   <body>
-    <div  id="navbar"></div>
+    <div id="navbar"></div>
     <script type="module" src="/javascript/navbar.js"></script>
 
-    <!-- Button to toggle the random games container -->
-    <!--<button id="toggleRandomGames" class="toggle-button"><i class="fa fa-shapes"></i>  Show Suggested Games</button>
-
-
-        <div id="randomGameContainer" class="collapsed                                                                              "></div>-->
 
 
     <div class="game-container">
       <iframe id="myIframe" src="" allowfullscreen></iframe>
-<!-- Like Ratio Bar -->
-<div id="likeRatioBar" title="No votes yet">
-  <div id="likeRatioLike"></div>
-  <div id="likeRatioDislike"></div>
-</div>
-<div class="controls">
- <div class="game-info">
-          <!-- Game details (image and name) floated to the left -->
+
+      <!-- Like Ratio Bar -->
+      <div id="likeRatioBar" title="No votes yet">
+        <div id="likeRatioLike"></div>
+        <div id="likeRatioDislike"></div>
+      </div>
+
+      <div class="controls">
+        <div class="game-info">
           <div class="game-details">
             <img src="" alt="Game Icon" class="game-img" />
             <h2 class="gradient-red">Game Title</h2>
           </div>
-          
-          <!-- Buttons floated to the right -->
+
           <div class="buttons">
-<i style="color:white; margin-top:12px;" class="fa-solid fa-server fa-2x"></i> <p style="margin-left:10px; font-size:18px;"> Game data is being saved to your computer</p>
+            <i style="color:white; margin-top:12px;" class="fa-solid fa-server fa-2x"></i>
+            <p style="margin-left:10px; font-size:18px;">Game data is being saved to your computer</p>
           </div>
         </div>
       </div>
     </div>
-    <!-- Container for random games -->
-<!-- Share Popup -->
-<div id="sharePopup" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
-  <div style="background:#181818; color:white; border-radius:16px; padding:32px 24px; min-width:320px; max-width:90vw; box-shadow:0 4px 32px #000a;">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <span id="shareGameTitle" style="font-size:1.2em; font-weight:bold;"></span>
-      <button id="closeSharePopup" style="background:none; border:none; color:white; font-size:1.5em; cursor:pointer;">&times;</button>
+
+    <!-- Share Popup -->
+    <div id="sharePopup" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#181818; color:white; border-radius:16px; padding:32px 24px; min-width:320px; max-width:90vw; box-shadow:0 4px 32px #000a;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span id="shareGameTitle" style="font-size:1.2em; font-weight:bold;"></span>
+          <button id="closeSharePopup" style="background:none; border:none; color:white; font-size:1.5em; cursor:pointer;">&times;</button>
+        </div>
+
+        <div style="margin:18px 0 10px 0; text-align:center;">
+          <span>You're about to share "<span id="shareGameName"></span>"</span>
+        </div>
+
+        <div style="display:flex; gap:24px; justify-content:center; margin:18px 0;">
+          <button id="copyShareLink" title="Copy to clipboard" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <button id="mailShareLink" title="Share via Email" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
+            <i class="fa fa-envelope"></i>
+          </button>
+        </div>
+
+        <div style="font-size:0.95em; color:#aaa; text-align:center; margin-top:10px;">
+          sharing via stardrop <i class="fa-solid fa-tower-broadcast"></i>
+        </div>
+
+        <div id="sharePopupMsg" style="font-size:0.95em; color:#7fff7f; text-align:center; margin-top:10px; display:none;"></div>
+      </div>
     </div>
-    <div style="margin:18px 0 10px 0; text-align:center;">
-      <span>You're about to share "<span id="shareGameName"></span>"</span> </i>
-    </div>
-    <div style="display:flex; gap:24px; justify-content:center; margin:18px 0;">
-      <button id="copyShareLink" title="Copy to clipboard" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
-        <i class="fa fa-clipboard"></i>
-      </button>
-      <button id="mailShareLink" title="Share via Email" style="background:none; border:none; color:white; font-size:2em; cursor:pointer;">
-        <i class="fa fa-envelope"></i>
-      </button>
-    </div>
-    <div style="font-size:0.95em; color:#aaa; text-align:center; margin-top:10px;">
-      sharing via stardrop  <i class="fa-solid fa-tower-broadcast"></i>
-    </div>
-    <div id="sharePopupMsg" style="font-size:0.95em; color:#7fff7f; text-align:center; margin-top:10px; display:none;"></div>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+
+    <!-- Supabase UMD -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 
 <script>
   function redirectIframe(link, name) {
@@ -364,19 +344,14 @@
   }
 </script>
 
-    <!-- Particles.JS start -->
+    <!-- Particles.JS -->
     <div id="particles-js"></div>
     <script src="/javascript/particles.js"></script>
     <script src="/javascript/particles-config.js"></script>
     <script src="/javascript/panic.js"></script>
     <script src="/javascript/cloaking.js"></script>
-      <script src="/javascript/notifications.js"></script>
+    <script src="/javascript/notifications.js"></script>
     <script src="/javascript/antitabclose.js"></script>
-<script src="/javascript/screentimetracking.js"></script>
-    <!-- Particles.JS end -->
-
-<script>
-
-</script>
+    <script src="/javascript/screentimetracking.js"></script>
   </body>
 </html>
