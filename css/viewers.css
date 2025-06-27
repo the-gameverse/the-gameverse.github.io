@@ -295,3 +295,8 @@ iframe {
     bottom: 120px;
   }
 }
+@media (max-width: 767px) {
+  .buttons {
+    display: none !important;
+  }
+}

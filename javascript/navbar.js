@@ -130,6 +130,8 @@ const navbarHTML = isPlayPage
       <i class="fa-brands fa-youtube"></i>
     </a>
   </div>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   `
   : `
   <!-- 🌐 Normal Navbar -->
@@ -188,6 +190,8 @@ const navbarHTML = isPlayPage
       <i class="fa-brands fa-youtube"></i>
     </a>
   </div>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   `;
 
 
