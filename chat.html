@@ -266,25 +266,38 @@
         .subscribe();
     }
 
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const content = input.value.trim();
-      if (!content) return;
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const content = input.value.trim();
+  if (!content) return;
 
-      const lowered = content.toLowerCase();
-      if (bannedWords.some(word => lowered.includes(word))) {
+  // Check if user is logged in (not guest)
+  // You can tweak this condition depending on your user setup.
+  if (!currentUser || currentUser.username === 'Guest') {
+    showNotification("Message Not Sent", {
+      body: `You must be logged in to send messages. Please create an account or log in <a href=/auth> here. </a>`,
+      duration: 5000,
+      sound: true
+    });
+    return;
+  }
+
+  const lowered = content.toLowerCase();
+  if (bannedWords.some(word => lowered.includes(word))) {
     showNotification("Message Filtered", {
       body: `That message contains inappropriate content and has been blocked.`,
-      duration: 5000,     // Auto-dismiss after 10 seconds
-      sound: true          // Play sound
-    }); input.value = ''; // Clear the box here
-        return;
-      }
-
-      await supabase.from('messages').insert([{ user_id: currentUser.id, content }]);
-      input.value = '';
-      scrollToBottom();
+      duration: 5000,
+      sound: true
     });
+    input.value = ''; // Clear input
+    return;
+  }
+
+  await supabase.from('messages').insert([{ user_id: currentUser.id, content }]);
+  input.value = '';
+  scrollToBottom();
+});
+
 
     async function init() {
       await ensureUser();

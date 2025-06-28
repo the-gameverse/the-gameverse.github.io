@@ -1454,3 +1454,14 @@ yellowman
 zigabo
 zipperhead
   `.split(/\s+/).filter(Boolean);
+
+
+  // Escape special regex chars in banned words to be safe
+function escapeRegex(word) {
+  return word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const bannedRegex = new RegExp(
+  bannedWords.map(w => escapeRegex(w)).join('|'), 
+  'i' // case-insensitive
+);
