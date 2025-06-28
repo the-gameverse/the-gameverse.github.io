@@ -266,16 +266,33 @@
         .subscribe();
     }
 
+const MESSAGE_LIMIT = 5;
+const TIME_WINDOW_MS = 20 * 1000; // 20 seconds
+
+// Track timestamps of sent messages for spam filter
+let messageTimestamps = [];
+
 form.addEventListener('submit', async e => {
   e.preventDefault();
   const content = input.value.trim();
   if (!content) return;
 
-  // Check if user is logged in (not guest)
-  // You can tweak this condition depending on your user setup.
   if (!currentUser || currentUser.username === 'Guest') {
     showNotification("Message Not Sent", {
-      body: `You must be logged in to send messages. Please create an account or log in <a href=/auth> here. </a>`,
+      body: `You must be logged in to send messages. Please create an account or log in <a href="/auth">here.</a>`,
+      duration: 5000,
+      sound: true
+    });
+    return;
+  }
+
+  // Spam filter: clean timestamps older than 20 seconds
+  const now = Date.now();
+  messageTimestamps = messageTimestamps.filter(ts => now - ts < TIME_WINDOW_MS);
+
+  if (messageTimestamps.length >= MESSAGE_LIMIT) {
+    showNotification("Slow down!", {
+      body: `You can only send ${MESSAGE_LIMIT} messages every 20 seconds. Please wait a bit before sending more.`,
       duration: 5000,
       sound: true
     });
@@ -293,10 +310,14 @@ form.addEventListener('submit', async e => {
     return;
   }
 
+  // Passed spam filter, add current timestamp
+  messageTimestamps.push(now);
+
   await supabase.from('messages').insert([{ user_id: currentUser.id, content }]);
   input.value = '';
   scrollToBottom();
 });
+
 
 
     async function init() {
