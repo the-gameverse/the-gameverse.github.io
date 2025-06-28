@@ -135,67 +135,46 @@ const navbarHTML = isPlayPage
   `
   : `
   <!-- 🌐 Normal Navbar -->
-  <div class="navbar-container">
-    <div class="nav-center-bg">
-      <div id="streak" class="streak-container">
-        <span class="streak-text">🔥 0 Days</span>
-      </div>
-    </div>
-    <nav class="navbar">
-      <div class="nav-links">
-        <a href="/"><i class="fa fa-home fa-lg"></i></a>
-        <a href="/games"><i class="fa fa-gamepad fa-lg"></i></a>
-        <a href="/apps"><i class="fa fa-cube fa-lg"></i></a>
-        <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-      </div>
-
-      <div class="logo-container">
-        <a href="/index.html" class="logo">
-          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
-        </a>
-        ${a}
-      </div>
-
-      <div class="nav-links">
-        <a href="/legal"><i class="fa fa-scale-balanced fa-lg"></i></a>
-        <a href="/contact"><i class="fa fa-phone fa-lg"></i></a>
-        <a href="/blog"><i class="fa fa-comment-alt fa-lg"></i></a>
-        <a href="/settings"><i class="fa fa-gear fa-lg"></i></a>
-        <div class="extra-links">
-          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
-          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="nav-right-bg">
-      <a href="/auth.html" class="profile-link">
-        <img src="${avatarUrl}" alt="${username}" class="profile-img">
-        <span class="username">${username}</span>
-      </a>
-    </div>
+  <!-- Left Sidebar Navigation -->
+<div class="starship-sidebar" id="starshipSidebar">
+ 
+  <div class="sidebar-links">
+    <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
+    <a href="/games" title="Games"><i class="fa fa-gamepad"></i><span class="link-text">Games</span></a>
+    <a href="/apps" title="Apps"><i class="fa fa-cube"></i><span class="link-text">Apps</span></a>
+    <a href="/reviews" title="Reviews"><i class="fa fa-star"></i><span class="link-text">Reviews</span></a>
+    <a href="/settings" title="Settings"><i class="fa fa-gear"></i><span class="link-text">Settings</span></a>
   </div>
-
-  <div id="social-popup" class="social-popup hidden">
-    <a class="close-btn" onclick="hidePopUp()">&times;</a>
-    <p> Follow us on social media!</p>
-    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
-      <i class="fa-brands fa-discord"></i>
-    </a>
-    <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
-      <i class="fa-brands fa-youtube"></i>
+  <div class="sidebar-profile">
+    <a href="/auth.html">
+      <img src="${avatarUrl}" alt="${username}" class="sidebar-avatar">  <span class="sidebar-username">${username}</span>
+    
     </a>
   </div>
+</div>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   `;
 
 
 document.body.insertAdjacentHTML("afterbegin", navbarHTML);
+
+const sidebar = document.getElementById('starshipSidebar');
+if (sidebar) {
+  sidebar.classList.add('collapsed');  // start collapsed
+
+  const toggleBtn = document.querySelector('.sidebar-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+  }
+}
+
+
+
+/*
 
 // Show or hide the unsupported message based on device width
 const unsupportedMsg = document.getElementById("unsupported-message");
@@ -423,3 +402,4 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('social-popup').classList.add('hidden');
     }
   }
+*/
