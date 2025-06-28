@@ -141,6 +141,7 @@ const navbarHTML = isPlayPage
   <div class="sidebar-links">
     <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
     <a href="/games" title="Games"><i class="fa fa-gamepad"></i><span class="link-text">Games</span></a>
+    <a href="/tv" title="Apps"><i class="fa fa-television"></i><span class="link-text">TV</span></a>
     <a href="/apps" title="Apps"><i class="fa fa-cube"></i><span class="link-text">Apps</span></a>
     <a href="/reviews" title="Reviews"><i class="fa fa-star"></i><span class="link-text">Reviews</span></a>
     <a href="/settings" title="Settings"><i class="fa fa-gear"></i><span class="link-text">Settings</span></a>

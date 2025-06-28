@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>startv</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    header {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #8a2be2;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      user-select: none;
+      z-index: 10;
+      position: relative;
+    }
+
+.content-wrapper {
+
+
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+    .search-container {
+      width: 100%;
+      max-width: 480px;
+      z-index: 10;
+      position: relative;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      background: #1c1d29;
+      color: #eee;
+      box-shadow: 0 0 10px #8a2be2aa;
+      transition: box-shadow 0.3s ease;
+    }
+    input[type="search"]:focus {
+      box-shadow: 0 0 15px #8a2be2ff;
+    }
+
+    #results {
+      width: 100%;
+      /* Removed max-width to fill content-wrapper */
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 30px;
+      z-index: 10;
+      position: relative;
+      transition: opacity 0.4s ease;
+    }
+    #results.hidden {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      margin-bottom: 0;
+      overflow: hidden;
+      transition: opacity 0.4s ease, height 0.4s ease, margin-bottom 0.4s ease;
+    }
+
+    .video-card {
+      display: flex;
+      cursor: pointer;
+      background: #1c1d29;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 8px #8a2be2aa;
+      transition: transform 0.15s ease, box-shadow 0.3s ease;
+    }
+    .video-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 14px #8a2be2ff;
+    }
+    .video-thumb {
+      width: 140px;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .video-info {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+    }
+    .video-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.2;
+      color: #ddd;
+      user-select: none;
+    }
+    .video-channel {
+      font-size: 0.85rem;
+      color: #aaa;
+      user-select: none;
+    }
+
+    #player {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 0 24px #8a2be2cc;
+      background: #000;
+      position: relative;
+      z-index: 15;
+      transition:
+        max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.6s ease,
+        height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #player.expanded {
+      max-width: 960px;
+      height: auto; /* Let aspect ratio handle height */
+      box-shadow: 0 0 48px #8a2be2ff;
+    }
+    #player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    #player p {
+      color: #aaa;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+    #player a {
+      color: #8a2be2;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    #player a:hover {
+      text-decoration: underline;
+    }
+
+    /* Ambience background */
+    #ambience {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-position: center;
+      background-size: cover;
+      filter: blur(40px) brightness(0.15);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+    #ambience.active {
+      opacity: 1;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <br><br><br><br><br>
+  <div id="navbar"></div>
+  <script type="module" src="/javascript/navbar.js"></script>
+
+  <div class="content-wrapper">
+    <div class="search-container" id="searchContainer">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search for videos on YouTube..."
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search YouTube videos"
+      />
+    </div>
+
+    <div id="results" aria-live="polite" aria-relevant="additions"></div>
+
+    <div id="player">
+      <p>Search and click a video to start watching.</p>
+    </div>
+  </div>
+
+  <div id="ambience"></div>
+
+  <script>
+    const apiKey = 'AIzaSyCZu34x1u7ewgeqqmxYk96O7aqMo3uojqo';
+
+    async function searchYouTube(query) {
+      const searchRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(query)}&key=${apiKey}`
+      );
+      const searchData = await searchRes.json();
+      if (!searchData.items) return [];
+
+      const videoIds = searchData.items.map(item => item.id.videoId).join(',');
+
+      const videosRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${apiKey}`
+      );
+      const videosData = await videosRes.json();
+      if (!videosData.items) return [];
+
+      return videosData.items
+        .filter(video => video.status.embeddable && video.status.privacyStatus === 'public')
+        .map(video => ({
+          id: video.id,
+          title: video.snippet.title,
+          channel: video.snippet.channelTitle,
+          thumbnail: video.snippet.thumbnails.medium.url,
+          maxThumbnail: video.snippet.thumbnails.maxres?.url || video.snippet.thumbnails.high.url,
+        }));
+    }
+
+    function showResults(videos) {
+      const resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '';
+      if (videos.length === 0) {
+        resultsEl.innerHTML = '<p style="color:#aaa; text-align:center;">No embeddable videos found.</p>';
+        return;
+      }
+      videos.forEach(video => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Play video titled ${video.title} by ${video.channel}`);
+        card.innerHTML = `
+          <img class="video-thumb" src="${video.thumbnail}" alt="Thumbnail for ${video.title}" />
+          <div class="video-info">
+            <div class="video-title">${video.title}</div>
+            <div class="video-channel">${video.channel}</div>
+          </div>
+        `;
+        card.onclick = () => playVideo(video);
+        card.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { playVideo(video); e.preventDefault(); }};
+        resultsEl.appendChild(card);
+      });
+      resultsEl.classList.remove('hidden');
+    }
+
+    function playVideo(video) {
+      const player = document.getElementById('player');
+      const ambience = document.getElementById('ambience');
+      const results = document.getElementById('results');
+
+      // Clear results but keep search bar visible
+      results.classList.add('hidden');
+      results.innerHTML = '';
+
+      // Clear previous player content
+      player.innerHTML = '';
+
+      // Create iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&controls=1`;
+      iframe.allow = 'autoplay; encrypted-media';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'lazy';
+      iframe.title = `${video.title} - YouTube video`;
+
+      player.appendChild(iframe);
+
+      // Animate player expanding
+      requestAnimationFrame(() => {
+        player.classList.add('expanded');
+      });
+
+      // Set ambience background with max quality thumbnail and fade in
+      ambience.style.backgroundImage = `url('${video.maxThumbnail}')`;
+      ambience.classList.add('active');
+    }
+
+    // Reset player size and ambience if input cleared
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      if (!e.target.value.trim()) {
+        const player = document.getElementById('player');
+        const ambience = document.getElementById('ambience');
+        const results = document.getElementById('results');
+
+        // Show results area but empty
+        results.classList.remove('hidden');
+        results.innerHTML = '';
+
+        // Reset player size and message
+        player.classList.remove('expanded');
+        player.innerHTML = '<p>Search and click a video to start watching.</p>';
+
+        // Hide ambience
+        ambience.classList.remove('active');
+      }
+    });
+
+    // Debounced search
+    let searchTimeout;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value.trim();
+      if (!query) return;
+      searchTimeout = setTimeout(() => {
+        searchYouTube(query).then(showResults);
+      }, 400);
+    });
+  </script>
+
+      <!-- Particles.JS Background -->
+    <div id="particles-js"></div>
+    <script src="/javascript/panic.js"></script>
+    <script src="/javascript/screentimetracking.js"></script>
+    <script src="/javascript/cloaking.js"></script>
+    <script src="/javascript/antitabclose.js"></script>
+    <script src="/javascript/particles.js"></script>
+    <script src="/javascript/particles-config.js"></script>
+  <script src="/javascript/notifications.js"></script>
+    <!-- Scrollbar Customization -->
+    <script src="/javascript/scrollbar.js"></script>
+</body>
+</html>
