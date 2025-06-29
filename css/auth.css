@@ -215,3 +215,98 @@
   0% { background-position: 0% }
   100% { background-position: 200% }
 }
+.privacy-settings {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  width: 500px;
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 0 15px #8a2be2;
+  backdrop-filter: blur(10px);
+}
+
+.privacy-settings h3 {
+  font-size: 1.5em;
+  color: #8a2be2;
+  margin-bottom: 16px;
+}
+
+.privacy-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.option-info {
+  max-width: 70%;
+}
+
+.option-title {
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.option-description {
+  font-size: 0.9em;
+  opacity: 0.75;
+}
+
+/* Toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #888;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #8a2be2;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+input:checked + input:disabled + .slider {
+  background-color:#2bff00 !important;
+}
+
+input:disabled + .slider {
+  background-color: #444 !important;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
