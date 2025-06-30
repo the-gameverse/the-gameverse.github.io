@@ -231,7 +231,6 @@ const introOverlayHTML = `
     <div class="spaceship" style="
       position: relative;
       z-index: 10;
-      animation: pulseSpaceship 5s ease forwards;
     ">
       <img src="/uploads/branding/spaceship.png" alt="Spaceship" style="
         width: 100px;
