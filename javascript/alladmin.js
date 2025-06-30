@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
         admin.remove();
       } else if (matched.role === "gameadd") {
         console.log("User is a game adder, hiding admin features");
-        blog.remove()
+        blog.remove();
         admin.remove();
       } else if (matched.role === "admin") {
         console.log("User is an admin, hiding admin features");
@@ -428,3 +428,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkRole();
 });
+
+// #region Review Viewing
+
+const reviewList = document.querySelector(".reviewlist");
+async function loadReviews() {
+  const { data, error } = await supabaseClient
+    .from("reviews")
+    .select("title, content, author")
+    .order("id", { ascending: false });
+  if (error) return console.error("Failed to load reviews", error);
+
+  if (!data || data.length === 0) {
+    reviewList.innerHTML = "<p>No reviews yet. Be the first to review us!</p>";
+    return;
+  }
+
+  data.forEach((review) => {
+    const reviewEl = document.createElement("div");
+    reviewEl.className = "review";
+    reviewEl.innerHTML = `
+            <h3>${review.title}</h3>
+            <p>${review.content}</p>
+            <div class="userdisplay">
+              <img src="${
+                JSON.parse(review.author).avatar
+              }" alt="User avatar" />
+              <h4>${JSON.parse(review.author).name}</h4>
+            </div>
+          `;
+    reviewList.appendChild(reviewEl);
+  });
+}
+
+loadReviews();

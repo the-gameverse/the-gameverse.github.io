@@ -32,6 +32,7 @@ if (user) {
   if (!error && profile) {
     username = profile.username || "User";
     avatarUrl = profile.avatar_url;
+    localStorage.setItem("loggedInUser", JSON.stringify({username: profile.username, avatar: profile.avatar_url}));
   }
 }
 
