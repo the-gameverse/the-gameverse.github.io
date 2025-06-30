@@ -5,7 +5,7 @@
   padding: 16px;
   width: min-content;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
@@ -65,11 +65,11 @@
   /* max-width: 320px; */
   max-width: fit-content;
   background: linear-gradient(135deg, #0b0f2e, #1a1f4a);
-  border: 2px solid #4fc3f7;
+  border: 2px solid #8a2be2;
   border-radius: 12px;
   padding: 16px;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -77,4 +77,22 @@
 .review:hover {
   transform: scale(1.03);
   box-shadow: 0 0 20px rgba(79, 195, 247, 0.8);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-title {
+  margin: 0;
+}
+
+.star-rating {
+  font-size: 1.3rem;
+  color: gold;
+  height: min-content;
 }

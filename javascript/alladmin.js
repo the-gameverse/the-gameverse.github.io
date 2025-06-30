@@ -389,6 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const blog = document.querySelector(".blog");
   const games = document.querySelector(".games");
   const admin = document.querySelector(".admins");
+  const reviewsection = document.querySelector(".reviews");
 
   async function checkRole() {
     const { data, error } = await supabaseClient
@@ -410,10 +411,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Remove elements from their parent
         games.remove();
         admin.remove();
+        reviewsection.remove();
       } else if (matched.role === "gameadd") {
         console.log("User is a game adder, hiding admin features");
         blog.remove();
         admin.remove();
+        reviewsection.remove();
       } else if (matched.role === "admin") {
         console.log("User is an admin, hiding admin features");
         // Remove elements from their parent
@@ -432,11 +435,16 @@ document.addEventListener("DOMContentLoaded", () => {
 // #region Review Viewing
 
 const reviewList = document.querySelector(".reviewlist");
+const approvalSection = document.querySelector(".approve");
+const reviewHr = document.getElementById("review-hr");
+
 async function loadReviews() {
-  const { data, error } = await supabaseClient
+  reviewList.innerHTML = ""; // Clear existing reviews
+  const { data, error } = await supabase
     .from("reviews")
-    .select("title, content, author")
+    .select("title, content, author, stars, allowed, id")
     .order("id", { ascending: false });
+
   if (error) return console.error("Failed to load reviews", error);
 
   if (!data || data.length === 0) {
@@ -444,20 +452,80 @@ async function loadReviews() {
     return;
   }
 
+  const hrshow = data.some((review) => !review.allowed);
+  reviewHr.style.display = hrshow ? "block" : "none";
+
+
   data.forEach((review) => {
+    const { title, content, author, stars, allowed, id } = review;
+    const user = JSON.parse(author);
+    const filledStars = "★".repeat(stars);
+    const emptyStars = "☆".repeat(5 - stars);
+
     const reviewEl = document.createElement("div");
     reviewEl.className = "review";
+
+    // Build innerHTML without buttons first
     reviewEl.innerHTML = `
-            <h3>${review.title}</h3>
-            <p>${review.content}</p>
-            <div class="userdisplay">
-              <img src="${
-                JSON.parse(review.author).avatar
-              }" alt="User avatar" />
-              <h4>${JSON.parse(review.author).name}</h4>
-            </div>
-          `;
-    reviewList.appendChild(reviewEl);
+      <div class="review-header">
+        <h3 class="review-title">${title}</h3>
+        <div class="star-rating">${filledStars}${emptyStars}</div>
+      </div>
+      <p>${content}</p>
+      <div class="userdisplay">
+        <img src="${user.avatar}" alt="User avatar" />
+        <h4>${user.name}</h4>
+      </div>
+    `;
+
+    // Add buttons conditionally
+    if (!allowed) {
+      const allowBtn = document.createElement("button");
+      allowBtn.textContent = "✓";
+      allowBtn.className = "allowReview";
+      allowBtn.addEventListener("click", async () => {
+        const { error } = await supabase
+          .from("reviews")
+          .update({ allowed: true })
+          .eq("id", id);
+
+        if (error) {
+          console.error("❌ Failed to allow review", error);
+          alert("Failed to allow review");
+          return;
+        }
+
+        console.log(`✅ Review ${id} allowed`);
+        loadReviews(); // Refresh the list
+      });
+
+      const denyBtn = document.createElement("button");
+      denyBtn.textContent = "✗";
+      denyBtn.className = "denyReview";
+      denyBtn.addEventListener("click", async () => {
+        const { error } = await supabase
+          .from("reviews")
+          .delete()
+          .eq("id", id);
+
+        if (error) {
+          console.error("❌ Failed to delete review", error);
+          alert("Failed to delete review");
+          return;
+        }
+
+        console.log(`🗑️ Review ${id} deleted`);
+        location.reload();
+      });
+
+      reviewEl.appendChild(allowBtn);
+      reviewEl.appendChild(denyBtn);
+      approvalSection.appendChild(reviewEl);
+    } else {
+      reviewList.appendChild(reviewEl);
+    }
+
+    
   });
 }
 

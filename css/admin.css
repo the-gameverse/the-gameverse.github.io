@@ -1,4 +1,7 @@
-.blog, .games, .admins, .reviews {
+.blog,
+.games,
+.admins,
+.reviews {
   width: 40%;
   max-height: 30rem;
   float: left;
@@ -466,8 +469,7 @@ center {
 .overlay-content input[type="text"],
 .overlay-content input[type="url"],
 .overlay-content input[type="file"],
-.overlay-content input[type="email"]
-.overlay-content select {
+.overlay-content input[type="email"] .overlay-content select {
   width: auto; /* allow width to adjust */
   min-width: 100px; /* don't shrink too much */
   max-width: 100%; /* max width 100% of container */
@@ -509,7 +511,7 @@ center {
   width: 100%;
   height: auto;
   border-radius: 10px 10px 0 0;
-  border-bottom: 2px solid #A78BFA;
+  border-bottom: 2px solid #a78bfa;
   object-fit: cover;
 }
 
@@ -562,7 +564,8 @@ center {
 } */
 
 /* Admin Control Styles */
-.admins, .reviews {
+.admins,
+.reviews {
   width: 90%;
   height: fit-content;
   border: 2px solid white;
@@ -572,13 +575,15 @@ center {
   /* margin-top: 40px; */
 }
 
-.admins .controls, .reviews .controls {
+.admins .controls,
+.reviews .controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.admins h3, .reviews h3 {
+.admins h3,
+.reviews h3 {
   margin: 0;
 }
 
@@ -634,7 +639,7 @@ center {
   padding: 16px;
   width: min-content;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
@@ -678,7 +683,7 @@ center {
   font-size: 1rem;
   color: #81d4fa;
 }
-.reviewlist {
+.reviewlist, .approve {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -699,7 +704,7 @@ center {
   border-radius: 12px;
   padding: 16px;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -710,5 +715,41 @@ center {
 }
 
 .reviews {
-  max-height: 30rem;
+  max-height: 60rem;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-title {
+  margin: 0;
+}
+
+.star-rating {
+  font-size: 1.3rem;
+  color: gold;
+  height: min-content;
+}
+
+/* .review-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+} */
+
+.review-footer button {
+  padding: 5px 10px;
+  margin: 0;
+  width: 50%;
+}
+
+hr {
+  width: 100%;
+  color: gray;
 }
