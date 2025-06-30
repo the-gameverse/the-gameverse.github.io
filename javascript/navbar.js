@@ -137,10 +137,12 @@ const navbarHTML = isPlayPage
   <!-- 🌐 Normal Navbar -->
   <!-- Left Sidebar Navigation -->
 <div class="starship-sidebar" id="starshipSidebar">
- 
+  <div class="sidebar-logo">
+  <img  src="/uploads/branding/favicon.png" style="transform: translateX(2px); alt="Starship Logo" />
+</div>
   <div class="sidebar-links">
-  <a href="/" title="starship"><img src="/uploads/branding/favicon.png" style="height:30px;width:30px;border-radius:50%;transform: translateX(-5px);"><span class="link-text">starship</span></a>
-    <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
+
+ <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
     <a href="/games" title="Games"><i class="fa fa-gamepad"></i><span class="link-text">Games</span></a>
     <a href="/tv" title="TV"><i class="fa fa-television"></i><span class="link-text">TV</span></a>
     <a href="/apps" title="Apps"><i class="fa fa-cube"></i><span class="link-text">Apps</span></a>
@@ -148,6 +150,20 @@ const navbarHTML = isPlayPage
     <a href="/reviews" title="Reviews"><i class="fa fa-star"></i><span class="link-text">Reviews</span></a>
     <a href="/settings" title="Settings"><i class="fa fa-gear"></i><span class="link-text">Settings</span></a>
   </div>
+
+    <div class="sidebar-socials">
+    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Discord">
+      <i class="fa-brands fa-discord"></i><span class="link-text">Discord</span>
+    </a>
+    <a href="https://instagram.com/starship.site" style="transform: translateX(2px);" target="_blank" title="Instagram">
+      <i class="fa-brands fa-instagram fa-lg"></i><span class="link-text">Instagram</span>
+    </a>
+    <a href="https://youtube.com/@starship_site" style="transform: translateX(2px);" target="_blank" title="YouTube">
+      <i class="fa-brands fa-youtube"></i><span class="link-text">YouTube</span>
+    </a>
+  </div>
+
+
   <div class="sidebar-profile">
     <a href="/auth.html">
       <img src="${avatarUrl}" alt="${username}" class="sidebar-avatar">  <span class="sidebar-username">${username}</span>
