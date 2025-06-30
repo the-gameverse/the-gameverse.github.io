@@ -470,7 +470,7 @@
   padding: 16px 0;
   z-index: 10000;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(100px);
   overflow: hidden;
 }
 
