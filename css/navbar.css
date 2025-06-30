@@ -540,7 +540,7 @@
 }
 
 .link-text {
-  transition: opacity 0.3s ease;
+  transition: opacity 1.5s ease !important;
   white-space: nowrap;
 }
 
