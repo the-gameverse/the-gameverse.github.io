@@ -137,9 +137,12 @@ const navbarHTML = isPlayPage
   <!-- 🌐 Normal Navbar -->
   <!-- Left Sidebar Navigation -->
 <div class="starship-sidebar" id="starshipSidebar">
- 
+  <div class="sidebar-logo">
+  <img  src="/uploads/branding/favicon.png" style="transform: translateX(2px); alt="Starship Logo" />
+</div>
   <div class="sidebar-links">
-    <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
+
+ <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
     <a href="/games" title="Games"><i class="fa fa-gamepad"></i><span class="link-text">Games</span></a>
     <a href="/tv" title="TV"><i class="fa fa-television"></i><span class="link-text">TV</span></a>
     <a href="/apps" title="Apps"><i class="fa fa-cube"></i><span class="link-text">Apps</span></a>
@@ -147,6 +150,20 @@ const navbarHTML = isPlayPage
     <a href="/reviews" title="Reviews"><i class="fa fa-star"></i><span class="link-text">Reviews</span></a>
     <a href="/settings" title="Settings"><i class="fa fa-gear"></i><span class="link-text">Settings</span></a>
   </div>
+
+    <div class="sidebar-socials">
+    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Discord">
+      <i class="fa-brands fa-discord"></i><span class="link-text">Discord</span>
+    </a>
+    <a href="https://instagram.com/starship.site" style="transform: translateX(2px);" target="_blank" title="Instagram">
+      <i class="fa-brands fa-instagram fa-lg"></i><span class="link-text">Instagram</span>
+    </a>
+    <a href="https://youtube.com/@starship_site" style="transform: translateX(2px);" target="_blank" title="YouTube">
+      <i class="fa-brands fa-youtube"></i><span class="link-text">YouTube</span>
+    </a>
+  </div>
+
+
   <div class="sidebar-profile">
     <a href="/auth.html">
       <img src="${avatarUrl}" alt="${username}" class="sidebar-avatar">  <span class="sidebar-username">${username}</span>
@@ -172,6 +189,167 @@ if (sidebar) {
       sidebar.classList.toggle('collapsed');
     });
   }
+}
+
+// == Intro Animation Overlay ==
+
+// Create overlay HTML
+const introOverlayHTML = `
+  <div id="introOverlay" style="
+    position: fixed;
+    inset: 0;
+    background: #0a0a12;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 100000;
+    opacity: 1;
+    transition: opacity 1s ease;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    user-select: none;
+  ">
+    <div class="starfield" style="
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(2px 2px at 20% 30%, #ffffff 90%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 70%, #ffffff 90%, transparent 100%),
+        radial-gradient(2.5px 2.5px at 70% 50%, #ffffff 90%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 80%, #ffffff 90%, transparent 100%),
+        radial-gradient(1.7px 1.7px at 50% 20%, #ffffff 90%, transparent 100%);
+      background-repeat: repeat;
+      background-size: 200% 200%;
+      animation: starTwinkle 4s ease-in-out infinite alternate;
+      filter: none;
+      z-index: 1;
+    "></div>
+
+    <div class="spaceship" style="
+      position: relative;
+      z-index: 10;
+    ">
+      <img src="/uploads/branding/spaceship.png" alt="Spaceship" style="
+        width: 100px;
+        height: auto;
+        display: block;
+        margin: 0 auto 24px;
+        user-select: none;
+        pointer-events: none;
+        transition: transform 0.3s ease;
+        filter: none;
+      "/>
+    </div>
+
+
+
+    <div class="progress-bar-container" style="
+      position: absolute;
+      bottom: 20px;
+      left: 10%;
+      width: 80%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(255,255,255,0.15);
+      z-index: 20;
+    ">
+      <div class="progress-bar" style="
+        height: 100%;
+        width: 0%;
+        background: white;
+        border-radius: 2px;
+        transition: width 0.1s linear;
+      "></div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes starTwinkle {
+      0% {
+        background-position: 0% 0%;
+        opacity: 0.8;
+      }
+      100% {
+        background-position: 100% 100%;
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseSpaceship {
+      0%, 60% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      80% {
+        transform: scale(1.1) translateY(-10px);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5) translateY(-150vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInOut {
+      0%, 15% {
+        opacity: 0;
+      }
+      25%, 75% {
+        opacity: 1;
+      }
+      85%, 100% {
+        opacity: 0;
+      }
+    }
+  </style>
+`;
+
+document.body.insertAdjacentHTML('afterbegin', introOverlayHTML);
+
+const overlay = document.getElementById('introOverlay');
+const progressBar = overlay.querySelector('.progress-bar');
+const hasSeenIntro = sessionStorage.getItem('seenIntro');
+
+function hideIntroOverlay() {
+  if (!overlay) return;
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    overlay.remove();
+  }, 1000);
+}
+
+if (hasSeenIntro) {
+  // Already seen this session — hide immediately
+  hideIntroOverlay();
+} else {
+  // First time — show animation & store flag
+  sessionStorage.setItem('seenIntro', 'true');
+
+  // Animate progress bar over 5.5 seconds
+  let start = null;
+  const duration = 5500; // in ms
+
+  function animateProgressBar(timestamp) {
+    if (!start) start = timestamp;
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / duration, 1);
+    progressBar.style.width = `${progress * 100}%`;
+    if (progress < 1) {
+      requestAnimationFrame(animateProgressBar);
+    }
+  }
+  requestAnimationFrame(animateProgressBar);
+
+  // Allow user to click to skip the animation
+  overlay.addEventListener('click', hideIntroOverlay);
+
+  // Auto-hide after animation duration (5.5 seconds)
+  setTimeout(hideIntroOverlay, duration);
 }
 
 

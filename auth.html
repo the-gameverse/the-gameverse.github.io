@@ -79,21 +79,11 @@
 
     <!-- Profile Info -->
     <div id="profile-info" style="display:none;">
-      <h2>Profile</h2>
-
-
       <img id="profile-avatar" src="" alt="Profile Picture" style="cursor:pointer;" />
       <p id="profile-username">Username: </p>
-      <div class="username-update">
-        <input id="new-username" type="text" placeholder="New username" />
-        <button id="update-username-btn">Update Username</button>
-      </div>
-      <div class="avatar-update" style="margin-top:10px;">
-        <input id="profile-avatar-input" type="file" accept="image/*" style="display:inline-block;" />
-        <button id="update-avatar-btn">Update Avatar</button>
-      </div>
-      <button id="logout-btn">Log Out</button>
-    </div>
+
+      
+    
 
     <pre id="status"></pre>
 
@@ -104,7 +94,82 @@
         <div class="spinner"></div>
       </div>
     </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <div class="privacy-settings">
+  <h3><i class="fa-solid fa-address-card"></i> Profile Settings</h3>
+
+      <div class="username-update">
+        <input id="new-username" type="text" placeholder="New username" />
+        <button id="update-username-btn">Update Username</button>
+      </div>
+      <div class="avatar-update" style="margin-top:10px;">
+        <input id="profile-avatar-input" type="file" accept="image/*" style="display:inline-block;" />
+        <button id="update-avatar-btn">Update Avatar</button>
+      </div>
+</div>
+
+    <div class="privacy-settings">
+  <h3><i class="fa-solid fa-user-gear"></i> Account Settings</h3>
+
+<button id="logout-btn">Log Out</button>
+<button onClick="alert('To delete your account, please email support@starship-app.com, with your account name, email, and proof of ownership.')" id="delete-btn" style="background:red !important;">Delete My Account</button>
+
+</div>
+
+    <div class="privacy-settings">
+  <h3><i class="fa-solid fa-user-shield"></i> Privacy Settings</h3>
+
+  <div class="privacy-option">
+    <div class="option-info">
+      <p class="option-title"><i class="fa-solid fa-heart-circle-bolt"></i> Store My Favorites In Starbase</p>
+      <p class="option-description">Saves your favorites in starbase, and allows them to be saved to and pulled from across devices. This is always on, and can't be turned off.</p>
+    </div>
+    <label class="switch">
+      <input type="checkbox" checked id="toggle-online-status" disabled>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="privacy-option">
+    <div class="option-info">
+      <p class="option-title"><i class="fa-solid fa-eye-low-vision"></i> Blur My Avatar In Starchat</p>
+      <p class="option-description">Blurs your avatar in starchat. This is always on, and can't be turned off.</p>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="toggle-public-profile" checked disabled>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+
+  <!-- Hidden settings (not available yet) 
+  
+  <div class="privacy-option">
+    <div class="option-info">
+      <p class="option-title"><i class="fa-solid fa-paintbrush"></i> Personalize Reccomendations </p>
+      <p class="option-description">Uses your game data to reccomend games to you. This feature is not implemented yet, so it's off.</p>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="toggle-public-profile" disabled>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+
+  <div class="privacy-option">
+    <div class="option-info">
+      <p class="option-title"><i class="fa-solid fa-circle-dot"></i> Show My Online Status </p>
+      <p class="option-description">Allow friends to see my online status, and allow starship to see your online status.</p>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="toggle-public-profile" >
+      <span class="slider"></span>
+    </label>
+  </div>
+</div>
+ -->
+</div></div>
   </center>
   <script src="/javascript/auth.js"></script>
 </body>

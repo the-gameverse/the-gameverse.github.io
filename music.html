@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>starmusic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #0e0f17;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .search-container {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+    input[type="search"] {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      background: #1c1d29;
+      color: #eee;
+      box-shadow: 0 0 10px #8a2be2aa;
+    }
+    .results {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .result-item {
+      background: #1c1d29;
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: background-color 0.2s ease;
+    }
+    .result-item:hover {
+      background-color: #33354a;
+    }
+    .result-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .player {
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+    .player .art {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto 1rem;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #8a2be2aa;
+      display: none;
+    }
+    .player .info {
+      margin-bottom: 1rem;
+    }
+    .player .info .title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .player .info .artist {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+    .controls i {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #fff;
+      transition: color 0.2s ease;
+    }
+    .controls i:hover {
+      color: #8a2be2;
+    }
+    .progress {
+      width: 100%;
+      height: 6px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #8a2be2;
+      transition: width 0.2s linear;
+    }
+    #ytplayer {
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #8a2be2aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <input id="searchInput" type="search" placeholder="Search for music..." autocomplete="off" />
+  </div>
+  <div id="results" class="results"></div>
+
+  <div class="player">
+    <img id="albumArt" class="art" src="" alt="Album Art" />
+    <div class="info">
+      <div id="songTitle" class="title">Nothing playing</div>
+      <div id="songArtist" class="artist"></div>
+    </div>
+    <div class="controls">
+      <i id="rewindBtn" class="fas fa-backward" title="Restart"></i>
+      <i id="playPauseBtn" class="fas fa-play" title="Play/Pause"></i>
+      <i id="skipBtn" class="fas fa-forward" title="Stop"></i>
+    </div>
+    <div class="progress">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+    <div id="ytplayer"></div>
+  </div>
+
+  <script>
+    let player;
+    let currentVideo = null;
+    let isPlaying = false;
+
+    // YouTube IFrame API ready callback
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytplayer', {
+        height: '0',
+        width: '0',
+        videoId: '',
+        playerVars: { autoplay: 0, controls: 1 },
+        events: {
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerStateChange(e) {
+      const icon = document.getElementById('playPauseBtn');
+      if (e.data === YT.PlayerState.PLAYING) {
+        icon.className = 'fas fa-pause';
+        isPlaying = true;
+      } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+        icon.className = 'fas fa-play';
+        isPlaying = false;
+      }
+    }
+
+    const apiKey = 'AIzaSyCZu34x1u7ewgeqqmxYk96O7aqMo3uojqo';
+
+    // Debounce helper function
+    function debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
+    function searchYouTube(query) {
+      if (!query) return;
+      fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(
+          query
+        )}&key=${apiKey}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const results = document.getElementById('results');
+          results.innerHTML = '';
+          if (!data.items || data.items.length === 0) {
+            results.innerHTML = '<div>No results found.</div>';
+            return;
+          }
+          data.items.forEach((item) => {
+            const vid = item.id.videoId;
+            const thumb = item.snippet.thumbnails.high.url;
+            const title = item.snippet.title;
+            const artist = item.snippet.channelTitle;
+
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            div.innerHTML = `
+              <img src="${thumb}" class="result-thumb" alt="Thumbnail">
+              <div>
+                <div>${title}</div>
+                <div style="font-size: 0.8rem; color: #bbb">${artist}</div>
+              </div>
+            `;
+            div.onclick = () => playVideo(vid, thumb, title, artist);
+            results.appendChild(div);
+          });
+        })
+        .catch((err) => {
+          console.error('YouTube API error:', err);
+          document.getElementById('results').innerHTML = '<div>Error fetching results.</div>';
+        });
+    }
+
+    const debouncedSearch = debounce((e) => {
+      const query = e.target.value.trim();
+      if (query.length > 0) {
+        searchYouTube(query);
+      } else {
+        document.getElementById('results').innerHTML = '';
+      }
+    }, 500); // wait 500ms after user stops typing
+
+    document.getElementById('searchInput').addEventListener('input', debouncedSearch);
+
+    function playVideo(id, thumb, title, artist) {
+      if (!player || typeof player.loadVideoById !== 'function') {
+        alert('Player not ready');
+        return;
+      }
+      currentVideo = id;
+      document.getElementById('albumArt').src = thumb;
+      document.getElementById('albumArt').style.display = 'block';
+      document.getElementById('songTitle').textContent = title;
+      document.getElementById('songArtist').textContent = artist;
+      document.getElementById('results').innerHTML = '';
+      player.loadVideoById(id);
+      player.setPlaybackQuality('default');
+    }
+
+    document.getElementById('playPauseBtn').onclick = () => {
+      if (!player) return;
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    };
+
+    document.getElementById('rewindBtn').onclick = () => {
+      if (player) player.seekTo(0);
+    };
+
+    document.getElementById('skipBtn').onclick = () => {
+      if (player) player.stopVideo();
+      document.getElementById('albumArt').style.display = 'none';
+      document.getElementById('songTitle').textContent = 'Nothing playing';
+      document.getElementById('songArtist').textContent = '';
+      document.getElementById('progressBar').style.width = '0%';
+    };
+
+    function updateProgressBar() {
+      if (player && player.getDuration && player.getCurrentTime && isPlaying) {
+        const duration = player.getDuration();
+        const current = player.getCurrentTime();
+        if (duration > 0) {
+          const percent = (current / duration) * 100;
+          document.getElementById('progressBar').style.width = percent + '%';
+        }
+      }
+      requestAnimationFrame(updateProgressBar);
+    }
+
+    updateProgressBar();
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

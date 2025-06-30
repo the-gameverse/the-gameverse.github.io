@@ -39,7 +39,7 @@ const overlayScreens = {
                 <label for="gameCover">Game Cover:</label>
                 <input type="file" accept="image/*" id="gameCover" required />
                 <label for="gameURL">Game URL:</label>
-                <input type="url" id="gameURL" required />
+                <input id="gameURL" type="text" required />
                 <button type="submit" id="gameSubmitBtn">Submit</button>
               </form>
               {deleteButton}
