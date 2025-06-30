@@ -497,22 +497,10 @@
 
 .sidebar-logo:hover img {
   transform: scale(1.1);
-  box-shadow: 0 0 16px #8a2be2cc, 0 0 32px #8a2be222;
   filter: brightness(1.1);
 }
 
-/* Glow Animation */
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 8px #8a2be288;
-  }
-  50% {
-    box-shadow: 0 0 16px #8a2be2aa;
-  }
-  100% {
-    box-shadow: 0 0 8px #8a2be288;
-  }
-}
+
 
 /* Sidebar links */
 .sidebar-links {
