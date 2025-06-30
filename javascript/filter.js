@@ -67,6 +67,7 @@
   
   
  export const bannedWords = `
+ 
  .com
  .org
  .net
