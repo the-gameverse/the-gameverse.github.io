@@ -478,6 +478,14 @@ center {
   font-size: 1rem;
   padding: 6px 8px;
 }
+
+.overlay-content img {
+  max-width: 100%; /* ensure images fit within container */
+  height: auto; /* maintain aspect ratio */
+  border-radius: 8px; /* consistent with other inputs */
+  margin-top: 10px; /* space above image */
+}
+
 /* #endregion */
 
 .markdown-preview {
