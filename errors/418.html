@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>418 – I’m a Teapot 🚀🫖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #0b0c2c 0%, #000010 100%);
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffe7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Starfield background */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: transparent;
+      box-shadow:
+        1000px 200px #00ffe7,
+        600px 900px #00ffe7,
+        300px 400px #0ff,
+        1400px 1300px #0ff,
+        2000px 1800px #00ffe7,
+        1500px 100px #00ffe7,
+        1800px 1400px #0ff,
+        800px 600px #0ff;
+      animation: twinkle 6s infinite alternate ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% {opacity: 0.9;}
+      50% {opacity: 0.4;}
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      background: rgba(0, 15, 30, 0.85);
+      padding: 40px 50px;
+      border-radius: 25px;
+      box-shadow: 0 0 40px #00ffe7cc;
+      backdrop-filter: blur(12px);
+      z-index: 1;
+      max-width: 450px;
+      user-select: none;
+      filter: drop-shadow(0 0 6px #00ffe7);
+      animation: glowPulse 3s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 20px #00ffe7cc; }
+      100% { box-shadow: 0 0 50px #00ffe7ff; }
+    }
+
+    /* Animated heading */
+    h1 {
+      text-align: center;
+      font-size: 6rem;
+      /* letter-spacing: 0.3em; */
+      margin-bottom: 0.1em;
+      text-shadow:
+        0 0 5px #00fff7,
+        0 0 15px #00fff7,
+        0 0 30px #00fff7,
+        0 0 60px #00fff7;
+      animation: flicker 3s infinite;
+    }
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #00fff7,
+          0 0 15px #00fff7,
+          0 0 30px #00fff7,
+          0 0 60px #00fff7;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+    }
+
+    /* Subtitle */
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+      line-height: 1.4;
+      color: #00d2ff;
+      text-shadow: 0 0 5px #00d2ffaa;
+      animation: fadeInUp 1.5s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* The teapot spaceship */
+    .teapot {
+      width: 150px;
+      margin: 0 auto 40px;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px #00e0ff);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Button */
+    button {
+      padding: 15px 35px;
+      font-size: 1.2rem;
+      color: #000c15;
+      background: #00fff7;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px #00fff7aa,
+        0 0 20px #00fff7cc;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2.5s infinite alternate;
+      user-select: none;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    button:hover {
+      background: #00c2bf;
+      box-shadow:
+        0 0 25px #00fff7dd,
+        0 0 35px #00fff7ff;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #00fff7aa; }
+      100% { box-shadow: 0 0 25px #00fff7ff; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <div class="container" role="main" aria-label="418 I'm a teapot error page">
+    <h1>418</h1>
+    <p>Oops! I’m a teapot.<br>Can’t brew coffee, only cosmic tea.</p>
+    <button onclick="goBack()" aria-label="Go back to previous page">Take Me Back</button><br><br>
+    <button onclick="lookup()">What does 418 mean?</button>
+  </div>
+
+  <script>
+    function goBack() {
+      const url = localStorage.getItem('actualURL');
+      if (url) {
+        window.location.href = url;
+      } else {
+        window.location.href = '/';
+      }
+    }
+    function lookup() {
+      const url = "https://en.wikipedia.org/wiki/418_I'm_a_teapot";
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
