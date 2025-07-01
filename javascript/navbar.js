@@ -145,6 +145,7 @@ const navbarHTML = isPlayPage
 
  <a href="/" title="Home"><i class="fa fa-home"></i><span class="link-text">Home</span></a>
     <a href="/games" title="Games"><i class="fa fa-gamepad"></i><span class="link-text">Games</span></a>
+    <a href="/blog" title="Blog"><i class="fa fa-newspaper"></i><span class="link-text">Blog</span></a>
     <a href="/tv" title="TV"><i class="fa fa-television"></i><span class="link-text">TV</span></a>
     <a href="/apps" title="Apps"><i class="fa fa-cube"></i><span class="link-text">Apps</span></a>
     <a href="/ai" title="AI"><i class="fa fa-robot"></i><span class="link-text">AI</span></a>
