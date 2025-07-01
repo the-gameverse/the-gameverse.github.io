@@ -691,7 +691,8 @@ center {
   font-size: 1rem;
   color: #81d4fa;
 }
-.reviewlist, .approve {
+.reviewlist,
+.approve {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -760,4 +761,59 @@ center {
 hr {
   width: 100%;
   color: gray;
+}
+
+.imgtdata {
+  background: #ff00ff05;
+  border: 1px solid white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  width: 90%;
+  max-width: 600px;
+}
+
+.imgtdata h2 {
+  margin-top: 0;
+  color: #00ffee;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.imgtdata input[type="file"] {
+  background: #2a2d33;
+  color: #ccc;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.imgtdata textarea {
+  width: 100%;
+  background: #2a2d33;
+  border: 1px solid #2e3138;
+  color: #d1f7ff;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.imgtdata button {
+  background: #00ffee;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s ease;
+}
+
+.imgtdata button:hover {
+  background: #00c5c5;
 }
