@@ -533,12 +533,27 @@ This is only the beginning. The 2025 roadmap still has two major updates coming 
               const formattedDate = `${year}-${month}-${day}`;
               console.log(formattedDate); // example: 2025-06-10
 
+              await supabase.auth.getUser().then((user) => {
+                if (!user.data) {
+                  alert("You must be logged in to create a blog post.");
+                  return;
+                }
+              });
+              await supabase.from('profiles').select('username, avatar_url').eq('id', supabase.auth.user().id).single().then((profile) => {
+                if (!profile.data) {
+                  alert("You must have a profile to create a blog post.");
+                  return;
+                }
+                const author = profile.data.username || "Anonymous";
+              });
+
               const { error } = await supabase.from("blog_menu").insert([
                 {
                   title,
                   content,
                   date: formattedDate,
                   image: base64Image,
+                  author
                 },
               ]);
 
