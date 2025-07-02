@@ -27,7 +27,7 @@ const sortDropdown   = document.getElementById("sortOptions");
 async function fetchBlogPosts() {
   const { data, error } = await supabase
     .from("blog_menu")
-    .select("title, image, date, content");
+    .select("title, image, date, content, id, author");
 
   if (error) {
     console.error("Error fetching blog posts:", error);
@@ -41,6 +41,7 @@ async function fetchBlogPosts() {
     // Assume "date" column in Supabase is a DATE or TIMESTAMP string
     const dt = new Date(row.date);
     return {
+      id:      row.id,
       title:   row.title,
       image:   row.image,
       date: {
@@ -49,6 +50,7 @@ async function fetchBlogPosts() {
         day:   dt.getUTCDate(),
       },
       content: row.content,
+      author: row.author || "Starship Team", // Add author if available
     };
   });
 
@@ -91,7 +93,7 @@ function displayBlogPosts(filter = "") {
     postContainer.href = "javascript:void(0)";
     postContainer.classList.add("post");
     postContainer.addEventListener("click", () =>
-      showOverlay({ title: post.title, content: post.content, image: post.image })
+      showOverlay({ title: post.title, content: post.content, image: post.image, id: post.id, author: post.author })
     );
 
     // -- Left side: image
@@ -134,14 +136,19 @@ window.sortBlogPosts = function () {
 window.showOverlay = function (post) {
   const overlay = document.getElementById("overlay");
   const blogTitle    = document.getElementById("blogTitle");
+  const blogAuthor   = document.getElementById("blogAuthor");
   const blogContent  = document.getElementById("blogContent");
   const blogCover = document.getElementById("blogCover");
+  const commentForm = document.querySelector(".comments form");
 
   blogTitle.textContent = post.title;
+  blogAuthor.textContent = `by: ${post.author || "Starship Team"}`; // Show author if available
   blogContent.innerHTML = marked.parse(post.content);
   blogCover.src = post.image;
+  commentForm.setAttribute("post_id", post.id); // Set post_id for comments
   overlay.style.display = "flex";
   document.body.classList.add("overlay-open");
+  displayComments(post.id); // Load comments for this post
 };
 
 window.closeOverlay = function () {
@@ -152,3 +159,70 @@ window.closeOverlay = function () {
 
 // 10. Kick off the fetch on page load
 window.addEventListener("DOMContentLoaded", fetchBlogPosts);
+
+// #region Comments
+const commentForm = document.querySelector(".comments form");
+commentForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // Prevent form submission
+  const commentInput = document.getElementById("commentInput");
+  const comment = commentInput.value.trim();
+  const user = await supabase.auth.getUser().then(res => res.data.user)
+  if (!user) {
+     showNotification("You must be logged in to comment.", {
+      persistClose: false,
+      sound: false,
+      duration: 5000,
+      sticky: false,
+      body: "Please log in to leave a comment.",
+     });
+  }
+  const { data } = await supabase.from("profiles").select("username").eq("id", user.id).single();
+  const author = data.username || "Anonymous";
+  const post_id = e.target.getAttribute("post_id") || "1";
+  
+  await supabase.from("comments").insert({
+    post_id, // TODO: Replace with actual post ID
+    comment,
+    author,
+  }).then(() => {
+    commentInput.value = ""; // Clear input after submission
+    displayComments(post_id); // Refresh comments for this post
+  });
+});
+
+// Function to fetch and display comments for a specific post
+async function displayComments(postId) {
+  const { data, error } = await supabase
+    .from("comments")
+    .select("author, comment")
+    .eq("post_id", postId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching comments:", error);
+    return;
+  }
+
+  const commentsContainer = document.querySelector("#commentSection");
+  commentsContainer.innerHTML = ""; // Clear existing comments
+
+  console.log(data);
+
+  data.forEach((comment) => {
+    const commentDiv = document.createElement("div");
+    commentDiv.classList.add("comment");
+    
+    const authorP = document.createElement("p");
+    authorP.classList.add("comment-author");
+    authorP.textContent = comment.author;
+
+    const textP = document.createElement("p");
+    textP.classList.add("comment-text");
+    textP.textContent = comment.comment;
+
+    commentDiv.appendChild(authorP);
+    commentDiv.appendChild(textP);
+    
+    commentsContainer.appendChild(commentDiv);
+  });
+}

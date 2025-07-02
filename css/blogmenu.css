@@ -318,11 +318,30 @@ body.overlay-open {
   backdrop-filter: blur(8px);
 }
 
+.titleaauthor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* margin-bottom: 20px; */
+}
+
+.titleaauthor h1 {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.titleaauthor p {
+  font-style: italic;
+  /* color: #a78bfa; Tailwind purple-400 */
+  font-size: 1rem;
+  opacity: 50%;
+}
+
 .overlay.hidden {
   display: none;
 }
 
-.overlay-content {
+.overlay-content, .comments {
   background: #111827;
   border: 1px solid #a78bfa;
   padding: 20px;
@@ -343,7 +362,7 @@ body.overlay-open {
 /* Overlay form input styles */
 #overlay form {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 15px;
 }
 
@@ -416,6 +435,13 @@ body.overlay-open {
   padding: 6px 8px;
 }
 
+.overlay-content img {
+  max-width: 100%; /* ensure images fit within container */
+  height: auto; /* maintain aspect ratio */
+  border-radius: 8px; /* consistent with other inputs */
+  margin-top: 10px; /* space above image */
+}
+
 #blogCover {
   width: 100%;
   height: auto;
@@ -430,4 +456,219 @@ body.overlay-open {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+/* Comentarios */
+.comments {
+  margin-left: 20px;
+  padding: 20px;
+  background: rgba(20, 20, 40, 0.9);
+  border: 2px solid #8a2be2;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+  color: white;
+  font-family: "Orbitron", sans-serif;
+  width: 20%;
+  height: 100%;
+}
+
+.comments h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #8a2be2;
+}
+
+/* #commentSection { */
+  /* margin-bottom: 20px; */
+/* } */
+
+.no-comments {
+  font-style: italic;
+  color: #bbb;
+}
+
+/* Form layout: input and button side by side */
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+#commentInput {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e1e2f;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: background 0.3s;
+  /* float: left; <-- REMOVE THIS */
+}
+
+#submitCommentBtn {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #8a216c, #8a2be2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s;
+  flex-shrink: 0;
+  /* float: right; <-- REMOVE THIS */
+}
+
+
+#submitCommentBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+}
+
+/* Responsive: full width on small screens */
+@media (max-width: 768px) {
+  .comments {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+.comments form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+#commentInput {
+  flex: 1;
+  min-width: 0; /* prevents input overflow */
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e1e2f;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+#submitCommentBtn {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #8a216c, #8a2be2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s;
+  flex-shrink: 0;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* pushes stuff apart vertically */
+  height: 100%;
+  width: 20%; /* or tweak as needed */
+  margin-left: 20px;
+  padding: 20px;
+  background: rgba(20, 20, 40, 0.9);
+  border: 2px solid #8a2be2;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+  color: white;
+  font-family: "Orbitron", sans-serif;
+  height: 100%;
+}
+
+.comments h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #8a2be2;
+}
+
+.comments form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.comments #commentInput {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e1e2f;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+.comments #commentInput:focus {
+  background-color: #252542;
+}
+
+.comments #submitCommentBtn {
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #8a216c, #8a2be2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s;
+  flex-shrink: 0;
+}
+
+.comments #submitCommentBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+}
+
+#commentSection {
+  flex-grow: 1; /* take all leftover space */
+  overflow-y: auto; /* scroll if overflow */
+  margin-bottom: 15px; /* space above form */
+}
+
+.comment {
+  background: #1e1e2f;
+  border-left: 4px solid #8a2be2; /* subtle purple accent line */
+  padding: 5px 5px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  color: #ddd;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #8a2be2;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.comment-text {
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }

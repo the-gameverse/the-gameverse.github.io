@@ -1,4 +1,7 @@
-.blog, .games, .admins, .reviews {
+.blog,
+.games,
+.admins,
+.reviews {
   width: 40%;
   max-height: 30rem;
   float: left;
@@ -466,8 +469,7 @@ center {
 .overlay-content input[type="text"],
 .overlay-content input[type="url"],
 .overlay-content input[type="file"],
-.overlay-content input[type="email"]
-.overlay-content select {
+.overlay-content input[type="email"] .overlay-content select {
   width: auto; /* allow width to adjust */
   min-width: 100px; /* don't shrink too much */
   max-width: 100%; /* max width 100% of container */
@@ -476,6 +478,14 @@ center {
   font-size: 1rem;
   padding: 6px 8px;
 }
+
+.overlay-content img {
+  max-width: 100%; /* ensure images fit within container */
+  height: auto; /* maintain aspect ratio */
+  border-radius: 8px; /* consistent with other inputs */
+  margin-top: 10px; /* space above image */
+}
+
 /* #endregion */
 
 .markdown-preview {
@@ -509,7 +519,7 @@ center {
   width: 100%;
   height: auto;
   border-radius: 10px 10px 0 0;
-  border-bottom: 2px solid #A78BFA;
+  border-bottom: 2px solid #a78bfa;
   object-fit: cover;
 }
 
@@ -562,7 +572,8 @@ center {
 } */
 
 /* Admin Control Styles */
-.admins, .reviews {
+.admins,
+.reviews {
   width: 90%;
   height: fit-content;
   border: 2px solid white;
@@ -572,13 +583,15 @@ center {
   /* margin-top: 40px; */
 }
 
-.admins .controls, .reviews .controls {
+.admins .controls,
+.reviews .controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.admins h3, .reviews h3 {
+.admins h3,
+.reviews h3 {
   margin: 0;
 }
 
@@ -634,7 +647,7 @@ center {
   padding: 16px;
   width: min-content;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
@@ -678,7 +691,8 @@ center {
   font-size: 1rem;
   color: #81d4fa;
 }
-.reviewlist {
+.reviewlist,
+.approve {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -699,7 +713,7 @@ center {
   border-radius: 12px;
   padding: 16px;
   color: #e0f7fa;
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -710,5 +724,96 @@ center {
 }
 
 .reviews {
-  max-height: 30rem;
+  max-height: 60rem;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-title {
+  margin: 0;
+}
+
+.star-rating {
+  font-size: 1.3rem;
+  color: gold;
+  height: min-content;
+}
+
+/* .review-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+} */
+
+.review-footer button {
+  padding: 5px 10px;
+  margin: 0;
+  width: 50%;
+}
+
+hr {
+  width: 100%;
+  color: gray;
+}
+
+.imgtdata {
+  background: #ff00ff05;
+  border: 1px solid white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  width: 90%;
+  max-width: 600px;
+}
+
+.imgtdata h2 {
+  margin-top: 0;
+  color: #00ffee;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.imgtdata input[type="file"] {
+  background: #2a2d33;
+  color: #ccc;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.imgtdata textarea {
+  width: 100%;
+  background: #2a2d33;
+  border: 1px solid #2e3138;
+  color: #d1f7ff;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.imgtdata button {
+  background: #00ffee;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s ease;
+}
+
+.imgtdata button:hover {
+  background: #00c5c5;
 }

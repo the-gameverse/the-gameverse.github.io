@@ -420,8 +420,6 @@ dipstick
 dirty
 disease
 diseases
-disturbed
-dive
 dix
 dixiedike
 dixiedyke

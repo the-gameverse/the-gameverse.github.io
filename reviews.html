@@ -57,7 +57,12 @@
         display: none;
       }
       .overlay-content {
-        background: linear-gradient(135deg, rgba(15, 12, 41, 0.5), rgba(48, 43, 99, 0.5), rgba(36, 36, 62, 0.5));
+        background: linear-gradient(
+          135deg,
+          rgba(15, 12, 41, 0.5),
+          rgba(48, 43, 99, 0.5),
+          rgba(36, 36, 62, 0.5)
+        );
         color: #ffffff;
         padding: 2rem;
         border-radius: 12px;
@@ -98,6 +103,15 @@
         gap: 1rem;
         width: 100%;
       }
+
+      .star {
+        font-size: 2rem;
+        cursor: pointer;
+        color: gray;
+      }
+      .selected {
+        color: gold;
+      }
     </style>
   </head>
   <body>
@@ -123,6 +137,13 @@
         <input type="text" id="reviewTitle" placeholder="Review Title" />
         <textarea id="reviewContent" placeholder="Your feedback..."></textarea>
         <input type="text" id="reviewUser" placeholder="Your name (optional)" />
+        <div id="rating">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
         <div class="buttons">
           <button id="submitReview">Submit</button>
           <button id="cancelReview">Cancel</button>
@@ -144,6 +165,33 @@
 
     <!-- Supabase & Review Logic -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+      const stars = document.querySelectorAll(".star");
+      // const output = document.getElementById("output");
+
+      let rating = 0;
+
+      stars.forEach((star) => {
+        star.addEventListener("click", () => {
+          rating = parseInt(star.getAttribute("data-value"));
+          updateStars(rating);
+          // output.textContent = rating;
+          // Optional: use rating value in your logic here
+          console.log("Rating returned:", getRating());
+        });
+      });
+
+      function updateStars(rating) {
+        stars.forEach((star) => {
+          const value = parseInt(star.getAttribute("data-value"));
+          star.classList.toggle("selected", value <= rating);
+        });
+      }
+
+      function getRating() {
+        return rating; // Returns the integer value
+      }
+    </script>
     <script>
       const supabaseUrl = "https://jbekjmsruiadbhaydlbt.supabase.co";
       const supabaseKey =
@@ -167,15 +215,17 @@
         const title = document.getElementById("reviewTitle").value.trim();
         const content = document.getElementById("reviewContent").value.trim();
         const author = {
-          name: document.getElementById("reviewUser").value.trim() || "Anonymous",
-          avatar: JSON.parse(localStorage.getItem("loggedInUser")).avatar // Default avatar
+          name:
+            document.getElementById("reviewUser").value.trim() || "Anonymous",
+          avatar: JSON.parse(localStorage.getItem("loggedInUser")).avatar, // Default avatar
         };
+        const stars = getRating(); // Get the selected rating
 
         if (!title || !content) return alert("Please complete all fields.");
 
         const { error } = await supabase
           .from("reviews")
-          .insert({ title, content, author });
+          .insert({ title, content, author, stars });
         if (error) return alert("Failed to submit review.");
 
         alert("Thanks for your review!");
@@ -186,31 +236,45 @@
       async function loadReviews() {
         const { data, error } = await supabase
           .from("reviews")
-          .select("title, content, author")
+          .select("title, content, author, stars, allowed")
           .order("id", { ascending: false });
+
         if (error) return console.error("Failed to load reviews", error);
 
         if (!data || data.length === 0) {
-          reviewList.innerHTML = "<p>No reviews yet. Be the first to review us!</p>";
+          reviewList.innerHTML =
+            "<p>No reviews yet. Be the first to review us!</p>";
           return;
         }
 
         data.forEach((review) => {
+          if (!review.allowed) return; // Skip reviews that are not allowed
+          const { title, content, author, stars } = review;
+          const user = JSON.parse(author);
+          const filledStars = "★".repeat(stars);
+          const emptyStars = "☆".repeat(5 - stars);
+
           const reviewEl = document.createElement("div");
           reviewEl.className = "review";
           reviewEl.innerHTML = `
-            <h3>${review.title}</h3>
-            <p>${review.content}</p>
-            <div class="userdisplay">
-              <img src="${JSON.parse(review.author).avatar}" alt="User avatar" />
-              <h4>${JSON.parse(review.author).name}</h4>
-            </div>
-          `;
+      <div class="review-header">
+        <h3 class="review-title">${title}</h3>
+        <div class="star-rating">${filledStars}${emptyStars}</div>
+      </div>
+      <p>${content}</p>
+      <div class="userdisplay">
+        <img src="${user.avatar}" alt="User avatar" />
+        <h4>${user.name}</h4>
+      </div>
+    `;
+
           reviewList.appendChild(reviewEl);
         });
       }
 
       loadReviews();
     </script>
+    <!-- Scheduler -->
+  <script src="/javascript/schedule.js"></script>
   </body>
 </html>
