@@ -1,4 +1,4 @@
- // File: blogmenu.js
+// File: blogmenu.js
 // -----------------
 // This module fetches blog posts from Supabase and renders them
 // using your existing CSS classes (.post, .left, .right, .post-name, etc.).
@@ -8,20 +8,21 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 // 2. Initialize Supabase (replace with your actual values)
-const SUPABASE_URL = "https://jbekjmsruiadbhaydlbt.supabase.co";       // 🔁 Replace with your project URL
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY"; // 🔁 Replace with your anon key
+const SUPABASE_URL = "https://jbekjmsruiadbhaydlbt.supabase.co"; // 🔁 Replace with your project URL
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY"; // 🔁 Replace with your anon key
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // 3. Global state
-let blogPosts = [];            // Will hold the array of posts fetched from Supabase
+let blogPosts = []; // Will hold the array of posts fetched from Supabase
 let currentSortOption = "age"; // Default sort: newest first
 
 // 4. DOM elements
-const blogPostMenu   = document.getElementById("blogPostMenu");
-const blogPostCount  = document.getElementById("blogPostCount");
-const searchInput    = document.getElementById("search");
-const sortDropdown   = document.getElementById("sortOptions");
+const blogPostMenu = document.getElementById("blogPostMenu");
+const blogPostCount = document.getElementById("blogPostCount");
+const searchInput = document.getElementById("search");
+const sortDropdown = document.getElementById("sortOptions");
 
 // 5. Fetch blog posts from Supabase and normalize them
 async function fetchBlogPosts() {
@@ -41,13 +42,13 @@ async function fetchBlogPosts() {
     // Assume "date" column in Supabase is a DATE or TIMESTAMP string
     const dt = new Date(row.date);
     return {
-      id:      row.id,
-      title:   row.title,
-      image:   row.image,
+      id: row.id,
+      title: row.title,
+      image: row.image,
       date: {
-        year:  dt.getUTCFullYear(),
+        year: dt.getUTCFullYear(),
         month: dt.getUTCMonth() + 1,
-        day:   dt.getUTCDate(),
+        day: dt.getUTCDate(),
       },
       content: row.content,
       author: row.author || "Starship Team", // Add author if available
@@ -93,7 +94,13 @@ function displayBlogPosts(filter = "") {
     postContainer.href = "javascript:void(0)";
     postContainer.classList.add("post");
     postContainer.addEventListener("click", () =>
-      showOverlay({ title: post.title, content: post.content, image: post.image, id: post.id, author: post.author })
+      showOverlay({
+        title: post.title,
+        content: post.content,
+        image: post.image,
+        id: post.id,
+        author: post.author,
+      })
     );
 
     // -- Left side: image
@@ -135,9 +142,9 @@ window.sortBlogPosts = function () {
 // 9. Overlay functions
 window.showOverlay = function (post) {
   const overlay = document.getElementById("overlay");
-  const blogTitle    = document.getElementById("blogTitle");
-  const blogAuthor   = document.getElementById("blogAuthor");
-  const blogContent  = document.getElementById("blogContent");
+  const blogTitle = document.getElementById("blogTitle");
+  const blogAuthor = document.getElementById("blogAuthor");
+  const blogContent = document.getElementById("blogContent");
   const blogCover = document.getElementById("blogCover");
   const commentForm = document.querySelector(".comments form");
 
@@ -161,33 +168,58 @@ window.closeOverlay = function () {
 window.addEventListener("DOMContentLoaded", fetchBlogPosts);
 
 // #region Comments
+import { bannedWords } from "/javascript/filter.js";
+
 const commentForm = document.querySelector(".comments form");
 commentForm.addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form submission
   const commentInput = document.getElementById("commentInput");
   const comment = commentInput.value.trim();
-  const user = await supabase.auth.getUser().then(res => res.data.user)
+  const user = await supabase.auth.getUser().then((res) => res.data.user);
   if (!user) {
-     showNotification("You must be logged in to comment.", {
+    showNotification("You must be logged in to comment.", {
       persistClose: false,
       sound: false,
       duration: 5000,
       sticky: false,
       body: "Please log in to leave a comment.",
-     });
+    });
   }
-  const { data } = await supabase.from("profiles").select("username").eq("id", user.id).single();
+  const lowered = comment.toLowerCase();
+  const foundWord = bannedWords.find((word) => {
+    const pattern = new RegExp(`\\b${word}\\b`, "i"); // \b = word boundary, 'i' = case-insensitive
+    return pattern.test(lowered);
+  });
+
+  if (foundWord) {
+    console.log("Word blocked:", foundWord);
+    showNotification("Message Filtered", {
+      body: `That message contains inappropriate content and has been blocked.`,
+      duration: 5000,
+      sound: true,
+    });
+    input.value = ""; // Clear input
+    return;
+  }
+  const { data } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", user.id)
+    .single();
   const author = data.username || "Anonymous";
   const post_id = e.target.getAttribute("post_id") || "1";
-  
-  await supabase.from("comments").insert({
-    post_id, // TODO: Replace with actual post ID
-    comment,
-    author,
-  }).then(() => {
-    commentInput.value = ""; // Clear input after submission
-    displayComments(post_id); // Refresh comments for this post
-  });
+
+  await supabase
+    .from("comments")
+    .insert({
+      post_id, // TODO: Replace with actual post ID
+      comment,
+      author,
+    })
+    .then(() => {
+      commentInput.value = ""; // Clear input after submission
+      displayComments(post_id); // Refresh comments for this post
+    });
 });
 
 // Function to fetch and display comments for a specific post
@@ -211,7 +243,7 @@ async function displayComments(postId) {
   data.forEach((comment) => {
     const commentDiv = document.createElement("div");
     commentDiv.classList.add("comment");
-    
+
     const authorP = document.createElement("p");
     authorP.classList.add("comment-author");
     authorP.textContent = comment.author;
@@ -222,7 +254,7 @@ async function displayComments(postId) {
 
     commentDiv.appendChild(authorP);
     commentDiv.appendChild(textP);
-    
+
     commentsContainer.appendChild(commentDiv);
   });
 }
