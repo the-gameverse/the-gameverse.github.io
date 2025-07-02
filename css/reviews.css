@@ -1,26 +1,26 @@
 .review {
   background: linear-gradient(135deg, #0b0f2e, #1a1f4a);
-  border: 2px solid #4fc3f7;
+  border: 2px solid #8a2be2;
   border-radius: 12px;
   padding: 16px;
   width: min-content;
-  color: #e0f7fa;
+  color: #e0d7ff; /* light purple-tinted text */
   font-family: 'Orbitron', sans-serif;
-  box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
 }
 
 .review:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(79, 195, 247, 0.8);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
 }
 
 .review h3 {
   margin-top: 0;
   font-size: 2rem;
   color: #ffffff;
-  text-shadow: 0 0 5px #00bcd4;
+  text-shadow: 0 0 5px #8a2be2;
   margin: 0;
 }
 
@@ -41,40 +41,38 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
-  border: 2px solid #00bcd4;
+  border: 2px solid #8a2be2;
 }
 
 .userdisplay h4 {
   margin: 0;
   font-size: 1rem;
-  color: #81d4fa;
+  color: #c299ff; /* soft electric purple */
 }
+
 .reviewlist {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   padding: 24px;
   justify-content: center;
-  /* background-color: #090c1b; */
   border-radius: 16px;
-  /* float: bottom; */
 }
 
 .review {
   flex: 1 1 300px;
-  /* max-width: 320px; */
   max-width: fit-content;
   background: linear-gradient(135deg, #0b0f2e, #1a1f4a);
-  border: 2px solid #4fc3f7;
+  border: 2px solid #8a2be2;
   border-radius: 12px;
   padding: 16px;
-  color: #e0f7fa;
+  color: #e0d7ff;
   font-family: 'Orbitron', sans-serif;
-  box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(79, 195, 247, 0.8);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
 }
