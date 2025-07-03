@@ -258,3 +258,31 @@ async function displayComments(postId) {
     commentsContainer.appendChild(commentDiv);
   });
 }
+
+// #endregion
+
+async function getLatestPost() {
+  const { data, error } = await supabase
+    .from("blog_menu")
+    .select("title")
+    .order("date", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.error("Error fetching latest post:", error);
+    return "Failed to load latest post";
+  }
+
+  console.log("Latest post data:", data);
+  console.log("Latest post title:", data.title);
+
+  return data.title;
+}
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Fetch and display the latest post title
+  const latestPostTitle = await getLatestPost();
+  document.querySelector("#latestNews").textContent = latestPostTitle;
+});
