@@ -193,6 +193,7 @@ function displayGames(filter = "") {
       localStorage.setItem('gameImage', game.image);
       localStorage.setItem('gameName', game.name);
       localStorage.setItem('gameLink', game.link);
+      localStorage.setItem('gameDesc', game.description);
 
       displayGames(filter);
       window.location.href = game.path;

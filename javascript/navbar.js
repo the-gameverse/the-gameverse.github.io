@@ -63,74 +63,65 @@ const isPlayPage = window.location.pathname.includes("play");
 
 const navbarHTML = isPlayPage
   ? `
-  <div class="navbar-container">
-    <div class="nav-center-bg">
-      <div id="streak" class="streak-container">
-        <span class="streak-text">🔥 0 Days</span>
-      </div>
-    </div>
-    <nav class="navbar">
-      <div class="nav-links">
-<a id="homeButton" ><i class="fa fa-home fa-lg"></i></a>
-
-<a id="likeBtn" href="#" title="Like" style="font-size:1.2em;">
-  👍 <span id="likeCount">0</span>
-</a>
-
-<a id="dislikeBtn"  title="Dislike" style="font-size:1.2em;">
-  👎 <span id="dislikeCount">0</span>
-</a>
-
-
-<div id="logo-container" class="logo-container">
-        <a href="/index.html" class="logo">
-          <img src="/uploads/branding/favicon.png" alt="GameVerse Logo">
-        </a>
+  <!-- Left Sidebar Navigation -->
+<div class="starship-sidebar" id="starshipSidebar">
+  <div class="sidebar-logo">
+  <img  src="/uploads/branding/favicon.png" style="transform: translateX(2px); alt="Starship Logo" />
 </div>
+  <div class="sidebar-links">
 
-
-
-<a id="reloadButton">
-  <i class="fa fa-refresh fa-lg"></i>
-</a>
-
-<a id="fullscreenButton">
-  <i class="fa fa-arrows-alt fa-lg"></i>
-</a>
-
-<a id="shareButton">
-  <i class="fa fa-share-nodes fa-lg"></i>
-</a>
-
-        <div class="extra-links">
-          <a href="https://github.com/starship-site"><i class="fa-brands fa-square-github fa-lg"></i></a>
-          <a href="/reviews"><i class="fa fa-star fa-lg"></i></a>
-          <a href="/share"><i class="fa-solid fa-share-nodes fa-lg"></i></a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="nav-right-bg">
-      <a href="/auth.html" class="profile-link">
-        <img src="${avatarUrl}" alt="${username}" class="profile-img">
-        <span class="username">${username}</span>
+<a id="homeButton" href="/" title="Home">
+        <i class="fa fa-home"></i>
+        <span class="link-text">Home</span>
       </a>
-    </div>
+
+      <a id="likeBtn" href="#" title="Like">
+        <i class="fa fa-thumbs-up fa-lg"></i>
+        <span class="link-text" id="likeCount">0</span>
+      </a>
+
+      <a id="dislikeBtn" href="#" title="Dislike">
+        <i class="fa fa-thumbs-down fa-lg"></i>
+        <span class="link-text" id="dislikeCount">0</span>
+      </a>
+
+      <a id="reloadButton" href="#" title="Reload">
+        <i class="fa fa-refresh"></i>
+        <span class="link-text">Reload</span>
+      </a>
+
+      <a id="fullscreenButton" href="#" title="Fullscreen">
+        <i class="fa fa-arrows-alt"></i>
+        <span class="link-text">Fullscreen</span>
+      </a>
+
+      <a id="shareButton" href="#" title="Share">
+        <i class="fa fa-share-nodes"></i>
+        <span class="link-text">Share</span>
+      </a>
+
   </div>
 
-  <div id="social-popup" class="social-popup hidden">
-    <a class="close-btn" onclick="hidePopUp()">&times;</a>
-    <p> Follow us on social media!</p>
-    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Join us on Discord">
-      <i class="fa-brands fa-discord"></i>
+    <div class="sidebar-socials">
+    <a href="https://discord.gg/MgeVsEKDrt" target="_blank" title="Discord">
+      <i class="fa-brands fa-discord"></i><span class="link-text">Discord</span>
     </a>
-    <a href="https://instagram.com/starship.site" target="_blank" title="Follow us on Instagram">
-      <i class="fa-brands fa-instagram"></i>
+    <a href="https://instagram.com/starship.site" style="transform: translateX(2px);" target="_blank" title="Instagram">
+      <i class="fa-brands fa-instagram fa-lg"></i><span class="link-text">Instagram</span>
     </a>
-    <a href="https://youtube.com/@starship_site" target="_blank" title="Subscribe on YouTube">
-      <i class="fa-brands fa-youtube"></i>
+    <a href="https://youtube.com/@starship_site" style="transform: translateX(2px);" target="_blank" title="YouTube">
+      <i class="fa-brands fa-youtube"></i><span class="link-text">YouTube</span>
     </a>
   </div>
+
+
+  <div class="sidebar-profile">
+    <a href="/auth.html">
+      <img src="${avatarUrl}" alt="${username}" class="sidebar-avatar">  <span class="sidebar-username">${username}</span>
+    
+    </a>
+  </div>
+</div>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   `

@@ -300,3 +300,45 @@ iframe {
     display: none !important;
   }
 }
+.description-container {
+  width: 1000px;
+  backdrop-filter: blur(6px);
+
+  color: #eee;
+  animation: scaleAndSlideUp 1s ease-in-out 2s forwards;
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+}
+
+.description-container h2 {
+  font-size: 28px;
+  font-family: 'Bebas Neue', sans-serif;
+  text-align: center;
+  background: linear-gradient(to right, #ffffff, #ae54ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 16px;
+}
+
+.description-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ccc;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .description-container {
+    width: 95%;
+    padding: 20px;
+    margin: 24px auto 60px auto;
+  }
+
+  .description-container h2 {
+    font-size: 22px;
+  }
+
+  .description-container p {
+    font-size: 15px;
+  }
+}

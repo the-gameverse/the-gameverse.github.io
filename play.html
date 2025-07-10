@@ -128,6 +128,12 @@
           </div>
         </div>
       </div>
+
+        <div class="description-container">
+  <p id="gameDescText">Loading game description...</p>
+</div>
+
+
     </div>
 
     <!-- Share Popup -->
@@ -263,8 +269,8 @@
         likeBtn.classList.toggle('active', liked);
         dislikeBtn.classList.toggle('active', disliked);
 
-        likeBtn.innerHTML = liked ? '<i class="fa-solid fa-thumbs-up"></i>' : '<i class="fa-regular fa-thumbs-up"></i>';
-        dislikeBtn.innerHTML = disliked ? '<i class="fa-solid fa-thumbs-down"></i>' : '<i class="fa-regular fa-thumbs-down"></i>';
+        likeBtn.innerHTML = liked ? '<i class="fa-solid fa-thumbs-up fa-lg"></i> <span class="link-text">Like</span>' : '<i class="fa-regular fa-thumbs-up fa-lg"></i> <span class="link-text">Like</span>';
+        dislikeBtn.innerHTML = disliked ? '<i class="fa-solid fa-thumbs-down fa-lg"></i> <span class="link-text">Dislike</span>' : ' <i class="fa-regular fa-thumbs-down fa-lg"></i> <span class="link-text">Dislike</span>';
       }
 
       async function loadVotes() {
@@ -342,6 +348,15 @@
     dislikeDiv.style.width = dislikePercent + "%";
     bar.title = titleText;
   }
+
+  const gameDesc = localStorage.getItem("gameDesc");
+const gameDescText = document.getElementById("gameDescText");
+if (gameDesc && gameDescText) {
+  gameDescText.textContent = gameDesc;
+} else if (gameDescText) {
+  gameDescText.textContent = "No description available.";
+}
+
 </script>
 
     <!-- Particles.JS -->
