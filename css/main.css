@@ -263,3 +263,6 @@ button:nth-child(2):hover {
     transform: scale(1) translateY(0);
   }
 }
+body {
+   margin-left:70px; width:calc(100% - 70px);
+}

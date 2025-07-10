@@ -1,29 +1,22 @@
-  <script src="/javascript/particles.js"></script>
-  <script src="/javascript/particles-config.js"></script>
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>starship - legal documents</title>
   <link rel="icon" type="image/x-icon" href="/uploads/branding/favicon.png">
   <meta name="description" content="Play games, level up, and explore Starship - your new favorite gaming site.">
-<link rel="canonical" href="https://starship-app.com/legal" />
+  <link rel="canonical" href="https://starship-app.com/legal" />
   <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="/css/main.css">
 
-    <!-- Google AdSense and Google Analytics -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
-     crossorigin="anonymous"></script>
-
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
-    <script>
+  <!-- Google AdSense and Google Analytics -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
-      gtag('config', 'G-ZZH4JE7RJF');
-    </script>
+    gtag('config', 'G-ZZH4JE7RJF');
+  </script>
 
   <style>
     .tabs {
@@ -33,7 +26,6 @@
       background-color: #222;
       border-bottom: 2px solid #444;
     }
-
     .tab {
       padding: 15px 20px;
       cursor: pointer;
@@ -43,192 +35,168 @@
       outline: none;
       transition: background 0.3s ease;
     }
-
     .tab:hover, .tab.active {
       background: #444;
     }
-
     .tab-content {
       display: none;
       padding: 20px;
-      transform: scale(0.95); /* Start slightly smaller for transition */
-      opacity: 0; /* Start invisible */
-      transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth scaling and fading */
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
-
     .tab-content.active {
       display: block;
-      transform: scale(1); /* Full size */
-      opacity: 1; /* Fully visible */
+      transform: scale(1);
+      opacity: 1;
     }
-
     h2 {
       text-align: center;
       color: #fff;
     }
-
     p {
       line-height: 1.5;
       font-size: 1em;
     }
-
     .privacy-section h3, .code-license-section h3, .terms-section h3 {
       margin-bottom: 10px;
     }
-
     .privacy-section ul, .terms-section ul {
       margin-left: 20px;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <div type="module" id="navbar"></div>
-  <script src="/javascript/navbar.js"></script>
+  <div id="navbar" type="module"></div>
+  <script type="module" src="/javascript/navbar.js"></script>
 
-  <!-- Tabbed Interface -->
   <div class="tabs">   
-    <button class="tab active" onclick="openTab(event, 'terms-of-use')"><i class="fa-solid fa-asterisk"></i>  Terms of Use</button>
-    <button class="tab" onclick="openTab(event, 'privacy-policy')"><i class="fa-solid fa-user-lock"></i>  Privacy Policy</button>
-    <button class="tab" onclick="openTab(event, 'code-license')"><i class="fa-solid fa-id-badge"></i>  Code License</button>
- </div>
-
-  <!-- Tab Content -->
-  <div id="privacy-policy" class="tab-content active">
-    <h2>Privacy Policy</h2>
-    <div class="privacy-section">
-<h3>1. Information We Collect</h3>
-<p>
-  We collect only the minimum information necessary to provide and improve our services. This may include:
-</p>
-<ul>
-  <li>Your email address (if you contact us for support or feedback, or if you create an account).</li>
-  <li>Anonymous usage data, such as game likes, dislikes, and game popularity statistics.</li>
-</ul>
-
-<h3>2. How We Use Your Information</h3>
-<p>
-  We use the information we collect to:
-</p>
-<ul>
-  <li>Provide, maintain, and improve our services.</li>
-  <li>Respond to your inquiries or feedback.</li>
-  <li>Ensure the security and functionality of the platform.</li>
-  <li>Understand which games are popular, using only aggregated and anonymous data.</li>
-</ul>
-
-<h3>3. Data Sharing</h3>
-<p>
-  We do <strong>not</strong> sell, rent, or share your personal information or account data with third parties, except in the following circumstances:
-</p>
-<ul>
-  <li>If required by law or legal processes.</li>
-  <li>To protect the rights, property, or safety of Starship, its users, or others.</li>
-</ul>
-
-<h3>4. Game Likes, Dislikes, and Popularity</h3>
-<p>
-  We store data about game likes, dislikes, and overall popularity to improve the platform and recommend content. This data is <strong>never linked to your identity or account</strong> and is always stored and processed in an anonymous or aggregated form.
-</p>
-
-<h3>5. Account Data and Deletion</h3>
-<p>
-  If you create an account, your data is kept private and never shared. You may request deletion of your account and all associated data at any time by contacting us through the <a href="/contact.html">contact page</a> or by emailing <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>. We will promptly delete your data upon request.
-</p>
-
-<h3>6. Cookies and Tracking</h3>
-<p>
-  We may use cookies or similar technologies to enhance your experience on the platform. You can adjust your browser settings to refuse cookies, but this may limit some functionality.
-</p>
-
-<h3>7. Changes to This Policy</h3>
-<p>
-  This Privacy Policy may be updated periodically. We will notify users of significant changes by posting the updated policy on our website.
-</p>
-<p>
-  For any questions or concerns, please contact us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.
-</p>
+    <button class="tab active" onclick="openTab(event, 'terms-of-use')"><i class="fa-solid fa-asterisk"></i> Terms of Use</button>
+    <button class="tab" onclick="openTab(event, 'privacy-policy')"><i class="fa-solid fa-user-lock"></i> Privacy Policy</button>
+    <button class="tab" onclick="openTab(event, 'code-license')"><i class="fa-solid fa-id-badge"></i> Code License</button>
   </div>
 
-  <div id="code-license" class="tab-content">
-    <h2>Code License</h2>
-    <div class="code-license-section">
-      <h3>Restrictions on Use</h3>
-      <p>
-        The code contained within this repository is proprietary and protected by copyright laws. Unauthorized use, modification, reproduction, or distribution of the code is strictly prohibited without explicit written permission from the repository owner.
-      </p>
-      <h3>Permissions</h3>
-      <p>
-        To request permission for any use, please contact the repository owner at <a href="mailto:your-email@example.com">your-email@example.com</a>. Permission must be granted in writing and is subject to terms and conditions outlined by the repository owner.
-      </p>
-      <h3>Disclaimer</h3>
-      <p>
-        This code is provided "as is" without warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement. The owner is not liable for any damages or issues arising from the use of this code.
-      </p>
-    </div>
-  </div>
-
-  <div id="terms-of-use" class="tab-content">
+  <!-- === TERMS OF USE === -->
+  <div id="terms-of-use" class="tab-content active">
     <h2>Terms of Use</h2>
     <div class="terms-section">
       <h3>1. Respect Intellectual Property</h3>
-      <p>
-        You must respect the intellectual property rights of the content, design, and features provided on this platform.
-      </p>
+      <p>You must respect the intellectual property rights of the content, design, and features provided on this platform.</p>
+
       <h3>2. Prohibited Activities</h3>
-      <p>
-        You are prohibited from misusing the platform by engaging in activities such as:
-      </p>
+      <p>You are prohibited from misusing the platform by engaging in activities such as:</p>
       <ul>
         <li>Attempting to hack, reverse-engineer, or exploit the platform.</li>
         <li>Using the platform for illegal purposes.</li>
         <li>Uploading harmful content or malware.</li>
       </ul>
+
       <h3>3. Compliance with Laws</h3>
-      <p>
-        You agree to adhere to all local, national, and international laws while using the platform.
-      </p>
+      <p>You agree to adhere to all local, national, and international laws while using the platform.</p>
+
       <h3>4. Changes to the Terms</h3>
-      <p>
-        The terms may be updated periodically. Continued use of the platform signifies your acceptance of the updated terms.
-      </p>
+      <p>The terms may be updated periodically. Continued use of the platform signifies your acceptance of the updated terms.</p>
+
       <h3>5. Liability Disclaimer</h3>
-      <p>
-        The platform is provided "as is" without warranties of any kind. The owners are not responsible for issues arising from the use of the platform.
-      </p>
-      <p>
-        For questions or concerns, feel free to contact us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.
-      </p>
+      <p>The platform is provided "as is" without warranties of any kind. The owners are not responsible for issues arising from the use of the platform.</p>
+
+      <h3>6. Third-Party Terms</h3>
+      <p>If you use any features that include YouTube video playback or YouTube-powered tools, you are also agreeing to the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of Service</a>.</p>
+
+      <p>For questions or concerns, contact us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.</p>
     </div>
   </div>
 
-  <!-- JavaScript for Tab Functionality -->
+  <!-- === PRIVACY POLICY === -->
+  <div id="privacy-policy" class="tab-content">
+    <h2>Privacy Policy</h2>
+    <div class="privacy-section">
+
+      <h3>1. Information We Collect</h3>
+      <p>We collect only the minimum information necessary to provide and improve our services. This may include:</p>
+      <ul>
+        <li>Your email address (if you contact us for support or feedback, or if you create an account).</li>
+        <li>Anonymous usage data, such as game likes, dislikes, and game popularity statistics.</li>
+        <li>YouTube API interaction data if you use our video features (e.g. video playback, or embedded content).</li>
+      </ul>
+
+      <h3>2. Use of YouTube API Services</h3>
+      <p>Our site uses YouTube API Services to power some features, such as embedded video content or simplified YouTube playback experiences. By using these features, you are agreeing to the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of Service</a>.</p>
+      <p>Your use of YouTube through our services is also subject to the <a href="https://www.google.com/policies/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
+
+      <h3>3. How We Use Your Information</h3>
+      <ul>
+        <li>Provide, maintain, and improve our services.</li>
+        <li>Respond to your inquiries or feedback.</li>
+        <li>Ensure the security and functionality of the platform.</li>
+        <li>Understand which games or content are popular, using only aggregated and anonymous data.</li>
+      </ul>
+
+      <h3>4. API Data and Access</h3>
+      <p>When using YouTube-powered features, we may access non-sensitive public data such as video titles, channel names, and playback stats. This information is used only to enhance your experience and is not stored beyond the current session. We do not access or store personal data from your Google or YouTube account.</p>
+
+      <h3>5. Data Sharing</h3>
+      <p>We do <strong>not</strong> sell, rent, or share your personal information or account data with third parties, except in the following cases:</p>
+      <ul>
+        <li>If required by law or legal processes.</li>
+        <li>To protect the rights, property, or safety of Starship, its users, or others.</li>
+      </ul>
+
+      <h3>6. Game Likes, Dislikes, and Popularity</h3>
+      <p>This data is <strong>never linked to your identity or account</strong> and is always stored in an anonymous or aggregated form.</p>
+
+      <h3>7. Account Data and Deletion</h3>
+      <p>You can request deletion of your account and all data at any time by contacting us at <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.</p>
+
+      <h3>8. Cookies and Tracking</h3>
+      <p>We may use cookies or similar technologies to enhance your experience. You can disable cookies in your browser settings, but this may limit some functionality.</p>
+
+      <h3>9. Changes to This Policy</h3>
+      <p>This Privacy Policy may be updated. We'll notify users of significant changes on our website.</p>
+
+    </div>
+  </div>
+
+  <!-- === CODE LICENSE === -->
+  <div id="code-license" class="tab-content">
+    <h2>Code License</h2>
+    <div class="code-license-section">
+      <h3>Restrictions on Use</h3>
+      <p>The code in this repository is proprietary and protected by copyright laws. Unauthorized use is prohibited.</p>
+
+      <h3>Permissions</h3>
+      <p>To request use permission, email <a href="mailto:starship.site@gmail.com">starship.site@gmail.com</a>.</p>
+
+      <h3>Disclaimer</h3>
+      <p>This code is provided "as is" without any warranties. Use it at your own risk.</p>
+    </div>
+  </div>
+
+  <!-- JavaScript for Tabs -->
   <script>
     function openTab(event, tabId) {
-      // Hide all tab content
       const tabContents = document.querySelectorAll('.tab-content');
-      tabContents.forEach(content => {
-        content.classList.remove('active');
-      });
+      tabContents.forEach(content => content.classList.remove('active'));
 
-      // Remove active class from all tabs
       const tabs = document.querySelectorAll('.tab');
       tabs.forEach(tab => tab.classList.remove('active'));
 
-      // Show the selected tab content and mark the tab as active
-      document.getElementById(tabId).classList.add('active');
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+
       event.currentTarget.classList.add('active');
     }
   </script>
 
-  <!-- Additional Scripts -->
+  <!-- Other Scripts -->
   <script src="/javascript/panic.js"></script>
   <script src="/javascript/cloaking.js"></script>
   <script src="/javascript/antitabclose.js"></script>
   <script src="/javascript/notifications.js"></script>
   <script src="/javascript/scrollbar.js"></script>
   <script src="/javascript/screentimetracking.js"></script>
-  <!-- Scheduler -->
   <script src="/javascript/schedule.js"></script>
+  <script src="/javascript/particles.js"></script>
+  <script src="/javascript/particles-config.js"></script>
 </body>
 </html>
