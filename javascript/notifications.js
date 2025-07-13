@@ -118,19 +118,12 @@ if (options.vibrate && navigator.vibrate) {
 
   // Example usage:
 document.addEventListener('DOMContentLoaded', () => {
-  showNotification("Welcome to the new update!", {
-    body: "We've made some exciting changes to improve your experience. <br><br> Some of the new features include: <br> - Improved performance <br> - New user interface <br> - Like/dislike buttons <br> - Sort By Trending <br> - Sort By Global Likes <br> - Larger game frames <br> - UI updates <br> - A new notification system <br> - Accounts <br> - Weather for Dynamic Island <br><br> We've also added 2 new games, from the request forms. <br><br>We hope you enjoy this update! Thank you for being a part of our community.",
+  showNotification("Yoooo! We made ANOTHER update.", {
+    body: "Y'all. It's looking INSANELY CLEAN now. <br><br> Check out the new design and let us know what you think!",
     sticky: true,         // No timer, stays until closed
     persistClose: true,   // Don't show again if closed
     sound: true,          // Play sound
 
-  });
-
-  showNotification("Privacy Policy Updated", {
-    body: "We've updated our privacy policy. Please review the changes at <a href='/legal' style='text-decoration:underline;'>this link</a>.",
-    sticky: true,         // No timer, stays until closed
-    persistClose: true,   // Don't show again if closed
-    sound: true,          // Play sound
   });
 
     showNotification("Leave us a review!", {
