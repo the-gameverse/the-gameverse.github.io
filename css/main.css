@@ -10,8 +10,21 @@ html, body {
   padding: 0;
   height: 100%;
   padding-bottom: 250px;
+  border:none !important;
 
 }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top left, #8a2be2, #120032, #0a001a);
+  filter: blur(60px);
+  opacity: 0.9;
+  z-index: -1;
+  
+}
+
+
 /* Hide scrollbar completely but keep scroll functionality */
 
 /* Firefox */
@@ -57,7 +70,7 @@ h4 {
 
 body {
   font-family: Inter, sans-serif;
-  background: radial-gradient(ellipse at top, #120032, #0a001a);
+    background: radial-gradient(circle at top left, #8a2be2, #120032, #0a001a);
 }
 
 /* Particles.JS */
@@ -68,6 +81,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: -100;
+  display:none;
 }
 
 /* Glow Animation for Text */

@@ -26,7 +26,6 @@ a {
 }
 .hero {
   min-height: 420px;
-  background: url('/uploads/images/banner.png') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +97,7 @@ a {
   margin-top: 32px;
 }
 .feature-card {
-  background: rgba(34,34,44,0.85);
+  background: rgba(34,34,44,0.3);
   border-radius: 14px;
   box-shadow: 0 2px 24px #8a2be222;
   padding: 36px 24px 28px 24px;
@@ -106,6 +105,7 @@ a {
   transition: box-shadow 0.3s, transform 0.3s;
   position: relative;
   overflow: hidden;
+  backdrop-filter:blur(12px);
 }
 .feature-card:hover {
   box-shadow: 0 8px 48px #8a2be2aa;
@@ -143,12 +143,13 @@ a {
 .carousel-container {
   margin: 64px auto 0 auto;
   max-width: 600px;
-  background: linear-gradient(135deg, rgba(34,34,44,0.95) 60%, rgba(138,43,226,0.18) 100%);
+  background: linear-gradient(135deg, rgba(34,34,44,0.3) 60%, rgba(138,43,226,0.18) 100%);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(138,43,226,0.18);
   padding: 40px 30px 35px 30px;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(12px);
 }
 .carousel-title {
   text-align: center;
