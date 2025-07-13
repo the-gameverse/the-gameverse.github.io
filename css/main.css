@@ -167,7 +167,8 @@ button:nth-child(2):hover {
 .notification {
   min-width: 260px;
   max-width: 340px;
-  background: linear-gradient(90deg, #8a2be2 60%, #ff4b2b 100%);
+  background: linear-gradient(90deg, rgba(138,43,226,0.3) 60%, rgba(255,75,43,0.3) 100%);
+  backdrop-filter: blur(12px);
   color: #fff;
   font-family: Inter, sans-serif;
   font-size: 1.08em;
