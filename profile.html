@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>starship - profile</title>
+  <link rel="icon" href="/uploads/branding/favicon.png" type="image/x-icon" />
+  <meta name="description" content="Play games, level up, and explore Starship - your new favorite gaming site." />
+  <link rel="canonical" href="https://starship-app.com/" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-+9H1nvjbiPT8XEj+ih6YhV1D9CS2+q5CVnRY5FNj+r4nGgVVfJxKX9keNShhI6mVqEv7pA6pQsmkOgEo5WohXw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #0b0f2e, #1a1f4a);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .profile-container {
+      max-width: 700px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-banner {
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(90deg, #8a2be2, #1a1f4a);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+    }
+
+    .profile-info {
+      display: flex;
+      gap: 20px;
+      /* Align to top, not center, so username stays aligned with picture */
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .profile-picture {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .profile-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: 2rem;
+      color: #d0bfff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-icon {
+      height: 20px;
+      width: auto;
+    }
+
+    .bio {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #ccc;
+    }
+
+    .follower-count {
+      margin-top: 5px;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .follow-button {
+      margin-top: 15px;
+      background: rgba(138, 43, 226, 0.3);
+      border: 1px solid rgba(138, 43, 226, 0.6);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .follow-button:hover {
+      background: rgba(138, 43, 226, 0.5);
+    }
+  </style>
+
+  <!-- Analytics & Ads -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4851718454212779"
+    crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZH4JE7RJF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-ZZH4JE7RJF");
+  </script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <script type="module" src="/javascript/navbar.js"></script>
+
+  <div class="profile-container" id="profile">
+    <div class="profile-banner"></div>
+    <div class="profile-info">
+      <div class="profile-picture">
+        <img id="profile-pic" src="/uploads/default-avatar.png" alt="Profile Picture" />
+      </div>
+      <div class="profile-details">
+        <div class="username" id="profile-username">Loading...</div>
+        <div class="bio" id="profile-bio"></div>
+        <div class="follower-count" id="follower-count">0 followers</div>
+        <button class="follow-button" id="follow-btn"><i class="fas fa-user-plus"></i> Follow</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabase = createClient(
+      'https://jbekjmsruiadbhaydlbt.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY'
+    );
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+
+    let profileUserId = null;
+    let currentUserId = null;
+    let isFollowing = false;
+
+    const followBtn = document.getElementById('follow-btn');
+    const followerCountEl = document.getElementById('follower-count');
+
+    async function getCurrentUser() {
+      const {
+        data: { user },
+        error
+      } = await supabase.auth.getUser();
+
+      if (error || !user) return null;
+      return user.id;
+    }
+
+    async function checkIfFollowing(followerId, followingId) {
+      const { data, error } = await supabase
+        .from('follows')
+        .select('*')
+        .eq('follower_id', followerId)
+        .eq('following_id', followingId)
+        .maybeSingle();
+
+      return data !== null;
+    }
+
+    async function updateFollowButton() {
+      if (isFollowing) {
+        followBtn.innerHTML = '<i class="fas fa-user-check"></i> Following';
+        followBtn.style.background = 'rgba(0, 255, 128, 0.25)';
+        followBtn.style.borderColor = 'rgba(0, 255, 128, 0.5)';
+      } else {
+        followBtn.innerHTML = '<i class="fas fa-user-plus"></i> Follow';
+        followBtn.style.background = 'rgba(138, 43, 226, 0.3)';
+        followBtn.style.borderColor = 'rgba(138, 43, 226, 0.6)';
+      }
+    }
+
+    async function loadProfile() {
+      if (!username) return;
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('username', username)
+        .single();
+
+      if (error || !data) {
+        document.getElementById('profile-username').textContent = 'User not found';
+        document.getElementById('profile-bio').textContent = '';
+        return;
+      }
+
+      profileUserId = data.id;
+
+      const usernameEl = document.getElementById('profile-username');
+      usernameEl.textContent = data.username;
+
+      // Badges
+      if (Array.isArray(data.badges)) {
+        data.badges.forEach((badge) => {
+          const badgeImg = document.createElement('img');
+          badgeImg.className = 'badge-icon';
+          badgeImg.alt = badge;
+          badgeImg.src = `/uploads/badges/${badge}.png`;
+          usernameEl.appendChild(badgeImg);
+        });
+      }
+
+      // Bio
+      document.getElementById('profile-bio').textContent = data.bio || "This user hasn't written a bio yet.";
+
+      // Avatar
+      if (data.avatar_url) {
+        document.getElementById('profile-pic').src = data.avatar_url;
+      }
+
+      // Follower count
+      updateFollowerCount(data.follower_count);
+    }
+
+    function updateFollowerCount(count) {
+      followerCountEl.textContent = `${count ?? 0} follower${count === 1 ? '' : 's'}`;
+    }
+
+    async function toggleFollow() {
+      if (!currentUserId || !profileUserId || currentUserId === profileUserId) return;
+
+      if (isFollowing) {
+        // Unfollow
+        await supabase
+          .from('follows')
+          .delete()
+          .eq('follower_id', currentUserId)
+          .eq('following_id', profileUserId);
+
+        isFollowing = false;
+      } else {
+        // Follow
+        await supabase.from('follows').insert({
+          follower_id: currentUserId,
+          following_id: profileUserId
+        });
+
+        isFollowing = true;
+      }
+
+      updateFollowButton();
+
+      // Re-fetch total follower count from server
+      const { count, error } = await supabase
+        .from('follows')
+        .select('*', { count: 'exact', head: true })
+        .eq('following_id', profileUserId);
+
+      updateFollowerCount(count ?? 0);
+    }
+
+    // Initialize
+    (async () => {
+      await loadProfile();
+      currentUserId = await getCurrentUser();
+
+      // Disable self-follow
+      if (currentUserId === profileUserId || !currentUserId) {
+        followBtn.style.display = 'none';
+        return;
+      }
+
+      isFollowing = await checkIfFollowing(currentUserId, profileUserId);
+      updateFollowButton();
+
+      followBtn.addEventListener('click', toggleFollow);
+    })();
+  </script>
+
+  <!-- Additional Scripts -->
+  <script src="/javascript/panic.js"></script>
+  <script src="/javascript/cloaking.js"></script>
+  <script src="/javascript/antitabclose.js"></script>
+  <script src="/javascript/notifications.js"></script>
+  <script src="/javascript/scrollbar.js"></script>
+  <script src="/javascript/screentimetracking.js"></script>
+  <script src="/javascript/schedule.js"></script>
+</body>
+
+</html>
