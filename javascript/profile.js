@@ -197,6 +197,71 @@ async function loadProfile() {
     document.getElementById('follower-count').textContent = followerText;
     console.log('👥 Follower count set to:', followerText);
   }
+
+  // Online status logic starts here
+  const onlineDot = document.getElementById('online-indicator');
+  if (!onlineDot) {
+    console.warn('⚠️ No online indicator element found');
+    return;
+  }
+
+  const visibility = data.online_status_visibility || 'everyone';
+
+  async function getFollowStatus(followerId, followingId) {
+    if (!followerId || !followingId) return false;
+    const { data: followData, error } = await supabase
+      .from('follows')
+      .select('*')
+      .eq('follower_id', followerId)
+      .eq('following_id', followingId)
+      .maybeSingle();
+    if (error) {
+      console.error('❌ Error checking follow status:', error);
+      return false;
+    }
+    return !!followData;
+  }
+
+  function canSeeOnlineStatus(visibilitySetting, viewerId, profileOwnerId, isFollowing, isFollowedBy) {
+    if (visibilitySetting === 'no_one') return false;
+    if (visibilitySetting === 'everyone') return true;
+    if (visibilitySetting === 'mutual_follow') return isFollowing && isFollowedBy;
+    return false;
+  }
+
+  const viewerId = currentUserId;
+  const profileOwnerId = data.id;
+
+  const viewerFollowsProfile = await getFollowStatus(viewerId, profileOwnerId);
+  const profileFollowsViewer = await getFollowStatus(profileOwnerId, viewerId);
+
+  const canShowStatus = canSeeOnlineStatus(visibility, viewerId, profileOwnerId, viewerFollowsProfile, profileFollowsViewer);
+
+  if (!canShowStatus) {
+    onlineDot.style.display = 'none';
+    console.log('🚫 Online status hidden due to visibility settings');
+    return;
+  }
+
+  if (data.last_active) {
+    const minutesAgo = (Date.now() - new Date(data.last_active)) / 1000 / 60;
+    const isOnline = minutesAgo < 5;
+
+    if (isOnline) {
+      onlineDot.title = '🟢 Online';
+      onlineDot.classList.remove('offline');
+      onlineDot.style.display = 'inline-block';
+      console.log('🟢 User is online and visible');
+    } else {
+      onlineDot.title = `⚪ Last seen ${Math.floor(minutesAgo)} min ago`;
+      onlineDot.classList.add('offline');
+      onlineDot.style.display = 'inline-block';
+      console.log('⚪ User is offline but visible');
+    }
+  } else {
+    onlineDot.style.display = 'none';
+    console.warn('⚠️ No last_active timestamp found');
+  }
 }
 
 (async () => {

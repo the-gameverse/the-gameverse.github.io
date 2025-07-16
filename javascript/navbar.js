@@ -354,6 +354,20 @@ if (hasSeenIntro) {
   setTimeout(hideIntroOverlay, duration);
 }
 
+const updateLastSeen = async () => {
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  if (authError || !user) return;
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ last_active: new Date().toISOString() })
+    .eq('id', user.id);
+
+  if (error) console.error('❌ Failed to update last seen:', error.message);
+  else console.log('📡 Last seen updated.');
+};
+
+updateLastSeen();
 
 
 /*

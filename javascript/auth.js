@@ -515,3 +515,59 @@ privateToggle.addEventListener('change', async () => {
     console.log(`✅ Privacy setting updated successfully to ${newPrivacy}`);
   }
 });
+const statusVisibilityRadios = document.querySelectorAll('input[name="status-visibility"]');
+
+async function loadStatusVisibility() {
+  const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+  if (userError || !user) {
+    console.warn('⚠️ No logged in user found or error:', userError);
+    return;
+  }
+
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('online_status_visibility')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('❌ Error loading status visibility:', error);
+    return;
+  }
+
+  const visibility = profile?.online_status_visibility || 'everyone';
+  console.log(`👀 Loaded status visibility: ${visibility}`);
+
+  statusVisibilityRadios.forEach(radio => {
+    radio.checked = radio.value === visibility;
+  });
+}
+
+// Save visibility setting when changed
+statusVisibilityRadios.forEach(radio => {
+  radio.addEventListener('change', async () => {
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    if (userError || !user) {
+      alert('🚫 You must be logged in to change this setting.');
+      console.warn('🚫 Attempt to change status visibility without login.');
+      return;
+    }
+
+    const newVisibility = document.querySelector('input[name="status-visibility"]:checked').value;
+
+    const { error } = await supabaseClient
+      .from('profiles')
+      .update({ online_status_visibility: newVisibility })
+      .eq('id', user.id);
+
+    if (error) {
+      alert('❌ Failed to update status visibility: ' + error.message);
+      console.error('❌ Error updating status visibility:', error);
+    } else {
+      console.log(`✅ Status visibility updated to: ${newVisibility}`);
+    }
+  });
+});
+
+// Call on page load
+loadStatusVisibility();

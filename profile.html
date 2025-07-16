@@ -152,6 +152,38 @@
 #share-profile-btn:hover {
   background: rgba(138, 43, 226, 0.5);
 }
+.avatar-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+#online-indicator {
+  position: absolute;
+  top: 75%;
+  right: -3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #8a2be2;
+  box-shadow: 0 0 8px #8a2be2aa;
+
+}
+
+#online-indicator.offline {
+  background-color: #555;
+  box-shadow: none;
+  animation: none;
+}
+
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
 
   </style>
 </head>
@@ -162,11 +194,16 @@
   <div class="profile-container" id="profile">
     <div class="profile-banner"></div>
     <div class="profile-info">
-      <div class="profile-picture">
-        <img id="profile-pic" src="/uploads/branding/signup.png" alt="Profile Picture" />
-      </div>
+<div class="avatar-wrapper">
+  <div class="profile-picture">
+    <img id="profile-pic" src="/uploads/branding/signup.png" alt="Profile Picture" />
+  </div>
+  <span id="online-indicator" title="Online"></span>
+</div>
+
       <div class="profile-details">
         <div class="username" id="profile-username">Loading...</div>
+
         <div class="bio" id="profile-bio"></div>
         <div class="follower-count" id="follower-count">0 followers</div>
         <button class="follow-button" id="follow-btn"><i class="fas fa-user-plus"></i> Follow</button><button id="share-profile-btn" class="share-btn">
