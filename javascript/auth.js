@@ -22,19 +22,25 @@ const signupSection = document.getElementById('signup-section');
 
 function setStatus(msg, los) {
   if (los === "login") {
+    console.log(`💬 [Status - Login]: ${msg}`);
     statusLo.innerHTML = msg;
   } else if (los === "signup") {
+    console.log(`💬 [Status - Signup]: ${msg}`);
     statusEl.innerHTML = msg;
+  } else {
+    console.log(`💬 [Status]: ${msg}`);
   }
 }
 
 function showLogin() {
+  console.log("🔄 Switching to Login view");
   authOptions.style.display = 'none';
   loginSection.style.display = 'block';
   signupSection.style.display = 'none';
 }
 
 function showSignup() {
+  console.log("🔄 Switching to Signup view");
   authOptions.style.display = 'none';
   signupSection.style.display = 'block';
   loginSection.style.display = 'none';
@@ -46,23 +52,38 @@ async function signUp() {
   const confirmPassword = document.getElementById('signup-confirm-password').value;
   const username = signupUsernameInput.value.trim();
 
-  if (!email || !password || !confirmPassword || !username)
+  console.log(`📝 SignUp attempt for email: ${email} username: ${username}`);
+
+  if (!email || !password || !confirmPassword || !username) {
+    console.warn("⚠️ SignUp failed: Missing fields");
     return setStatus('Please fill in all fields.', "signup");
-  if (password !== confirmPassword)
+  }
+  if (password !== confirmPassword) {
+    console.warn("⚠️ SignUp failed: Passwords do not match");
     return setStatus('Passwords do not match.', "signup");
+  }
 
   const { data, error } = await supabaseClient.auth.signUp({ email, password });
-  if (error) return setStatus('Sign up error: ' + error.message, "signup");
+  if (error) {
+    console.error("❌ SignUp error:", error);
+    return setStatus('Sign up error: ' + error.message, "signup");
+  }
 
+  console.log("✅ SignUp successful:", data);
   setStatus('Signed up! Please check your email to confirm, then <a onclick="showLogin()" style="text-decoration: underline; cursor: pointer">log in</a>.', "signup");
 }
 
 async function signIn() {
+  console.log(`🔐 SignIn attempt for email: ${emailInput.value}`);
   const { data, error } = await supabaseClient.auth.signInWithPassword({
     email: emailInput.value,
     password: passwordInput.value
   });
-  if (error) return setStatus('Login error: ' + error.message, "login");
+  if (error) {
+    console.error("❌ Login error:", error);
+    return setStatus('Login error: ' + error.message, "login");
+  }
+  console.log("✅ Logged in successfully:", data);
   setStatus('Logged in!', "login");
   await ensureProfile();
   await checkForAdmin();
@@ -71,8 +92,13 @@ async function signIn() {
 }
 
 async function signOut() {
+  console.log("🚪 Signing out user");
   const { error } = await supabaseClient.auth.signOut();
-  if (error) return setStatus('Logout error: ' + error.message, "login");
+  if (error) {
+    console.error("❌ Logout error:", error);
+    return setStatus('Logout error: ' + error.message, "login");
+  }
+  console.log("✅ Logged out successfully");
   profileInfo.style.display = 'none';
   authOptions.style.display = 'block';
   loginSection.style.display = 'none';
@@ -84,9 +110,20 @@ async function signOut() {
 }
 
 async function checkForAdmin() {
-  const { data, error } = await supabaseClient.from('adminpanel_access').select('username, role')
+  console.log("🔍 Checking admin access...");
+  const { data, error } = await supabaseClient.from('adminpanel_access').select('username, role');
+  if (error) {
+    console.error("❌ Error fetching admin data:", error);
+    return;
+  }
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    console.warn("⚠️ No loggedInUser in localStorage");
+    return;
+  }
   data.forEach(admin => {
-    if (admin.username === JSON.parse(localStorage.getItem("loggedInUser")).username) {
+    if (admin.username === loggedInUser.username) {
+      console.log(`👑 Admin access granted for user: ${admin.username} with role: ${admin.role}`);
       localStorage.setItem("isAdmin", JSON.stringify({isAdmin: true, role: admin.role}));
     }
   });
@@ -94,8 +131,12 @@ async function checkForAdmin() {
 }
 
 async function ensureProfile() {
+  console.log("⏳ Ensuring profile exists for logged in user...");
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    console.warn("⚠️ No logged in user found during ensureProfile");
+    return;
+  }
 
   const { data: profile } = await supabaseClient
     .from('profiles')
@@ -104,37 +145,62 @@ async function ensureProfile() {
     .maybeSingle();
 
   if (!profile) {
+    console.log("🆕 No profile found, creating new profile");
     const usernameInputExists = document.body.contains(signupUsernameInput);
     let username = usernameInputExists ? signupUsernameInput.value.trim() : user.email?.split('@')[0] || 'New User';
     await supabaseClient.from('profiles').insert([{ id: user.id, username, avatar_url: null }]);
+    console.log(`✅ Profile created with username: ${username}`);
   } else {
+    console.log("✅ Profile exists:", profile);
     localStorage.setItem("loggedInUser", JSON.stringify(profile));
   }
 }
 
 async function uploadAvatar(userId, file) {
-  if (!file) return null;
+  if (!file) {
+    console.warn("⚠️ No file provided for avatar upload");
+    return null;
+  }
+  console.log("📤 Uploading avatar...");
   const base64Url = await fileToDataUrl(file);
   await updateAvatarUrl(userId, base64Url);
+  console.log("✅ Avatar uploaded and URL updated");
   return base64Url;
 }
 
 async function updateAvatarUrl(userId, url) {
+  console.log("🔄 Updating avatar URL in profile...");
   const { error } = await supabaseClient.from('profiles').update({ avatar_url: url }).eq('id', userId);
-  if (error) setStatus('Avatar update error: ' + error.message, "login");
+  if (error) {
+    console.error("❌ Avatar update error:", error);
+    setStatus('Avatar update error: ' + error.message, "login");
+  } else {
+    console.log("✅ Avatar URL updated successfully");
+  }
 }
 
 async function updateUsername() {
   const newUsername = newUsernameInput.value.trim();
-  if (!newUsername) return setStatus('Please enter a new username.');
+  console.log(`✏️ Attempting username update to: ${newUsername}`);
+  if (!newUsername) {
+    console.warn("⚠️ Username update failed: no input");
+    return setStatus('Please enter a new username.');
+  }
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('You must be logged in.', "login");
+  if (!user) {
+    console.warn("⚠️ Username update failed: not logged in");
+    return setStatus('You must be logged in.', "login");
+  }
 
   showAvatarPopup();
   const { error } = await supabaseClient.from('profiles').update({ username: newUsername }).eq('id', user.id);
   hideAvatarPopup();
 
-  if (error) return setStatus('Username update failed: ' + error.message, "login");
+  if (error) {
+    console.error("❌ Username update failed:", error);
+    return setStatus('Username update failed: ' + error.message, "login");
+  }
+  console.log("✅ Username updated successfully");
   setStatus('Username updated!', "login");
   await loadProfile();
 
@@ -143,8 +209,12 @@ async function updateUsername() {
 }
 
 async function loadProfile() {
+  console.log("⏳ Loading profile data for current user...");
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return setStatus('Not logged in', "login");
+  if (!user) {
+    console.warn("⚠️ No logged in user found during profile load");
+    return setStatus('Not logged in', "login");
+  }
 
   const { data: profile, error } = await supabaseClient
     .from('profiles')
@@ -152,17 +222,26 @@ async function loadProfile() {
     .eq('id', user.id)
     .maybeSingle();
 
-  if (error) return setStatus('Error loading profile: ' + error.message,  "login");
-  if (!profile) return setStatus('No profile found. Please log out and sign in again.', "login");
+  if (error) {
+    console.error("❌ Error loading profile:", error);
+    return setStatus('Error loading profile: ' + error.message,  "login");
+  }
+  if (!profile) {
+    console.warn("⚠️ No profile found for user");
+    return setStatus('No profile found. Please log out and sign in again.', "login");
+  }
 
+  console.log("✅ Profile loaded:", profile);
   profileUsername.textContent = profile.username;
 
   if (profile?.avatar_url && profile.avatar_url.startsWith('data:image/')) {
     profileAvatar.src = profile.avatar_url;
     profileAvatar.style.display = 'block';
+    console.log("🖼️ Avatar set from data URL");
   } else {
     profileAvatar.src = 'default-avatar.png'; // fallback avatar
     profileAvatar.style.display = 'block';
+    console.log("🖼️ Using default avatar");
   }
 
   authOptions.style.display = 'none';
@@ -175,8 +254,10 @@ async function loadProfile() {
 }
 
 profileAvatar.addEventListener('click', async () => {
+  console.log("👆 Avatar clicked, triggering file input...");
   let fileInput = document.getElementById('profile-avatar-input');
   if (!fileInput) {
+    console.log("➕ Creating hidden file input for avatar upload");
     fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/*';
@@ -186,7 +267,10 @@ profileAvatar.addEventListener('click', async () => {
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files[0];
       const { data: { user } } = await supabaseClient.auth.getUser();
-      if (!file || !user) return setStatus('You must be logged in to upload an avatar.', "login");
+      if (!file || !user) {
+        console.warn("⚠️ Upload aborted: no file or user not logged in");
+        return setStatus('You must be logged in to upload an avatar.', "login");
+      }
       showAvatarPopup();
       setStatus('Uploading avatar...', "login");
       const publicUrl = await uploadAvatar(user.id, file);
@@ -206,10 +290,17 @@ const updateAvatarBtn = document.getElementById('update-avatar-btn');
 const avatarInput = document.getElementById('profile-avatar-input');
 
 updateAvatarBtn?.addEventListener('click', async () => {
+  console.log("🔄 Update avatar button clicked");
   const file = avatarInput.files[0];
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!file) return setStatus('Please select an image file.', "login");
-  if (!user) return setStatus('You must be logged in to upload an avatar.', "login");
+  if (!file) {
+    console.warn("⚠️ No image file selected");
+    return setStatus('Please select an image file.', "login");
+  }
+  if (!user) {
+    console.warn("⚠️ User not logged in for avatar upload");
+    return setStatus('You must be logged in to upload an avatar.', "login");
+  }
   showAvatarPopup();
   setStatus('Uploading avatar...', "login");
   const publicUrl = await uploadAvatar(user.id, file);
@@ -220,23 +311,43 @@ updateAvatarBtn?.addEventListener('click', async () => {
     setStatus('Avatar updated!', "login");
     avatarInput.value = '';
     const navbarAvatar = document.querySelector('.profile-img');
-    if (navbarAvatar) navbarAvatar.src = publicUrl + '?t=' + Date.now();
+    if (navbarAvatar) {
+      navbarAvatar.src = publicUrl + '?t=' + Date.now();
+      console.log("🖼️ Navbar avatar updated with new image");
+    }
   }
 });
 
 document.getElementById('signup-btn')?.addEventListener('click', function (e) {
   e.preventDefault();
+  console.log("👤 Signup button clicked");
   signUp();
 });
-document.getElementById('login-btn')?.addEventListener('click', signIn);
-document.getElementById('logout-btn')?.addEventListener('click', signOut);
-updateUsernameBtn?.addEventListener('click', updateUsername);
-window.onload = loadProfile;
+document.getElementById('login-btn')?.addEventListener('click', () => {
+  console.log("🔑 Login button clicked");
+  signIn();
+});
+document.getElementById('logout-btn')?.addEventListener('click', () => {
+  console.log("🚪 Logout button clicked");
+  signOut();
+});
+updateUsernameBtn?.addEventListener('click', () => {
+  console.log("✏️ Update username button clicked");
+  updateUsername();
+});
+window.onload = async () => {
+  console.log("🌐 Window loaded, loading profile and bio...");
+  await loadProfile();
+  await loadBio();
+  await loadPrivateSetting();
+};
 
 function showAvatarPopup() {
+  console.log("📤 Showing avatar upload popup");
   document.getElementById('avatar-upload-popup').style.display = 'flex';
 }
 function hideAvatarPopup() {
+  console.log("📥 Hiding avatar upload popup");
   setTimeout(() => {
     document.getElementById('avatar-upload-popup').style.display = 'none';
     showNotification('Changes uploaded.', {
@@ -247,6 +358,7 @@ function hideAvatarPopup() {
 }
 
 document.getElementById('toggle-signup-password').onclick = function () {
+  console.log("👁️ Toggling signup password visibility");
   const pw = document.getElementById('signup-password');
   pw.type = pw.type === 'password' ? 'text' : 'password';
   this.innerHTML = pw.type === 'text'
@@ -255,6 +367,7 @@ document.getElementById('toggle-signup-password').onclick = function () {
 };
 
 document.getElementById('toggle-signup-confirm-password').onclick = function () {
+  console.log("👁️ Toggling signup confirm password visibility");
   const pw = document.getElementById('signup-confirm-password');
   pw.type = pw.type === 'password' ? 'text' : 'password';
   this.innerHTML = pw.type === 'text'
@@ -263,20 +376,32 @@ document.getElementById('toggle-signup-confirm-password').onclick = function () 
 };
 
 function fileToDataUrl(file) {
+  console.log("🔄 Converting file to DataURL...");
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
+    reader.onload = () => {
+      console.log("✅ File converted to DataURL");
+      resolve(reader.result);
+    };
+    reader.onerror = (err) => {
+      console.error("❌ File conversion failed:", err);
+      reject(err);
+    };
     reader.readAsDataURL(file);
   });
 }
+
 const bioTextarea = document.getElementById('bio-textarea');
 const saveBioBtn = document.getElementById('save-bio-btn');
 const bioStatus = document.getElementById('bio-status');
 
 async function loadBio() {
+  console.log("⏳ Loading user bio...");
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    console.warn("⚠️ No logged in user found during bio load");
+    return;
+  }
 
   const { data: profile, error } = await supabaseClient
     .from('profiles')
@@ -285,21 +410,25 @@ async function loadBio() {
     .maybeSingle();
 
   if (error) {
+    console.error("❌ Error loading bio:", error);
     bioStatus.textContent = 'Error loading bio.';
     return;
   }
 
+  console.log("✅ Bio loaded:", profile?.bio);
   bioTextarea.value = profile?.bio || '';
   bioStatus.textContent = '';
 }
 
 async function saveBio() {
+  console.log("💾 Saving bio...");
   bioStatus.style.color = '#aaa';
   bioStatus.textContent = 'Saving...';
 
   const newBio = bioTextarea.value.trim();
   const { data: { user } } = await supabaseClient.auth.getUser();
   if (!user) {
+    console.warn("⚠️ User must be logged in to save bio");
     bioStatus.style.color = 'red';
     bioStatus.textContent = 'You must be logged in to save your bio.';
     return;
@@ -311,9 +440,11 @@ async function saveBio() {
     .eq('id', user.id);
 
   if (error) {
+    console.error("❌ Failed to save bio:", error);
     bioStatus.style.color = 'red';
     bioStatus.textContent = 'Failed to save bio: ' + error.message;
   } else {
+    console.log("✅ Bio saved successfully");
     bioStatus.style.color = '#0f0';
     bioStatus.textContent = 'Bio saved successfully!';
   }
@@ -325,8 +456,8 @@ async function saveBio() {
 
 saveBioBtn.addEventListener('click', saveBio);
 
-// Call this when loading profile so bio textarea populates
 window.onload = async () => {
+  console.log("🌐 Window loaded, loading profile, bio, and privacy setting...");
   await loadProfile();
   await loadBio();
   await loadPrivateSetting();
@@ -335,8 +466,12 @@ window.onload = async () => {
 const privateToggle = document.getElementById('private-toggle');
 
 async function loadPrivateSetting() {
+  console.log("🔒 Loading profile privacy setting...");
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    console.warn("⚠️ No logged in user found when loading privacy setting");
+    return;
+  }
 
   const { data: profile, error } = await supabaseClient
     .from('profiles')
@@ -345,18 +480,25 @@ async function loadPrivateSetting() {
     .maybeSingle();
 
   if (error) {
-    console.error('Error loading privacy setting:', error.message);
+    console.error("❌ Error loading privacy setting:", error.message);
     return;
   }
 
+  console.log(`✅ Privacy setting loaded: private=${profile?.private || false}`);
   privateToggle.checked = profile?.private || false;
 }
 
 privateToggle.addEventListener('change', async () => {
+  console.log("🔄 Privacy toggle changed");
   const { data: { user } } = await supabaseClient.auth.getUser();
-  if (!user) return alert('You need to be logged in.');
+  if (!user) {
+    alert('You need to be logged in.');
+    console.warn("⚠️ Privacy toggle change aborted - user not logged in");
+    return;
+  }
 
   const newPrivacy = privateToggle.checked;
+  console.log(`🔐 Updating privacy setting to: ${newPrivacy}`);
 
   const { error } = await supabaseClient
     .from('profiles')
@@ -365,9 +507,11 @@ privateToggle.addEventListener('change', async () => {
 
   if (error) {
     alert('Failed to update privacy: ' + error.message);
+    console.error("❌ Failed to update privacy setting:", error);
     // revert toggle
     privateToggle.checked = !newPrivacy;
   } else {
     alert(`Profile privacy set to ${newPrivacy ? 'Private' : 'Public'}.`);
+    console.log(`✅ Privacy setting updated successfully to ${newPrivacy}`);
   }
 });
