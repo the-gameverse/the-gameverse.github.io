@@ -116,9 +116,9 @@
       color: #aaa;
     }
 
-    .follow-button {
+    .follow-button{
       margin-top: 15px;
-      background: rgba(138, 43, 226, 0.3);
+      background: rgba(138, 43, 226, 0.3) !important;
       border: 1px solid rgba(138, 43, 226, 0.6);
       color: #fff;
       padding: 10px 18px;
@@ -128,12 +128,31 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s ease !important;
     }
 
     .follow-button:hover {
       background: rgba(138, 43, 226, 0.5);
     }
+    #share-profile-btn {
+  margin-top: 15px;
+  background: rgba(138, 43, 226, 0.3) !important;
+  border: 1px solid rgba(138, 43, 226, 0.6);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+}
+
+#share-profile-btn:hover {
+  background: rgba(138, 43, 226, 0.5);
+}
+
   </style>
 </head>
 
@@ -150,7 +169,11 @@
         <div class="username" id="profile-username">Loading...</div>
         <div class="bio" id="profile-bio"></div>
         <div class="follower-count" id="follower-count">0 followers</div>
-        <button class="follow-button" id="follow-btn"><i class="fas fa-user-plus"></i> Follow</button>
+        <button class="follow-button" id="follow-btn"><i class="fas fa-user-plus"></i> Follow</button><button id="share-profile-btn" class="share-btn">
+  <i class="fa-solid fa-share-nodes"></i> Share Profile
+</button>
+<span id="share-status" class="share-status"></span>
+
       </div>
     </div>
   </div>

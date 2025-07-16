@@ -81,8 +81,19 @@
     <div id="profile-info" style="display:none;">
       <img id="profile-avatar" src="" alt="Profile Picture" style="cursor:pointer;" />
       <p id="profile-username">Username: </p>
-
-      
+      <a id="viewprofile">View My Profile</a>
+      <script>
+  // Get username from profile-username element
+  document.getElementById('viewprofile').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Assumes username is in the format "Username: actualname"
+    const usernameText = document.getElementById('profile-username').textContent;
+    const username = usernameText.replace('Username: ', '').trim();
+    if (username) {
+      window.location.href = '/profile?username=' + encodeURIComponent(username);
+    }
+  });
+</script>
     
 
     <pre id="status"></pre>
