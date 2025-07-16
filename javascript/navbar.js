@@ -36,29 +36,37 @@ if (user) {
   }
 }
 
-let a = ``;
+
 
 let isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
+
 if (!isAdmin) {
-  isAdmin = { isAdmin: false, role: null }; // Default to not admin if not set
+  isAdmin = { isAdmin: false, role: null }; // fallback if missing
+  console.warn("⚠️ No admin info found in localStorage, defaulting to non-admin.");
 }
-console.log("isAdmin:", isAdmin);
-console.log("isadmin isadmin", isAdmin.isAdmin);
+
+console.log("🔐 Admin status:", isAdmin);
+console.log("👔 Admin:", isAdmin.isAdmin, "Role:", isAdmin.role);
+
+
+let a;
+
 if (isAdmin.isAdmin === true) {
-  console.log("User is an admin");
-  a = `<a href="/admin.html" class="admin-icon" title="Admin Panel">
-      <i class="fa-solid fa-user-tie"></i>
-    </a>`;
-} else {
-  console.log("User is not an admin");
+  console.log("✅ User is an admin. Showing admin panel button.");
   a = `
-  <a onClick="showPopUp()" class="admin-icon"  title="Show Socials">
-    <i class="fa-solid fa-hashtag"></i>
-  </a>
-
-
-    `;
+    <a href="/admin.html" class="admin-icon" title="Admin Panel">
+      <i class="fa-solid fa-user-tie"></i>
+    </a>
+  `;
+} else {
+  console.log("🙅‍♂️ User is NOT an admin. Showing social button.");
+  a = `
+    <a onClick="showPopUp()" class="admin-icon" title="Show Socials">
+      <i class="fa-solid fa-hashtag"></i>
+    </a>
+  `;
 }
+
 const isPlayPage = window.location.pathname.includes("play");
 
 const navbarHTML = isPlayPage

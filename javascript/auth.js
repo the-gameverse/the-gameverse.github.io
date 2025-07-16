@@ -270,3 +270,104 @@ function fileToDataUrl(file) {
     reader.readAsDataURL(file);
   });
 }
+const bioTextarea = document.getElementById('bio-textarea');
+const saveBioBtn = document.getElementById('save-bio-btn');
+const bioStatus = document.getElementById('bio-status');
+
+async function loadBio() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return;
+
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('bio')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    bioStatus.textContent = 'Error loading bio.';
+    return;
+  }
+
+  bioTextarea.value = profile?.bio || '';
+  bioStatus.textContent = '';
+}
+
+async function saveBio() {
+  bioStatus.style.color = '#aaa';
+  bioStatus.textContent = 'Saving...';
+
+  const newBio = bioTextarea.value.trim();
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) {
+    bioStatus.style.color = 'red';
+    bioStatus.textContent = 'You must be logged in to save your bio.';
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from('profiles')
+    .update({ bio: newBio })
+    .eq('id', user.id);
+
+  if (error) {
+    bioStatus.style.color = 'red';
+    bioStatus.textContent = 'Failed to save bio: ' + error.message;
+  } else {
+    bioStatus.style.color = '#0f0';
+    bioStatus.textContent = 'Bio saved successfully!';
+  }
+
+  setTimeout(() => {
+    bioStatus.textContent = '';
+  }, 4000);
+}
+
+saveBioBtn.addEventListener('click', saveBio);
+
+// Call this when loading profile so bio textarea populates
+window.onload = async () => {
+  await loadProfile();
+  await loadBio();
+  await loadPrivateSetting();
+};
+
+const privateToggle = document.getElementById('private-toggle');
+
+async function loadPrivateSetting() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return;
+
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('private')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error loading privacy setting:', error.message);
+    return;
+  }
+
+  privateToggle.checked = profile?.private || false;
+}
+
+privateToggle.addEventListener('change', async () => {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return alert('You need to be logged in.');
+
+  const newPrivacy = privateToggle.checked;
+
+  const { error } = await supabaseClient
+    .from('profiles')
+    .update({ private: newPrivacy })
+    .eq('id', user.id);
+
+  if (error) {
+    alert('Failed to update privacy: ' + error.message);
+    // revert toggle
+    privateToggle.checked = !newPrivacy;
+  } else {
+    alert(`Profile privacy set to ${newPrivacy ? 'Private' : 'Public'}.`);
+  }
+});

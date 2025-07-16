@@ -107,6 +107,12 @@
         <input id="profile-avatar-input" type="file" accept="image/*" style="display:inline-block;" />
         <button id="update-avatar-btn">Update Avatar</button>
       </div>
+      <div class="bio-edit">
+  <textarea id="bio-textarea" rows="4" placeholder="Tell the galaxy about yourself..."></textarea><br />
+  <button id="save-bio-btn">Save Bio</button>
+  <p id="bio-status" style="color:#aaa; margin-top:5px;"></p>
+</div>
+
 </div>
 
     <div class="privacy-settings">
@@ -119,6 +125,20 @@
 
     <div class="privacy-settings">
   <h3><i class="fa-solid fa-user-shield"></i> Privacy Settings</h3>
+
+<div class="privacy-option">
+  <div class="option-info">
+    <p class="option-title"><i class="fa-solid fa-lock"></i> Private Profile</p>
+    <p class="option-description">
+      Make your profile private. When enabled, your avatar will be blurred to others, your bio will show "This profile is private," and following will be disabled.
+    </p>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="private-toggle" />
+    <span class="slider"></span>
+  </label>
+</div>
+
 
   <div class="privacy-option">
     <div class="option-info">

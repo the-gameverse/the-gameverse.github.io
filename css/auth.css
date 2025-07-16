@@ -310,3 +310,43 @@ input:disabled + .slider {
   cursor: not-allowed;
   opacity: 0.5;
 }
+.bio-edit {
+  margin-top: 20px;
+}
+
+#bio-textarea {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(138, 43, 226, 0.4);
+  color: #eee;
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+#bio-textarea:focus {
+  outline: none;
+  border-color: #8a2be2;
+  background: rgba(138, 43, 226, 0.15);
+  color: #fff;
+}
+
+#save-bio-btn {
+  margin-top: 8px;
+  background: rgba(138, 43, 226, 0.3);
+  border: 1px solid rgba(138, 43, 226, 0.6);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+#save-bio-btn:hover {
+  background: rgba(138, 43, 226, 0.5);
+}
