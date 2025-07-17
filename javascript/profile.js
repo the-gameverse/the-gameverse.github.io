@@ -9,6 +9,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 console.log('🔍 Loaded profile page for username:', username);
 
+let profileIsPrivate = false;
 let currentUserId = null;
 let profileUserId = null;
 let isFollowing = false;
@@ -122,6 +123,8 @@ async function toggleFollow() {
   updateFollowerCount();
 }
 
+
+
 async function loadProfile() {
   if (!username) {
     console.warn('⚠️ No username found in query params');
@@ -144,16 +147,24 @@ async function loadProfile() {
   }
 
   console.log('✅ Profile data loaded:', data);
-
   profileUserId = data.id;
 
+  // 🖼️ Set profile pic
+  const profilePic = document.getElementById('profile-pic');
+  if (profilePic && data.avatar_url) {
+    profilePic.src = data.avatar_url;
+  }
+
+  // 📝 Set username + bio
   const usernameEl = document.getElementById('profile-username');
   usernameEl.textContent = '@' + data.username;
 
+  const bioEl = document.getElementById('profile-bio');
+  bioEl.textContent = data.bio || '';
+
+  // 🏅 Badges
   if (Array.isArray(data.badges)) {
-    console.log('🎖️ User has badges:', data.badges);
     data.badges.forEach((badge) => {
-      console.log(`➡️ Adding badge icon: ${badge}`);
       const badgeImg = document.createElement('img');
       badgeImg.className = 'badge-icon';
       badgeImg.alt = badge;
@@ -162,115 +173,82 @@ async function loadProfile() {
     });
   }
 
-  // 🔒 Handle private profile case
+  // 🔒 Handle private profile
   if (data.private && currentUserId !== data.id) {
-    console.log('🔒 Profile is private and not current user — hiding details');
-    document.getElementById('profile-pic').style.filter = 'blur(8px)';
-    document.getElementById('profile-bio').textContent = 'This profile is private.';
+    profileIsPrivate = true;
+    console.log('🔒 Profile is private — hiding info');
+
+    profilePic.style.filter = 'blur(8px)';
+    bioEl.textContent = 'This profile is private.';
+
     followBtn.disabled = true;
     followBtn.style.opacity = '0.5';
     followBtn.style.cursor = 'not-allowed';
     followBtn.innerHTML = '<i class="fas fa-lock"></i> Private Profile';
+
     document.getElementById('follower-count').textContent = '';
+
+    document.getElementById('online-indicator').style.display = 'none';
+    document.getElementById('current-game-card').style.display = 'none';
+
     return;
   }
 
-  const bioText = data.bio || 'This user hasn\'t written a bio yet.';
-  console.log('📝 Bio set to:', bioText);
-  document.getElementById('profile-bio').textContent = bioText;
+  // ✅ Update follower count
+  await updateFollowerCount();
 
-  const picEl = document.getElementById('profile-pic');
-  if (data.avatar_url) {
-    if (data.avatar_url.length > 50) {
-      console.log('🖼️ Avatar URL too long, omitted from console for clarity');
-    } else {
-      console.log('🖼️ Avatar loaded:', data.avatar_url);
-    }
-    picEl.src = data.avatar_url;
-  } else {
-    console.warn('🕳️ No avatar URL. Using default.');
-    picEl.src = '/uploads/default-avatar.png';
-  }
-
-  if (data.follower_count !== undefined) {
-    const followerText = `${data.follower_count} follower${data.follower_count !== 1 ? 's' : ''}`;
-    document.getElementById('follower-count').textContent = followerText;
-    console.log('👥 Follower count set to:', followerText);
-  }
-
-  // Online status logic starts here
+  // 🟢 Online status logic
   const onlineDot = document.getElementById('online-indicator');
-  if (!onlineDot) {
-    console.warn('⚠️ No online indicator element found');
-    return;
-  }
-
   const visibility = data.online_status_visibility || 'everyone';
 
-  async function getFollowStatus(followerId, followingId) {
-    if (!followerId || !followingId) return false;
-    const { data: followData, error } = await supabase
-      .from('follows')
-      .select('*')
-      .eq('follower_id', followerId)
-      .eq('following_id', followingId)
-      .maybeSingle();
-    if (error) {
-      console.error('❌ Error checking follow status:', error);
-      return false;
-    }
-    return !!followData;
-  }
+  const viewerFollowsProfile = await checkIfFollowing(currentUserId, data.id);
+  const profileFollowsViewer = await checkIfFollowing(data.id, currentUserId);
 
-  function canSeeOnlineStatus(visibilitySetting, viewerId, profileOwnerId, isFollowing, isFollowedBy) {
-    if (visibilitySetting === 'no_one') return false;
-    if (visibilitySetting === 'everyone') return true;
-    if (visibilitySetting === 'mutual_follow') return isFollowing && isFollowedBy;
+  const canShowStatus = (() => {
+    if (visibility === 'no_one') return false;
+    if (visibility === 'everyone') return true;
+    if (visibility === 'mutual_follow') return viewerFollowsProfile && profileFollowsViewer;
     return false;
-  }
-
-  const viewerId = currentUserId;
-  const profileOwnerId = data.id;
-
-  const viewerFollowsProfile = await getFollowStatus(viewerId, profileOwnerId);
-  const profileFollowsViewer = await getFollowStatus(profileOwnerId, viewerId);
-
-  const canShowStatus = canSeeOnlineStatus(visibility, viewerId, profileOwnerId, viewerFollowsProfile, profileFollowsViewer);
+  })();
 
   if (!canShowStatus) {
     onlineDot.style.display = 'none';
-    console.log('🚫 Online status hidden due to visibility settings');
+    document.getElementById('current-game-card').style.display = 'none';
     return;
   }
 
   if (data.last_active) {
-    const minutesAgo = (Date.now() - new Date(data.last_active)) / 1000 / 60;
+    const minutesAgo = (Date.now() - new Date(data.last_active)) / 60000;
     const isOnline = minutesAgo < 5;
 
     if (isOnline) {
       onlineDot.title = '🟢 Online';
       onlineDot.classList.remove('offline');
       onlineDot.style.display = 'inline-block';
-      console.log('🟢 User is online and visible');
     } else {
       onlineDot.title = `⚪ Last seen ${Math.floor(minutesAgo)} min ago`;
       onlineDot.classList.add('offline');
       onlineDot.style.display = 'inline-block';
-      console.log('⚪ User is offline but visible');
     }
   } else {
-    onlineDot.style.display = 'none';
-    console.warn('⚠️ No last_active timestamp found');
+      console.warn('⚠️ No last_active timestamp found for profile');
+      console.warn('⚠️ Assuming profile is offline');
+      onlineDot.title = `⚪ Offline (no activity recorded)`;
+      onlineDot.classList.add('offline');
+      onlineDot.style.display = 'inline-block';
   }
 }
+
+
+
 
 (async () => {
   currentUserId = await getCurrentUserId();
 
   await loadProfile();
+  await loadProfileGame();
 
   if (!currentUserId || currentUserId === profileUserId) {
-    console.log('🚫 Follow button hidden (own profile or not logged in)');
     followBtn.style.display = 'none';
     return;
   }
@@ -279,6 +257,7 @@ async function loadProfile() {
   updateFollowButton();
   followBtn.addEventListener('click', toggleFollow);
 })();
+
 
 // 🔗 Share button logic
 const shareBtn = document.getElementById('share-profile-btn');
@@ -302,3 +281,61 @@ shareBtn?.addEventListener('click', async () => {
     shareStatus.textContent = '';
   }, 4000);
 });
+  async function loadCurrentGame(gameId) {
+    if (!gameId) {
+      console.log("🎮 No current game ID — hiding game card.");
+      document.getElementById('current-game-card').style.display = 'none';
+      return;
+    }
+
+    console.log(`🎮 Fetching game with ID: ${gameId}`);
+
+    const { data: game, error } = await supabase
+      .from('games_menu')
+      .select('name, description, img_url')
+      .eq('id', gameId)
+      .maybeSingle();
+
+    if (error || !game) {
+      console.warn("⚠️ Failed to load game or no game found:", error);
+      document.getElementById('current-game-card').style.display = 'none';
+      return;
+    }
+
+    console.log("✅ Loaded game:", game);
+
+    document.getElementById('current-game-name').textContent = game.name;
+    document.getElementById('current-game-desc').textContent = game.description;
+    document.getElementById('current-game-img').src = game.img_url;
+    document.getElementById('current-game-card').style.display = 'block';
+  }
+
+async function loadProfileGame() {
+    if (profileIsPrivate) {
+    console.log('🔒 Profile is private — skipping game card load.');
+    document.getElementById('current-game-card').style.display = 'none';
+    return;
+  }
+
+  if (!profileUserId) {
+    console.log('🎮 No profile user ID, hiding game card.');
+    document.getElementById('current-game-card').style.display = 'none';
+    return;
+  }
+
+  // Fetch current_game_id for profileUserId
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('current_game_id')
+    .eq('id', profileUserId)
+    .single();
+
+  if (error || !profile) {
+    console.warn('⚠️ Could not fetch profile game:', error);
+    document.getElementById('current-game-card').style.display = 'none';
+    return;
+  }
+
+  console.log('👾 Current game ID for profile:', profile.current_game_id);
+  await loadCurrentGame(profile.current_game_id);
+}

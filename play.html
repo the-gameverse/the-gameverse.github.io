@@ -170,35 +170,50 @@
 
 <script>
   function redirectIframe(link, name) {
+    console.log("⏳ Redirecting iframe...");
+
     const iframe = document.getElementById("myIframe");
     const tempLink = "/storage/loading.html";
     iframe.src = tempLink;
+
     const gameInfo = document.querySelector(".game-info h2");
     const gameImage = document.querySelector(".game-info img");
     const savedImage = localStorage.getItem("gameImage");
+
     gameInfo.textContent = name;
+
     if (savedImage) {
+      console.log("🎨 Setting saved image:", savedImage);
       gameImage.src = savedImage;
       gameImage.alt = name;
     }
+
     setTimeout(() => {
+      console.log("🚀 Loading game iframe:", link);
       iframe.src = link;
     }, 4000);
   }
 
   window.addEventListener("load", function () {
+    console.log("📦 Window loaded");
+
     const gameLink = localStorage.getItem("gameLink");
     const gameName = localStorage.getItem("gameName");
+    console.log("📦 Stored game link:", gameLink);
+    console.log("📦 Stored game name:", gameName);
+
     if (gameLink && gameName) {
       redirectIframe(gameLink, gameName);
     }
 
     const iframe = document.getElementById("myIframe");
     let iframeUnresponsive = setTimeout(() => {
+      console.warn("⚠️ Iframe took too long to load. Redirecting to error page.");
       iframe.src = "/errors/contentblocked";
     }, 5000);
 
     iframe.addEventListener("load", () => {
+      console.log("✅ Iframe loaded successfully");
       clearTimeout(iframeUnresponsive);
     });
   });
@@ -213,51 +228,137 @@
     const dislikeCount = document.getElementById("dislikeCount");
 
     if (reloadButton && fullscreenButton && homeButton && likeBtn && dislikeBtn && likeCount && dislikeCount) {
+      console.log("🎯 All interactive elements found. Initializing event listeners.");
       clearInterval(waitForElements);
 
       reloadButton.addEventListener("click", () => {
+        console.log("🔁 Reloading iframe");
         const iframe = document.getElementById("myIframe");
         iframe.src = iframe.src;
       });
 
       fullscreenButton.addEventListener("click", () => {
         const iframe = document.getElementById("myIframe");
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          iframe.mozRequestFullScreen();
-        } else if (iframe.msRequestFullscreen) {
-          iframe.msRequestFullscreen();
-        }
+        console.log("🖥️ Entering fullscreen mode");
+        if (iframe.requestFullscreen) iframe.requestFullscreen();
+        else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+        else if (iframe.mozRequestFullScreen) iframe.mozRequestFullScreen();
+        else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
       });
 
       homeButton.addEventListener("click", () => {
+        console.log("🏠 Navigating home");
         const currentURL = window.location.href;
-        if (currentURL.includes("/storage/tv")) {
-          location.replace("/tv");
-        } else if (currentURL.includes("/storage/games")) {
-          location.replace("/games");
-        } else if (currentURL.includes("/storage/music")) {
-          location.replace("/music");
-        } else {
-          location.replace("/games");
-        }
+        if (currentURL.includes("/storage/tv")) location.replace("/tv");
+        else if (currentURL.includes("/storage/games")) location.replace("/games");
+        else if (currentURL.includes("/storage/music")) location.replace("/music");
+        else location.replace("/games");
       });
 
-      // Supabase setup
       const supabaseUrl = 'https://jbekjmsruiadbhaydlbt.supabase.co';
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpiZWtqbXNydWlhZGJoYXlkbGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzOTQ2NTgsImV4cCI6MjA2Mzk3MDY1OH0.5Oku6Ug-UH2voQhLFGNt9a_4wJQlAHRaFwTeQRyjTSY';
       const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-      const gameId = localStorage.getItem("gameLink") || localStorage.getItem("gameName") || "unknown";
+      const gameLink = localStorage.getItem("gameLink");
+      const gameName = localStorage.getItem("gameName");
+
+  const iframe = document.getElementById("myIframe");
+
+  
+  if (gameLink) {
+    iframe.src = gameLink;
+    console.log("🧩 Iframe set to:", gameLink);
+  } else {
+    console.warn("⚠️ No game URL in query params.");
+  }
+
+  async function fetchAndShowGame() {
+    if (!gameLink) return;
+
+    console.log("🔍 Fetching game from games_menu with URL:", gameLink);
+
+    const { data: game, error } = await supabase
+      .from('games_menu')
+      .select('id, name, description, img_url, url')
+      .eq('url', gameLink)
+      .maybeSingle();
+
+    if (error) {
+      console.error("❌ Error fetching game:", error);
+      return;
+    }
+
+    if (!game) {
+      console.warn("❓ No game found with URL:", gameLink);
+      return;
+    }
+
+    console.log("🎮 Game found:", game);
+
+    // Update game info UI
+    document.querySelector(".game-info h2").textContent = game.name || "Unknown Game";
+    document.querySelector(".game-info img").src = game.img_url || "/uploads/default-game-icon.png";
+    document.getElementById("gameDescText").textContent = game.description || "No description available.";
+
+    // Set localStorage image
+    localStorage.setItem("gameImage", game.img_url || "");
+
+    // Get current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      console.warn("⚠️ Not logged in. Skipping current_game_id update.");
+      return;
+    }
+
+    // Update current_game_id
+    const { error: updateError } = await supabase
+      .from('profiles')
+      .update({ current_game_id: game.id })
+      .eq('id', user.id);
+
+    if (updateError) {
+      console.error("❌ Failed to update current_game_id:", updateError);
+    } else {
+      console.log("✅ current_game_id updated to:", game.id);
+    }
+  }
+
+  async function clearCurrentGame() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) {
+      console.warn("⚠️ Not logged in on unload. Skipping current_game_id clear.");
+      return;
+    }
+
+    const { error: clearError } = await supabase
+      .from('profiles')
+      .update({ current_game_id: null })
+      .eq('id', user.id);
+
+    if (clearError) {
+      console.error("❌ Failed to clear current_game_id:", clearError);
+    } else {
+      console.log("🧹 Cleared current_game_id on unload");
+    }
+  }
+
+  window.addEventListener("beforeunload", clearCurrentGame);
+
+  fetchAndShowGame();
+
+  fetchAndShowGame();
+
+
+
+      const gameId = gameLink || gameName || "unknown";
       supabase.rpc('increment_clicks', { gid: gameId });
 
       const likeKey = `liked_${gameId}`;
       const dislikeKey = `disliked_${gameId}`;
 
       function updateButtonStates() {
+        console.log("🔁 Updating like/dislike button states...");
         const liked = !!localStorage.getItem(likeKey);
         const disliked = !!localStorage.getItem(dislikeKey);
 
@@ -274,6 +375,7 @@
       }
 
       async function loadVotes() {
+        console.log("📊 Loading vote counts...");
         const { data, error } = await supabase
           .from('game_votes')
           .select('likes, dislikes')
@@ -295,6 +397,7 @@
       }
 
       likeBtn.addEventListener('click', async () => {
+        console.log("👍 Like button clicked");
         const liked = !!localStorage.getItem(likeKey);
         const disliked = !!localStorage.getItem(dislikeKey);
 
@@ -312,6 +415,7 @@
       });
 
       dislikeBtn.addEventListener('click', async () => {
+        console.log("👎 Dislike button clicked");
         const liked = !!localStorage.getItem(likeKey);
         const disliked = !!localStorage.getItem(dislikeKey);
 
@@ -333,31 +437,37 @@
   }, 100);
 
   function updateLikeRatioBar(likes, dislikes) {
+    console.log("📈 Updating like ratio bar:", { likes, dislikes });
+
     const likeDiv = document.getElementById('likeRatioLike');
     const dislikeDiv = document.getElementById('likeRatioDislike');
     const bar = document.getElementById('likeRatioBar');
+
     const total = likes + dislikes;
     let likePercent = 0, dislikePercent = 0;
     let titleText = "No votes yet";
+
     if (total > 0) {
       likePercent = Math.round((likes / total) * 100);
       dislikePercent = 100 - likePercent;
       titleText = `${likePercent}% like (${likes}👍 / ${dislikes}👎)`;
     }
+
     likeDiv.style.width = likePercent + "%";
     dislikeDiv.style.width = dislikePercent + "%";
     bar.title = titleText;
   }
 
   const gameDesc = localStorage.getItem("gameDesc");
-const gameDescText = document.getElementById("gameDescText");
-if (gameDesc && gameDescText) {
-  gameDescText.textContent = gameDesc;
-} else if (gameDescText) {
-  gameDescText.textContent = "No description available.";
-}
+  const gameDescText = document.getElementById("gameDescText");
 
+  if (gameDesc && gameDescText) {
+    gameDescText.textContent = gameDesc;
+  } else if (gameDescText) {
+    gameDescText.textContent = "No description available.";
+  }
 </script>
+
 
     <!-- Particles.JS -->
     <div id="particles-js"></div>
