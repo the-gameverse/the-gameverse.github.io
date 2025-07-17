@@ -369,233 +369,46 @@ const updateLastSeen = async () => {
 
 updateLastSeen();
 
+if (user) {
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("username, avatar_url")
+    .eq("id", user.id)
+    .maybeSingle();
 
-/*
-
-// Show or hide the unsupported message based on device width
-const unsupportedMsg = document.getElementById("unsupported-message");
-if (window.innerWidth <= 500) {
-  unsupportedMsg.style.display = "flex";
-} else if (unsupportedMsg) {
-  unsupportedMsg.remove();
-}
-
-// Set scrollbar width variable after navbar is in DOM
-function getScrollbarWidth() {
-  return window.innerWidth - document.documentElement.clientWidth;
-}
-function updateScrollbarWidth() {
-  document.documentElement.style.setProperty(
-    "--scrollbar-width",
-    getScrollbarWidth() + "px"
-  );
-}
-updateScrollbarWidth();
-window.addEventListener("resize", updateScrollbarWidth);
-
-// --- Dynamic Island Logic ---
-let typingTimeout;
-const dynamicIsland = document.querySelector(".nav-center-bg");
-let currentState = "streak";
-
-function updateStreak() {
-  const today = new Date().toISOString().split("T")[0];
-  let streakData = JSON.parse(localStorage.getItem("streak")) || {
-    streak: 0,
-    lastDate: null,
-  };
-
-  if (streakData.lastDate) {
-    const lastDate = new Date(streakData.lastDate);
-    const differenceInDays =
-      (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
-
-    if (Math.floor(differenceInDays) === 1) {
-      streakData.streak++;
-    } else if (differenceInDays > 1) {
-      streakData.streak = 1;
-    }
+  if (!error && profile) {
+    username = profile.username || "User";
+    avatarUrl = profile.avatar_url;
+    localStorage.setItem("loggedInUser", JSON.stringify({username: profile.username, avatar: profile.avatar_url}));
   } else {
-    streakData.streak = 1;
-  }
-
-  streakData.lastDate = today;
-  localStorage.setItem("streak", JSON.stringify(streakData));
-
-  return `🔥 ${streakData.streak} days`;
-}
-
-function showScreenTime() {
-  const dataJSON = localStorage.getItem("screenTimeData");
-  let seconds = 0;
-  if (dataJSON) {
-    try {
-      const data = JSON.parse(dataJSON);
-      seconds = data.secondsSpent || 0;
-    } catch (e) {
-      seconds = 0;
-    }
-  }
-
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  let formatted;
-  if (h > 0) {
-    formatted = `${h}:${m.toString().padStart(2, "0")}:${s
-      .toString()
-      .padStart(2, "0")}`;
-  } else {
-    formatted = `${m}:${s.toString().padStart(2, "0")}`;
-  }
-
-  dynamicIsland.innerHTML = `
-      <div class="screen-time">
-        ⏳ <b>${formatted}</b>
-      </div>
-    `;
-  currentState = "screen-time";
-}
-
-function showCurrentTime() {
-  const now = new Date();
-  let hours = now.getHours();
-  const minutes = now.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12;
-  const formattedTime = `${hours}:${minutes
-    .toString()
-    .padStart(2, "0")} ${ampm}`;
-  dynamicIsland.innerHTML = `
-      <div class="current-time">
-       🕒 ${formattedTime}
-      </div>
-    `;
-  currentState = "current-time";
-}
-
-function showLaunchingGame() {
-  dynamicIsland.classList.add("expanded");
-  dynamicIsland.innerHTML = `
-      <div class="loading">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    `;
-  currentState = "launching-game";
-
-  setTimeout(() => {
-    dynamicIsland.classList.remove("expanded");
-    resetToDefault();
-  }, 5000);
-}
-
-function resetToDefault() {
-  const streak = updateStreak();
-  dynamicIsland.innerHTML = `
-      <div id="streak" class="streak-container">
-        <span class="streak-text">${streak}</span>
-      </div>
-    `;
-  currentState = "streak";
-}
-
-async function showWeather() {
-  dynamicIsland.innerHTML = `<div class="weather">🌦️ Loading weather...</div>`;
-  currentState = "weather";
-
-  // Get user's location
-  if (!navigator.geolocation) {
-    dynamicIsland.innerHTML = `<div class="weather">🌦️ Location not supported.</div>`;
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(
-    async (pos) => {
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
-      // Fetch weather from Open-Meteo
-      try {
-        const resp = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit`
-        );
-        const data = await resp.json();
-        if (data.current_weather) {
-          const temp = Math.round(data.current_weather.temperature);
-          const icon = getWeatherIcon(data.current_weather.weathercode);
-          dynamicIsland.innerHTML = `
-          <div class="weather">
-            ${icon} <b>${temp}°F</b>
-          </div>
-        `;
-        } else {
-          dynamicIsland.innerHTML = `<div class="weather">🌦️ Weather unavailable.</div>`;
-        }
-      } catch {
-        dynamicIsland.innerHTML = `<div class="weather">🌦️ Weather error.</div>`;
-      }
-    },
-    () => {
-      dynamicIsland.innerHTML = `<div class="weather">🌦️ Location denied.</div>`;
-    }
-  );
-}
-
-// Simple weather icon mapping
-function getWeatherIcon(code) {
-  if ([0].includes(code)) return "☀️";
-  if ([1, 2, 3].includes(code)) return "⛅";
-  if ([45, 48].includes(code)) return "🌫️";
-  if ([51, 53, 55, 56, 57, 61, 63, 65, 80, 81, 82].includes(code)) return "🌦️";
-  if ([71, 73, 75, 77, 85, 86].includes(code)) return "❄️";
-  if ([95, 96, 99].includes(code)) return "⛈️";
-  return "🌡️";
-}
-
-let periodicIndex = 0;
-const periodicFunctions = [
-  showScreenTime,
-  showCurrentTime,
-  showWeather,
-  resetToDefault,
-];
-
-function periodicUpdates() {
-  periodicFunctions[periodicIndex % periodicFunctions.length]();
-  periodicIndex++;
-}
-
-// On page load, show streak and start rotation
-resetToDefault();
-setInterval(periodicUpdates, 10000);
-
-const perfStyleId = 'performance-mode-style';
-
-// On page load, set checkbox and apply saved state
-document.addEventListener('DOMContentLoaded', () => {
-  const checkbox = document.getElementById('performanceModeToggle');
-  if (!checkbox) return;
-
-  const saved = localStorage.getItem('performanceMode');
-  if (saved === 'true') {
-    checkbox.checked = true;
-    togglePerformanceMode(true);
-  }
-
-  checkbox.addEventListener('change', () => {
-    togglePerformanceMode(checkbox.checked);
+    console.error("⚠️ Signed in user does not have a profile in the database.");
+        showNotification("There's a glitch in the matrix.", {
+    body: "Your profile is missing! This breaks some features. Please log out and log back in to fix it.",
+    sound: true,          // Play sound
   });
-});
-
-
-  window.onload = function () {
-    window.showPopUp = function () {
-      document.getElementById('social-popup').classList.remove('hidden');
-    }
-
-    window.hidePopUp = function () {
-      document.getElementById('social-popup').classList.add('hidden');
-    }
   }
-*/
+}
+
+if (user) {
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("username, avatar_url")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (!error && profile) {
+    username = profile.username || "User";
+    avatarUrl = profile.avatar_url;
+    localStorage.setItem("loggedInUser", JSON.stringify({username: profile.username, avatar: profile.avatar_url}));
+
+    if (!profile.avatar_url || profile.avatar_url === "NULL" || profile.avatar_url === null) {
+      console.warn("⚠️ User's profile avatar is not set (NULL).");
+    }
+  } else {
+    console.error("⚠️ Signed in user does not have a profile in the database.");
+    showNotification("Looking a little...default.", {
+      body: "Finish setting up your profile to get the max out of Starship! <br><br> Click <a href='/auth' style='text-decoration:underline;'>here</a> to set it up.",
+      sound: true,
+    });
+  }
+}
