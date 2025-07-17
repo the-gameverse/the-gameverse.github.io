@@ -466,6 +466,29 @@
   } else if (gameDescText) {
     gameDescText.textContent = "No description available.";
   }
+function clearCurrentGame(userId) {
+  if (!userId) return;
+  const payload = JSON.stringify({ user_id: userId });
+
+  navigator.sendBeacon(
+    'https://jbekjmsruiadbhaydlbt.supabase.co/functions/v1/clear-current-game',
+    payload
+  );
+  console.log('📤 sendBeacon called to clear current game');
+}
+
+// On tab close or reload
+window.addEventListener('pagehide', () => {
+  clearCurrentGame(currentUserId);
+});
+
+// On tab switch / backgrounding
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    clearCurrentGame(currentUserId);
+  }
+});
+
 </script>
 
 
