@@ -1,0 +1,21 @@
+# DO NOT CHANGE THIS FILE.
+
+name: Schedule Clear Current Game
+
+on:
+  schedule:
+    # Runs every 5 minutes — customize the cron to your needs
+    - cron: '*/5 * * * *'
+
+jobs:
+  call-supabase-function:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase Edge Function
+        env:
+          SUPABASE_FUNCTION_URL: ${{ secrets.SUPABASE_FUNCTION_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          curl -X POST "$SUPABASE_FUNCTION_URL" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+            -H "Content-Type: application/json"
