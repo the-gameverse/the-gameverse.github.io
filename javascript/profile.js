@@ -218,10 +218,23 @@ async function loadProfile() {
   }
 
   if (data.last_active) {
-    const minutesAgo = (Date.now() - new Date(data.last_active)) / 60000;
-    const isOnline = minutesAgo < 5;
+    // Convert "YYYY-MM-DD HH:mm:ss.SSS" to "YYYY-MM-DDTHH:mm:ss.SSSZ" (Z = UTC)
+    const isoString = data.last_active.replace(' ', 'T') + 'Z';
+    const lastActiveDate = new Date(isoString);
+    const now = Date.now();
+    const minutesAgo = (now - lastActiveDate.getTime()) / 60000;
 
-    if (isOnline) {
+    console.log(
+      `🕒 User last active ${minutesAgo.toFixed(2)} minutes ago. Should be online?`,
+      (!isNaN(minutesAgo) && minutesAgo < 5 && minutesAgo >= 0) ? "Yes" : "No"
+    );
+
+    if (minutesAgo < 0) {
+      console.warn(`⚠️ last_active is in the future (${minutesAgo.toFixed(2)} min). Treating as offline.`);
+      onlineDot.title = `⚪ Offline (invalid activity time)`;
+      onlineDot.classList.add('offline');
+      onlineDot.style.display = 'inline-block';
+    } else if (!isNaN(minutesAgo) && minutesAgo < 5) {
       onlineDot.title = '🟢 Online';
       onlineDot.classList.remove('offline');
       onlineDot.style.display = 'inline-block';
@@ -231,11 +244,10 @@ async function loadProfile() {
       onlineDot.style.display = 'inline-block';
     }
   } else {
-      console.warn('⚠️ No last_active timestamp found for profile');
-      console.warn('⚠️ Assuming profile is offline');
-      onlineDot.title = `⚪ Offline (no activity recorded)`;
-      onlineDot.classList.add('offline');
-      onlineDot.style.display = 'inline-block';
+    console.warn('⚠️ No last_active timestamp found for profile');
+    onlineDot.title = `⚪ Offline (no activity recorded)`;
+    onlineDot.classList.add('offline');
+    onlineDot.style.display = 'inline-block';
   }
 }
 
