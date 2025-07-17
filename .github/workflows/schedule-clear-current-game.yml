@@ -3,6 +3,7 @@
 name: Schedule Clear Current Game
 
 on:
+  workflow_dispatch:   # <-- this enables manual run
   schedule:
     # Runs every 5 minutes — customize the cron to your needs
     - cron: '*/5 * * * *'
