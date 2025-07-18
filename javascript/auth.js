@@ -556,15 +556,25 @@ privateToggle.addEventListener('change', async () => {
     .update({ private: newPrivacy })
     .eq('id', user.id);
 
-  if (error) {
-    alert('Failed to update privacy: ' + error.message);
-    console.error("❌ Failed to update privacy setting:", error);
-    // revert toggle
-    privateToggle.checked = !newPrivacy;
+if (error) {
+  alert('Failed to update privacy: ' + error.message);
+  console.error("❌ Failed to update privacy setting:", error);
+  // revert toggle
+  privateToggle.checked = !newPrivacy;
+} else {
+  console.log(`✅ Privacy setting updated successfully to ${newPrivacy}`);
+  if (newPrivacy) {
+    showNotification("You're anonymous, explorer!", {
+      body: "You've vanished from the public eye. Your profile is now private.",
+      duration: 5000,
+    });
   } else {
-    alert(`Profile privacy set to ${newPrivacy ? 'Private' : 'Public'}.`);
-    console.log(`✅ Privacy setting updated successfully to ${newPrivacy}`);
+    showNotification("Out of hiding?", {
+      body: "Your profile is now public again. Welcome back to the spotlight!",
+      duration: 5000,
+    });
   }
+}
 });
 const statusVisibilityRadios = document.querySelectorAll('input[name="status-visibility"]');
 
@@ -594,7 +604,6 @@ async function loadStatusVisibility() {
   });
 }
 
-// Save visibility setting when changed
 statusVisibilityRadios.forEach(radio => {
   radio.addEventListener('change', async () => {
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
@@ -616,9 +625,25 @@ statusVisibilityRadios.forEach(radio => {
       console.error('❌ Error updating status visibility:', error);
     } else {
       console.log(`✅ Status visibility updated to: ${newVisibility}`);
+      // Show notification based on selection
+      if (newVisibility === "everyone") {
+        showNotification("You're visible to the galaxy!", {
+          body: "Everyone can now see your online status. Shine bright!",
+          duration: 5000,
+        });
+      } else if (newVisibility === "mutual") {
+        showNotification("Only your crew can see you.", {
+          body: "Your online status is now visible only to mutual followers.",
+          duration: 5000,
+        });
+      } else if (newVisibility === "noone") {
+        showNotification("You've gone dark.", {
+          body: "No one can see your online status now. Total stealth mode activated.",
+          duration: 5000,
+        });
+      }
     }
   });
 });
-
 // Call on page load
-loadStatusVisibility();
+loadStatusVisibility()
