@@ -118,9 +118,8 @@ if (options.vibrate && navigator.vibrate) {
 
   // Example usage:
 document.addEventListener('DOMContentLoaded', () => {
-  showNotification("Yoooo! We made ANOTHER update.", {
-    body: "Y'all. It's looking INSANELY CLEAN now. <br><br> Check out the new design and let us know what you think!",
-    sticky: true,         // No timer, stays until closed
+  showNotification("Privacy Policy and TOS Changes", {
+    body: "To accomodate recent changes to our website, we've updated our Privacy Policy, and TOS. Please <a href=/legal style='text-decoration:underline;'> review them</a>  to understand how we handle your data.",
     persistClose: true,   // Don't show again if closed
     sound: true,          // Play sound
 
