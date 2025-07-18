@@ -78,7 +78,7 @@ const navbarHTML = isPlayPage
 </div>
   <div class="sidebar-links">
 
-<a id="homeButton" href="/" title="Home">
+<a id="homeButton" href="/games" title="Home">
         <i class="fa fa-home"></i>
         <span class="link-text">Home</span>
       </a>
@@ -118,7 +118,7 @@ const navbarHTML = isPlayPage
       <i class="fa-brands fa-instagram fa-lg"></i><span class="link-text">Instagram</span>
     </a>
     <a href="https://youtube.com/@starship_site" style="transform: translateX(2px);" target="_blank" title="YouTube">
-      <i class="fa-brands fa-youtube"></i><span class="link-text">YouTube</span>
+      <i class="fa-brands fa-youtube fa-lg"></i><span class="link-text">YouTube</span>
     </a>
   </div>
 
@@ -161,7 +161,7 @@ const navbarHTML = isPlayPage
       <i class="fa-brands fa-instagram fa-lg"></i><span class="link-text">Instagram</span>
     </a>
     <a href="https://youtube.com/@starship_site" style="transform: translateX(2px);" target="_blank" title="YouTube">
-      <i class="fa-brands fa-youtube"></i><span class="link-text">YouTube</span>
+      <i class="fa-brands fa-youtube fa-lg"></i><span class="link-text">YouTube</span>
     </a>
   </div>
 
