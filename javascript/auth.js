@@ -70,7 +70,7 @@ async function signUp() {
   }
 
   console.log("✅ SignUp successful:", data);
-  setStatus('Signed up! Please check your email to confirm, then <a onclick="showLogin()" style="text-decoration: underline; cursor: pointer">log in</a>.', "signup");
+  setStatus('Signed up! Now you can, <a onclick="showLogin()" style="text-decoration: underline; cursor: pointer">log in</a>.', "signup");
 }
 
 async function signIn() {
@@ -216,19 +216,70 @@ async function loadProfile() {
     return setStatus('Not logged in', "login");
   }
 
-  const { data: profile, error } = await supabaseClient
+  let { data: profile, error } = await supabaseClient
     .from('profiles')
     .select('username, avatar_url')
     .eq('id', user.id)
     .maybeSingle();
 
+  // Create or select warning section
+  let warningSection = document.getElementById('profile-warning');
+  if (!warningSection) {
+    warningSection = document.createElement('div');
+    warningSection.id = 'profile-warning';
+    warningSection.style = "background:rgba(255,0,0,0.15);color:#b00;padding:18px 24px;margin:16px auto;border-radius:12px;max-width:500px;font-weight:bold;display:none;";
+    warningSection.innerHTML = "<h3> Your account isn't connected to a profile. </h3>  <p>This can cause issues with your account, and may cause failures with sync, and other features. Please log out, then log back in to fix it. If this keeps happening after, please contact support.</p><button id='logout-btn'>Log Out</button>";
+    document.body.insertBefore(warningSection, document.body.firstChild);
+    // Attach logout event
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      console.log("🚪 Logout button clicked (from warning section)");
+      signOut();
+    });
+  }
+
   if (error) {
     console.error("❌ Error loading profile:", error);
-    return setStatus('Error loading profile: ' + error.message,  "login");
+    setStatus('Error loading profile: ' + error.message,  "login");
+    warningSection.style.display = "block";
+    return;
   }
+
   if (!profile) {
-    console.warn("⚠️ No profile found for user");
-    return setStatus('No profile found. Please log out and sign in again.', "login");
+    // No profile found, create one
+    console.warn("⚠️ No profile found for user, creating one...");
+    // Default username: use before @ in email, or "User"
+    const defaultUsername = user.email ? user.email.split('@')[0] : 'User';
+    const { error: createError } = await supabaseClient
+      .from('profiles')
+      .insert([{ id: user.id, username: defaultUsername }]);
+    if (createError) {
+      console.error("❌ Failed to create profile:", createError);
+      setStatus('Failed to create profile: ' + createError.message, "login");
+      warningSection.style.display = "block";
+      return;
+    }
+    // Try to load the new profile again
+    ({ data: profile } = await supabaseClient
+      .from('profiles')
+      .select('username, avatar_url')
+      .eq('id', user.id)
+      .maybeSingle());
+    setStatus('Profile created! Please finish setting up your account.', "login");
+    showNotification('Account recovered', {
+      body: 'Your account was successfully recovered and a profile was created. Customize your profile now.', 
+      duration: 5000,
+      persistClose: true
+    });
+    warningSection.style.display = "none";
+  } else {
+    // Hide warning if profile exists
+    warningSection.style.display = "none";
+  }
+
+  if (!profile) {
+    // Still no profile, show warning
+    warningSection.style.display = "block";
+    return;
   }
 
   console.log("✅ Profile loaded:", profile);

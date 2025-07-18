@@ -409,6 +409,9 @@ if (user) {
     showNotification("Looking a little...default.", {
       body: "Finish setting up your profile to get the max out of Starship! <br><br> Click <a href='/auth' style='text-decoration:underline;'>here</a> to set it up.",
       sound: true,
+      timer: 5000, // Auto-dismiss after 10 seconds
+      persistClose: true, // Don't show again if closed
     });
   }
 }
+
