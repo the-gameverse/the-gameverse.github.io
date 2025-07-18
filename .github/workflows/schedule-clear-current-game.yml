@@ -1,12 +1,9 @@
-# DO NOT CHANGE THIS FILE.
-
 name: Schedule Clear Current Game
 
 on:
-  workflow_dispatch:   # <-- this enables manual run
+  workflow_dispatch:   # Manual run button
   schedule:
-    # Runs every 5 minutes — customize the cron to your needs
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # Every 5 minutes
 
 jobs:
   call-supabase-function:

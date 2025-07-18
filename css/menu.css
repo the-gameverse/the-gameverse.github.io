@@ -400,3 +400,59 @@ padding: 20px 40px 20px 80px; /* Add left padding to push cards away from navbar
     right: 8px;
   }
 }
+/* Add to menu.css or in a <style> tag */
+.friends-section {
+  margin: 32px auto;
+  max-width: 900px;
+  background: rgba(34,34,34,0.2);
+  border-radius: 20px;
+  padding: 24px;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(138,43,226,0.1);
+}
+#friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+}
+.friend-card {
+  background: rgba(0,0,0,0.4);
+  border-radius: 16px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  min-width: 220px;
+  gap: 16px;
+  box-shadow: 0 0 10px #222;
+}
+.friend-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ae54ff;
+}
+.friend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.friend-username {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.friend-nowplaying {
+  font-size: 0.95em;
+  color: #ae54ff;
+}
+.online-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #b84eff;
+  border-radius: 50%;
+  margin-left: 6px;
+  vertical-align: middle;
+  box-shadow: 0 0 6px #b84eff;
+}
